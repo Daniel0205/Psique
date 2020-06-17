@@ -1,0 +1,38 @@
+
+dist: xenial
+os: linux
+git:
+  depth: 3 
+
+language: node_js
+node_js:
+  - 12
+
+jobs:
+  include:
+    # ======== Frontend ========
+    - language: node_js
+      node_js:  '12'
+
+      warnings_are_errors: false
+
+      cache: 
+        directories:
+          - node_modules
+
+      branches:
+        only:
+          - master
+
+      before_install: 
+        - cd psique/
+        - CI=false 
+
+      install:
+        - npm install
+      script:
+        - npm run build
+      deploy:
+        provider: firebase
+        skip_cleanup: true
+        token: $FIRE_TOKEN

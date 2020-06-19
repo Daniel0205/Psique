@@ -100,7 +100,7 @@ export default function Header(props) {
   };
 
   return [
-  <AppBar
+  <AppBar key={"APPBAR"}
       position="fixed"
       className={clsx(classes.appBar, {
         [classes.appBarShift]: props.open,
@@ -155,8 +155,9 @@ export default function Header(props) {
       
     </AppBar>,
   <Drawer
+    key={"DRAWE"}
     className={classes.drawer}
-    variant="persistent"
+    variant="temporary"
     anchor="left"
     open={props.open}
     classes={{

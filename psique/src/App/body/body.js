@@ -5,6 +5,8 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import Category from '../components/category';
+import CustomButton from '../components/customButton';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,12 +33,16 @@ const useStyles = makeStyles((theme) => ({
   space:{
     paddingTop:"4%",
     paddingBottom: "3%"
+  },
+  buton:{
+    backgroundColor: "#017F8D",  
+    
   }
 }));
 
-const test = ["Pruebas de atencion","Pruebas cognitivas",
+const test = ["Pruebas de atención","Pruebas cognitivas",
 "Pruebas de inteligencia","Pruebas de aprendizaje",
-"Pruebas de memoria","Pruebas de quirofano"]
+"Pruebas de memoria","Pruebas de quirófano"]
 
 const sources = ["attentionTest","cognitiveTest",
     "intelligenceTests","learningTests",
@@ -55,7 +61,7 @@ const testDev ={
 
 
 
-function Body() {
+function Body(props) {
   const [state,setState] = useState("category")
   const [names,setNames]= useState(test)
 
@@ -74,22 +80,32 @@ function Body() {
       ></Category>)
     }
     else{
-      return (
+      return [<CustomButton
+        key={"button back"}
+        msj="Volver a las categorias"
+        callback={()=>changeState("category")}
+      >
+      </CustomButton>,
         <Category  
+        key={"button category"}
         names={names}
         sources={[]}
-        ></Category>)
+        messageEvent={props.callback}
+        ></Category>]
 
     }
   
   }
 
 
+
   function changeState(change){
     console.log(change)
+      console.log(testDev.attentionTest)
     switch (change) {
-      case "Pruebas de atencion":
+      case "Pruebas de atención":
         setNames(testDev.attentionTest)
+        console.log("ENTROOOOO")
         break;
       case "Pruebas cognitivas":
         setNames(testDev.cognitiveTest)
@@ -103,20 +119,23 @@ function Body() {
       case "Pruebas de memoria":
         setNames(testDev.memoryTest)
         break;
-      case "Pruebas de quirofano":
+      case "Pruebas de quirófano":
         setNames(testDev.quirofanoTests)
         break;
       case "category":
-        setNames(testDev.test)
+        console.log("ENTROOOOO")
+        setState("category")
+        setNames(test)
         break;
       default:
-        console.log("ENTROEEEEE")
         break;
 
     }
     setState(change)
   }
 
+  console.log(state)
+  console.log(names)
 
   return(
 
@@ -133,6 +152,7 @@ function Body() {
           </IconButton>
         </Paper>
       </div>
+
 
       {buttons()}
 

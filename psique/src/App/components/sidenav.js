@@ -7,12 +7,20 @@ import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
 import Header from "../header/header"
 
+import { setBody } from "../store/body/action";
+import { connect } from "react-redux";
+import Stroop from '../test/stroop/stroop';
+import Wais from '../test/wais/wais';
+import Wisc from '../test/wisc/wisc';
+import Zung from '../test/zung/zung';
+import King from '../test/king/king';
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+  },
+  cover:{
     backgroundImage: "url("+Clouds+")",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -24,7 +32,7 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    height: "-webkit-fill-available",
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -32,12 +40,20 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+    height: "-webkit-fill-available",
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
   },
 
  
 }));
 
-export default function PersistentDrawerLeft() {
+function Sidenav(props) {
   const classes = useStyles();
   
   const [open, setOpen] = React.useState(false);
@@ -50,8 +66,32 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   }
 
+  
+
+  function body(){
+    switch (props.body) {
+      case 'init':
+        return [<Body key={props.body} callback={(x)=>props.setBody(x)}></Body>]
+      case "WAIS IV":
+        return [<Wais key={props.body} callback={(x)=>props.setBody(x)}></Wais>]
+      case "WISC IV":
+        return [<Wisc key={props.body} callback={(x)=>props.setBody(x)}></Wisc>]
+      case "Prueba de STROOP":
+        return [<Stroop key={props.body} callback={(x)=>props.setBody(x)}></Stroop>]
+      case "Prueba de Rey":
+        return [<King key={props.body} callback={(x)=>props.setBody(x)}></King>]
+      case "Prueba de Zung":
+        return [<Zung key={props.body} callback={(x)=>props.setBody(x)}></Zung>]
+      default:
+        break;
+    }
+  }
+
   return (
-    <div className={classes.root}>
+    <div className={clsx({
+      [classes.root]:true,
+      [classes.cover]:props.body==='init'
+    })}>
       <CssBaseline />
       <Header open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}></Header>
       <main
@@ -60,9 +100,25 @@ export default function PersistentDrawerLeft() {
         })}
       >
          <div className={classes.drawerHeader}/>
-          <Body></Body>
+          {body()}
        
       </main>
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  
+  return {
+    body: state.bodyReducer.body,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setBody: (item) => dispatch(setBody(item)),
+  
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidenav);

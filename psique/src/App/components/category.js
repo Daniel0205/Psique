@@ -22,8 +22,8 @@ function Category(props) {
     var botons= []
 
     if(props.sources.length===0){
-        botons=props.names.map((name)=> 
-            <div style={useStyles.cardButton}>    
+        botons=props.names.map((name,i)=> 
+            <div key={i} style={useStyles.cardButton}>    
                 <CardButton  
                 name={name}
                 source={[]}
@@ -35,7 +35,7 @@ function Category(props) {
     }
     else{
         botons=props.names.map((name,i)=> 
-        <div style={useStyles.cardButton}>
+        <div key={i} style={useStyles.cardButton}>
             <CardButton  
             name={name}
             source={props.sources[i]}
@@ -45,8 +45,6 @@ function Category(props) {
         </div>
         )
     }
-
-    console.log(botons)
 
     return (
         <div style={useStyles.category}>

@@ -23,8 +23,6 @@ const useStyles = makeStyles({
 
 export default function CardButton(props) {
   const classes = useStyles();
-  console.log(props)
- 
 
   function imageReturn (){
       if(props.source.length!==0){

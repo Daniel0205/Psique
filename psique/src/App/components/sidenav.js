@@ -6,9 +6,6 @@ import Body from '../body/body';
 import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
 import Header from "../header/header"
-
-import { setBody } from "../store/body/action";
-import { connect } from "react-redux";
 import Stroop from '../test/stroop/stroop';
 import Wais from '../test/wais/wais';
 import Wisc from '../test/wisc/wisc';
@@ -32,7 +29,6 @@ const useStyles = makeStyles(theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    height: "-webkit-fill-available",
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
@@ -40,6 +36,9 @@ const useStyles = makeStyles(theme => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+    height: "-webkit-fill-available",
+  },
+  web:{
     height: "-webkit-fill-available",
   },
   drawerHeader: {
@@ -57,6 +56,7 @@ function Sidenav(props) {
   const classes = useStyles();
   
   const [open, setOpen] = React.useState(false);
+  const [aux, setAux] = React.useState(true);
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -71,21 +71,23 @@ function Sidenav(props) {
   function body(){
     switch (props.body) {
       case 'init':
-        return [<Body key={props.body} callback={(x)=>props.setBody(x)}></Body>]
+        return <Body callback={(x)=>setAux(x)}/>
       case "WAIS IV":
-        return [<Wais key={props.body} callback={(x)=>props.setBody(x)}></Wais>]
+        return <Wais ></Wais>
       case "WISC IV":
-        return [<Wisc key={props.body} callback={(x)=>props.setBody(x)}></Wisc>]
+        return <Wisc ></Wisc>
       case "Prueba de STROOP":
-        return [<Stroop key={props.body} callback={(x)=>props.setBody(x)}></Stroop>]
+        return <Stroop ></Stroop>
       case "Prueba de Rey":
-        return [<King key={props.body} callback={(x)=>props.setBody(x)}></King>]
+        return <King ></King>
       case "Prueba de Zung":
-        return [<Zung key={props.body} callback={(x)=>props.setBody(x)}></Zung>]
+        return <Zung ></Zung>
       default:
         break;
     }
   }
+
+  console.log(aux)
 
   return (
     <div className={clsx({
@@ -97,28 +99,15 @@ function Sidenav(props) {
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
+          [classes.web]:aux
         })}
       >
          <div className={classes.drawerHeader}/>
-          {body()}
-       
+          {body()}       
       </main>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  
-  return {
-    body: state.bodyReducer.body,
-  };
-};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    setBody: (item) => dispatch(setBody(item)),
-  
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sidenav);
+export default (Sidenav);

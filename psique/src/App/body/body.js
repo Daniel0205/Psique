@@ -50,11 +50,11 @@ const sources = ["attentionTest","cognitiveTest",
 
 
 const testDev ={
-  attentionTest: ["Prueba de Stroop", "Prueba de Rey"],
+  attentionTest: ["Prueba de Stroop"],
   cognitiveTest : ["Prueba de Zung"],
   intelligenceTests : ["WAIS IV", "WISC IV"],
   learningTests:[],
-  memoryTest:[],
+  memoryTest:["Prueba de Rey"],
   quirofanoTests:[],
 
 }
@@ -67,11 +67,12 @@ function Body(props) {
 
   const classes = useStyles();
 
-
+  console.log(props)
 
   function buttons(){
 
     if(state==="category"){
+      props.callback(false)
       return (
       <Category  
       names={names}
@@ -80,6 +81,7 @@ function Body(props) {
       ></Category>)
     }
     else{
+      props.callback(true)
       return [<CustomButton
         key={"button back"}
         msj="Volver a las categorias"
@@ -90,7 +92,6 @@ function Body(props) {
         key={"button category"}
         names={names}
         sources={[]}
-        messageEvent={props.callback}
         ></Category>]
 
     }
@@ -100,12 +101,9 @@ function Body(props) {
 
 
   function changeState(change){
-    console.log(change)
-      console.log(testDev.attentionTest)
     switch (change) {
       case "Pruebas de atención":
         setNames(testDev.attentionTest)
-        console.log("ENTROOOOO")
         break;
       case "Pruebas cognitivas":
         setNames(testDev.cognitiveTest)
@@ -123,7 +121,6 @@ function Body(props) {
         setNames(testDev.quirofanoTests)
         break;
       case "category":
-        console.log("ENTROOOOO")
         setState("category")
         setNames(test)
         break;
@@ -134,8 +131,6 @@ function Body(props) {
     setState(change)
   }
 
-  console.log(state)
-  console.log(names)
 
   return(
 

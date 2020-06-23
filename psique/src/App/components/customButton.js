@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+
+
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1), 
@@ -18,13 +20,28 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomButton(props) {
   const classes = useStyles();
 
-  return (
-    <div>
-        <Button variant="contained" color="primary"
-        onClick={props.callback}
-        className={classes.margin}>
-         {props.msj}
-        </Button>
-    </div>
-  );
+  if(props.disabled){
+    return (
+      <div>
+          <Button variant="contained" color="primary"
+          disabled
+          onClick={props.callback}
+          className={classes.margin}>
+           {props.msj}
+          </Button>
+      </div>
+    );
+  }
+  else{
+    return (
+      <div>
+          <Button variant="contained" color="primary"
+          onClick={props.callback}
+          className={classes.margin}>
+           {props.msj}
+          </Button>
+      </div>
+    ); 
+  }
+  
 }

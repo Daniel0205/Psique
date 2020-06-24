@@ -58,27 +58,9 @@ const useStyles = makeStyles({
 });
 
 function Wisc(props) {
- const [state,setState] = useState("confirmacion")
+ const [state] = useState(props.subtest)
 
  const classes = useStyles();
-
- function change(test){
-    
-    switch(state){
-      case 'confirmacion':
-        setState('aplicacion')
-        break;
-      case 'aplicacion':
-          setState(test)
-        break;
-      default:
-        break;
-    }
-  }
-
-  function cancel(){
-    props.setBody("init")
-  }
 
   function content(){
 
@@ -86,7 +68,7 @@ function Wisc(props) {
       case 'confirmacion':
         return(<TestStart
           name="Wisc"
-          change={change}
+          change={()=>props.setBody("WISC-selection")}
         ></TestStart>)
         
       case 'aplicacion':
@@ -101,7 +83,7 @@ function Wisc(props) {
           <CustomButton
           key={i}
           msj={name}
-          callback={()=>change(name)}>
+          callback={()=>props.setBody(name)}>
           </CustomButton>)}
         </div>
         <br/>
@@ -109,7 +91,7 @@ function Wisc(props) {
     
         <CustomButton
           msj="Cancelar"
-          callback={cancel}>
+          callback={()=>props.setBody("init")}>
           </CustomButton>
     
       </div>)

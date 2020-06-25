@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import CustomButton from '../../../components/customButton'
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ const NUMBER_STIMULI = 38
 
 const useStyles = makeStyles((theme) => ({
   img:{
-      width:"60%"
+      width:"45%"
   },
   fields:{
     display: "inline-grid",
@@ -52,8 +52,8 @@ function FigurasIncompletas() {
   const classes = useStyles();
 
   function changeStimuli(key){
-    
-    clearInterval(timer)
+
+    clearTimeout(timer)    
     setTimeBool(false)
     if(state==='test'){
       
@@ -65,11 +65,13 @@ function FigurasIncompletas() {
             retorno=false;
             retornoHecho=false;
             setNumberItem(flagRe)
+            startTimer()
             return 
           }
         }
         else {
-          
+          console.log("ENTRO1")
+          clearTimeout(timer)
           countRe=0
           setResults(update(results,{
             [numberItem-1]: {
@@ -79,6 +81,7 @@ function FigurasIncompletas() {
       }
       else{
         if(1===key){
+          console.log("ENTRO2")
           setResults(update(results,{
             [numberItem-1]: {
               $set: 1
@@ -91,6 +94,7 @@ function FigurasIncompletas() {
             retorno=true;
             flagRe=numberItem+1;
             setNumberItem(firstItem-1);
+            startTimer()
             return                        
           }
           else terminacion++;
@@ -107,8 +111,9 @@ function FigurasIncompletas() {
       else{      
         if(retorno)setNumberItem(numberItem-1);
         else setNumberItem(numberItem+1);
+        startTimer()
       }
-      startTimer()
+      
     }
   }
 
@@ -161,11 +166,15 @@ function FigurasIncompletas() {
     return total;
   }
 
+  //COmponentWillUnmount
+  useEffect(() => {
+    clearTimeout(timer)
+  }, []);
 
   //Timer: En caso de que la imagen pase por que se acabo el tiempo se dará una calificación de 0 al item
   function startTimer() {
-    
-    timer = setInterval(() => {
+    timer = setTimeout(() => {
+      console.log("ENTROOO")
       setTimeBool(true)
     },TIME_LIMIT)
   }
@@ -237,7 +246,10 @@ function FigurasIncompletas() {
               src={require("../../../assets/estimulos/figurasIncompletas-wisc/"+numberItem+".jpg")} />
               <KeyboardEventHandler 
               handleKeys={['1','0']} 
-              onKeyEvent={(key, e) => changeStimuli(parseInt(key))} />
+              onKeyEvent={(key, e) => {
+                clearTimeout(timer)
+                changeStimuli(parseInt(key))
+                }} />
         </div>
         )
       case "revision":

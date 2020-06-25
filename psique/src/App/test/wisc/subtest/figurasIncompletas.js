@@ -9,7 +9,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 const LIMIT_ERROR = 6
 
-const TIME_LIMIT = 10000
+const TIME_LIMIT = 20000
 
 const NUMBER_STIMULI = 38
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import CardButton from './card-button'
+import { connect } from "react-redux";
+import { setBody } from "../store/body/action";
 
 
 const useStyles ={
@@ -28,7 +30,7 @@ function Category(props) {
                 name={name}
                 source={[]}
                 type='card'
-                messageEvent={receiveMessage}
+                messageEvent={(x)=>props.setBody(x)}
                 ></CardButton>
             </div>
                 )
@@ -55,4 +57,11 @@ function Category(props) {
 
 }
 
-export default Category;
+function mapDispatchToProps(dispatch) {
+    return {
+        setBody: (item) => dispatch(setBody(item)),
+
+    };
+}
+
+export default connect(null, mapDispatchToProps)(Category);

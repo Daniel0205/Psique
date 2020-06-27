@@ -1,29 +1,44 @@
 import React from 'react';
 import CustomButton from './customButton';
-
+import { makeStyles } from '@material-ui/core/styles';
 import { setBody } from "../store/body/action";
 import { connect } from "react-redux";
 
+
+const useStyles = makeStyles((theme) => ({
+    container:{
+        textAlign:"center"
+    },
+    buttons: {
+     display:"-webkit-inline-box"
+    },
+  }));
+
 function Results(props) {
+    const classes = useStyles();
 
     function reviewFun(){
         props.callback("results")
       }
     
     function finishFun(){
-        setBody("init")
+        props.setBody("init")
     }
 
     return (
-    <div id = "container" >
-        <h1>Terminaste la subprueba de {props.nameTest}</h1>
+    <div className={classes.container} >
+        <h1>Terminaste la subprueba de {props.name}</h1>
         <h2>Tu resultado es: {props.result}</h2>
+
+        {props.comment===undefined ? "": props.comment }
         
-        <div id='buttons' >
+        <div className={classes.buttons} >
+
+            {props.revision===undefined ? 
             <CustomButton
             msj="Revisión de resultados"
             callback={reviewFun}
-            ></CustomButton>
+            ></CustomButton>: "" }
 
             <CustomButton
             msj="Terminar y guardar"
@@ -35,14 +50,6 @@ function Results(props) {
     );
 }
 
-
-const mapStateToProps = (state) => {
-  
-    return {
-      body: state.bodyReducer.body,
-    };
-};
-
 function mapDispatchToProps(dispatch) {
     return {
         setBody: (item) => dispatch(setBody(item)),
@@ -50,5 +57,5 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(null, mapDispatchToProps)(Results);
   

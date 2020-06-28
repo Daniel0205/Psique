@@ -114,26 +114,26 @@ function Stroop() {
 
   let llenarPalabras = palabrasCut.map( (value,i) => {
       return(
-        <Grid container key={i+90} item xs="auto" spacing={3}>
-            <Grid xs="1" item>
+        <Grid container key={i+100} item xs="auto" spacing={3}>
+            <Grid xs={1} item>
               <Paper></Paper>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaPalabra(e)}}>{palabras[i]}</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+20} id={i+20} onClick={(e) => {marcaPalabra(e)}}>{palabras[i+20]}</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+40} id={i+40} onClick={(e) => {marcaPalabra(e)}}>{palabras[i+40]}</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+60} id={i+60} onClick={(e) => {marcaPalabra(e)}}>{palabras[i+60]}</Button>
             </Grid> 
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaPalabra(e)}}>{palabras[i+80]}</Button>
             </Grid> 
-            <Grid xs="1" item>
+            <Grid xs={1} item>
               <Paper></Paper>
             </Grid>     
           </Grid>
@@ -145,26 +145,26 @@ function Stroop() {
 
   let llenarColores = palabrasCut.map( (value,i) => {
       return(
-        <Grid container item xs="auto" spacing={3}>
-            <Grid xs="1" item>
+        <Grid container key={i+100} item xs="auto" spacing={3}>
+            <Grid key={i} xs={1} item>
               <Paper></Paper>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaColor(e)}} style={{color:colores[i]}} >XXXX</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+20} id={i+20} onClick={(e) => {marcaColor(e)}} style={{color:colores[i+20]}} >XXXX</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+40} id={i+40} onClick={(e) => {marcaColor(e)}} style={{color:colores[i+40]}} >XXXX</Button>
             </Grid>
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+60} id={i+60} onClick={(e) => {marcaColor(e)}} style={{color:colores[i+60]}} >XXXX</Button>
             </Grid> 
-            <Grid xs="2" item>
+            <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaColor(e)}} style={{color:colores[i+80]}} >XXXX</Button>
             </Grid> 
-            <Grid xs="1" item>
+            <Grid xs={1} item>
               <Paper></Paper>
             </Grid>     
           </Grid>
@@ -176,26 +176,26 @@ function Stroop() {
 
   let llenarPalabrasColores = palabrasCut.map( (value,i) => {
     return(
-      <Grid container item xs="auto" spacing={3}>
-          <Grid xs="1" item>
+      <Grid container key={i+100} item xs="auto" spacing={3}>
+          <Grid xs={1} item>
             <Paper></Paper>
           </Grid>
-          <Grid xs="2" item>
+          <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i]}} >{palabras[i]}</Button>
           </Grid>
-          <Grid xs="2" item>
+          <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i+20} id={i+20} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i+20]}} >{palabras[i+20]}</Button>
           </Grid>
-          <Grid xs="2" item>
+          <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i+40} id={i+40} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i+40]}} >{palabras[i+40]}</Button>
           </Grid>
-          <Grid xs="2" item>
+          <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i+60} id={i+60} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i+60]}} >{palabras[i+60]}</Button>
           </Grid> 
-          <Grid xs="2" item>
+          <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i+80]}}>{palabras[i+80]}</Button>
           </Grid> 
-          <Grid xs="1" item>
+          <Grid xs={1} item>
             <Paper></Paper>
           </Grid>     
         </Grid>
@@ -366,7 +366,7 @@ function Stroop() {
         return(
           <div>
             <Grid container alignItems="center" spacing={1}>
-                {llenarColores}
+              {llenarColores}
             </Grid>
             <CustomButton
               msj="Siguiente"

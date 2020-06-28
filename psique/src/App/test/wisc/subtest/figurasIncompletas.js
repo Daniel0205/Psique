@@ -64,6 +64,7 @@ function FigurasIncompletas() {
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
+            terminacion=0
             setNumberItem(flagRe)
             startTimer()
             return 
@@ -73,6 +74,7 @@ function FigurasIncompletas() {
           console.log("ENTRO1")
           clearTimeout(timer)
           countRe=0
+          terminacion++;
           setResults(update(results,{
             [numberItem-1]: {
               $set: 0
@@ -95,23 +97,21 @@ function FigurasIncompletas() {
             flagRe=numberItem+1;
             setNumberItem(firstItem-1);
             startTimer()
+            terminacion++;
             return                        
           }
           else terminacion++;
-
-          if(terminacion===LIMIT_ERROR)setState('results');
         }
         
       }
 
-      if(numberItem===NUMBER_STIMULI || numberItem===1){
-        if(numberItem===1)setResults(new Array(NUMBER_STIMULI).fill(0))
+      if(numberItem===NUMBER_STIMULI || numberItem===1|| terminacion===LIMIT_ERROR){
+        if(numberItem===1 ||retorno)setResults(new Array(NUMBER_STIMULI).fill(0))
         setState('results')
       }
       else{      
         if(retorno)setNumberItem(numberItem-1);
         else setNumberItem(numberItem+1);
-        startTimer()
       }
       
     }

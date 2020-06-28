@@ -57,7 +57,7 @@ function Sidenav(props) {
   const classes = useStyles();
   
   const [open, setOpen] = React.useState(false);
-  const [aux, setAux] = React.useState(true);
+  const [aux, setAux] = React.useState("category");
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -76,7 +76,7 @@ function Sidenav(props) {
       case "WAIS IV":
         return <Wais ></Wais>
       case "WISC IV":
-        return <Wisc ></Wisc>
+        return <Wisc subtest={props.subtest}></Wisc>
       case "Prueba de STROOP":
         return <Stroop ></Stroop>
       case "Prueba de Rey":
@@ -88,7 +88,6 @@ function Sidenav(props) {
     }
   }
 
-  console.log(aux)
 
   return (
     <div className={clsx({

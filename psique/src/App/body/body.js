@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -67,12 +67,20 @@ function Body(props) {
 
   const classes = useStyles();
 
-  console.log(props)
+  useEffect(() => {
+    if(state==="category"){
+      props.callback(false)
+    }
+    else{
+      props.callback(true)
+    }
+  });
+
 
   function buttons(){
 
     if(state==="category"){
-      props.callback(false)
+      
       return (
       <Category  
       names={names}
@@ -81,7 +89,7 @@ function Body(props) {
       ></Category>)
     }
     else{
-      props.callback(true)
+
       return [<CustomButton
         key={"button back"}
         msj="Volver a las categorias"

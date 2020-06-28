@@ -138,6 +138,7 @@ function Zung() {
       <Results
       revision={false}
       name="Zung"
+      url="init"
       comment={<h2>{"Tu diagnostico es: "+diagnosis}</h2>}
       result={calificar()}
       ></Results>

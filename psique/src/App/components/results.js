@@ -22,12 +22,12 @@ function Results(props) {
       }
     
     function finishFun(){
-        props.setBody("init")
+        props.setBody(props.url)
     }
 
     return (
     <div className={classes.container} >
-        <h1>Terminaste la subprueba de {props.name}</h1>
+        <h1>Terminaste la prueba de {props.name}</h1>
         <h2>Tu resultado es: {props.result}</h2>
 
         {props.comment===undefined ? "": props.comment }

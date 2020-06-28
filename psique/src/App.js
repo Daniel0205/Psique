@@ -16,6 +16,12 @@ function App(props) {
         return <Redirect to="/test/wais" />
       case "WISC IV":
         return <Redirect to="/test/wisc" />
+      case "WISC-selection":
+        return <Redirect to="/test/wisc/selection" />
+      case "WISC-registros":
+        return <Redirect to="/test/wisc/registros" />
+      case "Figuras incompletas":
+        return <Redirect to="/test/wisc/figurasCompletas" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />
       case "Prueba de Rey":
@@ -33,7 +39,12 @@ function App(props) {
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
       <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"}></Sidenav>} />
-      <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"}></Sidenav>} />
+      
+      <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
+      <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
+      <Route exact path="/test/wisc/figurasCompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />
+      <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />
+      
       <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
       <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />

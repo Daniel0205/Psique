@@ -1,5 +1,5 @@
 const initialState = {
-    body: 'WISC-registros'
+    body: 'init'
   };
   
   function bodyReducer(state = initialState, action) {

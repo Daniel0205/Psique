@@ -3,6 +3,7 @@ import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const TIME_LIMIT= 45;
 
@@ -220,8 +221,8 @@ function Registros() {
                 <TextField
                   id="outlined-number"
                   className={classes.timer}
-                  label="Tiempo registrado (segundos)"
-                  required
+                  label="Tiempo registrado"
+                  endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
                   type="number"
                   value={reactivo===1 ? time1 : time2}
                   inputProps={{
@@ -302,7 +303,8 @@ function Registros() {
               <TextField
                 id="outlined-number"
                 className={classes.timer}
-                label="Tiempo registrado (segundos)"
+                label="Tiempo registrado"
+                endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
                 required
                 type="number"
                 value={time1}
@@ -352,8 +354,8 @@ function Registros() {
               <TextField
                 id="outlined-number"
                 className={classes.timer}
-                label="Tiempo registrado (segundos)"
-                required
+                label="Tiempo registrado"
+                endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
                 type="number"
                 value={time2}
                 inputProps={{

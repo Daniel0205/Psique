@@ -91,81 +91,81 @@ function King() {
   var [observ, setObserv] = useState("");
   
 
-  var absentFig = new Array(18).fill(false);
-  var stateFig = new Array(18).fill("correcta");
-  var locatedFig = new Array(18).fill(false);
+  //var absentFig = new Array(18).fill(false);
+  //var stateFig = new Array(18).fill("correcta");
+  //var locatedFig = new Array(18).fill(false);
 
-  var absentFig1 = false;
-  var stateFig1 = "correcta";
-  var locatedFig1 = false;
+  var [absentFig1, setabsentFig1] = useState(false);
+  var [stateFig1, setstateFig1] = useState('correcta');
+  var [locatedFig1, setlocatedFig1] = useState(false);
 
-  var absentFig2 = false;
-  var stateFig2 = "correcta";
-  var locatedFig2 = false;
+  var [absentFig2, setabsentFig2] = useState(false);
+  var [stateFig2, setstateFig2] = useState('correcta');
+  var [locatedFig2, setlocatedFig2] = useState(false);
 
-  var absentFig3 = false;
-  var stateFig3 = "correcta";
-  var locatedFig3 = false;
+  var [absentFig3, setabsentFig3] = useState(false);
+  var [stateFig3, setstateFig3] = useState('correcta');
+  var [locatedFig3, setlocatedFig3] = useState(false);
 
-  var absentFig4 = false;
-  var stateFig4 = "correcta";
-  var locatedFig4 = false;
+  var [absentFig4, setabsentFig4] = useState(false);
+  var [stateFig4, setstateFig4] = useState('correcta');
+  var [locatedFig4, setlocatedFig4] = useState(false);
 
-  var absentFig5 = false;
-  var stateFig5 = "correcta";
-  var locatedFig5 = false;
+  var [absentFig5, setabsentFig5] = useState(false);
+  var [stateFig5, setstateFig5] = useState('correcta');
+  var [locatedFig5, setlocatedFig5] = useState(false);
 
-  var absentFig6 = false;
-  var stateFig6 = "correcta";
-  var locatedFig6 = false;
+  var [absentFig6, setabsentFig6] = useState(false);
+  var [stateFig6, setstateFig6] = useState('correcta');
+  var [locatedFig6, setlocatedFig6] = useState(false);
 
-  var absentFig7 = false;
-  var stateFig7 = "correcta";
-  var locatedFig7 = false;
+  var [absentFig7, setabsentFig7] = useState(false);
+  var [stateFig7, setstateFig7] = useState('correcta');
+  var [locatedFig7, setlocatedFig7] = useState(false);
 
-  var absentFig8 = false;
-  var stateFig8 = "correcta";
-  var locatedFig8 = false;
+  var [absentFig8, setabsentFig8] = useState(false);
+  var [stateFig8, setstateFig8] = useState('correcta');
+  var [locatedFig8, setlocatedFig8] = useState(false);
 
-  var absentFig9 = false;
-  var stateFig9 = "correcta";
-  var locatedFig9 = false;
+  var [absentFig9, setabsentFig9] = useState(false);
+  var [stateFig9, setstateFig9] = useState('correcta');
+  var [locatedFig9, setlocatedFig9] = useState(false);
 
-  var absentFig10 = false;
-  var stateFig10 = "correcta";
-  var locatedFig10 = false;
+  var [absentFig10, setabsentFig10] = useState(false);
+  var [stateFig10, setstateFig10] = useState('correcta');
+  var [locatedFig10, setlocatedFig10] = useState(false);
 
-  var absentFig11 = false;
-  var stateFig11 = "correcta";
-  var locatedFig11 = false;
+  var [absentFig11, setabsentFig11] = useState(false);
+  var [stateFig11, setstateFig11] = useState('correcta');
+  var [locatedFig11, setlocatedFig11] = useState(false);
 
-  var absentFig12 = false;
-  var stateFig12 = "correcta";
-  var locatedFig12 = false;
+  var [absentFig12, setabsentFig12] = useState(false);
+  var [stateFig12, setstateFig12] = useState('correcta');
+  var [locatedFig12, setlocatedFig12] = useState(false);
 
-  var absentFig13 = false;
-  var stateFig13 = "correcta";
-  var locatedFig13 = false;
+  var [absentFig13, setabsentFig13] = useState(false);
+  var [stateFig13, setstateFig13] = useState('correcta');
+  var [locatedFig13, setlocatedFig13] = useState(false);
 
-  var absentFig14 = false;
-  var stateFig14 = "correcta";
-  var locatedFig14 = false;
+  var [absentFig14, setabsentFig14] = useState(false);
+  var [stateFig14, setstateFig14] = useState('correcta');
+  var [locatedFig14, setlocatedFig14] = useState(false);
 
-  var absentFig15 = false;
-  var stateFig15 = "correcta";
-  var locatedFig15 = false;
+  var [absentFig15, setabsentFig15] = useState(false);
+  var [stateFig15, setstateFig15] = useState('correcta');
+  var [locatedFig15, setlocatedFig15] = useState(false);
 
-  var absentFig16 = false;
-  var stateFig16 = "correcta";
-  var locatedFig16 = false;
+  var [absentFig16, setabsentFig16] = useState(false);
+  var [stateFig16, setstateFig16] = useState('correcta');
+  var [locatedFig16, setlocatedFig16] = useState(false);
 
-  var absentFig17 = false;
-  var stateFig17 = "correcta";
-  var locatedFig17 = false;
+  var [absentFig17, setabsentFig17] = useState(false);
+  var [stateFig17, setstateFig17] = useState('correcta');
+  var [locatedFig17, setlocatedFig17] = useState(false);
 
-  var absentFig18 = false;
-  var stateFig18 = "correcta";
-  var locatedFig18 = false;
+  var [absentFig18, setabsentFig18] = useState(false);
+  var [stateFig18, setstateFig18] = useState('correcta');
+  var [locatedFig18, setlocatedFig18] = useState(false);
   
   var maxMinutes = 60;
   var score = 0;
@@ -228,7 +228,7 @@ function King() {
     }
   }
 
-  function update(x,i,type){
+  /*function update(x,i,type){
     switch(type){
       case 0:
         absentFig[i]=!absentFig[i];
@@ -240,7 +240,7 @@ function King() {
         locatedFig[i]=!locatedFig[i];
       break;
     }    
-  }
+  }*/
 
 
   return (   
@@ -294,10 +294,228 @@ function King() {
                     <Grid item xs={1}> <FormLabel>Bien situada </FormLabel> </Grid>
                   </Grid>
 
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>1</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig1(!absentFig1)} checked={absentFig1} inputProps={{ 'aria-label': 'absent-Fig1' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig1} onChange={(e)=>setstateFig1(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig1(!absentFig1)} checked={locatedFig1} inputProps={{ 'aria-label': 'located-Fig#i' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>2</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig1(!absentFig2)} checked={absentFig2} inputProps={{ 'aria-label': 'absent-Fig2' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig2} onChange={(e)=>setstateFig2(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig2(!absentFig2)} checked={locatedFig2} inputProps={{ 'aria-label': 'located-Fig2' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>3</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig3(!absentFig3)} checked={absentFig3} inputProps={{ 'aria-label': 'absent-Fig3' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig3} onChange={(e)=>setstateFig3(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig3(!absentFig3)} checked={locatedFig3} inputProps={{ 'aria-label': 'located-Fig3' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>4</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig4(!absentFig4)} checked={absentFig4} inputProps={{ 'aria-label': 'absent-Fig4' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig4} onChange={(e)=>setstateFig4(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig4(!absentFig4)} checked={locatedFig4} inputProps={{ 'aria-label': 'located-Fig4' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>5</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig5(!absentFig5)} checked={absentFig5} inputProps={{ 'aria-label': 'absent-Fig5' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig5} onChange={(e)=>setstateFig5(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig5(!absentFig5)} checked={locatedFig5} inputProps={{ 'aria-label': 'located-Fig5' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>6</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig6(!absentFig6)} checked={absentFig6} inputProps={{ 'aria-label': 'absent-Fig6' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig6} onChange={(e)=>setstateFig6(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig6(!absentFig6)} checked={locatedFig6} inputProps={{ 'aria-label': 'located-Fig6' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>7</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig7(!absentFig7)} checked={absentFig7} inputProps={{ 'aria-label': 'absent-Fig7' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig7} onChange={(e)=>setstateFig7(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig7(!absentFig7)} checked={locatedFig7} inputProps={{ 'aria-label': 'located-Fig7' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>8</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig8(!absentFig8)} checked={absentFig8} inputProps={{ 'aria-label': 'absent-Fig8' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig8} onChange={(e)=>setstateFig8(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig8(!absentFig8)} checked={locatedFig8} inputProps={{ 'aria-label': 'located-Fig8' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>9</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig9(!absentFig9)} checked={absentFig9} inputProps={{ 'aria-label': 'absent-Fig9' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig9} onChange={(e)=>setstateFig9(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig9(!absentFig9)} checked={locatedFig9} inputProps={{ 'aria-label': 'located-Fig9' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>10</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig10(!absentFig10)} checked={absentFig10} inputProps={{ 'aria-label': 'absent-Fig10' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig10} onChange={(e)=>setstateFig10(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig10(!absentFig10)} checked={locatedFig10} inputProps={{ 'aria-label': 'located-Fig10' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>11</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig11(!absentFig11)} checked={absentFig11} inputProps={{ 'aria-label': 'absent-Fig11' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig11} onChange={(e)=>setstateFig11(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig11(!absentFig11)} checked={locatedFig11} inputProps={{ 'aria-label': 'located-Fig11' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>12</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig12(!absentFig12)} checked={absentFig12} inputProps={{ 'aria-label': 'absent-Fig12' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig12} onChange={(e)=>setstateFig12(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig12(!absentFig12)} checked={locatedFig12} inputProps={{ 'aria-label': 'located-Fig12' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>13</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig13(!absentFig13)} checked={absentFig13} inputProps={{ 'aria-label': 'absent-Fig13' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig13} onChange={(e)=>setstateFig13(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig13(!absentFig13)} checked={locatedFig13} inputProps={{ 'aria-label': 'located-Fig13' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>14</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig14(!absentFig14)} checked={absentFig14} inputProps={{ 'aria-label': 'absent-Fig14' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig14} onChange={(e)=>setstateFig14(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig14(!absentFig14)} checked={locatedFig14} inputProps={{ 'aria-label': 'located-Fig14' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>15</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig15(!absentFig15)} checked={absentFig15} inputProps={{ 'aria-label': 'absent-Fig15' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig15} onChange={(e)=>setstateFig15(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig15(!absentFig15)} checked={locatedFig15} inputProps={{ 'aria-label': 'located-Fig15' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>16</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig16(!absentFig16)} checked={absentFig16} inputProps={{ 'aria-label': 'absent-Fig16' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig16} onChange={(e)=>setstateFig16(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig16(!absentFig16)} checked={locatedFig16} inputProps={{ 'aria-label': 'located-Fig16' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>17</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig17(!absentFig17)} checked={absentFig17} inputProps={{ 'aria-label': 'absent-Fig17' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig17} onChange={(e)=>setstateFig17(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig17(!absentFig17)} checked={locatedFig17} inputProps={{ 'aria-label': 'located-Fig17' }}/> </Grid>
+                  </Grid>
+
+                  <Grid container justify="center" spacing={1}>
+                    <Grid item xs={1}> <FormLabel>18</FormLabel> </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setabsentFig18(!absentFig18)} checked={absentFig18} inputProps={{ 'aria-label': 'absent-Fig18' }}/> </Grid>
+                    <Grid item xs={2}> 
+                      <Select value={stateFig18} onChange={(e)=>setstateFig18(e.target.value)}> 
+                        <MenuItem value={"correcta"}>Correcta</MenuItem>
+                        <MenuItem value={"incorrecta"}>Deformada o Incorrecta</MenuItem>
+                      </Select>
+                    </Grid>
+                    <Grid item xs={1}> <Checkbox onChange={(e)=>setlocatedFig18(!absentFig18)} checked={locatedFig18} inputProps={{ 'aria-label': 'located-Fig18' }}/> </Grid>
+                  </Grid>
+
+
+                  {/* 
                   {absentFig.map((x,i)=>
                     <Grid container justify="center" spacing={1}>
                       <Grid item xs={1}> <FormLabel>{i}</FormLabel> </Grid>
-                      <Grid item xs={1}> <Checkbox onChange={(x)=>update(x,i,0)} checked={absentFig[i]} inputProps={{ 'aria-label': 'absent-Fig1' }}/> </Grid>
+                      <Grid item xs={1}> <Checkbox onChange={(e)=>update(x,i,0)} checked={absentFig[i]} inputProps={{ 'aria-label': 'absent-Fig1' }}/> </Grid>
                       <Grid item xs={2}> 
                         <Select value={stateFig[i]}> 
                           <MenuItem value={"correcta"}>Correcta</MenuItem>
@@ -306,7 +524,7 @@ function King() {
                       </Grid>
                       <Grid item xs={1}> <Checkbox onChange={update(x,i,3)} checked={locatedFig[i]} inputProps={{ 'aria-label': 'located-Fig#i' }}/> </Grid>
                     </Grid>
-                  )}
+                  )}*/}
                 
               </Grid>
             </Grid>

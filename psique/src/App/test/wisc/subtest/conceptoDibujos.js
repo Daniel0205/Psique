@@ -52,7 +52,7 @@ const answers = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],
                  
 const answersExample = [[0,0,0],[0,0,0]]
 
-let firstItem;
+let firstItem;// Item en el que inicio la prueba
 
 function ConceptoDibujos() {
   const [state,setState]=useState("instruccion")

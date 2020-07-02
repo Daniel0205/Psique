@@ -129,7 +129,7 @@ function Cubos() {
     if(item!==1){
       let arrayAux = results
       for (let i = 0; i < item-1; i++) {
-        arrayAux[i]=1
+        arrayAux[i]=2
       }
       setResults(arrayAux)
     }
@@ -269,10 +269,8 @@ function Cubos() {
                    label={"Item "+(index+1)}
                    type="number"
                    defaultValue={result}
-                   inputProps={{
-                     min:0,
-                     max:1,
-                   }}
+                   inputProps={ index<3 ? {min:0, max:2} : index>7 ? {min:0, max:7} : {min:0, max:4}
+                  }
                    variant="outlined"
                    onChange={(x)=>
                      setResults(update(results,{

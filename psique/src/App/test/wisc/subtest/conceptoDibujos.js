@@ -376,7 +376,7 @@ function ConceptoDibujos() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResultsAux(update(results,{
+                    setResultsAux(update(resultsAux,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}

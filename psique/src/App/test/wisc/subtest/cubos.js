@@ -45,6 +45,7 @@ function Cubos() {
 
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [timeBool,setTimeBool] = useState(false)
 
@@ -151,6 +152,7 @@ function Cubos() {
         break;
       case 'results':
         setState('revision')
+        setResultsAux(results)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -273,7 +275,7 @@ function Cubos() {
                   }
                    variant="outlined"
                    onChange={(x)=>
-                     setResults(update(results,{
+                    setResultsAux(update(results,{
                        [index]: {
                          $set: parseInt(x.target.value)
                        }}))}
@@ -286,11 +288,14 @@ function Cubos() {
              <div id='buttons'>
                  <CustomButton              
                  msj="Regresar"
-                 callback={next}
+                 callback={()=>setState("results")}
                  ></CustomButton> 
                  <CustomButton             
                  msj="Actualizar Datos"
-                 callback={()=>setState("results")}
+                 callback={()=>{
+                  setResults(resultsAux) 
+                  setState("results")
+                  }}
                  ></CustomButton> 
              </div>
          </div>

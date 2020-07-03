@@ -80,13 +80,8 @@ function Registros() {
     if(puntuacion<0)puntuacion=0
 
     if(correct2-incorrect2>0)puntuacion+=correct2-incorrect2
-
-    console.log(puntuacion)
     puntuacion+=getBonus(time1)
     puntuacion+=getBonus(time2)
-
-    console.log(getBonus(time1))
-    console.log(getBonus(time2))
 
     return puntuacion
 
@@ -148,7 +143,6 @@ function Registros() {
   
 
   function content(){
-    console.log(state)
     switch(state){
       case "instruccion":
         return(

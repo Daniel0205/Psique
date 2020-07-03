@@ -7,11 +7,11 @@ import update from 'react-addons-update';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 
-const LIMIT_ERROR = 6
+const LIMIT_ERROR = 4
 
 const TIME_LIMIT = 20000
 
-const NUMBER_STIMULI = 38
+const NUMBER_STIMULI = 24
 
 const useStyles = makeStyles((theme) => ({
   img:{
@@ -211,15 +211,12 @@ function FigurasIncompletas() {
         <div >
         <h1>Figuras incompletas</h1>
         <p>En que estimulo desea iniciar la prueba? </p>
-        <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
+        <p>Pacientes con sospechas de discapacidad intelectual:</p>
         <CustomButton msj="Estimulo 1"
         callback={()=>imagenInit(1)}></CustomButton> 
-        <p>Pacientes de edad 9-11</p>
-        <CustomButton msj="Estimulo 5"
-        callback={()=>imagenInit(5)}></CustomButton> 
-        <p>Pacientes de edad 12-16</p>
-        <CustomButton msj="Estimulo 10"
-        callback={()=>imagenInit(10)}></CustomButton> 
+        <p>Pacientes de edad 16-89</p>
+        <CustomButton msj="Estimulo 4"
+        callback={()=>imagenInit(4)}></CustomButton> 
       </div>
        )
     case "ejemplo":
@@ -229,7 +226,7 @@ function FigurasIncompletas() {
             <img 
             className={classes.img} 
             alt={"Estimulo "+state} 
-            src={require("../../../assets/estimulos/figurasIncompletas-wisc/"+state+".jpg")} />
+            src={require("../../../assets/estimulos/figurasIncompletas/"+state+".png")} />
             
             <CustomButton 
             msj="Iniciar"
@@ -245,7 +242,7 @@ function FigurasIncompletas() {
             <img 
               className={classes.img}
               alt={"Estimulo "+numberItem}
-              src={require("../../../assets/estimulos/figurasIncompletas-wisc/"+numberItem+".jpg")} />
+              src={require("../../../assets/estimulos/figurasIncompletas/"+numberItem+".png")} />
               <KeyboardEventHandler 
               handleKeys={['1','0']} 
               onKeyEvent={(key, e) => {
@@ -305,7 +302,7 @@ function FigurasIncompletas() {
            name="Figuras Incompletas"
            result={getResult()}
            callback={next}
-           url="WISC-selection"
+           url="WAIS-selection"
            ></Results>
             )
      default:

@@ -182,7 +182,6 @@ function Cubos() {
   //Timer: En caso de que la imagen pase por que se acabo el tiempo se dará una calificación de 0 al item
   function startTimer() {
     timer = setTimeout(() => {
-      console.log("ENTROOO")
       setTimeBool(true)
     },TIME_LIMIT[numberItem-1])
   }
@@ -252,7 +251,6 @@ function Cubos() {
               } 
                onKeyEvent={(key, e) => {
                  clearTimeout(timer)
-                 console.log("Presionaste la tecla " + key)
                  changeStimuli(parseInt(key))
                  }} />
          </div>
@@ -275,7 +273,7 @@ function Cubos() {
                   }
                    variant="outlined"
                    onChange={(x)=>
-                    setResultsAux(update(results,{
+                    setResultsAux(update(resultsAux,{
                        [index]: {
                          $set: parseInt(x.target.value)
                        }}))}

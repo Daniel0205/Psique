@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 function LetrasNumeros() {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [scored,setScored] = useState(undefined)
   const [fields,setFields] = useState(new Array(stimuli[numberItem-1].length).fill(0))
@@ -126,6 +127,7 @@ function LetrasNumeros() {
         break;
       case 'results':
         setState('revision')
+        setResultsAux(results)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -142,7 +144,6 @@ function LetrasNumeros() {
 
   function getResult() {
     var total = 0;
-    console.log(results)
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
@@ -166,7 +167,6 @@ function LetrasNumeros() {
   function scoreExample(){
     let result
       
-    console.log(answersExample)
     if(state==="ejemplo A"){
       if(answersExample[0].join(',')=== rightExample[0].join(',')){
         result = true
@@ -214,7 +214,7 @@ function LetrasNumeros() {
             <h1> Estimulo {state}</h1>
             <br/>
             <br/>
-            {state==="ejemplo A"?<h1>A-2</h1>:<h1>B-3</h1>}
+            {state==="ejemplo A"?<h1>C-1</h1>:<h1>A-4</h1>}
             
             {scored===undefined ? 
             <div>
@@ -279,7 +279,7 @@ function LetrasNumeros() {
       case "revision":
         return(
         <div>
-          <h1>Figuras incompletas</h1>
+          <h1>Letras y Numeros</h1>
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
@@ -296,7 +296,7 @@ function LetrasNumeros() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResults(update(results,{
+                    setResultsAux(update(results,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}
@@ -345,11 +345,14 @@ function LetrasNumeros() {
             <div >
                 <CustomButton              
                 msj="Regresar"
-                callback={next}
+                callback={()=>setState("results")}
                 ></CustomButton> 
                 <CustomButton             
                 msj="Actualizar Datos"
-                callback={()=>setState("results")}
+                callback={()=>{
+                  setResults(resultsAux)
+                  setState("results")
+                }}
                 ></CustomButton> 
             </div>
         </div>
@@ -357,10 +360,10 @@ function LetrasNumeros() {
       case "results":
             return(
            <Results
-           name="Figuras Incompletas"
+           name="Letras y Numeros"
            result={getResult()}
            callback={next}
-           url="WISC-selection"
+           url="WAIS-selection"
            ></Results>
             )
      default:

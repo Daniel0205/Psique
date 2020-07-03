@@ -57,6 +57,7 @@ let firstItem;// Item en el que inicio la prueba
 function ConceptoDibujos() {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [scored,setScored] = useState(undefined)
   const [fields,setFields] = useState([0,0,0])
@@ -157,6 +158,7 @@ function ConceptoDibujos() {
         break;
       case 'results':
         setState('revision')
+        setResultsAux(results)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -357,7 +359,7 @@ function ConceptoDibujos() {
       case "revision":
         return(
         <div>
-          <h1>Figuras incompletas</h1>
+          <h1>Concepto con Dibujos</h1>
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
@@ -374,7 +376,7 @@ function ConceptoDibujos() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResults(update(results,{
+                    setResultsAux(update(results,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}
@@ -409,21 +411,24 @@ function ConceptoDibujos() {
             
 
             <div >
-                <CustomButton              
-                msj="Regresar"
-                callback={next}
-                ></CustomButton> 
-                <CustomButton             
-                msj="Actualizar Datos"
-                callback={()=>setState("results")}
-                ></CustomButton> 
+              <CustomButton              
+              msj="Regresar"
+              callback={()=>setState("results")}
+              ></CustomButton> 
+              <CustomButton             
+              msj="Actualizar Datos"
+              callback={()=>{
+                setResults(resultsAux)
+                setState("results")
+              }}
+              ></CustomButton> 
             </div>
         </div>
         )
       case "results":
             return(
            <Results
-           name="Figuras Incompletas"
+           name="Conceptos con Dibujos"
            result={getResult()}
            callback={next}
            url="WISC-selection"

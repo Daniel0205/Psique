@@ -117,6 +117,7 @@ let firstItem;// Item en el que inicio la prueba
 function Pistas() {
   const [state,setState] = useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const classes = useStyles();
 
@@ -288,7 +289,7 @@ function Pistas() {
       case "revision":
         return(
         <div>
-          <h1>Figuras incompletas</h1>
+          <h1>Pistas</h1>
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
@@ -305,7 +306,7 @@ function Pistas() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResults(update(results,{
+                    setResultsAux(update(results,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}
@@ -316,14 +317,17 @@ function Pistas() {
             
 
             <div id='buttons'>
-                <CustomButton              
-                msj="Regresar"
-                callback={()=>setState("results")}
-                ></CustomButton> 
-                <CustomButton             
-                msj="Actualizar Datos"
-                callback={()=>setState("results")}
-                ></CustomButton> 
+              <CustomButton              
+              msj="Regresar"
+              callback={()=>setState("results")}
+              ></CustomButton> 
+              <CustomButton             
+              msj="Actualizar Datos"
+              callback={()=>{
+                setResults(resultsAux)
+                setState("results")
+              }}
+              ></CustomButton> 
             </div>
         </div>
         )
@@ -332,7 +336,10 @@ function Pistas() {
          <Results
          name="Pistas"
          result={getResult()}
-         callback={()=>setState("revision")}
+         callback={()=>{
+          setResultsAux(results) 
+          setState("revision")
+          }}
          url="WISC-selection"
          ></Results>
           )

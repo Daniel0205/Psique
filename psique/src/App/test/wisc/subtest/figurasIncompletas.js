@@ -46,6 +46,7 @@ let timer;
 function FigurasIncompletas() {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [timeBool,setTimeBool] = useState(false)
 
@@ -144,6 +145,7 @@ function FigurasIncompletas() {
         break;
       case 'results':
         setState('revision')
+        setResultsAux(results)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -272,7 +274,7 @@ function FigurasIncompletas() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResults(update(results,{
+                    setResultsAux(update(results,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}
@@ -283,14 +285,17 @@ function FigurasIncompletas() {
             
 
             <div id='buttons'>
-                <CustomButton              
-                msj="Regresar"
-                callback={next}
-                ></CustomButton> 
-                <CustomButton             
-                msj="Actualizar Datos"
-                callback={()=>setState("results")}
-                ></CustomButton> 
+              <CustomButton              
+              msj="Regresar"
+              callback={()=>setState("results")}
+              ></CustomButton> 
+              <CustomButton             
+              msj="Actualizar Datos"
+              callback={()=>{
+                setResults(resultsAux)
+                setState("results")
+              }}
+              ></CustomButton> 
             </div>
         </div>
         )

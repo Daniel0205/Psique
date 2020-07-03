@@ -1,5 +1,5 @@
 const initialState = {
-    body: "WISC-Sucesion de numeros y letras"
+    body:"init"
   };
   
   function bodyReducer(state = initialState, action) {

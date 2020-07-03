@@ -10,9 +10,13 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import FormLabel from '@material-ui/core/FormLabel';
 import Paper from '@material-ui/core/Paper';
-//import SnackbarContent from '@material-ui/core/SnackbarContent'; 
-//import Snackbar from '@material-ui/core/Snackbar'; 
 import ErrorIcon from '@material-ui/icons/Error';
+import Divider from '@material-ui/core/Divider';
+import {Link} from "react-router-dom";
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 
 import reyImage from '../../assets/ReyTest/ReyImage.png';
 import Background from '../../assets/Fondo/FondoNubes.jfif';
@@ -32,47 +36,34 @@ const useStyles =  makeStyles((theme) => ({
     textAlign: "center",
     /*background-color: dodgerblue;*/
   },
-  classTestRey: {
-    textAlign: "center",
-    /*background-color: rgb(72, 163, 255);*/
-  },
   ReyImage: {
     backgroundImage: "url(" + reyImage + ")",
-    //backgroundRepeat: no-repeat,
     backgroundSize: "cover",
-    //backgroundPosition: center,
-    //width: 250px,
-    //height: 192px,
-    //margin: "auto",
   },
 
   bodypage: {
     backgroundImage: "url(" + Background + ")",
     width: '100%',
-    margin: 0,
-    //backgroundRepeat: no-repeat,
-    backgroundSize: "cover",
-    //backgroundPosition: center,
+    margin: 0,    
+    backgroundSize: "cover",    
   },
-
   snackbarStyle: {
     color: "white",
     alignSelf: "center",
     backgroundColor: '#F55448',
     width: '50%',
   },
-
-  testcontainer: {
-    //margin: "auto",
-    backgroundColor: 'white',
-    //maxWidth: 75%,
-    borderColor: 'black',
+  alingContents: {
+    alingContents: 'center',
+    margin: 'auto',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
 
 function King() {
-  const classes = useStyles();
+  const classes = useStyles();  
 
   var patientName = "Juan Pablo Prueba";
   var patientId = "0";
@@ -155,10 +146,10 @@ function King() {
   var [locatedFig18, setlocatedFig18] = useState(false);
   
   var maxMinutes = 60;
-  var score = 0;
-  var time = 0;
+  var [score, setScore] = useState(0);
+  var [time, setTime] = useState(0);
+  var [modalControl, setModalControl] = useState(false);
 
-  //var alertTime, alertMinutes, alertSeconds = false;
   var [alertController, setAlertController] = useState(0); //0: nothing; 1: alertTime; 2: alertMinutes; 3: alertSeconds
 
   function computeScores(absentV, stateV, locatedV){
@@ -173,41 +164,42 @@ function King() {
     
       Valor = State[2 ó 1] * Located[1 ó 0.5] * absent[1 ó 0]
     */
-    var state, located, absent, score;
+    var state, located, absent, result;
     if(stateV === "correcta"){ state = 2; }else{ state = 1; }    
     if(locatedV){ located = 1; }else{ located = 0.5; }
     if(absentV){ absent = 0; }else{ absent = 1; }
-    score = state * located * absent;
+    result = state * located * absent;
 
-    return score;
+    return result;
   }
 
   function save(){
-    alertController = 0;
+    setAlertController(0);
     if((minutes >= 0) || (minutes <= maxMinutes)){
       if((seconds >= 0) || (seconds < 60)){
-        time = (minutes*60) + seconds;
+        setTime((minutes*60) + seconds);
 
         if(time > 0){
-          score = computeScores(absentFig1,  stateFig1,  locatedFig1) +
-                       computeScores(absentFig2,  stateFig2,  locatedFig2) +
-                       computeScores(absentFig3,  stateFig3,  locatedFig3) +
-                       computeScores(absentFig4,  stateFig4,  locatedFig4) +
-                       computeScores(absentFig5,  stateFig5,  locatedFig5) +
-                       computeScores(absentFig6,  stateFig6,  locatedFig6) +
-                       computeScores(absentFig7,  stateFig7,  locatedFig7) +
-                       computeScores(absentFig8,  stateFig8,  locatedFig8) +
-                       computeScores(absentFig9,  stateFig9,  locatedFig9) +
-                       computeScores(absentFig10, stateFig10, locatedFig10) +
-                       computeScores(absentFig11, stateFig11, locatedFig11) +
-                       computeScores(absentFig12, stateFig12, locatedFig12) +
-                       computeScores(absentFig13, stateFig13, locatedFig13) +
-                       computeScores(absentFig14, stateFig14, locatedFig14) +
-                       computeScores(absentFig15, stateFig15, locatedFig15) +
-                       computeScores(absentFig16, stateFig16, locatedFig16) +
-                       computeScores(absentFig17, stateFig17, locatedFig17) +
-                       computeScores(absentFig18, stateFig18, locatedFig18);
-          alert("Time: " + time + " Segundos - Score: " + score);
+          setScore(computeScores(absentFig1,  stateFig1,  locatedFig1) +
+                   computeScores(absentFig2,  stateFig2,  locatedFig2) +
+                   computeScores(absentFig3,  stateFig3,  locatedFig3) +
+                   computeScores(absentFig4,  stateFig4,  locatedFig4) +
+                   computeScores(absentFig5,  stateFig5,  locatedFig5) +
+                   computeScores(absentFig6,  stateFig6,  locatedFig6) +
+                   computeScores(absentFig7,  stateFig7,  locatedFig7) +
+                   computeScores(absentFig8,  stateFig8,  locatedFig8) +
+                   computeScores(absentFig9,  stateFig9,  locatedFig9) +
+                   computeScores(absentFig10, stateFig10, locatedFig10) +
+                   computeScores(absentFig11, stateFig11, locatedFig11) +
+                   computeScores(absentFig12, stateFig12, locatedFig12) +
+                   computeScores(absentFig13, stateFig13, locatedFig13) +
+                   computeScores(absentFig14, stateFig14, locatedFig14) +
+                   computeScores(absentFig15, stateFig15, locatedFig15) +
+                   computeScores(absentFig16, stateFig16, locatedFig16) +
+                   computeScores(absentFig17, stateFig17, locatedFig17) +
+                   computeScores(absentFig18, stateFig18, locatedFig18));
+          //alert("Time: " + time + " Segundos - Score: " + score);
+          setModalControl(true)
         }else{
           // MENSAJE DE TIEMPO INVÁLIDO
           //alert('Tiempo Inválido: ' + time);
@@ -254,9 +246,37 @@ function King() {
     }
   }
 
+  
+
+  function showResults(){
+    return(
+      <div>
+        <Dialog aria-labelledby="simple-dialog-title" open={modalControl}>
+          <DialogTitle id="simple-dialog-title">Por favor confirme los resultados</DialogTitle>
+          <Divider />
+            <DialogContent>              
+              <DialogContentText>Paciente: {patientName} </DialogContentText>
+              <DialogContentText>ID: {patientId}</DialogContentText>
+              <br></br>
+              <DialogContentText >Tiempo (segundos): {time}</DialogContentText>
+              <DialogContentText >Puntaje: {score}</DialogContentText>
+              <br></br>
+              <DialogContent>
+                <Grid container justify="center" spacing={2}>
+                  <Grid item xs={4}> <Link to={'/home'}><Button variant="contained" color="primary">Sí</Button></Link> </Grid>
+                  <Grid item xs={4}> <Button variant="contained" color="secondary" onClick={() => {setModalControl(false)}}>No</Button> </Grid>
+                </Grid>
+              </DialogContent>
+            </DialogContent>
+        </Dialog>    
+      </div>
+    );
+  }
+
   return (   
     <div className={classes.bodypage}>
       <br></br>
+      {showResults()}
       <Container align="center" fixed>      
       <Paper >
         <br></br>
@@ -547,13 +567,13 @@ function King() {
               {alertsSave()}
             </Grid>
             <br></br>
-            <Button variant="contained" color="primary" onClick={() => {save()}}>Guardar</Button>
+            <Button variant="contained" color="primary" onClick={() => {save()}}>Guardar</Button>            
           </form>
         </div>
 
         <br></br>
         </Paper>
-      </Container>
+      </Container>      
       <br></br>
     </div>
   );

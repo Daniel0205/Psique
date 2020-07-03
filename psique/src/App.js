@@ -32,9 +32,9 @@ function App(props) {
         return <Redirect to="/test/wisc/pistas" />
       case "WISC-Figuras incompletas":
         return <Redirect to="/test/wisc/figurasCompletas" />
-      case "Cubos":
+      case "WISC-Cubos":
         return <Redirect to="/test/wisc/cubos" />
-      case "Sucesion de numeros y letras":
+      case "WISC-Sucesion de numeros y letras":
         return <Redirect to="/test/wisc/numerosLetras" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />

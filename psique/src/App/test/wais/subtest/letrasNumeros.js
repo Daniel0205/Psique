@@ -23,17 +23,6 @@ const stimuli =  [['2','B'],['D','1'],['4','C'],
                   ['6','P','7','S','2','N','9','A'],['E','1','R','9','X','4','K','3'],['7','M','2','T','6','F','9','A']]
 
 
-const answers = [[0,0],[0,0],[0,0],
-                 [0,0],[0,0],[0,0],
-                 [0,0,0],[0,0,0],[0,0,0],
-                 [0,0,0],[0,0,0],[0,0,0],
-                 [0,0,0],[0,0,0],[0,0,0],
-                 [0,0,0,0],[0,0,0,0],[0,0,0,0],
-                 [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],
-                 [0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-
 const answersExample = [[0,0],[0,0]]
 
 const rightExample = [["1","C"],["4","A"]]
@@ -71,12 +60,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LetrasNumeros() {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("test")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [scored,setScored] = useState(undefined)
-  const [fields,setFields] = useState(new Array(stimuli[numberItem-1].length).fill(0))
+  const [answers,setAnswers] =  useState(["0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0",
+                                        "0","0","0","0","0"])
 
 
   const classes = useStyles();
@@ -155,9 +153,8 @@ function LetrasNumeros() {
     let array1=answers[index].slice()
     let array2=rightAnswers[index].slice()
     let array3=rightAnswers[index].slice()
-    if(numberItem<30)setFields(new Array(stimuli[numberItem].length).fill(0))
 
-    if(array1.join(',')=== array2.join(',') || array1.join(',')=== array3.sort().join(',')){
+    if(array1.split("").join(',')=== array2.join(',') || array1.split("").join(',')=== array3.sort().join(',')){
       changeStimuli(1)
     }
     else  changeStimuli(0)
@@ -256,19 +253,16 @@ function LetrasNumeros() {
             <p>Respuesta:</p>
             
             <div className={classes.field}>
-            {answers[numberItem-1].map((item,index)=>
-              [<TextField
-                key={index}
-                value={fields[index]}
+              <TextField
+                value={answers[numberItem-1].split("").join("-")}
                 variant="outlined"
                 onChange={(x)=>{
-                  setFields(update(fields,{
-                    [index]: {
-                      $set: x.target.value.slice(0,1).toUpperCase()
+                  setAnswers(update(answers,{
+                    [numberItem-1]: {
+                      $set: x.target.value.toUpperCase().split("-").join("").slice(0,stimuli[numberItem-1].length)
                     }}))
-                  answers[numberItem-1][index]=x.target.value.slice(0,1).toUpperCase()
                 }}
-              />,'\u00A0'," "])}
+              />
               
             </div>
             <CustomButton 
@@ -306,7 +300,7 @@ function LetrasNumeros() {
                 <TextField
                   className={classes.textfield}
                   label="Respuesta-paciente"
-                  defaultValue={answers[index].join("-")}
+                  defaultValue={answers[index].split("").join("-")}
                   inputProps={{
                     min:0,
                     max:1,
@@ -344,17 +338,17 @@ function LetrasNumeros() {
             
 
             <div >
-              <CustomButton              
-              msj="Regresar"
-              callback={()=>setState("results")}
-              ></CustomButton> 
-              <CustomButton             
-              msj="Actualizar Datos"
-              callback={()=>{
-                setResults(resultsAux)
-                setState("results")
-              }}
-              ></CustomButton> 
+                <CustomButton              
+                msj="Regresar"
+                callback={()=>setState("results")}
+                ></CustomButton> 
+                <CustomButton             
+                msj="Actualizar Datos"
+                callback={()=>{
+                  setResults(resultsAux)
+                  setState("results")
+                }}
+                ></CustomButton> 
             </div>
         </div>
         )

@@ -83,7 +83,7 @@ function Wisc(props) {
           <CustomButton
           key={i}
           msj={name}
-          callback={()=>props.setBody(name)}>
+          callback={()=>props.setBody("WISC-"+name)}>
           </CustomButton>)}
         </div>
         <br/>

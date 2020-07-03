@@ -3,7 +3,6 @@ import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 const TIME_LIMIT= 45;
 
@@ -29,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+let correct1Aux;
+let incorrect1Aux;
+let correct2Aux;
+let incorrect2Aux;
+let time1Aux;
+let time2Aux;
 
 
 function Registros() {
@@ -215,8 +221,7 @@ function Registros() {
                 <TextField
                   id="outlined-number"
                   className={classes.timer}
-                  label="Tiempo registrado"
-                  endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
+                  label="Tiempo registrado (Seg)"
                   type="number"
                   value={reactivo===1 ? time1 : time2}
                   inputProps={{
@@ -253,7 +258,15 @@ function Registros() {
         <Results
           name="Registros"
           result={calcularResultado()}
-          callback={()=>setState("revision")}
+          callback={()=>{
+            correct1Aux=correct1
+            correct2Aux=correct2
+            incorrect1Aux=incorrect1
+            incorrect2Aux=incorrect2
+            time1Aux=time1
+            time2Aux=time2
+            setState("revision")
+          }}
           url="WISC-selection"
         ></Results>
       )
@@ -297,8 +310,7 @@ function Registros() {
               <TextField
                 id="outlined-number"
                 className={classes.timer}
-                label="Tiempo registrado"
-                endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
+                label="Tiempo registrado (Seg)"
                 required
                 type="number"
                 value={time1}
@@ -348,8 +360,7 @@ function Registros() {
               <TextField
                 id="outlined-number"
                 className={classes.timer}
-                label="Tiempo registrado"
-                endAdornment={<InputAdornment position="end">Seg</InputAdornment>}
+                label="Tiempo registrado (Seg)"
                 type="number"
                 value={time2}
                 inputProps={{
@@ -367,7 +378,15 @@ function Registros() {
           ></CustomButton>
           <CustomButton 
             msj={"cancelar"}
-            callback={()=>setState('resultados')}
+            callback={()=>{
+              setState('resultados')
+              setCorrect1(correct1Aux)
+              setCorrect2(correct2Aux)
+              setIncorrect1(incorrect1Aux)
+              setIncorrect2(incorrect2Aux)
+              setTime1(time1Aux)
+              setTime2(time2Aux)
+            }}
           ></CustomButton>
         </div>)
       default:

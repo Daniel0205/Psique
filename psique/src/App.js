@@ -31,8 +31,10 @@ function App(props) {
       case "WISC-Pistas":
         return <Redirect to="/test/wisc/pistas" />
       case "WISC-Figuras incompletas":
-        return <Redirect to="/test/wisc/figurasIncompletas" />
-      case "WISC-Sucesion de numeros y letras":
+        return <Redirect to="/test/wisc/figurasCompletas" />
+      case "Cubos":
+        return <Redirect to="/test/wisc/cubos" />
+      case "Sucesion de numeros y letras":
         return <Redirect to="/test/wisc/numerosLetras" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />
@@ -54,6 +56,7 @@ function App(props) {
       <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estimulos*/}
+      <Route exact path="/test/wisc/cubos" component={()=><Sidenav body={"WISC IV"} subtest={"Cubos"}></Sidenav>} />
       <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wisc/concepto" component={()=><Sidenav body={"WISC IV"} subtest={"Conceptos con dibujos"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wisc/pistas" component={()=><Sidenav body={"WISC IV"} subtest={"Pistas"}></Sidenav>} /> {/*Manual*/}

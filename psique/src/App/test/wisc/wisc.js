@@ -67,7 +67,7 @@ function Wisc(props) {
     switch(state){
       case 'confirmacion':
         return(<TestStart
-          name="Wisc"
+          name="WISC"
           change={()=>props.setBody("WISC-selection")}
         ></TestStart>)
         

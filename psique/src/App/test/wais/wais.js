@@ -117,11 +117,9 @@ function Wais(props) {
       </div>)
 
       default:
-        console.log("ENTROOOO")
+
         for (let i = 0; i < texts.length; i++) {
-          console.log(state)
-          console.log(texts[i])
-          console.log(texts[i]===state)
+
           if(texts[i]===state) return componentTest[i]
         }
         break;

@@ -115,7 +115,7 @@ function ConceptoDibujos() {
       }
 
 
-      if(numberItem===NUMBER_STIMULI || numberItem===1|| terminacion===LIMIT_ERROR){
+      if(numberItem===NUMBER_STIMULI ||  (numberItem===1 && retornoHecho) || terminacion===LIMIT_ERROR){
         if(numberItem===1 ||retorno)setResults(new Array(NUMBER_STIMULI).fill(0))
         setState('results')
       }

@@ -12,7 +12,6 @@ import Wisc from '../test/wisc/wisc';
 import Zung from '../test/zung/zung';
 import King from '../test/king/king';
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -23,8 +22,7 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: "center",
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    flexGrow: 1,    
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

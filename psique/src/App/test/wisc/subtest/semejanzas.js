@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
@@ -330,12 +329,6 @@ function Semejanzas() {
                          </div>;
                 })}
                 </CardContent>
-                <CardActions style={{justifyContent: 'center'}}>
-                  <CustomButton
-                    msj="0 Puntos"
-                    callback={()=>changeStimuli(0)}
-                  ></CustomButton>
-                </CardActions>
               </Card>
             </div>
             &nbsp;  &nbsp; &nbsp;  &nbsp;
@@ -353,12 +346,6 @@ function Semejanzas() {
                          </div>;
                 })}
                 </CardContent>
-                <CardActions style={{justifyContent: 'center'}}>
-                  <CustomButton
-                    msj="1 Punto"
-                    callback={()=>changeStimuli(1)}
-                  ></CustomButton>
-                </CardActions>
               </Card>
             </div>
             &nbsp;  &nbsp; &nbsp;  &nbsp;
@@ -376,15 +363,28 @@ function Semejanzas() {
                          </div>;
                 })}
                 </CardContent>
-                <CardActions style={{justifyContent: 'center'}}>
-                  <CustomButton
-                    msj="2 Puntos"
-                    callback={()=>changeStimuli(2)}
-                  ></CustomButton>
-                </CardActions>
               </Card>
             </div>
-          </div>    
+          </div>  
+
+          <br/>
+          <br/>
+          <div className={classes.ordenar}>
+            <CustomButton
+              msj="0 Puntos"
+              callback={()=>changeStimuli(0)}
+            ></CustomButton>
+            &nbsp; &nbsp;
+            <CustomButton
+              msj="1 Punto"
+              callback={()=>changeStimuli(1)}
+            ></CustomButton>
+            &nbsp; &nbsp;
+            <CustomButton
+              msj="2 Puntos"
+              callback={()=>changeStimuli(2)}
+            ></CustomButton>
+          </div>  
 
         </div>)
       case "revision":

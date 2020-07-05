@@ -248,7 +248,7 @@ function Matrices() {
        case "revision":
          return(
          <div>
-           <h1>Figuras incompletas</h1>
+           <h1>Matrices</h1>
            <h3>El puntaje por cada Item fue: </h3>
            <div className={classes.fields}>
              {results.map((result,index)=>

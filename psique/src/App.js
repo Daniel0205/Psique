@@ -20,6 +20,12 @@ function App(props) {
         return <Redirect to="/test/wais/numerosLetras" />
       case "WAIS-Figuras Incompletas":
         return <Redirect to="/test/wais/figurasIncompletas" />
+      case "WAIS-Cancelacion":
+        return <Redirect to="/test/wais/cancelacion" />
+      case "WAIS-Comprension":
+        return <Redirect to="/test/wais/comprension" />
+      case "WAIS-Balanzas":
+        return <Redirect to="/test/wais/balanzas" />
       case "WISC IV":
         return <Redirect to="/test/wisc" />
       case "WISC-selection":
@@ -66,6 +72,9 @@ function App(props) {
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Numeros"}></Sidenav>} /> {/*Manual*/}
       <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estimulos*/}
+      <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelacion"}></Sidenav>} />{/*Manual*/}
+      <Route exact path="/test/wais/comprension" component={()=><Sidenav body={"WAIS IV"} subtest={"Comprension"}></Sidenav>} />{/*Manual*/}
+      <Route exact path="/test/wais/balanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Balanzas"}></Sidenav>} />{/*Manual*/}
       
       <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />

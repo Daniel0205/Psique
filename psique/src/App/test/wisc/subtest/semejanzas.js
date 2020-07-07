@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import update from 'react-addons-update';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
@@ -221,7 +220,7 @@ function Semejanzas() {
 
     firstItem=item
     setNumberItem(item)
-    setState("test")
+    setState("ejemplo")
   }
 
   function getResult() {
@@ -288,17 +287,31 @@ function Semejanzas() {
           
               <div className={classes.ordenar}>
                 <div >
-                  <h2><b>0 Puntos</b></h2>
-                  <br/>
-                  <TextareaAutosize value="Sin respuesta" disabled></TextareaAutosize>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    0 puntos
+                  </Typography>
+                  <Card className={classes.root}>
+                    <CardContent>
+                      <Typography variant="body2" color="textSecondary" component="p" >
+                        Sin respuesta
+                      </Typography>
+                    </CardContent>
+                  </Card>
                 </div>
                 &nbsp;  &nbsp; &nbsp;  &nbsp;
                 <div >
-                <h2><b>1 Punto</b></h2>
-                  <br/>
-                  <TextareaAutosize value={"Cualquiera que incluya colores"} disabled></TextareaAutosize>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    1 punto
+                  </Typography>
+                  <Card className={classes.root}>
+                    <CardContent>
+                      <Typography variant="body2" color="textSecondary" component="p" >
+                        Cualquiera que incluya colores
+                      </Typography>  
+                    </CardContent>
+                  </Card>
                 </div>
-              </div>    
+              </div>     
 
               <CustomButton
                   msj="Siguiente"

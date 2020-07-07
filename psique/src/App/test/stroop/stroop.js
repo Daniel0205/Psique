@@ -89,9 +89,7 @@ function Stroop() {
   const [PC2,setPC2] = useState(0);
   const [interferencia,setInterferencia] = useState(0);
 
-  useEffect(() => {
-    change();
-  },[palabraColorIndex]);
+  useEffect(change,[palabraColorIndex]);
 
  //===Funciones que cambian el indice de las palabras===
   function marcaPalabra(e){

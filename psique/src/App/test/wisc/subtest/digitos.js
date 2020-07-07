@@ -6,45 +6,36 @@ import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 
 
-const LIMIT_ERROR = 3
+const LIMIT_ERROR = 2
 
-const NUMBER_STIMULI = 30
+const NUMBER_STIMULI = 16
 
-let estimulosDD = [[2,9],[4,6],
-                  [3,8,6],[6,1,2],
-                  [3,4,1,7],[6,1,5,8],
-                  [5,2,1,8,6],[8,4,2,3,9],
-                  [3,8,9,1,7,4],[7,9,6,4,8,3],
-                  [5,1,7,4,2,3,8],[9,8,5,2,1,6,3],
-                  [1,8,4,5,9,7,6,3],[2,9,7,6,3,1,5,4],
-                  [5,3,8,7,1,2,4,6,9],[4,2,6,9,1,7,8,3,5]];
+let estimulosDD = [['2','9'],['4','6'],
+                  ['3','8','6'],['6','1','2'],
+                  ['3','4','1','7'],['6','1','5','8'],
+                  ['5','2','1','8','6'],['8','4','2','3','9'],
+                  ['3','8','9','1','7','4'],['7','9','6','4','8','3'],
+                  ['5','1','7','4','2','3','8'],['9','8','5','2','1','6','3'],
+                  ['1','8','4','5','9','7','6','3'],['2','9','7','6','3','1','5','4'],
+                  ['5','3','8','7','1','2','4','6','9'],['4','2','6','9','1','7','8','3','5']];
 
-let estimulosDI = [[2,1],[1,3],
-                  [3,5],[6,4],
-                  [2,5,9],[5,7,4],
-                  [8,4,9,3],[7,2,9,6],
-                  [4,1,3,5,7],[9,7,8,5,2],
-                  [1,6,5,2,9,8],[3,6,7,1,9,4],
-                  [8,5,9,2,3,4,6],[4,5,7,9,2,8,1],
-                  [6,9,1,7,3,2,5,8],[8,1,7,9,5,4,8,2]];
+let estimulosDI = [['2','1'],['1','3'],
+                  ['3','5'],['6','4'],
+                  ['2','5','9'],['5','7','4'],
+                  ['8','4','9','3'],['7','2','9','6'],
+                  ['4','1','3','5','7'],['9','7','8','5','2'],
+                  ['1','6','5','2','9','8'],['3','6','7','1','9','4'],
+                  ['8','5','9','2','3','4','6'],['4','5','7','9','2','8','1'],
+                  ['6','9','1','7','3','2','5','8'],['8','1','7','9','5','4','8','2']];
 
-let respuestasCorrectasDD =  ["2,9","4,6",
-                              "3,8,6","6,1,2",
-                              "3,4,1,7","6,1,5,8",
-                              "5,2,1,8,6","8,4,2,3,9",
-                              "3,8,9,1,7,4","7,9,6,4,8,3",
-                              "5,1,7,4,2,3,8","9,8,5,2,1,6,3",
-                              "1,8,4,5,9,7,6,3","2,9,7,6,3,1,5,4",
-                              "5,3,8,7,1,2,4,6,9","4,2,6,9,1,7,8,3,5"];
-
-let respuestasCorrectasDI =  ["1,2","3,1",
-                              "5,3","4,6",
-                              "9,5,2","4,7,5",
-                              "3,9,4,8","6,9,2,7",
-                              "7,5,3,1,4","2,5,8,7,9",
-                              "8,9,2,5,6,1","4,9,1,7,6,3",
-                              "6,4,3,2,9,5,8","1,8,2,9,7,5,4",
-                              "8,5,2,3,7,1,9,6","2,8,4,5,9,7,1,8"];
+let respuestasCorrectasDI =  [['1','2'],['3','1'],
+                              ['5','3'],['4','6'],
+                              ['9','5','2'],['4','7','5'],
+                              ['3','9','4','8'],['6','9','2','7'],
+                              ['7','5','3','1','4'],['2','5','8','7','9'],
+                              ['8','9','2','5','6','1'],['4','9','1','7','6','3'],
+                              ['6','4','3','2','9','5','8'],['1','8','2','9','7','5','4'],
+                              ['8','5','2','3','7','1','9','6'],['2','8','4','5','9','7','1','8']];
 
 let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 
@@ -71,26 +62,53 @@ const useStyles = makeStyles((theme) => ({
 function Digitos() {
 
   const classes = useStyles();
-  const [state,setState]=useState("test")
-  const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
-  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [state,setState]=useState("instruccion")
+  const [resultsD, setResultsD] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsDAux ,setResultsDAux] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsI, setResultsI] = useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsIAux ,setResultsIAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
-  const [scored,setScored] = useState(undefined)
+  const [answersD,setAnswersD] =  useState(["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"])
+  const [answersI,setAnswersI] =  useState(["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"])
 
   function changeStimuli(key){
 
-    if(state==='test'){
+    if(state==='testDirecto'){
           
       if(1===key){
         
-        setResults(update(results,{
+        setResultsD(update(resultsD,{
           [numberItem-1]: {
             $set: 1
           }}))
         terminacion=0
       }
       else{
-        if((numberItem-1)%3===0)terminacion=0
+        if((numberItem-1)%2===0)terminacion=0
+        terminacion++;
+
+      }
+
+      if(numberItem===NUMBER_STIMULI || terminacion===LIMIT_ERROR){
+        setState('initInverso')
+        setNumberItem(1);
+      }
+      else{      
+        setNumberItem(numberItem+1);
+      }
+      
+    }else if(state==='testInverso'){
+
+      if(1===key){
+        
+        setResultsI(update(resultsI,{
+          [numberItem-1]: {
+            $set: 1
+          }}))
+        terminacion=0
+      }
+      else{
+        if((numberItem-1)%2===0)terminacion=0
         terminacion++;
 
       }
@@ -101,29 +119,22 @@ function Digitos() {
       else{      
         setNumberItem(numberItem+1);
       }
-      
+
     }
   }
 
   function imagenInit(item){
-    
     setNumberItem(item)
-    setState('ejemplo A')
+    setState('initDirecto')
   }
 
 
   function next(){
     switch (state) {
-      case 'ejemplo A':
-        setState('ejemplo B')
-        setScored(undefined)
-        break;
-      case 'ejemplo B':
-        setState('test')
-        break;
       case 'results':
         setState('revision')
-        setResultsAux(results)
+        setResultsDAux(resultsD)
+        setResultsIAux(resultsI)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -139,23 +150,42 @@ function Digitos() {
 
 
   function getResult() {
-    var total = 0;
-    for(var i=0;i<results.length;i++){
-      total = total + results[i];
+
+    var totalAux=[0,0]
+
+    for(var i=0;i<resultsD.length;i++){
+      totalAux[0] = totalAux[0] + resultsD[i];
+      totalAux[1] = totalAux[1] + resultsI[i];
     }
+
+    var total = totalAux[0] + totalAux[1]
+
     return total;
   }
 
   function score(index){
-    let array1=answers[index].slice()
-    let array2=rightAnswers[index].slice()
-    let array3=rightAnswers[index].slice()
+    
+    let arrayD=answersD[index].slice()
+    let arrayI=answersI[index].slice()
 
-    if(array1.split("").join(',')=== array2.join(',') || array1.split("").join(',')=== array3.sort().join(',')){
-      changeStimuli(1)
+    let respuestasD=estimulosDD[index].slice()
+    let respuestasI=respuestasCorrectasDI[index].slice()
+
+    if(state==="testDirecto"){
+
+      if(arrayD.split("").join(',') === respuestasD.join(',') ){
+        changeStimuli(1)
+      }
+      else  changeStimuli(0)
+
+    }else if(state==="testInverso"){
+
+      if(arrayI.split("").join(',') === respuestasI.join(',') ){
+        changeStimuli(1)
+      }
+      else  changeStimuli(0)
+
     }
-    else  changeStimuli(0)
-
     
   }
   
@@ -180,61 +210,33 @@ function Digitos() {
           callback={()=>imagenInit(1)}
         ></CustomButton>  
       </div>)
-     case "ejemplo A":
-     case "ejemplo B":  
-       return(
-         <div >
-             <h1> Estimulo {state}</h1>
-             <br/>
-             <br/>
-             {state==="ejemplo A"?<h1>C-1</h1>:<h1>A-4</h1>}
-             
-             {scored===undefined ? 
-             <div>
-               <p>Respuesta:</p>
-               <TextField
-                 defaultValue="0"
-                 
-                 variant="outlined"
-                 onChange={(x)=>{state==="ejemplo A"?answersExample[0][0]=x.target.value.slice(0,1).toUpperCase():
-                 answersExample[1][0]=x.target.value.slice(0,1).toUpperCase()}}
-               />
-               &nbsp;  &nbsp;
-               <TextField
-                 defaultValue="0"
-                 
-                 variant="outlined"
-                 onChange={(x)=>{state==="ejemplo A"?answersExample[0][1]=x.target.value.slice(0,1).toUpperCase()
-                 :answersExample[1][1]=x.target.value.slice(0,1).toUpperCase()}}
-               />
-             </div>
-             : scored ? <h2><u><i>¡CORRECTO!</i></u></h2>:<h2><u><i>¡INCORRECTO! </i></u></h2> }
-             
-             <CustomButton 
-             msj={scored===undefined?"Calificar":"Iniciar"}
-             callback={scored===undefined? scoreExample : next}
-             ></CustomButton> 
-         </div>
-       )
-       case "test":
+     case "initDirecto":
+      return (
+        <div>
+         <h1>Dígitos en Orden directo</h1>
+        <CustomButton
+          msj="Iniciar Digitos en orden directo"
+          callback={()=>setState('testDirecto')}
+        ></CustomButton>  
+      </div>)
+       case "testDirecto":
          return(
          <div>
-             
-             <h1> Estimulo {Math.trunc((numberItem-1)/3)+1}- Intento # {(numberItem-1)%3+1}</h1>
+             <h1> Estimulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
              <br/>
              <br/>
-             <h1>{stimuli[numberItem-1].join("-")}</h1>
+             <h1>{estimulosDD[numberItem-1].join("-")}</h1>
              
              <p>Respuesta:</p>
              
              <div className={classes.field}>
                <TextField
-                 value={answers[numberItem-1].split("").join("-")}
+                 value={answersD[numberItem-1].split("").join("-")}
                  variant="outlined"
                  onChange={(x)=>{
-                   setAnswers(update(answers,{
+                   setAnswersD(update(answersD,{
                      [numberItem-1]: {
-                       $set: x.target.value.toUpperCase().split("-").join("").slice(0,stimuli[numberItem-1].length)
+                       $set: x.target.value.toUpperCase().split("-").join("").slice(0,estimulosDD[numberItem-1].length)
                      }}))
                  }}
                />
@@ -246,13 +248,54 @@ function Digitos() {
                ></CustomButton> 
          </div>
          )
-       case "revision":
+      case "initInverso":
+          return (
+            <div>
+             <h1>Dígitos en Orden inverso</h1>
+            <CustomButton
+              msj="Iniciar Digitos en orden inverso"
+              callback={()=>setState('testInverso')}
+            ></CustomButton>  
+          </div>)
+      case "testInverso":
+        return(
+        <div>
+            
+            <h1> Estimulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
+            <br/>
+            <br/>
+            <h1>{estimulosDI[numberItem-1].join("-")}</h1>
+            
+            <p>Respuesta:</p>
+            
+            <div className={classes.field}>
+              <TextField
+                value={answersI[numberItem-1].split("").join("-")}
+                variant="outlined"
+                onChange={(x)=>{
+                  setAnswersI(update(answersI,{
+                    [numberItem-1]: {
+                      $set: x.target.value.toUpperCase().split("-").join("").slice(0,estimulosDI[numberItem-1].length)
+                    }}))
+                }}
+              />
+              
+            </div>
+            <CustomButton 
+              msj="siguiente"
+              callback={()=>score(numberItem-1)}
+              ></CustomButton> 
+        </div>
+        )
+      case "revision":
          return(
          <div>
            <h1>Dígitos</h1>
-           <h3>El puntaje por cada Item fue: </h3>
+
+
+           <h3>El puntaje por cada Item de dígitos directos fue: </h3>
            <div className={classes.fields}>
-             {results.map((result,index)=>
+             {resultsD.map((result,index)=>
                [<h3 key={index+1}>Item {index+1}</h3>,
                <div key={index} className={classes.field}>  
                  <TextField
@@ -266,7 +309,7 @@ function Digitos() {
                    }}
                    variant="outlined"
                    onChange={(x)=>
-                     setResultsAux(update(resultsAux,{
+                     setResultsDAux(update(resultsDAux,{
                        [index]: {
                          $set: parseInt(x.target.value)
                        }}))}
@@ -275,7 +318,7 @@ function Digitos() {
                  <TextField
                    className={classes.textfield}
                    label="Respuesta-paciente"
-                   defaultValue={answers[index].split("").join("-")}
+                   defaultValue={answersD[index].split("").join("-")}
                    inputProps={{
                      min:0,
                      max:1,
@@ -286,8 +329,47 @@ function Digitos() {
                  &nbsp;  &nbsp;
                  <TextField
                    className={classes.textfield}
-                   label="Respuesta correcta 1"
-                   defaultValue={rightAnswers[index].join("-")}
+                   label="Respuesta correcta"
+                   defaultValue={estimulosDD[index].join("-")}
+                   inputProps={{
+                     min:0,
+                     max:1,
+                   }}
+                   variant="outlined"
+                   disabled
+                 />
+
+               </div>]
+               )}
+             </div>
+
+
+             <h3>El puntaje por cada Item de dígitos inversos fue: </h3>
+             <div className={classes.fields}>
+             {resultsI.map((result,index)=>
+               [<h3 key={index+1}>Item {index+1}</h3>,
+               <div key={index} className={classes.field}>  
+                 <TextField
+                   className={classes.textfield}
+                   label={"Calificacion"}
+                   type="number"
+                   defaultValue={result}
+                   inputProps={{
+                     min:0,
+                     max:1,
+                   }}
+                   variant="outlined"
+                   onChange={(x)=>
+                     setResultsIAux(update(resultsIAux,{
+                       [index]: {
+                         $set: parseInt(x.target.value)
+                       }}))}
+                 />
+                  &nbsp;  &nbsp;
+                 <TextField
+                   className={classes.textfield}
+                   label="Respuesta-paciente"
+                   defaultValue={answersI[index].split("").join("-")}
                    inputProps={{
                      min:0,
                      max:1,
@@ -298,8 +380,8 @@ function Digitos() {
                  &nbsp;  &nbsp;
                  <TextField
                    className={classes.textfield}
-                   label="Respuesta correcta 2"
-                   defaultValue={rightAnswers[index].slice().sort().join("-")}
+                   label="Respuesta correcta"
+                   defaultValue={respuestasCorrectasDI[index].join("-")}
                    inputProps={{
                      min:0,
                      max:1,
@@ -307,6 +389,7 @@ function Digitos() {
                    variant="outlined"
                    disabled
                  />
+
                </div>]
                )}
              </div>
@@ -320,11 +403,13 @@ function Digitos() {
                  <CustomButton             
                  msj="Actualizar Datos"
                  callback={()=>{
-                   setResults(resultsAux)
+                   setResultsD(resultsDAux)
+                   setResultsI(resultsIAux)
                    setState("results")
                  }}
                  ></CustomButton> 
              </div>
+
          </div>
          )
        case "results":
@@ -343,7 +428,6 @@ function Digitos() {
  
    return (
      <div>
-       
        {content()}
      </div>
    );

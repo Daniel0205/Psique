@@ -13,9 +13,11 @@ import ErrorIcon from '@material-ui/icons/Error';
 import Divider from '@material-ui/core/Divider';
 import {Link} from "react-router-dom";
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import moment from "moment";
 
 import reyImage from '../../assets/ReyTest/ReyImage.png';
 import Background from '../../assets/Fondo/FondoNubes.jfif';
@@ -30,7 +32,7 @@ const useStyles =  makeStyles((theme) => ({
   },
   classTitle: {
     textAlign: "center",
-    /*background-color: dodgerblue;*/
+    alignSelf: "center",
   },
   ReyImage: {
     backgroundImage: "url(" + reyImage + ")",
@@ -64,7 +66,7 @@ function King() {
   var patientName = "Juan Pablo Prueba";
   var patientId = "0";
 
-  const [testDate, setTestDate] = React.useState(new Date());
+  const [testDate, setTestDate] = React.useState(moment(new Date()).format("YYYY-MM-DD"));
   var [minutes, setMinutes] = useState(0);
   var [seconds, setSeconds] = useState(0);
   var [copyType, setCopyType] = useState("");
@@ -147,7 +149,7 @@ function King() {
   var [time, setTime] = useState(0);
   var [modalControl, setModalControl] = useState(false);
 
-  var [alertController, setAlertController] = useState(0); //0: nothing; 1: alertTime; 2: alertMinutes; 3: alertSeconds
+  const [alertController, setAlertController] = useState(0); //0: nothing; 1: alertTime; 2: alertMinutes; 3: alertSeconds
 
   function computeScores(absentV, stateV, locatedV){
     /* 
@@ -170,13 +172,14 @@ function King() {
     return result;
   }
 
-  function save(){
+  const save = () => {
     setAlertController(0);    
     if((minutes >= 0) || (minutes <= maxMinutes)){
       if((seconds >= 0) || (seconds < 60)){
-        setTime((minutes*60) + seconds);
+        let timeSum = Number((minutes*60)) + Number(seconds);
+        setTime(timeSum);
 
-        if(time > 0){
+        if(timeSum > 0){
           setScore(computeScores(absentFig1,  stateFig1,  locatedFig1) +
                    computeScores(absentFig2,  stateFig2,  locatedFig2) +
                    computeScores(absentFig3,  stateFig3,  locatedFig3) +
@@ -246,20 +249,20 @@ function King() {
           <DialogTitle id="simple-dialog-title">Por favor confirme los resultados</DialogTitle>
           <Divider />
             <DialogContent>              
-              <DialogContentText>Paciente: {patientName} </DialogContentText>
-              <DialogContentText>ID: {patientId}</DialogContentText>
+              <DialogContentText id="patient">Paciente: {patientName} </DialogContentText>
+              <DialogContentText id="IDpatient">ID: {patientId}</DialogContentText>
               <br></br>
-              <DialogContentText> Fecha: {testDate} </DialogContentText>
-              <DialogContentText >Tiempo (segundos): {time}</DialogContentText>
-              <DialogContentText >Puntaje: {score}</DialogContentText>
+              <DialogContentText id="testDate"> Fecha: {testDate} </DialogContentText>
+              <DialogContentText id="duration">Tiempo (segundos): {time}</DialogContentText>
+              <DialogContentText id="Score">Puntaje: {score}</DialogContentText>
               <br></br>
-              <DialogContent>
-                <Grid container justify="center" spacing={2}>
-                  <Grid item xs={4}> <Link to={'/home'}> <CustomButton msj="Sí" /> </Link> </Grid>
-                  <Grid item xs={4}> <CustomButton msj="No" callback={()=>setModalControl(false)} /> </Grid>
-                </Grid>
-              </DialogContent>
             </DialogContent>
+            <DialogActions>
+              <Grid container justify="center" spacing={2}>
+                <Grid item xs={4}> <Link to={'/home'}> <CustomButton msj="Sí" /> </Link> </Grid>
+                <Grid item xs={4}> <CustomButton msj="No" callback={()=>setModalControl(false)} /> </Grid>
+              </Grid>
+            </DialogActions>
         </Dialog>    
       </div>
     );
@@ -302,9 +305,9 @@ function King() {
 
           <br></br>
           <Grid container justify="center" spacing={2}>
-            <Grid item> <FormLabel> Tiempo: </FormLabel> </Grid>
-            <Grid item> <TextField required label="Minutos" value={minutes} onChange={(e)=>setMinutes(e.target.value)} maxLength="3" inputProps={{ 'aria-label': 'minutes' }} /> </Grid>
-            <Grid item> <TextField required label="Segundos" value={seconds}  onChange={(e)=>setSeconds(e.target.value)} maxLength="2" inputProps={{ 'aria-label': 'seconds' }} /> </Grid>
+            <Grid item className={classes.classTitle}> <FormLabel> Tiempo: </FormLabel> </Grid>
+            <Grid item> <TextField required type="number" label="Minutos" value={minutes} onChange={(e)=>setMinutes(e.target.value)} maxLength="3" inputProps={{ 'aria-label': 'minutes' }} /> </Grid>
+            <Grid item> <TextField required type="number" label="Segundos" value={seconds}  onChange={(e)=>setSeconds(e.target.value)} maxLength="2" inputProps={{ 'aria-label': 'seconds' }} /> </Grid>
           </Grid>
           <br></br>
 
@@ -554,7 +557,7 @@ function King() {
             {alertsSave()}
           </Grid>
           <br></br>
-          <CustomButton msj="Guardar" callback={() => save}> </CustomButton>
+          <CustomButton msj="Guardar" callback={save}> </CustomButton>
         </form>
 
         <br></br>

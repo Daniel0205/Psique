@@ -22,7 +22,7 @@ import Semejanzas from "./subtest/semejanzas"
 import Vocabulario from "./subtest/vocabulario"
 
 
-const texts = ["Cubos","Semejanzas","Dígitos",
+const texts = ["Cubos","Semejanzas","Digitos",
 "Conceptos con dibujos","Claves","Vocabulario","Sucesion de numeros y letras",
 "Matrices","Comprension","Busqueda de simbolos","Figuras incompletas",
 "Registros","Informacion", "Aritmetica","Pistas"]

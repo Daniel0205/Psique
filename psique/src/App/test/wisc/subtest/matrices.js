@@ -202,7 +202,7 @@ function Matrices() {
       case "seleccion":
         return(
          <div >
-         <h1>Figuras incompletas</h1>
+         <h1>Matrices</h1>
          <p>En que estimulo desea iniciar la prueba? </p>
          <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
          <CustomButton msj="Estimulo 4"

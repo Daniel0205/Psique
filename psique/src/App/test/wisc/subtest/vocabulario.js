@@ -213,7 +213,7 @@ function Vocabulario() {
        
           if((numberItem===firstItem || numberItem===firstItem+1) && retornoHecho){
 
-            if(numberItem===5){
+            if(numberItem===firstItem){
               setState('testImage')
             }
 
@@ -483,7 +483,7 @@ function Vocabulario() {
       case "results":
         return(
          <Results
-         name="Semejanzas"
+         name="Vocabulario"
          result={getResult()}
          callback={()=>{
           setResultsAux(results) 

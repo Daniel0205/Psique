@@ -45,9 +45,10 @@ const componentTest = [<Cubos></Cubos>,
               <FigurasIncompletas></FigurasIncompletas>]
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   general: {
     textAlign: "center",
+    padding: theme.spacing(3),
   },
   subprueba:{
     display: "grid",
@@ -56,8 +57,8 @@ const useStyles = makeStyles({
     paddingRight: "10%",
     gridRowGap: "10%",
     gridColumnGap: "5%"
-  }
-});
+  },
+}));
 
 function Wais(props) {
  const [state] = useState(props.subtest)

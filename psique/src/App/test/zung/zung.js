@@ -36,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     gridTemplateColumns: '40% 60%',
   },
+  general: {
+    padding: theme.spacing(3),
+    textAlign: "center",
+  },
 }));
 
 let answers = new Array(20).fill(0);
@@ -82,7 +86,7 @@ function Zung() {
   
   if(state==='test'){
     return (
-      <div>
+      <div className={classes.general}>
         <h1>Escala de depresión de autoevaluación de Zung</h1>
         <h3>Para cada elemento a continuación, verifique la columna que mejor describe con qué frecuencia se sintió o se comportó de esta manera durante los últimos días.</h3>
         {phrases.map((x,i)=>

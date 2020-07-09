@@ -36,7 +36,6 @@ function App(props) {
         return <Redirect to="/test/wais/vocabulario" />
       case "WAIS-Digitos":
         return <Redirect to="/test/wais/digitos" />
-
       case "WISC IV":
         return <Redirect to="/test/wisc" />
       case "WISC-selection":

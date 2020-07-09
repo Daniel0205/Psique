@@ -15,6 +15,7 @@ import {
 
 const useStyles =  makeStyles((theme) => ({
   general: {
+    padding: theme.spacing(3),
     textAlign: "center",
   },
   paper: {

@@ -46,6 +46,7 @@ let timer;
 function FigurasIncompletas() {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
+  const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [timeBool,setTimeBool] = useState(false)
 
@@ -71,7 +72,7 @@ function FigurasIncompletas() {
           }
         }
         else {
-          console.log("ENTRO1")
+
           clearTimeout(timer)
           countRe=0
           terminacion++;
@@ -83,7 +84,7 @@ function FigurasIncompletas() {
       }
       else{
         if(1===key){
-          console.log("ENTRO2")
+
           setResults(update(results,{
             [numberItem-1]: {
               $set: 1
@@ -105,7 +106,7 @@ function FigurasIncompletas() {
         
       }
 
-      if(numberItem===NUMBER_STIMULI || numberItem===1|| terminacion===LIMIT_ERROR){
+      if(numberItem===NUMBER_STIMULI ||  (numberItem===1 && retornoHecho)|| terminacion===LIMIT_ERROR){
         if(numberItem===1 ||retorno)setResults(new Array(NUMBER_STIMULI).fill(0))
         setState('results')
       }
@@ -144,6 +145,7 @@ function FigurasIncompletas() {
         break;
       case 'results':
         setState('revision')
+        setResultsAux(results)
         break;
       case 'instruccion':
         setState('seleccion')
@@ -174,7 +176,7 @@ function FigurasIncompletas() {
   //Timer: En caso de que la imagen pase por que se acabo el tiempo se dará una calificación de 0 al item
   function startTimer() {
     timer = setTimeout(() => {
-      console.log("ENTROOO")
+
       setTimeBool(true)
     },TIME_LIMIT)
   }
@@ -272,7 +274,7 @@ function FigurasIncompletas() {
                   }}
                   variant="outlined"
                   onChange={(x)=>
-                    setResults(update(results,{
+                    setResultsAux(update(resultsAux,{
                       [index]: {
                         $set: parseInt(x.target.value)
                       }}))}
@@ -283,14 +285,17 @@ function FigurasIncompletas() {
             
 
             <div id='buttons'>
-                <CustomButton              
-                msj="Regresar"
-                callback={next}
-                ></CustomButton> 
-                <CustomButton             
-                msj="Actualizar Datos"
-                callback={()=>setState("results")}
-                ></CustomButton> 
+              <CustomButton              
+              msj="Regresar"
+              callback={()=>setState("results")}
+              ></CustomButton> 
+              <CustomButton             
+              msj="Actualizar Datos"
+              callback={()=>{
+                setResults(resultsAux)
+                setState("results")
+              }}
+              ></CustomButton> 
             </div>
         </div>
         )

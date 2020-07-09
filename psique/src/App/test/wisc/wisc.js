@@ -22,7 +22,7 @@ import Semejanzas from "./subtest/semejanzas"
 import Vocabulario from "./subtest/vocabulario"
 
 
-const texts = ["Cubos","Semejanzas","Dígitos",
+const texts = ["Cubos","Semejanzas","Digitos",
 "Conceptos con dibujos","Claves","Vocabulario","Sucesion de numeros y letras",
 "Matrices","Comprension","Busqueda de simbolos","Figuras incompletas",
 "Registros","Informacion", "Aritmetica","Pistas"]
@@ -68,7 +68,7 @@ function Wisc(props) {
     switch(state){
       case 'confirmacion':
         return(<TestStart
-          name="Wisc"
+          name="WISC"
           change={()=>props.setBody("WISC-selection")}
         ></TestStart>)
         
@@ -84,7 +84,7 @@ function Wisc(props) {
           <CustomButton
           key={i}
           msj={name}
-          callback={()=>props.setBody(name)}>
+          callback={()=>props.setBody("WISC-"+name)}>
           </CustomButton>)}
         </div>
         <br/>

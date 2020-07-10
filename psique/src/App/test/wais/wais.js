@@ -70,7 +70,7 @@ function Wais(props) {
     switch(state){
       case 'confirmacion':
         return(<TestStart
-          name="Wais"
+          name="WAIS"
           change={()=>props.setBody("WAIS-selection")}
         ></TestStart>)
         

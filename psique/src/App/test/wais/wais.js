@@ -61,35 +61,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Wais(props) {
- const [state,setState] = useState("confirmacion")
+ const [state] = useState(props.subtest)
 
  const classes = useStyles();
-
- function change(test){
-    
-    switch(state){
-      case 'confirmacion':
-        setState('aplicacion')
-        break;
-      case 'aplicacion':
-          setState(test)
-        break;
-      default:
-        break;
-    }
-  }
-
-  function cancel(){
-    props.setBody("init")
-  }
 
   function content(){
 
     switch(state){
       case 'confirmacion':
         return(<TestStart
-          name="Wais"
-          change={change}
+          name="WAIS"
+          change={()=>props.setBody("WAIS-selection")}
         ></TestStart>)
         
       case 'aplicacion':
@@ -104,7 +86,7 @@ function Wais(props) {
           <CustomButton
           key={i}
           msj={name}
-          callback={()=>change(name)}>
+          callback={()=>props.setBody("WAIS-"+name)}>
           </CustomButton>)}
         </div>
         <br/>
@@ -112,18 +94,15 @@ function Wais(props) {
     
         <CustomButton
           msj="Cancelar"
-          callback={cancel}>
+          callback={()=>props.setBody("init")}>
           </CustomButton>
     
       </div>)
 
       default:
-        console.log("ENTROOOO")
+
         for (let i = 0; i < texts.length; i++) {
-          console.log(state)
-          console.log(texts[i])
-          console.log(texts[i]===state)
-          if(texts[i]===state) return componentTest[i]
+          if((state)===texts[i]) return componentTest[i]
         }
         break;
     }

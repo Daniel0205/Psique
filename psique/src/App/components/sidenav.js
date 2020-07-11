@@ -72,7 +72,7 @@ function Sidenav(props) {
       case 'init':
         return <Body callback={(x)=>setAux(x)}/>
       case "WAIS IV":
-        return <Wais ></Wais>
+        return <Wais  subtest={props.subtest}></Wais>
       case "WISC IV":
         return <Wisc subtest={props.subtest}></Wisc>
       case "Prueba de STROOP":

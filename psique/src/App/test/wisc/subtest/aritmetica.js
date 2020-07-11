@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 
 const useStyles = makeStyles((theme) => ({
   img:{
       width:"45%"
-  },
-  paper: {
-    height: "70%",
-    width: '60%',
   },
   fields:{
     display: "inline-grid",
@@ -32,7 +27,7 @@ const NUMBER_STIMULI = 34;
 
 //const rightExample = [[2,3,0],[1,3,0]]
 
-const stimuliSource = ["01.jpg","02.jpg","03.jpg","04.jpg","05.jpg"];
+const stimuliSource = ["01","02","03","04","05"];
 const rightAnswers = ['3','5','10','9','2','4','5','3','6','2','7','6','15','14','25','5','7','9','20','32','24','19','7','6','8.50','20','3','60','30','3','34','48','2:00 pm','40 km'];
 
 //let returnDone = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -51,12 +46,12 @@ const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta par
                   "Roberto tiene 5 libros. Pierde 1 ¿Cuántos libros le quedan?",
                   "Cuántas son 2 crayolas más 3 crayolas",
                   "José tiene 5 galletas. Le da 1 a samuel y 1 a jimena. ¿Cuántas galletas le quedan?",
-                  "Juan tenía 4 pesos y su mamá le dio 2 más. ¿Cuántos peoso tiene en total?",
-                  "si corto una manzana por la mitad. ¿Cuántos pedaos tendré?",
+                  "Juan tenía 4 pesos y su mamá le dio 2 más. ¿Cuántos pesos tiene en total?",
+                  "si corto una manzana por la mitad. ¿Cuántos pedazos tendré?",
                   "Si tienes 10 caramelos y te comes 3. ¿Cuántos caramelos te quedan?",
                   "Si tienes 3 lápices en cada mano. ¿Cuántos lápices tienes en total?",
-                  "Tres bicicletas llegan a un parque donde ya hat 12 bicicletas. ¿Cuántas bicicletas hay en total en el parque?",
-                  "Marcos tenía 8 pelotas y compró 6 más. ¡Cuántas pelotas tiene en total?",
+                  "Tres bicicletas llegan a un parque donde ya hay 12 bicicletas. ¿Cuántas bicicletas hay en total en el parque?",
+                  "Marcos tenía 8 pelotas y compró 6 más. ¿Cuántas pelotas tiene en total?",
                   "Francisco ganó 10 calcomanías el lunes y 15 calcomanías el martes. ¿Cuántas calcomanías ganó en total?",
                   "En un campo hay tres vacas. Otras cuatro vacas llegan al campo y después se van 2 vacas. ¿Cuántas vacas quedan en el campo?",
                   "Catalina tenía 12 globos y vendió 5. ¿Cuantos globos quedaron?",
@@ -86,12 +81,12 @@ function Aritmetica() {
   var [state,setState]=useState("instruccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(1)
-  var [actualStimuli, setActualStimuli] = useState("");
+//  var [actualStimuli, setActualStimuli] = useState("");
 
   var [givenAnswer, setGivenAnswer] = useState("");
 
-  function changeStimuli(){
-    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem === 0 && results[numberItem]===0)){ // Verifica que no se haya cumplido la condicion de termino
+  function changeStimuli(punt){
+    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem === 0 && punt===0)){ // Verifica que no se haya cumplido la condicion de termino
       if(numberItem<5){ //Cambia el estado actual para no mostrar o mostrar la img cuando sea necesario
         setState('aplicacionImg');
       }else if(numberItem>=5){
@@ -104,7 +99,7 @@ function Aritmetica() {
           ((numberItem === 8 || numberItem === 9) && firstItem === 8) ||
           ((numberItem === 11 || numberItem === 12) && firstItem === 11)
          )
-          && results[numberItem]===0){
+          && punt===0){
         returnVar = true;
         flagRe = numberItem;
         setNumberItem(firstItem);
@@ -114,17 +109,17 @@ function Aritmetica() {
         setNumberItem(numberItem+1);
         if(numberItem<5){
           setState('aplicacionImg');
-          setActualStimuli("../../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
+          //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
         }else{
           setState('aplicacion');
         }
       }else{ //En caso de que halla fallado los primeros reactivos vuelve al reactivo anterior y empieza a disminuir desde ahí        
-        if(countRe===5){
+        if(countRe===2){
           returnVar = false;
-          numberItem = flagRe + 1;
+          setNumberItem(flagRe + 1);
           if(numberItem<5){
             setState('aplicacionImg');
-            setActualStimuli("../../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
+            //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
           }else{
             setState('aplicacion');
           }
@@ -134,7 +129,7 @@ function Aritmetica() {
           setNumberItem(numberItem-1);
           if(numberItem<5){
             setState('aplicacionImg');
-            setActualStimuli("../../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
+            //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
           }else{
             setState('aplicacion');
           }
@@ -143,7 +138,7 @@ function Aritmetica() {
       }      
 
     }else{
-      this.estado = 'terminado';
+      setState('terminado');
     }    
   }
 
@@ -151,9 +146,9 @@ function Aritmetica() {
     firstItem=item
     setNumberItem(item)
 
-    if(numberItem<5){
+    if(item<5){
       setState('aplicacionImg');
-      setActualStimuli("../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
+      //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
     }else{
       setState('aplicacion');
     }
@@ -190,7 +185,7 @@ function Aritmetica() {
     answers[numberItem] = givenAnswer;
     setGivenAnswer('');
     if(answers[numberItem] === rightAnswers[numberItem]){
-      if(this.retorno){        
+      if(returnVar){        
         countRe +=1;        
       }
 
@@ -202,6 +197,8 @@ function Aritmetica() {
         [numberItem]: {
           $set: 1
         }}))
+      
+      changeStimuli(1);
       
     }else{
       setResults(update(results,{
@@ -216,9 +213,9 @@ function Aritmetica() {
       if(countRe>0){
         countRe=0;
       }
-    }
 
-    changeStimuli();
+      changeStimuli(0);
+    }    
   }
 
   function content(){
@@ -267,26 +264,24 @@ function Aritmetica() {
        case "aplicacionImg":
        return(
          <div>
-           <h1>{consigna[numberItem]}</h1>
-           <img 
-            className={classes.img}
-            alt={"Estimulo "+stimuliSource[numberItem]}
-            src={require(actualStimuli)}/>
+            <h1>{consigna[numberItem]}</h1>
+            <img 
+              className={classes.img}
+              alt={"Estimulo "+stimuliSource[numberItem]}
+              src={require("../../../assets/estimulos/aritmeticawisc/"+stimuliSource[numberItem]+".jpg")}
+            />
             <br></br><br></br><br></br>
-            <Paper className={classes.paper}>
-              <p>Respuesta dada: </p>
-              <TextField
-                label = "Respuesta dada"
-                value={givenAnswer}
-                variant="outlined"
-                onChange={(x)=>{setGivenAnswer(x)}}
-              />
-              <br/><br/>
-              <CustomButton 
-                msj="siguiente"
-                callback={()=>score(numberItem)}
-              ></CustomButton> 
-            </Paper>
+            <TextField
+              label = "Respuesta dada"
+              value={givenAnswer}
+              variant="outlined"
+              onChange={(x)=>{setGivenAnswer(x.target.value)}}
+            />
+            <br/><br/>
+            <CustomButton 
+              msj="siguiente"
+              callback={()=>score(numberItem)}
+            ></CustomButton> 
          </div>
        );
 
@@ -294,21 +289,18 @@ function Aritmetica() {
        return(
          <div>
             <h1>{consigna[numberItem]}</h1>           
-            <br></br>
-            <Paper className={classes.paper}>
-              <p>Respuesta dada: </p>
-              <TextField
-                label = "Respuesta dada"
-                value={givenAnswer}
-                variant="outlined"
-                onChange={(x)=>{setGivenAnswer(x)}}
-              />
-              <br/><br/>
-              <CustomButton 
-                msj="siguiente"
-                callback={()=>score()}
-              ></CustomButton> 
-            </Paper>
+            <br></br>        
+            <TextField
+              label = "Respuesta dada"
+              value={givenAnswer}
+              variant="outlined"
+              onChange={(x)=>{setGivenAnswer(x.target.value)}}
+            />
+            <br/><br/>
+            <CustomButton 
+              msj="siguiente"
+              callback={()=>score()}
+            ></CustomButton>
          </div>
        );
 

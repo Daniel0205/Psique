@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LetrasNumeros() {
-  const [state,setState]=useState("test")
+  const [state,setState]=useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)

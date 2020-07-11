@@ -11,6 +11,7 @@ import Wais from '../test/wais/wais';
 import Wisc from '../test/wisc/wisc';
 import Zung from '../test/zung/zung';
 import King from '../test/king/king';
+import Wada from '../test/wada/wada';
 
 
 const useStyles = makeStyles(theme => ({
@@ -83,6 +84,8 @@ function Sidenav(props) {
         return <King ></King>
       case "Prueba de Zung":
         return <Zung ></Zung>
+      case "Wada":
+        return <Wada></Wada>
       default:
         break;
     }

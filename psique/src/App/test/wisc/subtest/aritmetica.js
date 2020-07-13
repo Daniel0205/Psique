@@ -109,36 +109,33 @@ function Aritmetica() {
         setNumberItem(numberItem+1);
         if(numberItem<5){
           setState('aplicacionImg');
-          //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
         }else{
           setState('aplicacion');
         }
+
       }else{ //En caso de que halla fallado los primeros reactivos vuelve al reactivo anterior y empieza a disminuir desde ahí        
         if(countRe===2){
           returnVar = false;
           setNumberItem(flagRe + 1);
           if(numberItem<5){
             setState('aplicacionImg');
-            //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
           }else{
             setState('aplicacion');
           }
-          //this.consignaActual = this.consigna[numberItem];
           
         }else{
-          setNumberItem(numberItem-1);
-          if(numberItem<5){
+          var nextNumber = numberItem - 1;
+          setNumberItem(nextNumber);
+          if(nextNumber<5){
             setState('aplicacionImg');
-            //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
           }else{
             setState('aplicacion');
           }
-          //this.consignaActual = this.consigna[numberItem];
         }        
       }      
 
     }else{
-      setState('terminado');
+      setState('revision');
     }    
   }
 
@@ -311,7 +308,7 @@ function Aritmetica() {
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
-              [<h3 key={index+1}>Item {index+1}</h3>,
+              [<h3 key={index+1}>Reactivo {index+1}</h3>,
               <div key={index} className={classes.field}>
                 <TextField
                   className={classes.textfield}
@@ -333,11 +330,7 @@ function Aritmetica() {
                 <TextField
                   className={classes.textfield}
                   label="Respuesta-paciente"
-                  defaultValue={index<=11 ? answers[index][0]+"-"+answers[index][1]:answers[index][0]+"-"+answers[index][1]+"-"+answers[index][2]}
-                  inputProps={{
-                    min:0,
-                    max:1,
-                  }}
+                  defaultValue={answers[index]}
                   variant="outlined"
                   disabled
                 />
@@ -345,11 +338,7 @@ function Aritmetica() {
                 <TextField
                   className={classes.textfield}
                   label="Respuesta correcta"
-                  defaultValue={index<=11 ? rightAnswers[index][0]+"-"+rightAnswers[index][1]:rightAnswers[index][0]+"-"+rightAnswers[index][1]+"-"+rightAnswers[index][2]}
-                  inputProps={{
-                    min:0,
-                    max:1,
-                  }}
+                  defaultValue={rightAnswers[index]}
                   variant="outlined"
                   disabled
                 />

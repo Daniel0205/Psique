@@ -73,11 +73,11 @@ function Aritmetica() {
   var [givenAnswer, setGivenAnswer] = useState("");
 
   function changeStimuli(punt){    
-    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem === 0 && punt===0)){ // Verifica que no se haya cumplido la condicion de termino
+    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem == 0 && punt==0)){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
       
       //Este verificacion me dice si se cumple la condición para retornar y asi devolverse en caso de ser necesario
-      if(((numberItem === 6 || numberItem === 7) && firstItem === 6) && punt===0 && !returnDone){
+      if(((numberItem == 6 || numberItem == 7) && firstItem == 6) && punt==0 && !returnDone){
         returnVar = true;
         flagRe = numberItem;
         nextNumber = firstItem;
@@ -94,7 +94,7 @@ function Aritmetica() {
           setState('aplicacion');
         }
       }else{ //En caso de que halla fallado los primeros reactivos vuelve al reactivo anterior y empieza a disminuir desde ahí        
-        if(countRe===2){
+        if(countRe==2){
           returnVar = false;
           nextNumber = flagRe + 1;
           setNumberItem(nextNumber);
@@ -131,7 +131,7 @@ function Aritmetica() {
         answers[numberItem] = givenAnswer;
         setGivenAnswer('');
         setNumberItem(firstItem);
-        if(firstItem === 6){
+        if(firstItem == 6){
           setState('aplicacion');
         }else{
           setState('aplicacionImg');
@@ -166,7 +166,7 @@ function Aritmetica() {
   function score(){    
     answers[numberItem] = givenAnswer;
     setGivenAnswer('');
-    if(answers[numberItem] === rightAnswers[numberItem]){
+    if(answers[numberItem] == rightAnswers[numberItem]){
       if(returnVar){        
         countRe +=1;        
       }

@@ -30,7 +30,7 @@ const NUMBER_STIMULI = 34;
 const stimuliSource = ["01","02","03","04","05"];
 const rightAnswers = ['3','5','10','9','2','4','5','3','6','2','7','6','15','14','25','5','7','9','20','32','24','19','7','6','8.50','20','3','60','30','3','34','48','2:00 pm','40 km'];
 
-//let returnDone = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
 let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
 let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
 let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
@@ -87,11 +87,7 @@ function Aritmetica() {
 
   function changeStimuli(punt){
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem === 0 && punt===0)){ // Verifica que no se haya cumplido la condicion de termino
-      if(numberItem<5){ //Cambia el estado actual para no mostrar o mostrar la img cuando sea necesario
-        setState('aplicacionImg');
-      }else if(numberItem>=5){
-        setState('aplicacion');
-      }
+      var nextNumber = numberItem;
 
       //Este verificacion me dice si se cumple la condición para retornar y asi devolverse en caso de ser necesario
       if((
@@ -99,15 +95,17 @@ function Aritmetica() {
           ((numberItem === 8 || numberItem === 9) && firstItem === 8) ||
           ((numberItem === 11 || numberItem === 12) && firstItem === 11)
          )
-          && punt===0){
+          && punt===0 && !returnDone){
         returnVar = true;
         flagRe = numberItem;
-        setNumberItem(firstItem);
+        nextNumber = firstItem;
+        returnDone = true;
       }
 
       if(!returnVar){ //En caso de no haber fallado los items 6 0 7 sigue aumentado a partir de ahí
-        setNumberItem(numberItem+1);
-        if(numberItem<5){
+        nextNumber += 1;
+        setNumberItem(nextNumber);
+        if(nextNumber<5){
           setState('aplicacionImg');
         }else{
           setState('aplicacion');
@@ -116,7 +114,8 @@ function Aritmetica() {
       }else{ //En caso de que halla fallado los primeros reactivos vuelve al reactivo anterior y empieza a disminuir desde ahí        
         if(countRe===2){
           returnVar = false;
-          setNumberItem(flagRe + 1);
+          nextNumber = flagRe + 1;
+          setNumberItem(nextNumber);
           if(numberItem<5){
             setState('aplicacionImg');
           }else{
@@ -124,7 +123,7 @@ function Aritmetica() {
           }
           
         }else{
-          var nextNumber = numberItem - 1;
+          nextNumber -= 1;
           setNumberItem(nextNumber);
           if(nextNumber<5){
             setState('aplicacionImg');
@@ -145,7 +144,6 @@ function Aritmetica() {
 
     if(item<5){
       setState('aplicacionImg');
-      //setActualStimuli("../../../assets/estimulos/aritmeticawisc/" + stimuliSource[numberItem]);
     }else{
       setState('aplicacion');
     }

@@ -28,11 +28,10 @@ const NUMBER_STIMULI = 23;
 const stimuliSource = ["01","02","03","04","05"];
 const rightAnswers = ['3','3','10','6','9','2','8','5','5','17','5','3','200','38','140',null,null,'600','47',null,'51','216','23100'];
 
-//let returnDone = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
 let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
 let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
 let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
-let alreadyReturned = false;
 
 let badAnswerCount = 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 
@@ -75,25 +74,21 @@ function Aritmetica() {
 
   function changeStimuli(punt){    
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !(numberItem === 0 && punt===0)){ // Verifica que no se haya cumplido la condicion de termino
-      /*if(numberItem>0 && numberItem<6){ //Cambia el estado actual para no mostrar o mostrar la img cuando sea necesario
-        setState('aplicacionImg');
-      }else if(numberItem>=6){
-        setState('aplicacion');
-      }*/
-      //Este verificacion me dice si se cumple la condición para retornar y asi devolverse en caso de ser necesario
       var nextNumber = numberItem;
-      if(((numberItem === 6 || numberItem === 7) && firstItem === 6) && punt===0 && !alreadyReturned){
+      
+      //Este verificacion me dice si se cumple la condición para retornar y asi devolverse en caso de ser necesario
+      if(((numberItem === 6 || numberItem === 7) && firstItem === 6) && punt===0 && !returnDone){
         returnVar = true;
         flagRe = numberItem;
         nextNumber = firstItem;
-        alreadyReturned = true;
+        returnDone = true;
         //setNumberItem(firstItem);
       }
 
       if(!returnVar){ //En caso de no haber fallado los items 6 0 7 sigue aumentado a partir de ahí
         nextNumber += 1;
         setNumberItem(nextNumber);
-        if(nextNumber<5){
+        if(nextNumber<6){
           setState('aplicacionImg');
         }else{
           setState('aplicacion');

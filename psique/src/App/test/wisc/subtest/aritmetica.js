@@ -346,26 +346,23 @@ function Aritmetica() {
             
 
             <div >
-                <CustomButton              
+              <CustomButton
                 msj="Regresar"
                 callback={next}
-                ></CustomButton> 
-                <CustomButton             
-                msj="Actualizar Datos"
-                callback={()=>setState("results")}
-                ></CustomButton> 
+              />
             </div>
         </div>
         )
       case "results":
-            return(
-           <Results
-           name="Aritmética"
-           result={getResult()}
-           callback={next}
-           url="WISC-selection"
-           ></Results>
-            )
+        return(
+          <Results
+            name="Aritmética"
+            result={getResult()}
+            callback={next}
+            url="WISC-selection"
+          ></Results>
+        )
+
      default:
        break;
     }

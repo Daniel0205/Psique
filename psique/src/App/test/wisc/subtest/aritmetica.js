@@ -105,7 +105,6 @@ function Aritmetica() {
 
       if(!returnVar){ //En caso de no haber fallado los items 6 0 7 sigue aumentado a partir de ahí
         nextNumber += 1;
-        setNumberItem(nextNumber);
         if(nextNumber<5){
           setState('aplicacionImg');
         }else{
@@ -116,7 +115,6 @@ function Aritmetica() {
         if(countRe===2){
           returnVar = false;
           nextNumber = flagRe + 1;
-          setNumberItem(nextNumber);
           if(numberItem<5){
             setState('aplicacionImg');
           }else{
@@ -125,14 +123,18 @@ function Aritmetica() {
           
         }else{
           nextNumber -= 1;
-          setNumberItem(nextNumber);
           if(nextNumber<5){
             setState('aplicacionImg');
           }else{
             setState('aplicacion');
           }
-        }        
-      }      
+        }
+      }
+
+      setNumberItem(nextNumber);
+      if(nextNumber>= NUMBER_STIMULI){
+        setState('revision');
+      }
 
     }else{
       setState('revision');
@@ -140,6 +142,12 @@ function Aritmetica() {
   }
 
   function imagenInit(item){
+    let arrayAux = results
+    for (let i = 0; i < item; i++) {
+      arrayAux[i]=1
+    }
+    setResults(arrayAux)
+
     firstItem=item
     setNumberItem(item)
 
@@ -348,7 +356,7 @@ function Aritmetica() {
 
             <div >
               <CustomButton
-                msj="Regresar"
+                msj="Resumen"
                 callback={next}
               />
             </div>

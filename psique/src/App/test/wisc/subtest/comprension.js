@@ -190,7 +190,8 @@ function Comprension() {
   const classes = useStyles();
 
   function changeStimuli(punt){
-    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI)){ // Verifica que no se haya cumplido la condicion de termino
+    var returnController = firstItem!==0 && returnVar && numberItem===0 && countRe!==2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
+    if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
 
       //Este verificacion me dice si se cumple la condición para retornar y asi devolverse en caso de ser necesario

@@ -436,7 +436,7 @@ function Comprension() {
                     defaultValue={result}
                     inputProps={{
                       min:0,
-                      max:1,
+                      max:2,
                     }}
                     variant="outlined"
                     onChange={(x)=>

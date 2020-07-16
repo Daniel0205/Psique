@@ -108,13 +108,13 @@ function Claves() {
             <p>Seleccione el reactivo que se le aplicó al paciente </p>
             <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual:</p>
             <CustomButton
-              msj="Busqueda de simbolos A"
+              msj="Clave de Números A"
               callback={()=>testInit('A')}
             ></CustomButton>            
             <br/>
             <p>Pacientes de edad 8-16:</p>
             <CustomButton
-              msj="Busqueda de simbolos B"
+              msj="Clave de Números B"
               callback={()=>testInit('B')}
             ></CustomButton>
           </div>

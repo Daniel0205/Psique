@@ -149,7 +149,7 @@ function Claves() {
 
                 <br/>
                 <b>Intrucciones:</b>
-                <p>Registre la calificacion obtenida por el paciente en la prueba</p>
+                <p>Registre la calificación obtenida por el paciente en la prueba</p>
 
                 <TextField
                   className={classes.textfield}
@@ -176,7 +176,7 @@ function Claves() {
               <div>
                 <h1>Clave de números</h1>                
                 <b>Intrucciones:</b>
-                <p>Registre la calificacion obtenida por el paciente en la prueba</p>    
+                <p>Registre la calificación obtenida por el paciente en la prueba</p>    
 
                 <TextField
                   className={classes.textfield}

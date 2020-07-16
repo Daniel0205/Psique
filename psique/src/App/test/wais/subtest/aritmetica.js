@@ -369,7 +369,7 @@ function Aritmetica() {
            name="Aritmética"
            result={getResult()}
            callback={next}
-           url="WISC-selection"
+           url="WAIS-selection"
           ></Results>
         )
         

@@ -66,6 +66,8 @@ function App(props) {
         return <Redirect to="/test/wisc/digitos" />
       case "WISC-Comprension":
         return <Redirect to="/test/wisc/comprension" />
+      case "WISC-Claves":
+        return <Redirect to="/test/wisc/claves" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />
       case "Prueba de Rey":
@@ -97,6 +99,7 @@ function App(props) {
       <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Digitos"}></Sidenav>} />
       <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmetica"}></Sidenav>} />
       <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprension"}></Sidenav>} />
+      <Route exact path="/test/wisc/claves" component={()=><Sidenav body={"WISC IV"} subtest={"Claves"}></Sidenav>} />
       
       <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />

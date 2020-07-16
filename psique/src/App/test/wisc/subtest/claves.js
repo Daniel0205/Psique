@@ -1,8 +1,224 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CustomButton from '../../../components/customButton'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Results from '../../../components/results'
+import { makeStyles } from '@material-ui/core/styles';
+
+let clavesA = false;
+
+const useStyles = makeStyles({
+  table: {
+    alignSelf: "center",
+  },
+  textfield:{
+    width:"20%"
+  },
+});
+
+function createData(timeRange, bonusP, totalNS) {
+  return { timeRange, bonusP, totalNS };
+}
+
+const rows = [
+  createData('116-120', 0, 59),
+  createData('111-115', 1, 60),
+  createData('106-110', 2, 61),
+  createData('101-105', 3, 62),
+  createData( '96-100', 4, 63),
+  createData( '86-95' , 5, 64),
+  createData(  '≤85'  , 6, 65),
+];
 
 function Claves() {
+  var [state,setState] = useState("instruccion");
+  var [result,setResult] = useState();
+  const classes = useStyles();
+
+  function testInit(clvs){
+    setState('registro');
+    if(clvs ==='A'){
+      clavesA = true;
+    }
+  }
+
+  function validateAnswers(){
+    if(result===null){ setResult(0) }
+  }
+
+  function ShowResults(){
+    validateAnswers();
+    setState("terminado");
+  }
+
+  function getResult() {
+    return result;
+  }
+
+  function content(){
+    switch (state) {
+      case "instruccion":
+        return(
+          <div>
+            <h1>Clave de números</h1>
+            <b>Intrucciones generales:</b>
+            <p>Seleccione la opción según sea el caso</p>
+            
+            <CustomButton
+              msj="Aplicación de subPrueba"
+              callback={()=>setState("aplicacion")}
+            ></CustomButton>
+            <CustomButton
+              msj="Registro de resultados"
+              callback={()=>setState("seleccion")}
+            ></CustomButton>
+          </div>
+        )
+
+      case "aplicacion":
+        return(
+          <div>
+            <h1>Clave de números: Guia de aplicación</h1>
+            <p>Según la edad o condición del paciente se le entrega la hoja de aplicación indicada a continuación </p>
+            <p> </p>
+            <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual: <b>Claves A </b></p>
+            <p>Pacientes de edad 8-16: <b>Claves B </b></p>
+
+            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+
+            <CustomButton
+              msj="Regresar a la subPrueba"
+              callback={()=>setState("instruccion")}
+            ></CustomButton>
+          </div>
+        )
+
+        case "seleccion":
+        return(
+          <div>
+            <h1>Clave de números</h1>
+            <p>Seleccione el reactivo que se le aplicó al paciente </p>
+            <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual:</p>
+            <CustomButton
+              msj="Busqueda de simbolos A"
+              callback={()=>testInit('A')}
+            ></CustomButton>            
+            <br/>
+            <p>Pacientes de edad 8-16:</p>
+            <CustomButton
+              msj="Busqueda de simbolos B"
+              callback={()=>testInit('B')}
+            ></CustomButton>
+          </div>
+        )
+
+        case "registro":
+          if(clavesA){
+            return(
+              <div>
+                <h1>Clave de números</h1>
+
+                <TableContainer component={Paper} className={classes.table}>
+                  <Table  size="small" aria-label="Claves A Table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center">Rango del tiempo de terminación (en segundos)</TableCell>
+                        <TableCell align="center">Puntos de bonificación</TableCell>
+                        <TableCell align="center">Puntuación natural total</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map((row) => (
+                        <TableRow key={row.timeRange}>
+                          <TableCell align="center">{row.timeRange}</TableCell>
+                          <TableCell align="center">{row.bonusP}</TableCell>
+                          <TableCell align="center">{row.totalNS}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+
+                <br/>
+                <b>Intrucciones:</b>
+                <p>Registre la calificacion obtenida por el paciente en la prueba</p>
+
+                <TextField
+                  className={classes.textfield}
+                  label = "Puntuación del paciente"
+                  value={result}
+                  type="number"                    
+                  inputProps={{
+                    min:0,
+                    max:65,
+                  }}
+                  variant="outlined"
+                  onChange={(x)=>{setResult(x.target.value)}}
+                /> 
+                <br/> 
+
+                <CustomButton
+                  msj="Terminar"
+                  callback={()=>ShowResults()}
+                ></CustomButton>
+              </div>
+              )
+          }else{
+            return(
+              <div>
+                <h1>Clave de números</h1>                
+                <b>Intrucciones:</b>
+                <p>Registre la calificacion obtenida por el paciente en la prueba</p>    
+
+                <TextField
+                  className={classes.textfield}
+                  label = "Puntuación del paciente"
+                  value={result}
+                  type="number"                    
+                  inputProps={{
+                    min:0,
+                    max:65,
+                  }}
+                  variant="outlined"
+                  onChange={(x)=>{setResult(x.target.value)}}
+                /> 
+                <br/> 
+
+                <CustomButton
+                  msj="Terminar"
+                  callback={()=>ShowResults()}
+                ></CustomButton>
+              </div>
+            )
+          }
+        
+      case "terminado":
+        return(
+          <Results
+            name="Claves de Numeros"
+            result={getResult()}
+            callback={()=>setState("registro")}
+            url="WISC-selection"
+          ></Results>
+        )
+
+      default:
+      break;
+      }
+    }
+
   return (
-   <h1>Claves test</h1>
+    <div>
+      {content()}
+    </div>
   );
 }
 

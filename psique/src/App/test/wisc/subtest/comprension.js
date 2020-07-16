@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import update from 'react-addons-update';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';

@@ -314,7 +314,7 @@ function Informacion() {
       case "seleccion":
         return(
           <div >
-            <h1>Comprension</h1>
+            <h1>Información</h1>
             <p>En que estimulo desea iniciar la prueba? </p>
             <p>Pacientes de edad 6-8 años o con sospechas de discapacidad intelectual:</p>
             <CustomButton

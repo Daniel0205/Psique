@@ -324,10 +324,7 @@ function Aritmetica() {
                   label={"Calificacion"}
                   type="number"
                   defaultValue={result}
-                  inputProps={{
-                    min:0,
-                    max:1,
-                  }}
+                  inputProps={{min:0, max:1}}                  
                   variant="outlined"
                   onChange={(x)=>
                     setResults(update(results,{
@@ -340,6 +337,7 @@ function Aritmetica() {
                   className={classes.textfield}
                   label="Respuesta-paciente"
                   defaultValue={answers[index]}
+                  helperText={index===0 ? "No se cuenta en la puntuación" : ""}
                   variant="outlined"
                   disabled
                 />

@@ -54,7 +54,7 @@ let rightAnswer = ["Martes",
                   "África/Africano\nNorte (centro/sur) de África",
                   "Miguel Ángel\nMichelangelo",
                   "1492",
-                  "100 grados Celcius (centrígrados)/100 Celsius (centígrados)\n212 grados Fahrenheit/212 Fahrenheit\nAlrededor de 100 grados Celcius (centígrados)\nAlrededor de 299 grados Fahrenheit\n373 grados Kelvin/[Cualquier cifra entre 300 y 400 Kelvin]\n672 grados Rankine\[Cualquier cifra entre 600 y 700 Rankine]\n[Si no especifica la escala, preguntar en qué escala]",
+                  "100 grados Celcius (centrígrados)/100 Celsius (centígrados)\n212 grados Fahrenheit/212 Fahrenheit\nAlrededor de 100 grados Celcius (centígrados)\nAlrededor de 299 grados Fahrenheit\n373 grados Kelvin/[Cualquier cifra entre 300 y 400 Kelvin]\n672 grados Rankine\n[Cualquier cifra entre 600 y 700 Rankine]\n[Si no especifica la escala, preguntar en qué escala]",
                   "Bruselas",
                   "Descubrió la penicilina\nInventor de la penicilina",
                   "Astrónomo/Filósofo/Fisico/Matemático/Científico",
@@ -290,7 +290,7 @@ function Informacion() {
               msj="Estimulo 1"
               callback={()=>testInit(0)}
             ></CustomButton>
-            <p>Pacientes de edad 9-11:</p>
+            <p>Pacientes de edad 16-89:</p>
             <CustomButton
               msj="Estimulo 3"
               callback={()=>testInit(2)}

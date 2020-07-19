@@ -1,6 +1,8 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
+
+const PORT = process.env.PORT || 5000;
 //const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInTest } = require('./users');
@@ -32,16 +34,44 @@ io.on('connect', (socket) => {
     else{
       if(type=="paciente"){
         socket.emit('state', { text: 'waiting start'});
-        socket.broadcast.to(user.test).emit('state', {text: `select` });
+        socket.broadcast.to(user.test).emit('state', {text: `brain` });
       }
       else {
-        socket.emit('state', { text: 'select'});
+        socket.emit('state', { text: 'brain'});
         socket.broadcast.to(user.test).emit('state', {text: `waiting start` });
       }
+      
+
     } 
 
     callback();
+    
   });
+
+
+
+  socket.on('activateStream', (callback) =>{
+    const user = getUser(socket.id);
+
+    socket.broadcast.to(user.test).emit('activateStream');
+    callback()
+  })
+
+
+
+  socket.on('videoConnect', () =>{
+
+    const user = getUser(socket.id);
+
+    socket.broadcast.to(user.test).emit('connect-all');
+    socket.emit('connect-all');
+  })
+
+  socket.on('sendSignal', (data) =>{
+    const user = getUser(socket.id);
+
+    socket.broadcast.to(user.test).emit('sendSignal',data)
+  })
 
   socket.on('setTestWada', (test,callback) => {
     const user = getUser(socket.id);
@@ -64,6 +94,7 @@ io.on('connect', (socket) => {
 
   });
 
+
   socket.on('setStimuliWada', (stimuli) => {
     const user = getUser(socket.id);
 
@@ -80,4 +111,4 @@ io.on('connect', (socket) => {
   })
 });
 
-server.listen( 5000, () => console.log(`Server has started.`));
+server.listen( PORT, () => console.log(`Server has started.`));

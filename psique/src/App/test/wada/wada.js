@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import io from "socket.io-client";
 import CustomButton from '../../components/customButton'
 import TestStart from '../../components/testStart'
@@ -18,10 +18,13 @@ import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import Peer from "simple-peer";
+//import RecordRTC from 'recordrtc';
 
 const ENDPOINT = 'localhost:5000/';
 
 let socket = io(ENDPOINT);
+let peer
 
 let type="doctor"
 
@@ -36,7 +39,6 @@ let aphasiaRight =[]
 let aphasiaLeft =[]
 let test = ["Conteo","Denominacion","Instrucciones verbales","Repeticion","Lectura","Seguimiento de instrucciones"]
 let actualTest = -1;
-let lobuloChecked = false
 
 const useStyles = makeStyles({
   h1: {
@@ -45,6 +47,10 @@ const useStyles = makeStyles({
   },
   root:{
     textAlign:"center"
+  },
+  video:{
+    width: "90%",
+    maxWidth: "300px"
   }
 });
 
@@ -53,9 +59,13 @@ function Wada() {
   const [state, setState] = useState("intro");
   const [stimuli, setStimuli] = useState(6);
   const [seconds, setSeconds] = useState(0);
+  const [stream, setStream] = useState();
   const [isActive, setIsActive] = useState(false);
   const [selectedTest, setSelectedTest] = useState([true,true,true ,true,true,true]);
+  
   const classes = useStyles();
+
+  const partnerVideo = useRef();
   
 
   function join(typeIn){ 
@@ -63,6 +73,7 @@ function Wada() {
       if(error) {
         alert(error);
       }
+      
     });
     type=typeIn
   }
@@ -108,17 +119,9 @@ function Wada() {
         return test[i]
       }
     }
-    if(lobuloChecked){
-      setIsActive(false)
-      return "fin"
-    }
-    else{
-      lobuloChecked=true
-      if(lobulo==="Derecho")lobulo="Izquierdo"
-      else lobulo="Derecho"
-      actualTest=-1
-      return "waiting start"
-    }
+
+    setIsActive(false)
+    return "fin"
   }
 
   function next(limit,score){
@@ -148,24 +151,58 @@ function Wada() {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
+  useEffect(()=>{
 
+    if(stream!==undefined && type==='paciente')socket.emit("videoConnect")
+
+    
+      
+    socket.on('connect-all',()=>{
+
+      if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
+        
+
+        if(type==="paciente")peer = new Peer({ initiator: true,trickle: false, stream: stream })
+        else{
+          peer = new Peer();
+          peer.on('stream', function (stream) {
+            
+            if (partnerVideo.current) {
+              partnerVideo.current.srcObject = stream;
+            }
+          });
+        }
+
+        peer.on('signal', data => {
+          socket.emit("sendSignal",data)
+        })
+      }
+    
+    })
+  },[stream])
 
   useEffect(() => {
 
-      socket.on('message', message => {
-        console.log(message)
-      });
+      socket.on('sendSignal',(data)=> peer.signal(data))
 
+      socket.on('activateStream',()=> {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+          setStream(stream);
+          
+        })
+      })
 
       socket.on('state', estado => {
-        console.log(estado)
-        setState(estado.text);
-        if(estado.text==="results")setIsActive(false)
+        if(type==="doctor" && estado.text==="fin"){
+          setState("results");
+          setIsActive(false)
+        }
+        else setState(estado.text);
+
         setStimuli(1)
       });
 
       socket.on('stimuli', estado => {
-        console.log(estado)
         setStimuli(estado.text);
       });
 
@@ -199,6 +236,9 @@ function Wada() {
         return<div className={classes.h1}><h1>Esperando que el doctor inicie la prueba </h1></div>
       
       case "fin":
+        stream.getTracks().forEach(function(track) {
+          track.stop();
+        });
         return<div className={classes.h1}><h1>Fin de la Prueba</h1></div>
     
       case "select":
@@ -224,7 +264,7 @@ function Wada() {
           </FormControl>
           <CustomButton
           msj="Siguiente"
-          callback={()=>setState("brain")}
+          callback={()=>setState("start")}
           disabled={selectedTest.findIndex(x=>x)===-1}
           ></CustomButton>
         </div>)
@@ -236,7 +276,7 @@ function Wada() {
               msj="Lobulo Derecho"
               callback={()=>{
                 lobulo="Derecho"
-                setState("start")
+                setState("select")
               }}
               ></CustomButton>
 
@@ -244,16 +284,23 @@ function Wada() {
               msj="Lobulo Izquierdo"
               callback={()=>{
                 lobulo="Izquierdo"
-                setState("start")
+                setState("select")
+              }}
+            ></CustomButton>
+            <CustomButton
+              msj="Evaluacion Preliminar"
+              callback={()=>{
+                lobulo="Preliminar"
+                setState("select")
               }}
             ></CustomButton>
           </div>)
       case "start":
         return(<TestStart
           name={"Wada-"+lobulo}
-          change={()=>socket.emit("setTestWada",nextTest(),()=>setIsActive(true))}
+          change={()=>socket.emit("activateStream",()=>socket.emit("setTestWada",nextTest(),()=>setIsActive(true)))}
         ></TestStart>)
-        
+          
       case "Conteo":
         return(<div className={clsx({
           [classes.h1]:type==='paciente'
@@ -487,9 +534,9 @@ function Wada() {
     return aux
   }
 
- 
   return (
     <div className={classes.root}>
+      {type==="doctor" && isActive ? <video className={classes.video} playsInline ref={partnerVideo} autoPlay /> :null}
       {type==="doctor" && isActive ? <h2>{cronometer()}</h2>:null}
       {body()}
     </div>

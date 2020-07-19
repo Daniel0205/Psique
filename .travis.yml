@@ -63,5 +63,5 @@ jobs:
         api_key: $HEROKU_TOKEN
         app: psique-back
         on: 
-          repo: Daniel0205/psique
+          repo: Daniel0205/Psique
           branch: daniel

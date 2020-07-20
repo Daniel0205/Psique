@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   field:{
     display:"flex"
   },
+  points:{
+    display:"inline-flex",    
+  },
   textfield:{
     width:"100%"
   }
@@ -26,7 +29,7 @@ const LIMIT_ERROR = 3;
 const NUMBER_STIMULI = 23;
 
 const stimuliSource = ["01","02","03","04","05"];
-const rightAnswers = ['3','3','10','6','9','2','8','5','5','17','5','3','200','38','140',null,null,'600','47',null,'51','216','23100'];
+const rightAnswers = ['3','3','10','6','9','2','8','5','5','17','5','3','200','38','140','30 min ó 1/2 hora','186 min ó 3h 6 min','600','47','49½ ó 49.5','51','216','23100'];
 
 let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
 let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -172,41 +175,64 @@ function Aritmetica() {
     return total;
   }
 
-  function score(){    
+  function score(punt){    
     answers[numberItem] = givenAnswer;
     setGivenAnswer('');
-    if(answers[numberItem] === rightAnswers[numberItem]){
-      if(returnVar){        
-        countRe +=1;        
-      }
 
-      if(badAnswerCount > 0){        
-        badAnswerCount = 0;
-      }
-      
-      setResults(update(results,{
-        [numberItem]: {
-          $set: 1
-        }}))
-      
-      changeStimuli(1);
-      
-    }else{
-      setResults(update(results,{
-        [numberItem]: {
-          $set: 0
+    if(numberItem !== 15 && numberItem !== 16 && numberItem !== 19){
+      if(answers[numberItem] === rightAnswers[numberItem]){
+        if(returnVar){        
+          countRe +=1;        
+        }
+
+        if(badAnswerCount > 0){        
+          badAnswerCount = 0;
+        }
+        
+        setResults(update(results,{
+          [numberItem]: {
+            $set: 1
+          }}))
+        
+        changeStimuli(1);
+        
+      }else{
+        setResults(update(results,{
+          [numberItem]: {
+            $set: 0
         }}))
 
-      //if(numberItem !== 0){
         badAnswerCount += 1;
-      //}
-
-      if(countRe>0){
         countRe=0;
+        changeStimuli(0);
       }
 
-      changeStimuli(0);
-    }    
+    }else{ //If stimuli number is 15, 16 or 19
+      if(punt === 1){
+        if(returnVar){        
+          countRe +=1;        
+        }
+    
+        badAnswerCount = 0;        
+        
+        setResults(update(results,{
+          [numberItem]: {
+            $set: punt
+          }}))
+        
+        changeStimuli(punt);
+        
+      }else{
+        setResults(update(results,{
+          [numberItem]: {
+            $set: punt
+        }}))
+
+        badAnswerCount += 1;
+        countRe = 0;
+        changeStimuli(0);
+      }
+    }
   }
 
   function content(){
@@ -286,7 +312,7 @@ function Aritmetica() {
             <br/><br/>
             <CustomButton 
               msj="siguiente"
-              callback={()=>score(numberItem)}
+              callback={()=>score(null)}
             ></CustomButton> 
          </div>
        );
@@ -303,10 +329,28 @@ function Aritmetica() {
               onChange={(x)=>{setGivenAnswer(x.target.value)}}
             />
             <br/><br/>
-            <CustomButton 
-              msj="siguiente"
-              callback={()=>score()}
-            ></CustomButton>
+            {numberItem !== 15 && numberItem !== 16 && numberItem !== 19 ?
+              <CustomButton 
+                msj="siguiente"
+                callback={()=>score()}
+              ></CustomButton>
+              :
+              <div>
+                <p>El programa puede que no califique la respuesta del paciente correctamente para este estimulo</p>
+                <p>Por favor seleccioné la puntación correcta para la respuesta del paciente</p>
+                <p><b>Respuesta Correcta: </b> {rightAnswers[numberItem]} </p>
+                <div className={classes.points}>
+                  <CustomButton 
+                    msj="0 Puntos"
+                    callback={()=>score(0)}
+                  ></CustomButton>
+                  <CustomButton 
+                    msj="1 Punto"
+                    callback={()=>score(1)}
+                  ></CustomButton>
+                </div>
+              </div>
+            }
          </div>
        );
 
@@ -317,38 +361,40 @@ function Aritmetica() {
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
-              [<h3 key={index}>Reactivo {index===0 ? "Ejemplo":index}</h3>,
-              <div key={index} className={classes.field}>
-                {index!== 0? <TextField
-                  className={classes.textfield}
-                  label={"Calificacion"}
-                  type="number"
-                  defaultValue={result}
-                  inputProps={{min:0, max:1}}                  
-                  variant="outlined"
-                  onChange={(x)=>
-                    setResults(update(results,{
-                      [index]: {
-                        $set: parseInt(x.target.value)
-                      }}))}
-                />: <div />}
-                 &nbsp;  &nbsp;
-                <TextField
-                  className={classes.textfield}
-                  label="Respuesta-paciente"
-                  defaultValue={answers[index]}
-                  helperText={index===0 ? "No se cuenta en la puntuación" : ""}
-                  variant="outlined"
-                  disabled
-                />
-                &nbsp;  &nbsp;
-                <TextField
-                  className={classes.textfield}
-                  label="Respuesta correcta"
-                  defaultValue={rightAnswers[index]}
-                  variant="outlined"
-                  disabled
-                />
+              [<div key={index}>
+                <h3>Reactivo {index===0 ? "Ejemplo":index}</h3>
+                <div className={classes.field}>
+                  {index!== 0? <TextField
+                    className={classes.textfield}
+                    label={"Calificacion"}
+                    type="number"
+                    defaultValue={result}
+                    inputProps={{min:0, max:1}}                  
+                    variant="outlined"
+                    onChange={(x)=>
+                      setResults(update(results,{
+                        [index]: {
+                          $set: parseInt(x.target.value)
+                        }}))}
+                  />: <div />}
+                  &nbsp;  &nbsp;
+                  <TextField
+                    className={classes.textfield}
+                    label="Respuesta paciente"
+                    defaultValue={answers[index]}
+                    helperText={index===0 ? "No se cuenta en la puntuación" : ""}
+                    variant="outlined"
+                    disabled
+                  />
+                  &nbsp;  &nbsp;
+                  <TextField
+                    className={classes.textfield}
+                    label="Respuesta correcta"
+                    defaultValue={rightAnswers[index]}
+                    variant="outlined"
+                    disabled
+                  />
+                </div>
               </div>]
               )}
             </div>

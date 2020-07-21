@@ -154,12 +154,10 @@ function Claves() {
                 <TextField
                   className={classes.textfield}
                   label = "Puntuación del paciente"
-                  value={result}
-                  type="number"                    
-                  inputProps={{
-                    min:0,
-                    max:65,
-                  }}
+                  id="filled-number"
+                  defaultValue={result}
+                  type="number"
+                  inputProps={{min:0, max:65}}
                   variant="outlined"
                   onChange={(x)=>{setResult(x.target.value)}}
                 /> 
@@ -180,13 +178,11 @@ function Claves() {
 
                 <TextField
                   className={classes.textfield}
+                  id="filled-number"
                   label = "Puntuación del paciente"
-                  value={result}
+                  defaultValue={result}
                   type="number"                    
-                  inputProps={{
-                    min:0,
-                    max:65,
-                  }}
+                  inputProps={{min:0, max:65}}
                   variant="outlined"
                   onChange={(x)=>{setResult(x.target.value)}}
                 /> 

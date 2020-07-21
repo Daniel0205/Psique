@@ -4,7 +4,6 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
-import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 const LIMIT_ERROR = 3
 
@@ -16,11 +15,13 @@ const useStyles = makeStyles((theme) => ({
   },
   fields:{
     display: "inline-grid",
-    width:"30%"
+    width:"50%"
   },
   field:{
-    paddingTop:"6%",
-    
+    display:"inline-flex",    
+  },
+  fieldTest:{
+    marginTop: "20px",
   },
   textfield:{
     width:"100%"
@@ -38,10 +39,19 @@ let example = false; //Indica si esta en el ejemplo
 let stimuliSrc = ["01","02","03","04","05","06","07","08","09","10","11","12","13","14",
                   "15","16","17","18","19","20","21","22","23","24","25","26","27","28"];
 
+const rightAnswers = [  null,  null, ['2','3','5'], ['1','2','5'], ['1','4','6'], ['2','3','6'],
+                      ['3','5','6'], ['1','3','6'], ['2','5','6'], ['1','3','4'], ['1','3','6'], ['1','2','5'],
+                      ['1','2','5'], ['1','4','5'], ['3','4','6'], ['1','2','6'], ['2','3','4'],
+                      ['3','4','6'], ['1','2','6'], ['1','5','6'], ['2','3','5'], ['1','3','4'],
+                      ['1','5','6'], ['2','3','5'], ['3','4','6'], ['3','4','5'], ['1','2','3'], ['3','4','6']];
+
+//let answers = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"];
+
 function PuzlesVisuales() {
   var [state,setState]=useState("instruccion");
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0);
+  var [answers, setAnswers] = useState(["","","","","","","","","","","","","","","","","","","","","","","","","","","",""]);
 
   const classes = useStyles();
 
@@ -82,8 +92,20 @@ function PuzlesVisuales() {
     }
   }
 
-  function score(key){
-    var punt = parseInt(key);
+  function computeScore() {
+    let currentAnswer = answers[numberItem];
+    let currentGoodAnswer = rightAnswers[numberItem];
+
+    for(var i=0; i<currentGoodAnswer.length; i++){
+      if(!currentAnswer.includes(currentGoodAnswer[i])){
+        return 0;
+      }
+    }
+    return 1;
+  }
+
+  function score(){
+    var punt = computeScore();
     if(punt !== 0){
       if(returnVar){        
         countRe +=1;
@@ -119,7 +141,7 @@ function PuzlesVisuales() {
   function imagenInit(item){    
     if(item!==2){
       let arrayAux = results
-      for (let i = 2; i < item-1; i++) {
+      for (let i = 2; i < item; i++) {
         arrayAux[i]=1
       }
       setResults(arrayAux)
@@ -159,13 +181,7 @@ function PuzlesVisuales() {
     return total;
   }
 
-  function nextDemoExample(key){
-    var punt = parseInt(key);
-    setResults(update(results,{
-      [numberItem]: {
-        $set: punt
-    }}))
-
+  function nextDemoExample(){
     if(!example){
       example = true;
       setNumberItem(numberItem+1);      
@@ -186,7 +202,8 @@ function PuzlesVisuales() {
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
             <b>Intrucciones de calificacion:</b>
-            <p>Para calificar se debe presionar '1' para indicar una respuesta correcta por el paciente o '0' en caso de que sea incorrecta  </p>
+            <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
+            <p>El campo separará automáticamente los números</p>
             <br/>
             <CustomButton
               msj="Iniciar subprueba"
@@ -224,12 +241,33 @@ function PuzlesVisuales() {
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
             
-            <KeyboardEventHandler 
-              handleKeys={['1','0']}
-              onKeyEvent={(key, e) => {
-                nextDemoExample(parseInt(key))
-                }}
-            />
+            {example ? 
+              <div>
+                &nbsp; &nbsp;
+                <div className={classes.fieldTest}>
+                  <TextField
+                    label="Respuesta"
+                    value={answers[numberItem].split("").join("-")}
+                    variant="outlined"
+                    onChange={(x)=>{
+                      setAnswers(update(answers,{
+                        [numberItem]: {
+                          $set: x.target.value.split("-").join("").slice(0,3)
+                        }}))
+                    }}
+                  />                  
+                </div>
+                <CustomButton 
+                  msj="siguiente"
+                  callback={()=>nextDemoExample()}
+                ></CustomButton> 
+              </div>
+              :
+              <CustomButton 
+                msj="siguiente"
+                callback={()=>nextDemoExample()}
+              ></CustomButton>            
+            }
           </div>
         )
 
@@ -243,12 +281,25 @@ function PuzlesVisuales() {
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
 
-            <KeyboardEventHandler 
-              handleKeys={['1','0']}
-              onKeyEvent={(key, e) => {
-                score(parseInt(key))
-              }}
-            />
+            &nbsp; &nbsp;
+            <div className={classes.fieldTest}>
+              <TextField
+                label="Respuesta"
+                value={answers[numberItem].split("").join("-")}
+                variant="outlined"
+                onChange={(x)=>{
+                  setAnswers(update(answers,{
+                    [numberItem]: {
+                      $set: x.target.value.split("-").join("").slice(0,rightAnswers[numberItem].length)
+                    }}))
+                }}
+              />
+              
+            </div>
+            <CustomButton 
+              msj="siguiente"
+              callback={()=>score()}
+              ></CustomButton> 
           </div>
          )
 
@@ -259,22 +310,46 @@ function PuzlesVisuales() {
             <h3>El puntaje por cada Item fue: </h3>
             <div className={classes.fields}>
               {results.map((result,index)=>
-                <div key={index} className={classes.field}>
-                  <TextField
-                    className={classes.textfield}
-                    id="filled-number"
-                    label={index===0 ? "Item Demostración" : index===1 ? "Item Ejemplo" : "Item "+(index-1)}
-                    type="number"
-                    defaultValue={result}
-                    inputProps={{min:0, max:1}}
-                    variant="outlined"
-                    helperText={index<2 ? "No se cuenta en la puntuación" : ""}
-                    onChange={(x)=>
-                      setResults(update(results,{
-                        [index]: {
-                          $set: parseInt(x.target.value)
-                        }}))}
-                  />
+                <div key={index}>
+                  {index>=1 ?
+                    <div>
+                      <h3>Reactivo {index===1 ? "Item Ejemplo" : "Item "+(index-1)}</h3>
+                      <div className={classes.field}>
+                        {index>=2 ?
+                        <TextField
+                          className={classes.textfield}
+                          id="filled-number"
+                          type="number"
+                          defaultValue={result}
+                          inputProps={{min:0, max:1}}
+                          variant="outlined"                    
+                          onChange={(x)=>
+                            setResults(update(results,{
+                              [index]: {
+                                $set: parseInt(x.target.value)
+                              }}))}
+                        />
+                        : <div/>}
+                        &nbsp;  &nbsp;
+                        <TextField
+                          className={classes.textfield}
+                          label="Respuesta Paciente"
+                          defaultValue={answers[index].split("").join("-")}
+                          helperText={index<2 ? "No se cuenta en la puntuación" : ""}
+                          variant="outlined"
+                          disabled
+                        />
+                        &nbsp;  &nbsp;
+                        <TextField
+                          className={classes.textfield}
+                          label="Respuesta correcta"
+                          defaultValue={rightAnswers[index]}
+                          variant="outlined"
+                          disabled
+                        />
+                      </div>
+                    </div>
+                  : <div/>}
                 </div>
               )}
             </div>

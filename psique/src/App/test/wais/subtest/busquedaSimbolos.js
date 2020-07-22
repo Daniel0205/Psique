@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
+import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -13,6 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
+const TESTDURATION = 120;
 
 function BusquedaSimbolos() {
   var [state,setState] = useState("instruccion");
@@ -108,10 +110,12 @@ function BusquedaSimbolos() {
           <div>
             <h1>Búsqueda de símbolos: Guía de aplicación</h1>
             <p>Pacientes de edad 16-89 años o con sospechas de discapacidad intelectual: <b> Ítems de demostración, ítems de ejemplo, ítems del test </b></p>
+            <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
+            <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
 
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+            <br/>
+            <TestsTimer duration={TESTDURATION}></TestsTimer>
+            <br/>
 
             <CustomButton
               msj="Regresar a la subPrueba"

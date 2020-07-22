@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import TestsTimer from '../../../components/TestsTimer'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +13,7 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 
 let clavesA = false;
+const TESTDURATION = 120;
 
 const useStyles = makeStyles({
   table: {
@@ -89,10 +91,12 @@ function Claves() {
             <p> </p>
             <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual: <b>Claves A </b></p>
             <p>Pacientes de edad 8-16: <b>Claves B </b></p>
+            <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
+            <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
 
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+            <br/>
+            <TestsTimer duration={TESTDURATION}></TestsTimer>
+            <br/>
 
             <CustomButton
               msj="Regresar a la subPrueba"

@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
+import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
 
 let busquedaA = false; // true A; false B
+const TESTDURATION = 120;
 
 const useStyles = makeStyles({
   table: {
@@ -121,10 +123,12 @@ function BusquedaSimbolos() {
             <p> </p>
             <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual: <b> Reactivos de muestra de Búsqueda de símbolos A, reactivos de práctica, después reactivos de prueba </b></p>
             <p>Pacientes de edad 8-16: <b> Reactivos de muestra de Búsqueda de símbolos B, reactivos de práctica, después reactivos de prueba </b></p>
+            <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
+            <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
 
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
-            {/* AQUI VA EL COMPONENTE PARA EL CORNÓMETRO */}
+            <br/>
+            <TestsTimer duration={TESTDURATION}></TestsTimer>
+            <br/>
 
             <CustomButton
               msj="Regresar a la subPrueba"

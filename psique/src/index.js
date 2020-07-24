@@ -5,14 +5,25 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from "./App/store/";
 import { Provider } from "react-redux";
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_API_URL,
+  cache: new InMemoryCache()
+});
+
+console.log(process.env)
 
 
 ReactDOM.render(
-  <Provider store={store}>
-      <React.StrictMode>
-        <App/>
-      </React.StrictMode>
-  </Provider>,
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+        <React.StrictMode>
+          <App/>
+        </React.StrictMode>
+    </Provider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

@@ -4,12 +4,15 @@ import Sidenav from './App/components/sidenav'
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import { setBody } from "./App/store/body/action";
 import { connect } from "react-redux";
+import SignIn from './App/components/signIn'
 
 
 function App(props) {
 
   function body(){
     switch (props.body) {
+      case 'login':
+        return <Redirect to="/login" />
       case 'init':
         return <Redirect to="/home" />
       case 'Wada':
@@ -56,10 +59,12 @@ function App(props) {
   }
 
   return (
+    
     <Router>
 
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+      <Route exact path="/login" component={SignIn} />
       
       <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />

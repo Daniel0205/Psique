@@ -21,7 +21,7 @@ import clsx from 'clsx';
 import Peer from "simple-peer";
 //import RecordRTC from 'recordrtc';
 
-const ENDPOINT = 'localhost:5000/';
+const ENDPOINT = 'psique-back.herokuapp.com/';
 
 let socket = io(ENDPOINT);
 let peer

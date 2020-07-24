@@ -51,7 +51,10 @@ jobs:
           - daniel
 
       before_install: 
-        - cd Back-End/
+        - cd Back-End/DB
+        - db-migrate others down
+        - db-migrate others up
+        - cd ..
         - CI=false 
 
       install:

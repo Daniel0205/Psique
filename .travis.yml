@@ -51,10 +51,7 @@ jobs:
           - daniel
 
       before_install: 
-        - cd Back-End/DB
-        - db-migrate other down
-        - db-migrate other up
-        - cd ..
+        - cd Back-End
         - CI=false 
 
       install:
@@ -67,4 +64,4 @@ jobs:
         app: psique-back
         on: 
           repo: Daniel0205/Psique
-          branch: daniel
+          branch: master

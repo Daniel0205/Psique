@@ -1,8 +1,0 @@
-{
-    "dev": {
-      "driver": "sqlite3",
-      "filename": "../db.sqlite"
-    },
-  
-    "other": {"ENV": "DATABASE_URL"}
-  }

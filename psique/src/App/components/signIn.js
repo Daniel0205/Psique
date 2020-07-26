@@ -77,10 +77,9 @@ export default function SignInSide() {
   
   const classes = useStyles();
 
-  console.log()
+
   async function login(){
     const {data}= await addTodo({ variables: { username:username, password:password} });
-    console.log(data)
 
     if (data.login.ok) {
       localStorage.setItem('token', data.login.token);

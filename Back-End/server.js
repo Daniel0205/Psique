@@ -38,21 +38,21 @@ sequelize.authenticate()
 ////////////DEFINITION OF CORS///////////////
 /////////////////////////////////////////////
 
-if(process.env.NODE_ENV==="production")var whitelist = ['https://psique-app.web.app']
-else var whitelist = ['http://localhost:3000']
-
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if(process.env.NODE_ENV==="production"){
+      if (origin==='https://psique-app.web.app') {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
+    else{
       callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
     }
   }
 }
 
-console.log(process.env.NODE_ENV)
-console.log(process.env.DATABASE_URL)
 
 app.use(cors(corsOptions))
 

@@ -22,7 +22,7 @@ import Semejanzas from "./subtest/semejanzas"
 import Vocabulario from "./subtest/vocabulario"
 
 
-const texts = ["Cubos","Semejanzas","Dígitos",
+const texts = ["Cubos","Semejanzas","Digitos",
 "Conceptos con dibujos","Claves","Vocabulario","Sucesion de numeros y letras",
 "Matrices","Comprension","Busqueda de simbolos","Figuras incompletas",
 "Registros","Informacion", "Aritmetica","Pistas"]
@@ -43,9 +43,10 @@ const componentTest = [<Cubos></Cubos>,
                     <Aritmetica></Aritmetica>,
                     <Pistas></Pistas>]
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   general: {
     textAlign: "center",
+    padding: theme.spacing(3),
   },
   subprueba:{
     display: "grid",
@@ -54,8 +55,8 @@ const useStyles = makeStyles({
     paddingRight: "10%",
     gridRowGap: "10%",
     gridColumnGap: "5%"
-  }
-});
+  },
+}));
 
 function Wisc(props) {
  const [state] = useState(props.subtest)

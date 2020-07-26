@@ -54,8 +54,10 @@ function Cubos() {
   //Esta función cambia el estimulo actual y cambia los resultados
   function changeStimuli(key){
 
-    clearTimeout(timer)    
+    clearTimeout(timer) 
+    let  timeReturn= timeBool; 
     setTimeBool(false)
+    
     if(state==='test'){
       
       if(retorno){
@@ -88,7 +90,7 @@ function Cubos() {
         }        
       }
       else{
-        if(0!==key){
+        if(0!==key && !timeReturn){
 
           setResults(update(results,{
             [numberItem-1]: {
@@ -226,7 +228,7 @@ function Cubos() {
       case "seleccion":
         return(
          <div >
-         <h1>Figuras incompletas</h1>
+         <h1>Cubos</h1>
          <p>En que estimulo desea iniciar la prueba? </p>
          <p>Pacientes de edad 6-7 o con sospechas de discapacidad intelectual:</p>
          <CustomButton msj="Estimulo 1"
@@ -258,7 +260,7 @@ function Cubos() {
        case "revision":
          return(
          <div>
-           <h1>Figuras incompletas</h1>
+           <h1>Cubos</h1>
            <h3>El puntaje por cada Item fue: </h3>
            <div className={classes.fields}>
              {results.map((result,index)=>

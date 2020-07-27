@@ -47,11 +47,13 @@ function Claves() {
     setState('registro');
     if(clvs ==='A'){
       clavesA = true;
+    }else{
+      clavesA = false;
     }
   }
 
   function validateAnswers(){
-    if(result===null){ setResult(0) }
+    if(result === undefined || result.isNaN || result === null || result === ''){ setResult(0) }
   }
 
   function ShowResults(){

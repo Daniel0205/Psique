@@ -49,33 +49,35 @@ function BusquedaSimbolos() {
     setState('registro');
     if(simbolos==='A'){
       busquedaA = true;
-    }
+    }else{
+      busquedaA = false;
+    }    
   }
 
   function validateAnswers(){
     var total = 0;
     if(busquedaA){
-      if(pag4C === undefined || pag4C.isNaN || pag4C === null){ setPag4C(0) } else{ total += parseInt(pag4C) }
-      if(pag4I === undefined || pag4I.isNaN || pag4I === null){ setPag4I(0) } else{ total -= parseInt(pag4I) }
+      if(pag4C === undefined || pag4C.isNaN || pag4C === null || pag4C === ''){ setPag4C(0) } else{ total += parseInt(pag4C) }
+      if(pag4I === undefined || pag4I.isNaN || pag4I === null || pag4I === ''){ setPag4I(0) } else{ total -= parseInt(pag4I) }
 
-      if(pag5C === undefined || pag5C.isNaN || pag5C === null){ setPag5C(0) } else{ total += parseInt(pag5C) }
-      if(pag5I === undefined || pag5I.isNaN || pag5I === null){ setPag5I(0) } else{ total -= parseInt(pag5I) }
+      if(pag5C === undefined || pag5C.isNaN || pag5C === null || pag5C === ''){ setPag5C(0) } else{ total += parseInt(pag5C) }
+      if(pag5I === undefined || pag5I.isNaN || pag5I === null || pag5I === ''){ setPag5I(0) } else{ total -= parseInt(pag5I) }
 
-      if(pag6C === undefined || pag6C.isNaN || pag6C === null){ setPag6C(0) } else{ total += parseInt(pag6C) }
-      if(pag6I === undefined || pag6I.isNaN || pag6I === null){ setPag6I(0) } else{ total -= parseInt(pag6I) }
+      if(pag6C === undefined || pag6C.isNaN || pag6C === null || pag6C === ''){ setPag6C(0) } else{ total += parseInt(pag6C) }
+      if(pag6I === undefined || pag6I.isNaN || pag6I === null || pag6I === ''){ setPag6I(0) } else{ total -= parseInt(pag6I) }
 
     }else{
-      if(pag8C === undefined || pag8C.isNaN || pag8C === null){ setPag8C(0) } else{ total += parseInt(pag8C) }
-      if(pag8I === undefined || pag8I.isNaN || pag8I === null){ setPag8I(0) } else{ total -= parseInt(pag8I) }
+      if(pag8C === undefined || pag8C.isNaN || pag8C === null || pag8C === ''){ setPag8C(0) } else{ total += parseInt(pag8C) }
+      if(pag8I === undefined || pag8I.isNaN || pag8I === null || pag8I === ''){ setPag8I(0) } else{ total -= parseInt(pag8I) }
 
-      if(pag9C === undefined || pag9C.isNaN || pag9C === null){ setPag9C(0) } else{ total += parseInt(pag9C) }
-      if(pag9I === undefined || pag9I.isNaN || pag9I === null){ setPag9I(0) } else{ total -= parseInt(pag9I) }
+      if(pag9C === undefined || pag9C.isNaN || pag9C === null || pag9C === ''){ setPag9C(0) } else{ total += parseInt(pag9C) }
+      if(pag9I === undefined || pag9I.isNaN || pag9I === null || pag9I === ''){ setPag9I(0) } else{ total -= parseInt(pag9I) }
 
-      if(pag10C === undefined || pag10C.isNaN || pag10C === null){ setPag10C(0) } else{ total += parseInt(pag10C) }
-      if(pag10I === undefined || pag10I.isNaN || pag10I === null){ setPag10I(0) } else{ total -= parseInt(pag10I) }
+      if(pag10C === undefined || pag10C.isNaN || pag10C === null || pag10C === ''){ setPag10C(0) } else{ total += parseInt(pag10C) }
+      if(pag10I === undefined || pag10I.isNaN || pag10I === null || pag10I === ''){ setPag10I(0) } else{ total -= parseInt(pag10I) }
 
-      if(pag11C === undefined || pag11C.isNaN || pag11C === null){ setPag11C(0) } else{ total += parseInt(pag11C) }
-      if(pag11I === undefined || pag11I.isNaN || pag11I === null){ setPag11I(0) } else{ total -= parseInt(pag11I) }
+      if(pag11C === undefined || pag11C.isNaN || pag11C === null || pag11C === ''){ setPag11C(0) } else{ total += parseInt(pag11C) }
+      if(pag11I === undefined || pag11I.isNaN || pag11I === null || pag11I === ''){ setPag11I(0) } else{ total -= parseInt(pag11I) }
     }
     return total;
   }

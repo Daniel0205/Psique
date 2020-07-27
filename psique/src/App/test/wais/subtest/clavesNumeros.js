@@ -19,7 +19,7 @@ function ClavesNumeros() {
   const classes = useStyles();
 
   function validateAnswers(){
-    if(result===null){ setResult(0) }
+    if(result === undefined || result.isNaN || result === null || result === ''){ setResult(0) }
   }
 
   function ShowResults(){
@@ -80,7 +80,7 @@ function ClavesNumeros() {
               <TextField
                 className={classes.textfield}
                 label = "Puntuación del paciente"
-                value={result}
+                defaultValue={result}
                 type="number"                    
                 inputProps={{
                   min:0,

@@ -95,7 +95,12 @@ function Wais(props) {
         <CustomButton
           msj="Cancelar"
           callback={()=>props.setBody("init")}>
-          </CustomButton>
+        </CustomButton>
+
+        <CustomButton
+          msj="Calcular puntiación escalar"
+          callback={()=>props.setBody("baremos")}>
+        </CustomButton>
     
       </div>)
 
@@ -113,7 +118,6 @@ function Wais(props) {
   return (
     <div className={classes.general} >
       {content()}
-    
     </div>
   );
 }

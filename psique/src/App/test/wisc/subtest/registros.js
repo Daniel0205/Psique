@@ -3,6 +3,8 @@ import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const TIME_LIMIT= 45;
 
@@ -27,8 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-
 let correct1Aux;
 let incorrect1Aux;
 let correct2Aux;
@@ -37,7 +37,7 @@ let time1Aux;
 let time2Aux;
 
 
-function Registros() {
+function Registros(props) {
   const [state,setState] = useState("test")
   const [active,setActive] = useState("iniciar")
   const [cronometro,setCronometro] = useState(0)
@@ -88,6 +88,14 @@ function Registros() {
     if(correct2-incorrect2>0)puntuacion+=correct2-incorrect2
     puntuacion+=getBonus(time1)
     puntuacion+=getBonus(time2)
+
+    if(!props.resWechsler.hasOwnProperty('RG')){
+      props.setResWechsler('RG',puntuacion)
+    }else{
+      if(props.resWechsler['RG'] !== puntuacion){
+        props.setResWechsler('RG',puntuacion)
+      }
+    }
 
     return puntuacion
 
@@ -404,4 +412,17 @@ function Registros() {
   );
 }
 
-export default Registros;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registros);

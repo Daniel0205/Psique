@@ -93,7 +93,12 @@ function Wisc(props) {
         <CustomButton
           msj="Cancelar"
           callback={()=>props.setBody("init")}>
-          </CustomButton>
+        </CustomButton>
+
+        <CustomButton
+          msj="Calcular puntiación escalar"
+          callback={()=>props.setBody("baremos")}>
+        </CustomButton>
     
       </div>)
 

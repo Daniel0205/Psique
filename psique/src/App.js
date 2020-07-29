@@ -12,6 +12,8 @@ function App(props) {
     switch (props.body) {
       case 'init':
         return <Redirect to="/home" />
+      case 'baremos':
+        return <Redirect to="/baremos" />
       case "WAIS IV":
         return <Redirect to="/test/wais" />
       case "WAIS-selection":
@@ -76,6 +78,8 @@ function App(props) {
 
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+
+      <Route exact path="/baremos" component={()=><Sidenav body={"baremos"}></Sidenav>} />
       
       <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />

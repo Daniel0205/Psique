@@ -5,6 +5,8 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -131,7 +133,7 @@ let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el p
 let firstItem;// Item en el que inicio la prueba
       
 
-function Comprension() {
+function Comprension(props) {
   const [state,setState] = useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -224,6 +226,15 @@ function Comprension() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('CO')){
+      props.setResWechsler('CO',total)
+    }else{
+      if(props.resWechsler['CO'] !== total){
+        props.setResWechsler('CO',total)
+      }
+    }
+
     return total;
   }
 
@@ -371,7 +382,7 @@ function Comprension() {
           setResultsAux(results) 
           setState("revision")
           }}
-         url="WISC-selection"
+         url="WAIS-selection"
          ></Results>
           )
       default:
@@ -386,4 +397,17 @@ function Comprension() {
   );
 }
 
-export default Comprension;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comprension);

@@ -4,7 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
-
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Balanzas() {
+function Balanzas(props) {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -209,6 +210,15 @@ function Balanzas() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('B')){
+      props.setResWechsler('B',total)
+    }else{
+      if(props.resWechsler['B'] !== total){
+        props.setResWechsler('B',total)
+      }
+    }
+
     return total;
   }
 
@@ -411,4 +421,17 @@ function Balanzas() {
   );
 }
 
-export default Balanzas;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Balanzas);

@@ -21,24 +21,26 @@ import clsx from 'clsx';
 import Peer from "simple-peer";
 //import RecordRTC from 'recordrtc';
 
-const ENDPOINT = 'psique-back.herokuapp.com/';
+const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
 let socket = io(ENDPOINT);
 let peer
 
 let type="doctor"
 
-const verbal= ["CIERRE LOS OJOS","SAQUE LA LENGUA","OPRIMA EL BOTÓN DOS VECES"]
-const lectura= ["OSCURO","LLAVE"]
+const verbal= ["CIERRE LOS OJOS","SAQUE LA LENGUA","ABRA Y CIERRE LA MANO"]
+const repeticion= ["CEREBRO","PENSAMIENTO","LENGUAJE"]
+const lectura= ["OSCURO","LA LLAVE DEL CARRO"]
+const instrucciones= ["EN LA IMAGEN HAY UN ANCIANO","EN LA IMAGEN HAY UN CIRCULO","EN LA IMAGEN HAY UN CARRO","EN LA IMAGEN HAY UN AVION"]
 
-let resultsRight = [0,0,0,0,0,0]
-let resultsLeft = [0,0,0,0,0,0]
+let results = [0,0,0,0,0,0]
 
 let lobulo = "Derecho"
-let aphasiaRight =[]
-let aphasiaLeft =[]
+let aphasiaChecked =[]
 let test = ["Conteo","Denominacion","Instrucciones verbales","Repeticion","Lectura","Seguimiento de instrucciones"]
 let actualTest = -1;
+let aphasias = ["Paresia de miembro superior","Oftalmoplegia","Paralisis facial","Disartria"]
+let aphasias2 = ["Afasia aferente","Afasia eferente","Afasia mixta"]
 
 const useStyles = makeStyles({
   h1: {
@@ -55,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 
-function Wada() {
+function Wada() { 
   const [state, setState] = useState("intro");
   const [stimuli, setStimuli] = useState(6);
   const [seconds, setSeconds] = useState(0);
@@ -78,16 +80,11 @@ function Wada() {
     type=typeIn
   }
 
-  function didAPhasia(type){
-    if(lobulo==="Derecho")aphasiaRight.push([type,Math.trunc(seconds/60)+" minutes "+seconds%60+" second"])
-    else aphasiaLeft.push([type,Math.trunc(seconds/60)+" minutes "+seconds%60+" second"])
-  }
-
   function getTotal(lobulo){
     let total = 0
     for (let i = 0; i < test.length; i++) {
-      if(lobulo==="Derecho")total+= resultsRight[i]
-      else total+= resultsLeft[i]
+      total+= results[i]
+      
     }
     return total
   }
@@ -126,8 +123,8 @@ function Wada() {
 
   function next(limit,score){
     
-    if(lobulo==="Derecho")resultsRight[actualTest]=resultsRight[actualTest]+score;
-    else resultsLeft[actualTest]=resultsLeft[actualTest]+score;
+    results[actualTest]=results[actualTest]+score;
+    
 
     if(stimuli<limit){
       socket.emit("setStimuliWada",stimuli+1)
@@ -307,25 +304,7 @@ function Wada() {
         })}>
           <h1> Cuente de 1 a 20...</h1>
           {type==="doctor"?
-          <div>
-            <p>Indique que el tipo de afasia al momento que la experimenta:</p>
-              <CustomButton
-              msj="Afasia 1"
-              callback={()=>didAPhasia("Afasia 1")}
-              ></CustomButton>
-              <CustomButton
-              msj="Afasia 2"
-              callback={()=>didAPhasia("Afasia 2")}
-              ></CustomButton>
-              <CustomButton
-              msj="Afasia 3"
-              callback={()=>didAPhasia("Afasia 3")}
-              ></CustomButton>
-              <CustomButton
-              msj="Afasia 4"
-              callback={()=>didAPhasia("Afasia 4")}
-              ></CustomButton>
-
+          <div>            
               <CustomButton
               msj="Correcto"
               callback={()=>next(1,1)}
@@ -334,6 +313,13 @@ function Wada() {
               msj="Incorrecto"
               callback={()=>next(1,0)}
               ></CustomButton>
+              <p>Indique si se presenta alguno de los siguientes eventos:</p>
+              
+              {aphasias.map((x,i)=><CustomButton
+              key={i}
+              msj={x}
+              callback={()=>aphasiaChecked.push([x,seconds])}
+              ></CustomButton>)}
           </div>:null}
         </div>)
   case "Denominacion":
@@ -358,10 +344,10 @@ function Wada() {
     case "Instrucciones verbales":
       return(<div className={clsx({
         [classes.h1]:type==='paciente'
-      })}>
-        <h1>{verbal[stimuli-1]}</h1>
+      })}>        
         {type==="doctor"?
         <div>
+          <h1>{verbal[stimuli-1]}</h1>
            <CustomButton
             msj="Correcto"
             callback={()=>next(3,1)}
@@ -376,24 +362,16 @@ function Wada() {
       return(<div className={clsx({
         [classes.h1]:type==='paciente'
       })}>
-        <h1>CEREBRO-PENSAMIENTO</h1>
         {type==="doctor"?
         <div>
+          <h1>{repeticion[stimuli]}</h1>
             <CustomButton
-            msj="0 Puntos"
-            callback={()=>next(1,0)}
+            msj="Correcto"
+            callback={()=>next(3,1)}
             ></CustomButton>
             <CustomButton
-            msj="1 Punto"
-            callback={()=>next(1,1)}
-            ></CustomButton>
-            <CustomButton
-            msj="2 Puntos"
-            callback={()=>next(1,2)}
-            ></CustomButton>
-            <CustomButton
-            msj="3 Puntos"
-            callback={()=>next(1,3)}
+            msj="Incorrecto"
+            callback={()=>next(3,0)}
             ></CustomButton>
         </div>:null}
       </div>)
@@ -418,13 +396,15 @@ function Wada() {
           return(<div className={clsx({
             [classes.h1]:type==='paciente'
           })}>
-            <img
+            {type==="doctor"?<img
             alt={"Estimulo #"+stimuli}      
             width="100%"
             src={require('../../assets/estimulos/wada/instruc.png')}
-            />
+            />:null}
             {type==="doctor"?
             <div>
+                <h1>{instrucciones[stimuli]}</h1>
+                <h1>{stimuli===3 ||stimuli===0 ? "Respuesta correcta: Si":"Respuesta correcta: No"}</h1>
                 <CustomButton
                 msj="Correcto"
                 callback={()=>next(3,1)}
@@ -445,8 +425,7 @@ function Wada() {
               <TableHead>
                 <TableRow >
                   <TableCell >Subtest</TableCell>
-                  <TableCell align="center">Lobulo Derecho</TableCell>
-                  <TableCell align="center">Lobulo Izquierdo</TableCell>
+                  <TableCell align="center">Resultados</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -455,22 +434,20 @@ function Wada() {
                     <TableCell component="th" scope="row">
                       {name}
                     </TableCell>
-                    <TableCell align="center">{resultsRight[index]}</TableCell>
-                    <TableCell align="center">{resultsLeft[index]}</TableCell>
+                    <TableCell align="center">{results[index]}</TableCell>
                   </TableRow>:null
                 )}
                 <TableRow >
                     <TableCell component="th" scope="row">
                       Total
                     </TableCell>
-                    <TableCell align="center">{getTotal("Derecho")}</TableCell>
-                    <TableCell align="center">{getTotal("Izquierdo")}</TableCell>
+                    <TableCell align="center">{getTotal()}</TableCell>
                   </TableRow>
               </TableBody>
             </Table>
             </TableContainer>
-            <h1>Afasias Registradas-Lobulo Derecho</h1>
-            {aphasiaRight.length!==0?<TableContainer component={Paper}>
+            <h1>Eventos Registradas</h1>
+            {aphasiaChecked.length!==0?<TableContainer component={Paper}>
             <Table  aria-label="simple table">
               <TableHead>
                 <TableRow >
@@ -479,7 +456,7 @@ function Wada() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {aphasiaRight.map((aphasia,index) => 
+                {aphasiaChecked.map((aphasia,index) => 
                   <TableRow key={index}>
                     <TableCell component="th" scope="row">
                       {aphasia[0]}
@@ -490,33 +467,45 @@ function Wada() {
               </TableBody>
             </Table>
             </TableContainer>:<p>No afasias registradas</p>}
-            <h1>Afasias Registradas-Lobulo Izquierdo</h1>
-            {aphasiaLeft.length!==0?<TableContainer component={Paper}>
-            <Table  aria-label="simple table">
-              <TableHead>
-                <TableRow >
-                  <TableCell >Afasia</TableCell>
-                  <TableCell align="center">Tiempo</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {aphasiaLeft.map((aphasia,index) => 
-                  <TableRow key={index}>
-                    <TableCell component="th" scope="row">
-                      {aphasia[0]}
-                    </TableCell>
-                    <TableCell align="center">{aphasia[1]}</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-            </TableContainer>:<p>No afasias registradas</p>}
+            <h1>Afasias</h1>
+            <FormControl required component="fieldset">
+            <FormLabel component="legend">Selecciona las afasias presentadas durante la prueba:</FormLabel>
+            <FormGroup>
+              {aphasias2.map((x,index)=>
+                <FormControlLabel
+                  key={index}
+                  control={
+                  <Checkbox color="primary" 
+                    onChange={(event)=>didAphasia(aphasias2[index],event.target.checked)}
+                  />}
+                  label={aphasias2[index]}
+                />
+              )}
+            </FormGroup>
+          </FormControl>
+          <br/>
+          <CustomButton
+            msj="Guardar Resultados"
+            callback={()=>console.log("Guardado")}
+          />
           </div>)
 
       default:
         break;
     }
 
+  }
+
+  function didAphasia(name,bool){
+    if(bool){
+      aphasiaChecked.push([name,null])
+    }
+    else{
+      var index = aphasiaChecked.findIndex((x)=>name===x[0]);
+      if (index > -1) {
+        aphasiaChecked.splice(index, 1);
+      }
+    }
   }
 
   function cronometer(){

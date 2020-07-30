@@ -371,7 +371,7 @@ function Comprension() {
           setResultsAux(results) 
           setState("revision")
           }}
-         url="WISC-selection"
+         url="WAIS-selection"
          ></Results>
           )
       default:

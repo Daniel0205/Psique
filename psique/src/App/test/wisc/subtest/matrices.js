@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';

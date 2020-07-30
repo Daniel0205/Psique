@@ -64,4 +64,4 @@ jobs:
         app: psique-back
         on: 
           repo: Daniel0205/Psique
-          branch: master
+          branch: daniel

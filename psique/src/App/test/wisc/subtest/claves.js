@@ -188,7 +188,7 @@ function Claves() {
                   label = "Puntuación del paciente"
                   defaultValue={result}
                   type="number"                    
-                  inputProps={{min:0, max:65}}
+                  inputProps={{min:0, max:119}}
                   variant="outlined"
                   onChange={(x)=>{setResult(x.target.value)}}
                 /> 

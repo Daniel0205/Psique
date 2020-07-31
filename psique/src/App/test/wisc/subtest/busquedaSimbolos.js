@@ -3,6 +3,8 @@ import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
+import Grid from '@material-ui/core/Grid';
+import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core/styles';
 
 let busquedaA = false; // true A; false B
@@ -15,6 +17,18 @@ const useStyles = makeStyles({
   textfield:{
     width:"20%"
   },
+  snackbarStyle: {
+    color: "black",
+    alignSelf: "center",
+    display: "inline-flex",
+    backgroundColor: '#FFF4E5',
+    width: '40%',
+  },
+  iconStyle:{
+    color: '#FFA117',
+    alignSelf: "center",
+    verticalAlign: "middle",
+  },
 });
 
 
@@ -24,24 +38,31 @@ function BusquedaSimbolos() {
 
   var [pag4C, setPag4C] = useState();
   var [pag4I, setPag4I] = useState();
+  var [pag4Alert, setPag4Alert] = useState(false);
 
   var [pag5C, setPag5C] = useState();
   var [pag5I, setPag5I] = useState();
+  var [pag5Alert, setPag5Alert] = useState(false);
 
   var [pag6C, setPag6C] = useState();
   var [pag6I, setPag6I] = useState();
+  var [pag6Alert, setPag6Alert] = useState(false);
 
   var [pag8C, setPag8C] = useState();
   var [pag8I, setPag8I] = useState();
+  var [pag8Alert, setPag8Alert] = useState(false);
 
   var [pag9C, setPag9C] = useState();
   var [pag9I, setPag9I] = useState();
+  var [pag9Alert, setPag9Alert] = useState(false);
 
   var [pag10C, setPag10C] = useState();
   var [pag10I, setPag10I] = useState();
+  var [pag10Alert, setPag10Alert] = useState(false);
 
   var [pag11C, setPag11C] = useState();
   var [pag11I, setPag11I] = useState();
+  var [pag11Alert, setPag11Alert] = useState(false);
 
   const classes = useStyles();
 
@@ -95,6 +116,121 @@ function BusquedaSimbolos() {
 
   function getResult(){
     return result;
+  }
+
+  /*  ChangeValues Function
+  * $newValue - The new value for the fieldNumber
+  * $correct - if the new value is for fieldNumber correctAnswer or not (wrongAnswer)
+  * $fieldNumber - The number of the field that will change
+  */
+  function ChangeValues(newValue, correct, fieldNumber) {
+    var newNumberValue = parseInt(newValue);
+    var controlVar;
+    if(newValue !== undefined && !(newNumberValue.isNaN) && newValue !== null && newValue !== ''){
+      switch(fieldNumber){
+        case 4:
+          if(correct){
+            setPag4C(newValue);
+            controlVar = parseInt(pag4I);
+            if(pag4I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag4Alert(true); } else{ setPag4Alert(false); }
+          }else{
+            setPag4I(newValue);
+            controlVar = parseInt(pag4C);
+            if(pag4C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag4Alert(true); } else{ setPag4Alert(false); }
+          }
+        break;
+
+        case 5:
+          if(correct){
+            setPag5C(newValue);
+            controlVar = parseInt(pag5I);
+            if(pag5I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag5Alert(true); } else{ setPag5Alert(false); }
+          }else{
+            setPag5I(newValue);
+            controlVar = parseInt(pag5C);
+            if(pag5C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag5Alert(true); } else{ setPag5Alert(false); }
+          }
+        break;
+
+        case 6:
+          if(correct){
+            setPag6C(newValue);
+            controlVar = parseInt(pag6I);
+            if(pag6I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag6Alert(true); } else{ setPag6Alert(false); }
+          }else{
+            setPag6I(newValue);
+            controlVar = parseInt(pag6C);
+            if(pag6C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag6Alert(true); } else{ setPag6Alert(false); }
+          }
+        break;
+
+
+        case 8:
+          if(correct){
+            setPag8C(newValue);
+            controlVar = parseInt(pag8I);
+            if(pag8I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag8Alert(true); } else{ setPag8Alert(false); }
+          }else{
+            setPag8I(newValue);
+            controlVar = parseInt(pag8C);
+            if(pag8C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag8Alert(true); } else{ setPag8Alert(false); }
+          }
+        break;
+
+        case 9:
+          if(correct){
+            setPag9C(newValue);
+            controlVar = parseInt(pag9I);
+            if(pag9I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag9Alert(true); } else{ setPag9Alert(false); }
+          }else{
+            setPag9I(newValue);
+            controlVar = parseInt(pag9C);
+            if(pag9C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag9Alert(true); } else{ setPag9Alert(false); }
+          }
+        break;
+
+        case 10:
+          if(correct){
+            setPag10C(newValue);
+            controlVar = parseInt(pag10I);
+            if(pag10I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag10Alert(true); } else{ setPag10Alert(false); }
+          }else{
+            setPag10I(newValue);
+            controlVar = parseInt(pag10C);
+            if(pag10C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag10Alert(true); } else{ setPag10Alert(false); }
+          }
+        break;
+
+        case 11:
+          if(correct){
+            setPag11C(newValue);
+            controlVar = parseInt(pag11I);
+            if(pag11I === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag11Alert(true); } else{ setPag11Alert(false); }
+          }else{
+            setPag11I(newValue);
+            controlVar = parseInt(pag11C);
+            if(pag11C === undefined || controlVar === undefined || controlVar.isNaN){ controlVar = 0; }
+            if(newNumberValue+controlVar > 15){ setPag11Alert(true); } else{ setPag11Alert(false); }
+          }
+        break;
+
+        default:
+        break;
+      }
+    }
   }
 
   function content(){
@@ -174,9 +310,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag4C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag4C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 4)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -184,13 +320,22 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag4I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag4I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 4)}
                     />
-                    &nbsp;  &nbsp;                
-                  </div>
-                </div>
+                    &nbsp;  &nbsp;
+                    {pag4Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
+                  </div>                  
+                </div>                
 
                 <div className={classes.fields}>
                   <h3> Página 5 </h3>
@@ -200,9 +345,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag5C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag5C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 5)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -210,11 +355,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag5I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag5I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 5)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag5Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 
@@ -226,9 +380,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag6C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag6C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 6)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -236,11 +390,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag6I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag6I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 6)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag6Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 
@@ -265,9 +428,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag8C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag8C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 8)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -275,11 +438,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag8I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag8I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 8)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag8Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 
@@ -291,9 +463,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag9C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag9C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 9)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -301,11 +473,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag9I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag9I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 9)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag9Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 
@@ -317,9 +498,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag10C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag10C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 10)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -327,11 +508,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag10I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag10I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 10)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag10Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 
@@ -343,9 +533,9 @@ function BusquedaSimbolos() {
                       label={"Correctas"}
                       type="number"
                       defaultValue={pag11C}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag11C(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, true, 11)}
                     />
                     &nbsp;  &nbsp;
                     <TextField
@@ -353,11 +543,20 @@ function BusquedaSimbolos() {
                       label={"Incorrectas"}
                       type="number"
                       defaultValue={pag11I}
-                      inputProps={{ min:0 }}
+                      inputProps={{ min:0, max:15 }}
                       variant="outlined"
-                      onChange={(x)=>setPag11I(x.target.value)}
+                      onChange={(x)=>ChangeValues(x.target.value, false, 11)}
                     />
-                    &nbsp;  &nbsp;                
+                    &nbsp;  &nbsp;
+                    {pag11Alert ?
+                      <div> 
+                        <br/>
+                        <Grid container className={classes.snackbarStyle} justify="center" spacing={1}>
+                            <WarningIcon className={classes.iconStyle}/>
+                            <p> Por favor revisa los valores</p>
+                        </Grid>
+                      </div>
+                    : <div/>}
                   </div>
                 </div>
 

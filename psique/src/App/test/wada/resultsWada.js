@@ -12,12 +12,19 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+  div:{
+    paddingLeft: "2%",
+    paddingRight: "2%"
+  }
+});
 
 let aphasiasFinal = ["Afasia aferente","Afasia eferente","Afasia mixta"]
 
 function ResultsWada(props) {
-    
+  const classes = useStyles(); 
     
     function getTotal(){
         let total = 0
@@ -55,7 +62,7 @@ function ResultsWada(props) {
         }
     }
 
-    return(<div>
+    return(<div className={classes.div}>
         <h1>Resultados</h1>
         <h2>Tiempo empleado: {props.cronometer()}</h2>
         <TableContainer component={Paper}>

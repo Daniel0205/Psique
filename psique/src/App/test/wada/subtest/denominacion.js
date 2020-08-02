@@ -1,34 +1,29 @@
 import React,{useState} from 'react';
 import CustomButton from '../../../components/customButton'
 import IntroTest from '../introTest';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+
+const useStyles = makeStyles({
+  div:{
+    height: "80vh",
+    paddingTop: "10%",
+  },
+  img:{
+    maxWidth: "100%",
+    maxHeight: "100%"
+  }
+});
 
 function Denominacion(props) {
     const [state,setState]= useState("intro")
 
-    function getWidth(){
-        if(props.type==="doctor") return "100%"
-        switch (props.stimuli) {
-          case 1:
-            return "100%"
-          case 2:
-          case 3:
-            return "50%"
-          case 4:
-            return "70%"
-          case 5:
-            return "100%"
-          case 6:
-            return "80%"
-        
-          default:
-            break;
-        }
-      }
+    const classes = useStyles();  
 
     if(state==="intro"){
       return(
           <IntroTest
-              test={"Prueba de Denominacion: 6 Puntos"}
+              test={"Prueba de denominacion: 6 Puntos"}
               socket={props.socket}
               callback={()=>setState("conteo")}
               type={props.type}
@@ -36,10 +31,12 @@ function Denominacion(props) {
     }
     else{ 
     
-      return(<div>
+      return(<div className={clsx({
+        [classes.div]:props.type==='paciente'
+      })}>
           <img
+          className={classes.img}
           alt={"Estimulo #"+props.stimuli}      
-          width={getWidth()}
           src={require('../../../assets/estimulos/wada/'+props.stimuli+".jpeg")}
           />
           {props.type==="doctor"?

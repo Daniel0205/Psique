@@ -17,7 +17,7 @@ const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 let socket = io(ENDPOINT);
 let peer
 
-let type="doctor"
+let type="paciente"
 
 
 let results = [0,0,0,0,0,0]
@@ -33,13 +33,19 @@ const useStyles = makeStyles({
   video:{
     width: "90%",
     maxWidth: "300px"
+  },
+  div:{
+    fontSize: "xxx-large"
+  },
+  h1:{
+      paddingTop: "20%"
   }
 });
 
 
 function Wada() { 
   const [state, setState] = useState("intro");
-  const [stimuli, setStimuli] = useState(6);
+  const [stimuli, setStimuli] = useState(1);
   const [seconds, setSeconds] = useState(0);
   const [stream, setStream] = useState();
   const [isActive, setIsActive] = useState(false);
@@ -244,7 +250,13 @@ function Wada() {
           aphasias={aphasias}
           test={test}
           />) 
-
+    
+      case "fin":
+        stream.getTracks().forEach(function(track) {
+          track.stop();
+        });
+        return<div className={classes.div}><h1 className={classes.h1}>Fin de la Prueba</h1></div>
+    
       default:
         break;
     }

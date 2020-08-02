@@ -1,7 +1,9 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState} from 'react';
 import CustomButton from './customButton';
+import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { setBody } from "../store/body/action";
+import { setBirthday } from "../store/patient/action";
 import { connect } from "react-redux";
 
 import BaremosWAIS from '../assets/Baremos/WAIS/BaremosWAIS.json';
@@ -43,8 +45,6 @@ function Baremos(props) {
 
         for(var i = 0 ; i < tabla.length ; i++){
             var name = (tabla[i].sheetName).split("-") //Solo funciona con los que tienen nombre con - 
-            console.log(tabla[i].sheetName)
-            console.log(name)
             var inflimity = name[0].slice(0,2)
             var suplimity = name[1].slice(0,2)
             var inflimitm = name[0].slice(2)
@@ -100,21 +100,43 @@ function Baremos(props) {
         });
 
         setEscalar(newEscalar)
-        console.log('La puntiacuón escalar total es ' + newEscalar )
 
     }
-    
-    useEffect(identifyTable,[])
+
+    //useEffect(identifyTable,[])
 
     return (
     <div className={classes.container} >
         <h2>Puntuación Escalar</h2>
 
+        <TextField
+            id="date"
+            label="Birthday"
+            type="date"
+            defaultValue="2017-05-24"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(x)=>{
+                console.log(x.target.value)
+                props.setBirthday(new Date(x.target.value))
+                console.log(props.birthday)
+                
+            }}
+        />
+        <p>Por favor, escoge la fecha de nacimiento del paciente. Según esta se calculara la puntuación escalar</p>
+        <CustomButton
+          msj="Calcular"
+          callback={identifyTable}>
+        </CustomButton>
+
         <h4>La suma de las puntuación escalares obtenida en cada prueba fue: </h4>
         <h2> {escalar}</h2>
 
-        <h3>Las puntuaciones individuales son las siguientes</h3>
-        <h2> {JSON.stringify(props.resWechsler)}</h2>
+        <h3>Las puntuaciones individuales por cada subprueba son las siguientes</h3>
+        { Object.entries(props.resWechsler).map((t) => <h2> {t[0]} : {t[1]} </h2> ) }
+        
 
         <CustomButton
           msj="Volver al Inicio"
@@ -136,6 +158,7 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
     return {
         setBody: (item) => dispatch(setBody(item)),
+        setBirthday: (item) => dispatch(setBirthday(item))
     };
 }
 

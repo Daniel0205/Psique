@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   table: {
@@ -16,7 +18,7 @@ const useStyles = makeStyles({
 
 const TESTDURATION = 120;
 
-function BusquedaSimbolos() {
+function BusquedaSimbolos(props) {
   var [state,setState] = useState("instruccion");
   var [result,setResult] = useState();
 
@@ -82,6 +84,15 @@ function BusquedaSimbolos() {
   }
 
   function getResult(){
+
+    if(!props.resWechsler.hasOwnProperty('BS')){
+      props.setResWechsler('BS',result)
+    }else{
+      if(props.resWechsler['BS'] !== result){
+        props.setResWechsler('BS',result)
+      }
+    }
+
     return result;
   }
 
@@ -342,4 +353,17 @@ function BusquedaSimbolos() {
   );
 }
 
-export default BusquedaSimbolos;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BusquedaSimbolos);

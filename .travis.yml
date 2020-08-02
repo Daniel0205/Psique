@@ -36,3 +36,32 @@ jobs:
         provider: firebase
         skip_cleanup: true
         token: $FIRE_TOKEN
+    # ======== Parte del frontend ========
+    - language: node_js
+      node_js:  '12'
+
+      warnings_are_errors: false
+
+      cache: 
+        directories:
+          - node_modules
+
+      branches:
+        only:
+          - daniel
+
+      before_install: 
+        - cd Back-End
+        - CI=false 
+
+      install:
+        - npm install
+      script:
+        - 'true'
+      deploy:
+        provider: heroku
+        api_key: $HEROKU_TOKEN
+        app: psique-back
+        on: 
+          repo: Daniel0205/Psique
+          branch: master

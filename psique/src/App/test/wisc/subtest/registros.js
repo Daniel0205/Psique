@@ -38,7 +38,7 @@ let time2Aux;
 
 
 function Registros(props) {
-  const [state,setState] = useState("test")
+  const [state,setState]=useState("instruccion")
   const [active,setActive] = useState("iniciar")
   const [cronometro,setCronometro] = useState(0)
   const [timeover,setTimeover] = useState(0)

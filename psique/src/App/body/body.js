@@ -55,7 +55,7 @@ const testDev ={
   intelligenceTests : ["WAIS IV", "WISC IV"],
   learningTests:[],
   memoryTest:["Prueba de Rey"],
-  quirofanoTests:[],
+  quirofanoTests:["Wada"],
 
 }
 

@@ -5,3 +5,7 @@ export function setResWechsler(payloadName, payloadValue) {
 export function resetResWechsler() {
     return { type: "RESET_RESWECHSLER"};
   }
+
+export function resetSession(testValue, activeValue) {
+    return { type: "RESET_SESSION", testValue, activeValue};
+  }

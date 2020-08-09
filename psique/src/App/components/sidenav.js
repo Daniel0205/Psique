@@ -11,7 +11,6 @@ import Wais from '../test/wais/wais';
 import Wisc from '../test/wisc/wisc';
 import Zung from '../test/zung/zung';
 import King from '../test/king/king';
-import Baremos from './Baremos';
 import Wada from '../test/wada/wada';
 
 const useStyles = makeStyles(theme => ({
@@ -73,8 +72,6 @@ function Sidenav(props) {
     switch (props.body) {
       case 'init':
         return <Body callback={(x)=>setAux(x)}/>
-      case 'baremos':
-        return <Baremos></Baremos>
       case "WAIS IV":
         return <Wais  subtest={props.subtest}></Wais>
       case "WISC IV":

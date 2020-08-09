@@ -1,5 +1,9 @@
 const initialState = {
-    resWechsler: {}
+    resWechsler: {},
+    session:{
+        test: 'initial',
+        active: false
+    },
   };
   
   function wechslerReducer(state = initialState, action) {
@@ -13,6 +17,14 @@ const initialState = {
     }else if(action.type === "RESET_RESWECHSLER"){
         return Object.assign({}, state, {
             resWechsler:{} 
+        });
+    }else if(action.type === "RESET_SESSION"){
+        return Object.assign({}, state, {
+            session:{
+                ...state.session,
+                test: action.testValue,
+                active: action.activeValue
+            } 
         });
     }
     return state;

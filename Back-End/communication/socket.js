@@ -1,5 +1,10 @@
 
 const socketio = require('socket.io');
+const record = require( 'recordrtc')
+const fs = require('fs');
+
+
+let recorder
 
 
 module.exports = function(server) {
@@ -36,6 +41,25 @@ module.exports = function(server) {
             callback();
         
         });
+
+
+        socket.on('startRecording', (stream) =>{
+            recorder =new record.RecordRTC(stream, {
+                type: 'video',
+                mimeType: 'video/webm',
+              });
+              recorder.startRecording();
+        })
+
+        socket.on('stopRecording', (blob) =>{            
+            var buf = new Buffer.from(blob, 'base64'); // decode
+            fs.writeFile("resources/test.webm", buf,(err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              }); 
+        })
+
+
     
     
     

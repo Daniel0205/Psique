@@ -8,7 +8,8 @@ const Doctor = require('./Doctor')
 const Assessment = db.define ('assessment',{
     id_assessment:{
         type: Sequelize.BIGINT,
-        primaryKey: true   
+        primaryKey: true,
+        autoIncrement: true
     },
     id_patient:{
         type: Sequelize.BIGINT,
@@ -18,7 +19,7 @@ const Assessment = db.define ('assessment',{
         type: Sequelize.BIGINT,
         allowNull: false    
     },
-    isActive:{
+    is_active:{
         type: Sequelize.BOOLEAN,
         allowNull: false     
     },

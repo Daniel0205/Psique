@@ -30,7 +30,7 @@ CREATE TABLE assessment(
 	id_doctor BIGINT NOT NULL REFERENCES doctor(id_doctor),	
 	start_date DATE NOT NULL,
 	end_date DATE,
-	isActive BOOLEAN	
+	is_active BOOLEAN	
 );
 
 
@@ -39,5 +39,30 @@ CREATE TABLE test(
 	id_test SERIAL PRIMARY KEY,
 	id_assessment BIGINT REFERENCES assessment(id_assessment),
 	start_date DATE NOT NULL,
-	isActive BOOLEAN	
+	is_active BOOLEAN	
+);
+
+
+DROP TABLE IF EXISTS wada CASCADE;
+CREATE TABLE wada(
+	id_test BIGINT REFERENCES test(id_test),
+	id_wada SERIAL PRIMARY KEY,
+	hemisphere  CHAR(1) NOT NULL,
+	propofol_aplication INT NOT NULL,
+	duration INT NOT NULL,
+	counting INT,
+	denomination INT,
+	verbal_instructions INT,
+	repetition INT,
+	lecture INT,
+	follow_instructions INT,
+
+CHECK(hemisphere IN ('D','I','P'))
+);
+
+DROP TABLE IF EXISTS aphasia CASCADE;
+CREATE TABLE aphasia(
+	id_wada BIGINT REFERENCES wada(id_wada),
+	time interval,
+	name TEXT NOT NUll
 );

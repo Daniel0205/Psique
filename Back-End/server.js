@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const router = require('./routes/router');
+const router = require('./services/router');
 const [endpointGraph, visualGraph] = require('./graphql/index')
 const cors = require('cors');
 
@@ -56,6 +56,9 @@ var corsOptions = {
 
 //Routes
 app.use(router,cors());
+
+//Public folder
+app.use(cors(corsOptions),express.static(__dirname + '/resources'));
 
 // The GraphQL endpoint
 app.options('/graphql', cors(corsOptions)) // enable pre-flight request for DELETE request

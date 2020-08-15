@@ -11,14 +11,15 @@ import Lectura from './subtest/lectura'
 import Instrucciones from './subtest/instrucciones'
 import ResultsWada from './resultsWada'
 import StartWada from './startTest'
+import RecordRTC from 'recordrtc'
 
 const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
 let socket = io(ENDPOINT);
 let peer
+let recorder
 
 let type="paciente"
-
 
 let results = [0,0,0,0,0,0]
 let aphasias =[]
@@ -121,7 +122,16 @@ function Wada() {
 
       if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
     
-        if(type==="paciente")peer = new Peer({ initiator: true,trickle: false, stream: stream })
+        if(type==="paciente"){
+          peer = new Peer({ initiator: true,trickle: false, stream: stream })
+          peer.on('connect', () => {
+            recorder =new RecordRTC(stream, {
+              type: 'video',
+              mimeType: 'video/webm',
+            });
+            recorder.startRecording();
+          })
+        }
         else{
           peer = new Peer();
           peer.on('stream', function (stream) {
@@ -254,6 +264,10 @@ function Wada() {
       case "fin":
         stream.getTracks().forEach(function(track) {
           track.stop();
+        });
+        recorder.stopRecording(function() {
+          socket.emit("stopRecording", recorder.getBlob());
+         
         });
         return<div className={classes.div}><h1 className={classes.h1}>Fin de la Prueba</h1></div>
     

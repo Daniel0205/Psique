@@ -1,14 +1,9 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Test = require('./test')
+const Test = require('./Test')
 
 const Wada = db.define ('wada',{
-    id_wada:{
-        type: Sequelize.BIGINT,
-        primaryKey: true,
-        autoIncrement: true
-    },
     id_test:{
         type: Sequelize.BIGINT,
         allowNull: false 
@@ -18,35 +13,37 @@ const Wada = db.define ('wada',{
         allowNull: false    
     },
     propofol_aplication:{
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
         allowNull: false    
     },
     duration:{
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
         allowNull: false     
     },
     counting:{
-        type: Sequelize.INT,  
+        type: Sequelize.INTEGER,  
     },
     denomination:{
-        type: Sequelize.INT, 
+        type: Sequelize.INTEGER, 
     },
     verbal_instructions:{
-        type: Sequelize.INT, 
+        type: Sequelize.INTEGER, 
     },
     repetition:{
-        type: Sequelize.INT, 
+        type: Sequelize.INTEGER, 
     },
     lecture:{
-        type: Sequelize.INT, 
+        type: Sequelize.INTEGER, 
     },
     follow_instructions:{
-        type: Sequelize.INT, 
+        type: Sequelize.INTEGER, 
     }
 },{
     freezeTableName: true,
     timestamps: false
 })
+
+Wada.removeAttribute("id");
 
 
 Test.hasOne(Wada,{ foreignKey: 'id_test'});

@@ -26,6 +26,7 @@ let aphasias =[]
 
 let test = ["Conteo","Denominacion","Instrucciones verbales","Repeticion","Lectura","Seguimiento de instrucciones"]
 let actualTest = -1;
+let propofol=0;
 
 const useStyles = makeStyles({
   root:{
@@ -209,6 +210,7 @@ function Wada() {
           next={next}
           aphasias={aphasias}
           socket={socket}
+          registerPropofol={()=>{propofol=seconds}}
           />)
       case "Denominacion":
         return (
@@ -259,6 +261,7 @@ function Wada() {
           selectedTest={selectedTest}
           aphasias={aphasias}
           test={test}
+          propofol={propofol}
           />) 
     
       case "fin":
@@ -287,4 +290,5 @@ function Wada() {
   );
 }
 
-export default Wada;
+
+export default (Wada);

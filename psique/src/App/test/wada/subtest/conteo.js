@@ -17,6 +17,7 @@ let aphasias = ["Paresia de miembro superior","Oftalmoplegia","Paralisis facial"
 
 function Conteo(props) {
     const [state,setState]= useState("intro")
+    const [propofolApplied,setPropofolApplied]= useState(false)
 
     const classes = useStyles();  
 
@@ -46,6 +47,19 @@ function Conteo(props) {
                 msj="Incorrecto"
                 callback={()=>props.next(1,0)}
                 ></CustomButton>
+                {!propofolApplied ? 
+                    <div>
+                    <hr />
+                    <p>Presione el siguiente boton para registrar el momento de aplicacion del propofol:</p>
+                    <CustomButton
+                    msj={"Registrar Propofol"}
+                    callback={()=>{
+                        props.registerPropofol()
+                        setPropofolApplied(true)
+                    }}
+                    ></CustomButton>
+                    </div>
+                :null}
                 <hr />
                 <p>Indique si se presenta alguno de los siguientes eventos:</p>
                 

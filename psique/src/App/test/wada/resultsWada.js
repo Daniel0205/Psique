@@ -65,6 +65,7 @@ function ResultsWada(props) {
     return(<div className={classes.div}>
         <h1>Resultados</h1>
         <h2>Tiempo empleado: {props.cronometer()}</h2>
+        <h2>Momento de aplicacion del propofol: {props.propofol}</h2>
         <TableContainer component={Paper}>
         <Table  aria-label="simple table">
           <TableHead>

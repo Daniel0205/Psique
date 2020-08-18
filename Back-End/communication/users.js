@@ -4,7 +4,7 @@ const users = [];
 const addUser = ({ id, type, test }) => {
   type = type.trim().toLowerCase();
   test = test.trim().toLowerCase();
-
+  
   const existingUser = users.find((user) => user.test === test && user.type === type);
 
   if(existingUser) return { error: 'Username type is alredy taken.' };

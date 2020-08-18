@@ -1,8 +1,10 @@
 import { createStore, combineReducers, compose } from "redux";
 import bodyReducer from "./body/reducer";
+import assessmentReducer from "./assessment/reducer";
 
 const reducers = combineReducers({
     bodyReducer,
+    assessmentReducer
 });
 
 const enhancers = compose(

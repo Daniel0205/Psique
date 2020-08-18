@@ -46,7 +46,6 @@ CREATE TABLE test(
 DROP TABLE IF EXISTS wada CASCADE;
 CREATE TABLE wada(
 	id_test BIGINT REFERENCES test(id_test),
-	id_wada SERIAL PRIMARY KEY,
 	hemisphere  CHAR(1) NOT NULL,
 	propofol_aplication INT NOT NULL,
 	duration INT NOT NULL,
@@ -62,7 +61,7 @@ CHECK(hemisphere IN ('D','I','P'))
 
 DROP TABLE IF EXISTS aphasia CASCADE;
 CREATE TABLE aphasia(
-	id_wada BIGINT REFERENCES wada(id_wada),
-	time interval,
+	id_test BIGINT REFERENCES test(id_test),
+	time int,
 	name TEXT NOT NUll
 );

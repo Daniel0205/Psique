@@ -8,6 +8,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import update from 'react-addons-update';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import TestStart from '../../components/testStart'
+import { gql } from '@apollo/client';
+import { Query } from "@apollo/client/react/components";
+import { connect } from "react-redux";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,17 +28,23 @@ const useStyles = makeStyles({
     }
 });
 
+const GET_WADA_APPLIED = gql`
+  query IsWadaDone($id_assessment: Int!,$hemisphere:String!) {
+    isWadaDone(id_assessment:$id_assessment,hemisphere:$hemisphere) 
+  }
+`;
+
 let lobulo = "Derecho"  
 
 function ResultsWada(props) {
     const [state, setState] = useState(props.state);
     
-    const classes = useStyles();
+    const classes = useStyles(); 
 
     useEffect(()=>setState(props.state),[props.state])
 
     function join(typeIn){ 
-        props.socket.emit('join', { type:typeIn ,test:"1111" }, (error) => {
+        props.socket.emit('join', { type:typeIn ,test:props.id_assessment.toString()}, (error) => {
             if(error) {
                 alert(error);
             }
@@ -104,28 +113,63 @@ function ResultsWada(props) {
               return(<div>
                 <h1>Test de Wada</h1>
                 <p>Seleccione el lobulo donde se aplicara el propofol:</p>
-                <CustomButton
-                  msj="Lobulo Derecho"
-                  callback={()=>{
-                    lobulo="Derecho"
-                    setState("select")
+                <Query query={GET_WADA_APPLIED} variables={{ id_assessment: props.id_assessment,hemisphere:"D"}}>
+                  {({ loading, error, data }) => {
+                    if (loading) return "Cargando";
+                    if (error) return `Error! ${error}`;
+
+                    return (
+                      <CustomButton
+                      msj="Lobulo Derecho"
+                      disabled={data.isWadaDone}
+                      callback={()=>{
+                        lobulo="Derecho"
+                        setState("select")
+                      }}
+                      ></CustomButton>
+                    );
                   }}
-                  ></CustomButton>
+                </Query>
+
+                <Query query={GET_WADA_APPLIED} variables={{ id_assessment: props.id_assessment,hemisphere:"I"}}>
+                  {({ loading, error, data }) => {
+                    if (loading) return "Cargando";
+                    if (error) return `Error! ${error}`;
+
+                    return (
+                      <CustomButton
+                      msj="Lobulo Izquierdo"
+                      disabled={data.isWadaDone}
+                      callback={()=>{
+                        lobulo="Izquierdo"
+                        setState("select")
+                      }}
+                    ></CustomButton>
+                    );
+                  }}
+                </Query>
+
+                <Query query={GET_WADA_APPLIED} variables={{ id_assessment: props.id_assessment,hemisphere:"P"}}>
+                  {({ loading, error, data }) => {
+                    if (loading) return "Cargando";
+                    if (error) return `Error! ${error}`;
+
+                    return (
+                      <CustomButton
+                        msj="Evaluacion Preliminar"
+                        disabled={data.isWadaDone}
+                        callback={()=>{
+                          lobulo="Preliminar"
+                          setState("select")
+                        }}
+                      ></CustomButton>
+                    );
+                  }}
+                </Query>
+                
     
-                <CustomButton
-                  msj="Lobulo Izquierdo"
-                  callback={()=>{
-                    lobulo="Izquierdo"
-                    setState("select")
-                  }}
-                ></CustomButton>
-                <CustomButton
-                  msj="Evaluacion Preliminar"
-                  callback={()=>{
-                    lobulo="Preliminar"
-                    setState("select")
-                  }}
-                ></CustomButton>
+                
+                
               </div>)
             case "start":
               return(<TestStart
@@ -141,6 +185,13 @@ function ResultsWada(props) {
     return(bodyIntro())
 }
 
+const mapStateToProps = (state) => {
+  
+  return {
+    id_assessment: state.assessmentReducer.id_assessment,
+  };
+};
 
-export default ResultsWada;
+
+export default connect(mapStateToProps)(ResultsWada);
   

@@ -66,7 +66,7 @@ function Conteo(props) {
                 {aphasias.map((x,i)=><CustomButton
                 key={i}
                 msj={x}
-                callback={()=>props.aphasias.push([x,props.seconds])}
+                callback={()=>props.aphasias.push({name:x,time:props.seconds})}
                 ></CustomButton>)}
             </div>:null}
         </div>)

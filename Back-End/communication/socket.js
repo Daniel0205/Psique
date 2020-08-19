@@ -51,9 +51,11 @@ module.exports = function(server) {
               recorder.startRecording();
         })
 
-        socket.on('stopRecording', (blob) =>{            
+        socket.on('stopRecording', (blob,id) =>{  
+            console.log(blob)          
+            console.log(id)          
             var buf = new Buffer.from(blob, 'base64'); // decode
-            fs.writeFile("resources/test.webm", buf,(err) => {
+            fs.writeFile("resources/"+id+".webm", buf,(err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               }); 
@@ -90,7 +92,7 @@ module.exports = function(server) {
             socket.broadcast.to(user.test).emit('sendSignal',data)
         })
     
-        socket.on('setTestWada', (test,callback) => {
+        socket.on('setTestWada', (test) => {
             const user = getUser(socket.id);
         
             if(test==="waiting start"){
@@ -106,9 +108,6 @@ module.exports = function(server) {
         
                 io.to(user.test).emit('state', { text: test });
             }
-        
-            if(callback!==undefined)callback()
-        
         });
     
     

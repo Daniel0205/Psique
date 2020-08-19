@@ -52,7 +52,7 @@ function ResultsWada(props) {
 
     function didAphasia(name,bool){
         if(bool){
-        props.aphasias.push([name,null])
+        props.aphasias.push({name})
         }
         else{
             var index = props.aphasias.findIndex((x)=>name===x[0]);
@@ -64,8 +64,9 @@ function ResultsWada(props) {
 
     return(<div className={classes.div}>
         <h1>Resultados</h1>
+        <h2>Tipo de prueba: {props.lobulo}</h2>
         <h2>Tiempo empleado: {props.cronometer()}</h2>
-        <h2>Momento de aplicacion del propofol: {props.propofol}</h2>
+        <h2>Momento de aplicacion del propofol: {getTime(props.propofol)}</h2>
         <TableContainer component={Paper}>
         <Table  aria-label="simple table">
           <TableHead>
@@ -105,9 +106,9 @@ function ResultsWada(props) {
             {props.aphasias.map((aphasia,index) => 
               <TableRow key={index}>
                 <TableCell component="th" scope="row">
-                  {aphasia[0]}
+                  {aphasia.name}
                 </TableCell>
-                <TableCell align="center">{getTime(aphasia[1])}</TableCell>
+                <TableCell align="center">{aphasia.time?getTime(aphasia.time):"Presentada"}</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -132,7 +133,7 @@ function ResultsWada(props) {
       <br/>
       <CustomButton
         msj="Guardar Resultados"
-        callback={()=>console.log("Guardado")}
+        callback={props.saveResults}
       />
       </div>)
 }

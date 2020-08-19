@@ -123,6 +123,7 @@ function ResultsWada(props) {
                       msj="Lobulo Derecho"
                       disabled={data.isWadaDone}
                       callback={()=>{
+                        props.setLobulo("Derecho")
                         lobulo="Derecho"
                         setState("select")
                       }}
@@ -141,6 +142,7 @@ function ResultsWada(props) {
                       msj="Lobulo Izquierdo"
                       disabled={data.isWadaDone}
                       callback={()=>{
+                        props.setLobulo("Izquierdo")
                         lobulo="Izquierdo"
                         setState("select")
                       }}
@@ -159,6 +161,7 @@ function ResultsWada(props) {
                         msj="Evaluacion Preliminar"
                         disabled={data.isWadaDone}
                         callback={()=>{
+                          props.setLobulo("Preliminar")
                           lobulo="Preliminar"
                           setState("select")
                         }}

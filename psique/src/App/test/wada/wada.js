@@ -2,6 +2,9 @@ import React, { useState, useEffect,useRef } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import { makeStyles } from '@material-ui/core/styles';
+import { setBody } from "../../store/body/action";
+import { connect } from "react-redux";
+
 
 import Conteo from './subtest/conteo'
 import Denominacion from './subtest/denominacion'
@@ -12,21 +15,39 @@ import Instrucciones from './subtest/instrucciones'
 import ResultsWada from './resultsWada'
 import StartWada from './startTest'
 import RecordRTC from 'recordrtc'
+import { gql, useMutation } from '@apollo/client';
+
+const ADD_TODO = gql`
+  mutation ($wadaData:Wada!,$id_assessment:Int!,$aphasiasData:[Aphasia!]) {
+    createWada(wadaData:$wadaData,id_assessment:$id_assessment,aphasiasData:$aphasiasData){
+      id
+      error{
+        path
+        message
+      }
+    }
+  }
+`;
 
 const ENDPOINT = process.env.REACT_APP_ENDPOINT;
 
 let socket = io(ENDPOINT);
 let peer
 let recorder
+let blob
 
 let type="paciente"
+let hemisphere={Derecho:"D",Izquierdo:"I",Preliminar:"P"}
 
 let results = [0,0,0,0,0,0]
 let aphasias =[]
+let testNames = ["counting","denomination","verbal_instructions",
+                "repetition","lecture","follow_instructions"]
 
 let test = ["Conteo","Denominacion","Instrucciones verbales","Repeticion","Lectura","Seguimiento de instrucciones"]
 let actualTest = -1;
 let propofol=0;
+let lobulo;
 
 const useStyles = makeStyles({
   root:{
@@ -45,17 +66,48 @@ const useStyles = makeStyles({
 });
 
 
-function Wada() { 
+function Wada(props) { 
   const [state, setState] = useState("intro");
   const [stimuli, setStimuli] = useState(1);
   const [seconds, setSeconds] = useState(0);
   const [stream, setStream] = useState();
   const [isActive, setIsActive] = useState(false);
   const [selectedTest, setSelectedTest] = useState([true,true,true ,true,true,true]);
+  const [createWada] = useMutation(ADD_TODO);
   
+
   const classes = useStyles();  
 
   const partnerVideo = useRef();
+
+
+  async function save(){
+    let wadaData={
+      hemisphere:hemisphere[lobulo],
+      propofol_aplication:propofol,
+      duration:seconds,
+    }
+    for (let i = 0; i < selectedTest.length; i++) {
+      if(selectedTest[i])wadaData[testNames[i]]=results[i]
+    }
+    console.log(wadaData)
+    console.log(aphasias)
+    console.log({ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias})
+
+    const {data}= await createWada({ variables:{ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias}});
+
+    console.log(data)
+
+    if (data.createWada.id) {
+      console.log( blob)
+      socket.emit("stopRecording", blob,data.createWada.id);
+      props.setBody("init")      
+    }
+    else{
+      console.log("EEROR AL ALMACENAR LOS DATO")
+    }
+
+  }
   
 
   function nextTest(){
@@ -123,19 +175,16 @@ function Wada() {
 
       if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
     
-        if(type==="paciente"){
-          peer = new Peer({ initiator: true,trickle: false, stream: stream })
-          peer.on('connect', () => {
+        if(type==="paciente")peer = new Peer({ initiator: true,trickle: false, stream: stream })
+        else{
+          peer = new Peer();
+          peer.on('stream', function (stream) {
+            setIsActive(true)
             recorder =new RecordRTC(stream, {
               type: 'video',
               mimeType: 'video/webm',
             });
             recorder.startRecording();
-          })
-        }
-        else{
-          peer = new Peer();
-          peer.on('stream', function (stream) {
             
             if (partnerVideo.current) {
               partnerVideo.current.srcObject = stream;
@@ -198,7 +247,8 @@ function Wada() {
             test={test}
             selectedTest={selectedTest}
             setSelectedTest={(x)=>setSelectedTest(x)}
-            changeTest={()=>socket.emit("activateStream",()=>socket.emit("setTestWada",nextTest(),()=>setIsActive(true)))}
+            changeTest={()=>socket.emit("activateStream",()=>socket.emit("setTestWada",nextTest()))}
+            setLobulo={(x)=>lobulo=x}
           />
         )
          
@@ -254,6 +304,10 @@ function Wada() {
           />) 
 
       case "results":
+        recorder.stopRecording(function() {
+          console.log( recorder.getBlob())
+          blob=recorder.getBlob();
+        });
         return (
           <ResultsWada
           cronometer={cronometer}
@@ -262,16 +316,15 @@ function Wada() {
           aphasias={aphasias}
           test={test}
           propofol={propofol}
+          lobulo={lobulo}
+          saveResults={save}
           />) 
     
       case "fin":
         stream.getTracks().forEach(function(track) {
           track.stop();
         });
-        recorder.stopRecording(function() {
-          socket.emit("stopRecording", recorder.getBlob());
-         
-        });
+       
         return<div className={classes.div}><h1 className={classes.h1}>Fin de la Prueba</h1></div>
     
       default:
@@ -290,5 +343,18 @@ function Wada() {
   );
 }
 
+const mapStateToProps = (state) => {
+  
+  return {
+    id_assessment: state.assessmentReducer.id_assessment,
+  };
+};
 
-export default (Wada);
+function mapDispatchToProps(dispatch) {
+  return {
+      setBody: (item) => dispatch(setBody(item)),
+
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps) (Wada);

@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const router = require('./routes/router');
+const router = require('./services/router');
 const [endpointGraph, visualGraph] = require('./graphql/index')
 const cors = require('cors');
 
@@ -54,17 +54,18 @@ var corsOptions = {
 }
 
 
-app.use(cors(corsOptions))
-
 //Routes
-//app.use(cors());
-app.use(router);
+app.use(router,cors());
+
+//Public folder
+app.use(cors(corsOptions),express.static(__dirname + '/resources'));
 
 // The GraphQL endpoint
-app.use('/graphql', bodyParser.json(), endpointGraph);
+app.options('/graphql', cors(corsOptions)) // enable pre-flight request for DELETE request
+app.use('/graphql', cors(corsOptions),bodyParser.json(), endpointGraph);
 
 // GraphiQL, a visual editor for queries
-app.use('/graphiql', visualGraph);
+app.use('/graphiql', cors(corsOptions), visualGraph);
 
 //Start the server
 server.listen( PORT, () => console.log(`Server has started.`));

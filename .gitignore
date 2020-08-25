@@ -88,3 +88,5 @@ yarn-debug.log*
 yarn-error.log*
 
 *.sqlite
+
+/Back-End/resources/*

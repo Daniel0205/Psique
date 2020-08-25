@@ -1,8 +1,8 @@
 
 
-// The GraphQL schema in string form
+const { gql } =require( 'apollo-server-express');
 
-module.exports =`
+module.exports =gql`
   
 
   type Mutation {

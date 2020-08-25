@@ -1,9 +1,7 @@
 
+const { gql } =require( 'apollo-server-express');
 
-// The GraphQL schema in string form
-
-module.exports =`
-  
+module.exports =gql`
   type  Query{
     hola:Boolean
   }

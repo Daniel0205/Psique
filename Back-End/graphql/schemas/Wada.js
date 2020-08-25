@@ -1,7 +1,5 @@
 
-const { gql } =require( 'apollo-server-express');
-
-module.exports =gql`
+module.exports =`
 
   input Wada{
 	hemisphere:String!,

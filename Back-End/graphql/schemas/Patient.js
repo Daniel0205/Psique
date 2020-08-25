@@ -1,8 +1,5 @@
 
-
-const { gql } =require( 'apollo-server-express');
-
-module.exports =gql`
+module.exports =`
   scalar Date
 
 

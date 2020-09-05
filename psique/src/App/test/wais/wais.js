@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import TestStart from '../../components/testStart';
 import CustomButton from '../../components/customButton';
+import Baremos from '../../components/Baremos';
 import { makeStyles } from '@material-ui/core/styles';
 import { setBody } from "../../store/body/action";
+import { resetResWechsler, resetSession} from "../../store/wechsler/action";
 import { connect } from "react-redux";
 
 import Aritmetica from "./subtest/aritmetica"
@@ -65,6 +67,17 @@ function Wais(props) {
 
  const classes = useStyles();
 
+ // Esta función cambia el estado de redux que guarda los resultados de las subpruebas
+ function emptyState(){
+   if(!props.session.active){//Si la sesion no esta activa
+    props.resetSession('WAIS',true) 
+    props.resetResWechsler()
+   }
+  
+ }
+
+ useEffect(emptyState,[])
+
   function content(){
 
     switch(state){
@@ -95,9 +108,19 @@ function Wais(props) {
         <CustomButton
           msj="Cancelar"
           callback={()=>props.setBody("init")}>
-          </CustomButton>
+        </CustomButton>
+
+        <CustomButton
+          msj="Calcular puntuación escalar"
+          callback={()=>props.setBody("WAIS-baremos")}>
+        </CustomButton>
     
       </div>)
+
+      case 'baremos':
+        return(<Baremos
+          name="WAIS"
+        ></Baremos>)
 
       default:
 
@@ -113,7 +136,6 @@ function Wais(props) {
   return (
     <div className={classes.general} >
       {content()}
-    
     </div>
   );
 }
@@ -123,12 +145,15 @@ const mapStateToProps = (state) => {
   
   return {
     body: state.bodyReducer.body,
+    session: state.wechslerReducer.session,
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setBody: (item) => dispatch(setBody(item)),
+    resetResWechsler: () => dispatch(resetResWechsler()),
+    resetSession: (itemTest,itemActive) => dispatch(resetSession(itemTest,itemActive)),
   };
 }
 

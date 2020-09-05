@@ -5,6 +5,8 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 5
 
@@ -114,7 +116,7 @@ let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el p
 let firstItem;// Item en el que inicio la prueba
       
 
-function Pistas() {
+function Pistas(props) {
   const [state,setState] = useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -207,6 +209,15 @@ function Pistas() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('PC')){
+      props.setResWechsler('PC',total)
+    }else{
+      if(props.resWechsler['PC'] !== total){
+        props.setResWechsler('PC',total)
+      }
+    }
+
     return total;
   }
 
@@ -355,4 +366,17 @@ function Pistas() {
   );
 }
 
-export default Pistas;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pistas);

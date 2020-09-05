@@ -4,6 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   img:{
@@ -66,7 +68,7 @@ const consigna = ["Juan tiene 6 pelotas. Pierde 3 ¿Cuantas pelotas le quedan?",
 
 let firstItem;
 
-function Aritmetica() {
+function Aritmetica(props) {
   const classes = useStyles();
   var [state,setState]=useState("instruccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -172,6 +174,15 @@ function Aritmetica() {
     for(var i=1; i<results.length; i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('A')){
+      props.setResWechsler('A',total)
+    }else{
+      if(props.resWechsler['A'] !== total){
+        props.setResWechsler('A',total)
+      }
+    }
+
     return total;
   }
 
@@ -429,4 +440,17 @@ function Aritmetica() {
   );
 }
 
-export default Aritmetica;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Aritmetica);

@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -142,7 +144,7 @@ let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paci
 let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
 
-function Vocabulario() {
+function Vocabulario(props) {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -261,6 +263,15 @@ function Vocabulario() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('V')){
+      props.setResWechsler('V',total)
+    }else{
+      if(props.resWechsler['V'] !== total){
+        props.setResWechsler('V',total)
+      }
+    }
+
     return total;
   }
 
@@ -483,4 +494,17 @@ function Vocabulario() {
   );
 }
 
-export default Vocabulario;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vocabulario);

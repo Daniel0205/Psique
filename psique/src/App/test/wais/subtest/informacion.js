@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -154,7 +156,7 @@ let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo e
 let firstItem;// Item en el que inicio la prueba
       
 
-function Informacion() {
+function Informacion(props) {
   var [state,setState] = useState("instruccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0)
@@ -219,6 +221,15 @@ function Informacion() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('I')){
+      props.setResWechsler('I',total)
+    }else{
+      if(props.resWechsler['I'] !== total){
+        props.setResWechsler('I',total)
+      }
+    }
+
     return total;
   }
 
@@ -426,4 +437,17 @@ function Informacion() {
   );
 }
 
-export default Informacion;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Informacion);

@@ -11,6 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 let clavesA = false;
 const TESTDURATION = 120;
@@ -38,7 +40,7 @@ const rows = [
   createData(  '≤85'  , 6, 65),
 ];
 
-function Claves() {
+function Claves(props) {
   var [state,setState] = useState("instruccion");
   var [result,setResult] = useState();
   const classes = useStyles();
@@ -62,6 +64,15 @@ function Claves() {
   }
 
   function getResult() {
+
+    if(!props.resWechsler.hasOwnProperty('CL')){
+      props.setResWechsler('CL',result)
+    }else{
+      if(props.resWechsler['CL'] !== result){
+        props.setResWechsler('CL',result)
+      }
+    }
+
     return result;
   }
 
@@ -224,4 +235,17 @@ function Claves() {
   );
 }
 
-export default Claves;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Claves);

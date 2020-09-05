@@ -1,9 +1,6 @@
 
 
-// The GraphQL schema in string form
-
 module.exports =`
-  
   type  Query{
     hola:Boolean
   }

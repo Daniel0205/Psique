@@ -1,6 +1,5 @@
 
 
-// The GraphQL schema in string form
 
 module.exports =`
   

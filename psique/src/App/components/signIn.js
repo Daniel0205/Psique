@@ -11,9 +11,12 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from './snackbar'
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation, gql } from '@apollo/client';
-import { Redirect } from 'react-router-dom'
+import { setDoctor } from "../store/doctor/action";
+import { setBody } from "../store/body/action";
+import { connect } from "react-redux";
 
 const LOGIN_QUERY = gql`
   mutation($username: String!, $password: String!) {
@@ -69,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+function SignIn(props) {
   const [username,setUsername] = React.useState("")
   const [password,setPassword] = React.useState("")
-  const [isLogged,setIsLogged] = React.useState(false)
+  const [msj, setMsj] = React.useState('');
   const [addTodo] = useMutation(LOGIN_QUERY);
   
   const classes = useStyles();
@@ -80,18 +83,23 @@ export default function SignInSide() {
 
   async function login(){
     const {data}= await addTodo({ variables: { username:username, password:password} });
-
+    
     if (data.login.ok) {
       localStorage.setItem('token', data.login.token);
       localStorage.setItem('refreshToken', data.login.refreshToken);
-      setIsLogged(true)
+      props.setDoctor(parseInt(username))
+      props.setBody("init")
     }
+    else setMsj("Usuario o contrasena incorrecto")
   }
 
 
   return (
     <Grid container component="main" className={classes.root}>
-      {isLogged ? <Redirect to="/home" />:null}
+       <Snackbar
+          onClose={()=>setMsj('')}
+          variant="error" 
+          message={msj}/>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -107,6 +115,7 @@ export default function SignInSide() {
               variant="outlined"
               margin="normal"
               required
+              type="number"
               fullWidth
               label="Usuario"
               autoFocus
@@ -131,6 +140,7 @@ export default function SignInSide() {
             <Button
               fullWidth
               variant="contained"
+              disabled={!(username!==""&&password!=="")}
               color="primary"
               className={classes.submit}
               onClick={login}
@@ -153,3 +163,13 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+      setDoctor: (item) => dispatch(setDoctor(item)),
+      setBody: (item) => dispatch(setBody(item))
+  };
+}
+
+export default connect( null,mapDispatchToProps) (SignIn);

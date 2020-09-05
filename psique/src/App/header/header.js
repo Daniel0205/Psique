@@ -21,6 +21,9 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import clsx from 'clsx';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { setDoctor } from "../store/doctor/action";
+import { setBody } from "../store/body/action";
+import { connect } from "react-redux";
 
 import  Logo from "../assets/Logo/logo72x83.png"
 
@@ -86,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props) {
+function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -136,17 +139,20 @@ export default function Header(props) {
           onClick={handleClick}
             >        
           <ArrowDropDownIcon />
-        </IconButton>
+          </IconButton>
           <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-          <MenuItem onClick={handleClose}>Logout</MenuItem>
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={()=>{
+              props.setDoctor(null)
+              props.setBody("login")
+            }}>Logout</MenuItem>
         </Menu>
         
         </div>
@@ -190,3 +196,14 @@ export default function Header(props) {
     </List>
   </Drawer>]
 }
+
+
+function mapDispatchToProps(dispatch) {
+  return {
+      setDoctor: (item) => dispatch(setDoctor(item)),
+      setBody: (item) => dispatch(setBody(item))
+  };
+}
+
+
+export default connect(null,mapDispatchToProps) (Header);

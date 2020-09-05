@@ -1,34 +1,7 @@
-const jwt = require('jsonwebtoken');
-const _ = require('lodash');
 const bcrypt =require( 'bcrypt');
-const Doctor = require('../../DB/models/Doctor');
+const Doctor =require( '../../DB/models/Doctor');
+const auth = require('../../services/auth')
 
-
-async function createTokens(user, secret, secret2){
-
-
-  const createToken = jwt.sign(
-    {
-      user: _.pick(user, ['id']),
-    },
-    secret,
-    {
-      expiresIn: '1h',
-    },
-  );
-
-  const createRefreshToken = jwt.sign(
-    {
-      user: _.pick(user, 'id'),
-    },
-    secret2,
-    {
-      expiresIn: '7d',
-    },
-  );
-
-  return [createToken, createRefreshToken];
-};
 
 async function tryLogin(username, password, SECRET, SECRET2){
   
@@ -49,9 +22,7 @@ async function tryLogin(username, password, SECRET, SECRET2){
     };
   }
 
-  const refreshTokenSecret = user.password + SECRET2;
-
-  const [token, refreshToken] = await createTokens(user, SECRET, refreshTokenSecret);
+  const [ refreshToken, token ] =  auth.createTokens(user);
 
   return {
     ok: true,
@@ -69,10 +40,8 @@ const resolvers = {
     },
 
     Mutation: {
-        login: (parent, { username, password }, { SECRET, SECRET2 }) =>{
-        return tryLogin(username, password, SECRET,SECRET2)}
-            
-        
+        login: (parent, { username, password }) =>{
+        return tryLogin(username, password)},
     } 
 
   };

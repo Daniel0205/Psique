@@ -8,13 +8,6 @@ module.exports =`
     hola:Boolean
   }
 
-  type LoginResponse {
-    ok: Boolean!
-    token: String
-    refreshToken: String
-
-  }
-
   type Mutation {
     login(username: String!, password: String!): LoginResponse!
   }

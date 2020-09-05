@@ -26,7 +26,7 @@
     "xlsx": "^0.16.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts start",
     "build": "REACT_APP_API_URL=https://psique-back.herokuapp.com/graphql REACT_APP_ENDPOINT=psique-back.herokuapp.com/  react-scripts build",
     "test": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts test",
     "eject": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts eject"

@@ -8,6 +8,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -162,7 +164,7 @@ let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el p
 let firstItem;// Item en el que inicio la prueba
 
 
-function Vocabulario() {
+function Vocabulario(props) {
 
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
@@ -277,6 +279,15 @@ function Vocabulario() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('VB')){
+      props.setResWechsler('VB',total)
+    }else{
+      if(props.resWechsler['VB'] !== total){
+        props.setResWechsler('VB',total)
+      }
+    }
+
     return total;
   }
 
@@ -504,4 +515,17 @@ function Vocabulario() {
   );
 }
 
-export default Vocabulario;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Vocabulario);

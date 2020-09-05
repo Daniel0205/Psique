@@ -4,6 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -47,7 +49,7 @@ const rightAnswers = [  null,  null, ['2','3','5'], ['1','2','5'], ['1','4','6']
 
 //let answers = ["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"];
 
-function PuzlesVisuales() {
+function PuzlesVisuales(props) {
   var [state,setState]=useState("instruccion");
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0);
@@ -178,6 +180,15 @@ function PuzlesVisuales() {
     for(var i=2;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('PV')){
+      props.setResWechsler('PV',total)
+    }else{
+      if(props.resWechsler['PV'] !== total){
+        props.setResWechsler('PV',total)
+      }
+    }
+
     return total;
   }
 
@@ -385,4 +396,17 @@ function PuzlesVisuales() {
   );
 }
 
-export default PuzlesVisuales;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PuzlesVisuales);

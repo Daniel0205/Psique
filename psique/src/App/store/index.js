@@ -1,8 +1,16 @@
 import { createStore, combineReducers, compose } from "redux";
 import bodyReducer from "./body/reducer";
+import patientReducer from "./patient/reducer";
+import wechslerReducer from "./wechsler/reducer";
+import assessmentReducer from "./assessment/reducer";
+import doctorReducer from "./doctor/reducer";
 
 const reducers = combineReducers({
+    patientReducer,
+    wechslerReducer,
     bodyReducer,
+    assessmentReducer,
+    doctorReducer
 });
 
 const enhancers = compose(

@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -41,7 +43,7 @@ let firstItem;
 
 let timer;
 
-function Cubos() {
+function Cubos(props) {
 
   const [state,setState]=useState("instruccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
@@ -173,11 +175,20 @@ function Cubos() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('DC')){
+      props.setResWechsler('DC',total)
+    }else{
+      if(props.resWechsler['DC'] !== total){
+        props.setResWechsler('DC',total)
+      }
+    }
+
     return total;
   }
 
   //ComponentWillUnmount
-   useEffect(() => {
+  useEffect(() => {
     clearTimeout(timer)
   }, []);
 
@@ -323,4 +334,17 @@ function Cubos() {
   );
 }
 
-export default Cubos;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cubos);

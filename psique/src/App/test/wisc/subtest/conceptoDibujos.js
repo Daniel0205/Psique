@@ -4,7 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
-
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 5
 
@@ -12,10 +13,10 @@ const NUMBER_STIMULI = 28
 
 const rightExample = [[2,3,0],[1,3,0]]
 
-const rightAnswers = [[1,3,0],[2,4,0],[1,4,0],[1,4,0],[2,3,0],[3,5,0],[1,6,0],
-                      [2,6,0],[3,5,0],[2,4,0],[1,5,0],[3,4,0],[3,5,7],[1,6,9],
-                      [2,6,8],[3,5,8],[2,4,9],[1,8,10],[3,6,11],[2,6,7],[3,4,7],
-                      [2,7,9],[3,5,12],[1,7,12],[2,8,10],[4,5,9],[1,6,7],[2,8,10]]
+const rightAnswers = [[1,4,0],[1,4,0],[2,4,0],[1,3,0],[3,5,0],[1,6,0],[2,6,0],
+                      [2,3,0],[3,5,0],[2,4,0],[1,5,0],[3,4,0],[1,6,9],[3,5,7],
+                      [2,6,8],[3,5,8],[2,6,7],[3,6,11],[2,4,9],[1,8,10],[3,4,7],
+                      [2,7,9],[3,5,12],[2,8,10],[1,7,12],[1,6,7],[4,5,9],[2,8,10]]
 
 const useStyles = makeStyles((theme) => ({
   img:{
@@ -54,7 +55,7 @@ const answersExample = [[0,0,0],[0,0,0]]
 
 let firstItem;// Item en el que inicio la prueba
 
-function ConceptoDibujos() {
+function ConceptoDibujos(props) {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -178,6 +179,15 @@ function ConceptoDibujos() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('CD')){
+      props.setResWechsler('CD',total)
+    }else{
+      if(props.resWechsler['CD'] !== total){
+        props.setResWechsler('CD',total)
+      }
+    }
+
     return total;
   }
 
@@ -447,4 +457,17 @@ function ConceptoDibujos() {
   );
 }
 
-export default ConceptoDibujos;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConceptoDibujos);

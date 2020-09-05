@@ -4,18 +4,25 @@ import Sidenav from './App/components/sidenav'
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import { setBody } from "./App/store/body/action";
 import { connect } from "react-redux";
+import SignIn from './App/components/signIn'
 
 
 function App(props) {
 
   function body(){
     switch (props.body) {
+      case 'login':
+        return <Redirect to="/login" />
       case 'init':
         return <Redirect to="/home" />
+      case 'Wada':
+        return <Redirect to="/test/wada" />
       case "WAIS IV":
         return <Redirect to="/test/wais" />
       case "WAIS-selection":
         return <Redirect to="/test/wais/selection" />
+      case "WAIS-baremos":
+          return <Redirect to="/test/wais/baremos" />
       case "WAIS-Letras y Numeros":
         return <Redirect to="/test/wais/numerosLetras" />
       case "WAIS-Figuras Incompletas":
@@ -50,6 +57,8 @@ function App(props) {
         return <Redirect to="/test/wisc" />
       case "WISC-selection":
         return <Redirect to="/test/wisc/selection" />
+      case "WISC-baremos":
+        return <Redirect to="/test/wisc/baremos" />
       case "WISC-Registros":
         return <Redirect to="/test/wisc/registros" />
       case "WISC-Conceptos con dibujos":
@@ -92,13 +101,17 @@ function App(props) {
   }
 
   return (
+    
     <Router>
 
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+
+      <Route exact path="/login" component={SignIn} />
       
       <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
+      <Route exact path="/test/wisc/baremos" component={()=><Sidenav body={"WISC IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wisc/cubos" component={()=><Sidenav body={"WISC IV"} subtest={"Cubos"}></Sidenav>} />
       <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />{/*Estimulos*/}
@@ -117,6 +130,7 @@ function App(props) {
       
       <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
+      <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Numeros"}></Sidenav>} /> {/*Manual*/}
       <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelacion"}></Sidenav>} />{/*Manual*/}
@@ -136,6 +150,7 @@ function App(props) {
       <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
       <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />
+      <Route exact path="/test/wada" component={()=><Sidenav body={"Wada"}></Sidenav>} />
       
   </Router>
   );

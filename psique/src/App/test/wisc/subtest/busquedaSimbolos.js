@@ -6,6 +6,8 @@ import TestsTimer from '../../../components/TestsTimer'
 import Grid from '@material-ui/core/Grid';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 let busquedaA = false; // true A; false B
 const TESTDURATION = 120;
@@ -32,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 
-function BusquedaSimbolos() {
+function BusquedaSimbolos(props) {
   var [state,setState] = useState("instruccion");
   var [result,setResult] = useState();
 
@@ -115,6 +117,15 @@ function BusquedaSimbolos() {
   }
 
   function getResult(){
+
+    if(!props.resWechsler.hasOwnProperty('BS')){
+      props.setResWechsler('BS',result)
+    }else{
+      if(props.resWechsler['BS'] !== result){
+        props.setResWechsler('BS',result)
+      }
+    }
+
     return result;
   }
 
@@ -590,4 +601,17 @@ function BusquedaSimbolos() {
   );
 }
 
-export default BusquedaSimbolos;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BusquedaSimbolos);

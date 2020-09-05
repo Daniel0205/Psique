@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   textfield:{
@@ -13,7 +15,7 @@ const useStyles = makeStyles({
 
 const TESTDURATION = 120;
 
-function ClavesNumeros() {
+function ClavesNumeros(props) {
   var [state,setState] = useState("instruccion");
   var [result,setResult] = useState();
   const classes = useStyles();
@@ -28,6 +30,15 @@ function ClavesNumeros() {
   }
 
   function getResult() {
+
+    if(!props.resWechsler.hasOwnProperty('CN')){
+      props.setResWechsler('CN',result)
+    }else{
+      if(props.resWechsler['CN'] !== result){
+        props.setResWechsler('CN',result)
+      }
+    }
+
     return result;
   }
 
@@ -120,4 +131,17 @@ function ClavesNumeros() {
   );
 }
 
-export default ClavesNumeros;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClavesNumeros);

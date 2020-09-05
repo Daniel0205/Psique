@@ -5,6 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -36,7 +38,7 @@ let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paci
 let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
 
-function Matrices() {
+function Matrices(props) {
 
   const [state,setState]=useState("instruccion")
   const [stateExample,setStateExample]=useState("ejemplo1")
@@ -157,6 +159,15 @@ function Matrices() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('MT')){
+      props.setResWechsler('MT',total)
+    }else{
+      if(props.resWechsler['MT'] !== total){
+        props.setResWechsler('MT',total)
+      }
+    }
+
     return total;
   }
 
@@ -309,4 +320,17 @@ function Matrices() {
   );
 }
 
-export default Matrices;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Matrices);

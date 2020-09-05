@@ -67,8 +67,8 @@ function King() {
   var patientId = "0";
 
   const [testDate, setTestDate] = React.useState(moment(new Date()).format("YYYY-MM-DD"));
-  var [minutes, setMinutes] = useState(0);
-  var [seconds, setSeconds] = useState(0);
+  var [minutes, setMinutes] = useState();
+  var [seconds, setSeconds] = useState();
   var [copyType, setCopyType] = useState("");
   var [observ, setObserv] = useState("");  
 
@@ -306,8 +306,8 @@ function King() {
           <br></br>
           <Grid container justify="center" spacing={2}>
             <Grid item className={classes.classTitle}> <FormLabel> Tiempo: </FormLabel> </Grid>
-            <Grid item> <TextField required type="number" label="Minutos" value={minutes} onChange={(e)=>setMinutes(e.target.value)} maxLength="3" inputProps={{ 'aria-label': 'minutes' }} /> </Grid>
-            <Grid item> <TextField required type="number" label="Segundos" value={seconds}  onChange={(e)=>setSeconds(e.target.value)} maxLength="2" inputProps={{ 'aria-label': 'seconds' }} /> </Grid>
+            <Grid item> <TextField type="number" label="Minutos" value={minutes} onChange={(e)=>setMinutes(e.target.value)} maxLength="3" inputProps={{ 'aria-label': 'minutes', min:0, max:59 }} /> </Grid>
+            <Grid item> <TextField type="number" label="Segundos" value={seconds}  onChange={(e)=>setSeconds(e.target.value)} maxLength="2" inputProps={{ 'aria-label': 'seconds', min:0, max:59 }} /> </Grid>
           </Grid>
           <br></br>
 

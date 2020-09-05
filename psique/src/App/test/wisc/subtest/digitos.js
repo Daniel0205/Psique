@@ -4,7 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
-
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 2
 
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
                              
 
-function Digitos() {
+function Digitos(props) {
 
   const classes = useStyles();
   const [state,setState]=useState("instruccion")
@@ -159,6 +160,14 @@ function Digitos() {
     }
 
     var total = totalAux[0] + totalAux[1]
+
+    if(!props.resWechsler.hasOwnProperty('RD')){
+      props.setResWechsler('RD',total)
+    }else{
+      if(props.resWechsler['RD'] !== total){
+        props.setResWechsler('RD',total)
+      }
+    }
 
     return total;
   }
@@ -433,4 +442,17 @@ function Digitos() {
    );
 }
 
-export default Digitos;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Digitos);

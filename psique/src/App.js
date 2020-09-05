@@ -21,6 +21,8 @@ function App(props) {
         return <Redirect to="/test/wais" />
       case "WAIS-selection":
         return <Redirect to="/test/wais/selection" />
+      case "WAIS-baremos":
+          return <Redirect to="/test/wais/baremos" />
       case "WAIS-Letras y Numeros":
         return <Redirect to="/test/wais/numerosLetras" />
       case "WAIS-Figuras Incompletas":
@@ -41,14 +43,28 @@ function App(props) {
         return <Redirect to="/test/wais/vocabulario" />
       case "WAIS-Digitos":
         return <Redirect to="/test/wais/digitos" />
+      case "WAIS-Aritmetica":
+        return <Redirect to="/test/wais/aritmetica" />
+      case "WAIS-Clave de Numeros":
+        return <Redirect to="/test/wais/clavesNumeros" />
+      case "WAIS-Busqueda de Simbolos":
+        return <Redirect to="/test/wais/busquedaSimbolos" />
+      case "WAIS-Informacion":
+        return <Redirect to="/test/wais/informacion" />
+      case "WAIS-Puzles Visuales":
+        return <Redirect to="/test/wais/pluzlesVisuales" />
       case "WISC IV":
         return <Redirect to="/test/wisc" />
       case "WISC-selection":
         return <Redirect to="/test/wisc/selection" />
+      case "WISC-baremos":
+        return <Redirect to="/test/wisc/baremos" />
       case "WISC-Registros":
         return <Redirect to="/test/wisc/registros" />
       case "WISC-Conceptos con dibujos":
         return <Redirect to="/test/wisc/concepto" />
+      case "WISC-Aritmetica":
+        return <Redirect to="/test/wisc/aritmetica" />
       case "WISC-Pistas":
         return <Redirect to="/test/wisc/pistas" />
       case "WISC-Figuras incompletas":
@@ -65,6 +81,14 @@ function App(props) {
         return <Redirect to="/test/wisc/vocabulario" />
       case "WISC-Digitos":
         return <Redirect to="/test/wisc/digitos" />
+      case "WISC-Comprension":
+        return <Redirect to="/test/wisc/comprension" />
+      case "WISC-Claves":
+        return <Redirect to="/test/wisc/claves" />
+      case "WISC-Busqueda de simbolos":
+        return <Redirect to="/test/wisc/busquedaSimbolos" />
+      case "WISC-Informacion":
+        return <Redirect to="/test/wisc/informacion" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />
       case "Prueba de Rey":
@@ -82,10 +106,12 @@ function App(props) {
 
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+
       <Route exact path="/login" component={SignIn} />
       
       <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
+      <Route exact path="/test/wisc/baremos" component={()=><Sidenav body={"WISC IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wisc/cubos" component={()=><Sidenav body={"WISC IV"} subtest={"Cubos"}></Sidenav>} />
       <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />{/*Estimulos*/}
@@ -96,9 +122,15 @@ function App(props) {
       <Route exact path="/test/wisc/matrices" component={()=><Sidenav body={"WISC IV"} subtest={"Matrices"}></Sidenav>} />
       <Route exact path="/test/wisc/vocabulario" component={()=><Sidenav body={"WISC IV"} subtest={"Vocabulario"}></Sidenav>} />
       <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Digitos"}></Sidenav>} />
+      <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmetica"}></Sidenav>} />
+      <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprension"}></Sidenav>} />
+      <Route exact path="/test/wisc/claves" component={()=><Sidenav body={"WISC IV"} subtest={"Claves"}></Sidenav>} />
+      <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Busqueda de simbolos"}></Sidenav>} />
+      <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Informacion"}></Sidenav>} />
       
       <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
+      <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Numeros"}></Sidenav>} /> {/*Manual*/}
       <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estimulos*/}
       <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelacion"}></Sidenav>} />{/*Manual*/}
@@ -109,6 +141,11 @@ function App(props) {
       <Route exact path="/test/wais/matrices" component={()=><Sidenav body={"WAIS IV"} subtest={"Matrices"}></Sidenav>} />
       <Route exact path="/test/wais/vocabulario" component={()=><Sidenav body={"WAIS IV"} subtest={"Vocabulario"}></Sidenav>} />
       <Route exact path="/test/wais/digitos" component={()=><Sidenav body={"WAIS IV"} subtest={"Digitos"}></Sidenav>} />
+      <Route exact path="/test/wais/aritmetica" component={()=><Sidenav body={"WAIS IV"} subtest={"Aritmetica"}></Sidenav>} />
+      <Route exact path="/test/wais/clavesNumeros" component={()=><Sidenav body={"WAIS IV"} subtest={"Clave de Numeros"}></Sidenav>} />
+      <Route exact path="/test/wais/busquedaSimbolos" component={()=><Sidenav body={"WAIS IV"} subtest={"Busqueda de Simbolos"}></Sidenav>} />
+      <Route exact path="/test/wais/informacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Informacion"}></Sidenav>} />
+      <Route exact path="/test/wais/pluzlesVisuales" component={()=><Sidenav body={"WAIS IV"} subtest={"Puzles Visuales"}></Sidenav>} />
       
       <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />

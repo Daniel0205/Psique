@@ -4,7 +4,8 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
-
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const LIMIT_ERROR = 3
 
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function LetrasNumeros() {
+function LetrasNumeros(props) {
   const [state,setState]=useState("instruccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -145,6 +146,15 @@ function LetrasNumeros() {
     for(var i=0;i<results.length;i++){
       total = total + results[i];
     }
+
+    if(!props.resWechsler.hasOwnProperty('NL')){
+      props.setResWechsler('NL',total)
+    }else{
+      if(props.resWechsler['NL'] !== total){
+        props.setResWechsler('NL',total)
+      }
+    }
+
     return total;
   }
 
@@ -373,4 +383,17 @@ function LetrasNumeros() {
   );
 }
 
-export default LetrasNumeros;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LetrasNumeros);

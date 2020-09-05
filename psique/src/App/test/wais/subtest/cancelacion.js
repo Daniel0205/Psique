@@ -3,6 +3,8 @@ import CustomButton from '../../../components/customButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
+import { setResWechsler } from "../../../store/wechsler/action";
+import { connect } from "react-redux";
 
 const TIME_LIMIT= 45;
 
@@ -37,7 +39,7 @@ let time1Aux;
 let time2Aux;
 
 
-function Cancelacion() {
+function Cancelacion(props) {
   const [state,setState]=useState("instruccion")
   const [active,setActive] = useState("iniciar")
   const [cronometro,setCronometro] = useState(0)
@@ -87,6 +89,13 @@ function Cancelacion() {
 
     if(correct2-incorrect2>0)puntuacion+=correct2-incorrect2
 
+    if(!props.resWechsler.hasOwnProperty('CA')){
+      props.setResWechsler('CA',puntuacion)
+    }else{
+      if(props.resWechsler['CA'] !== puntuacion){
+        props.setResWechsler('CA',puntuacion)
+      }
+    }
 
     return puntuacion
 
@@ -398,4 +407,17 @@ function Cancelacion() {
   );
 }
 
-export default Cancelacion;
+const mapStateToProps = (state) => {
+  
+  return {
+    resWechsler: state.wechslerReducer.resWechsler,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cancelacion);

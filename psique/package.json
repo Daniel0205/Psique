@@ -23,7 +23,8 @@
     "recordrtc": "^5.6.1",
     "redux": "^4.0.5",
     "simple-peer": "^9.7.2",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "xlsx": "^0.16.5"
   },
   "scripts": {
     "start": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts start",

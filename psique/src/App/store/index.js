@@ -6,7 +6,6 @@ import assessmentReducer from "./assessment/reducer";
 import doctorReducer from "./doctor/reducer";
 
 const reducers = combineReducers({
-    bodyReducer,
     patientReducer,
     wechslerReducer,
     bodyReducer,

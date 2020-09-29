@@ -185,6 +185,7 @@ function Header(props) {
             onClose={handleClose}
           >
             <MenuItem onClick={()=>{
+              localStorage.clear();
               props.setDoctor(null)
               props.setBody("login")
             }}>Cerrar sesión.</MenuItem>

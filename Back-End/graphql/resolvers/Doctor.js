@@ -39,6 +39,9 @@ const resolvers = {
     Mutation: {
         login: (parent, { username, password }) =>{
         return tryLogin(username, password)},
+        getId: (parent , {token}) =>{          
+          return auth.getId(token)
+        }
     } 
 
   };

@@ -3,10 +3,36 @@ import './App.css';
 import Sidenav from './App/components/sidenav'
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import { setBody } from "./App/store/body/action";
+import { setDoctor } from "./App/store/doctor/action";
 import { connect } from "react-redux";
 import SignIn from './App/components/signIn'
+import { gql,  useMutation } from '@apollo/client';
+
+const ID_QUERY = gql`
+  mutation($token:String!) {
+    getId(token:$token) {
+      ok
+      id
+    }
+  }
+`;
 
 function App(props) {
+  const [idQuery] = useMutation(ID_QUERY);
+
+  async function getId(){
+    
+    const {data}= await idQuery({ variables: { token:localStorage.token } });
+    
+    if(data.getId.ok ){
+      props.setDoctor(data.getId.id)
+      props.setBody("assessment")
+    }  
+  }
+
+
+  if(localStorage.token && props.body==='login') getId()
+
 
   function body(){
     switch (props.body) {
@@ -164,12 +190,14 @@ const mapStateToProps = (state) => {
   
   return {
     body: state.bodyReducer.body,
+    
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
       setBody: (item) => dispatch(setBody(item)),
+      setDoctor: (item) => dispatch(setDoctor(item)),
 
   };
 }

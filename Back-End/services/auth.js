@@ -64,3 +64,19 @@ exports.validateToken = async (req, res, next)=>{
   next();
 }
 
+
+exports.getId = (token)=>{
+  const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET,(err, decoded)=> {
+    console.log(decoded)
+    console.log(err)
+    if (err) return null
+    else return decoded.userId
+  });  
+  console.log(decoded)
+
+  if(decoded!==null){
+    console.log(decoded)  
+    return {ok:true,id:decoded}
+  }
+  else return  {ok:false}
+}

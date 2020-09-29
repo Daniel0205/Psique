@@ -18,14 +18,31 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import GestureIcon from '@material-ui/icons/Gesture';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { setDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
+import { setAssessment } from "../store/assessment/action";
 import { connect } from "react-redux";
+import { useMutation, gql } from '@apollo/client';
 
 import  Logo from "../assets/Logo/logo72x83.png"
+
+const LOGIN_QUERY = gql`
+  mutation($id_assessment: ID!) {
+    exitAssessment(id_assessment: $id_assessment) {
+      ok
+      error{
+        path
+        message
+      }
+    }
+  }
+`;
+
 
 const drawerWidth = 240;
 
@@ -93,6 +110,7 @@ function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [exit] = useMutation(LOGIN_QUERY);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -101,6 +119,24 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function goBack(){
+    if(props.id_assessment!==null) props.setBody("init")
+    else props.setBody("assessment")
+  }
+
+  function save(){
+    console.log("ENTROOOOOO")
+    props.setBody("assessment")
+    props.setAssessment(null)
+  }
+
+  async function end(){
+    
+    const {data}= await exit({ variables: {id_assessment:props.id_assessment} });
+    console.log(data)
+    if (data.exitAssessment.ok)save()
+  }
 
   return [
   <AppBar key={"APPBAR"}
@@ -125,6 +161,7 @@ function Header(props) {
               <img 
               className={classes.logo}
               alt="Logo"
+              onClick={goBack}
               src={Logo}/>
               &nbsp;&nbsp;
               Psique
@@ -147,12 +184,10 @@ function Header(props) {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={()=>{
               props.setDoctor(null)
               props.setBody("login")
-            }}>Logout</MenuItem>
+            }}>Cerrar sesión.</MenuItem>
         </Menu>
         
         </div>
@@ -193,17 +228,36 @@ function Header(props) {
             <ListItemIcon><PersonOutlineIcon/></ListItemIcon>
             <ListItemText primary={"Mi Perfil"} />
         </ListItem>
+        {props.id_assessment!==null?
+        <ListItem button onClick={save}>
+            <ListItemIcon><SaveIcon/></ListItemIcon>
+            <ListItemText primary={"Guardar y salir"} />
+        </ListItem>:null}
+        {props.id_assessment!==null?
+        <ListItem button onClick={end}>
+            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+            <ListItemText primary={"Terminar evaluación"} />
+        </ListItem>:null}
     </List>
   </Drawer>]
 }
 
 
+const mapStateToProps = (state) => {
+  
+  return {
+    id_assessment: state.assessmentReducer.id_assessment,
+  };
+};
+
+
 function mapDispatchToProps(dispatch) {
   return {
       setDoctor: (item) => dispatch(setDoctor(item)),
-      setBody: (item) => dispatch(setBody(item))
+      setBody: (item) => dispatch(setBody(item)),
+      setAssessment: (item) => dispatch(setAssessment(item))
   };
 }
 
 
-export default connect(null,mapDispatchToProps) (Header);
+export default connect(mapStateToProps,mapDispatchToProps) (Header);

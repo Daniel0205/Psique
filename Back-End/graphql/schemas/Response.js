@@ -18,6 +18,10 @@ module.exports =`
     error: [Error!]
   }
 
+  type updateResponse{
+    ok: Boolean!
+    error: [Error!]
+  }
 
 `;
 

@@ -28,6 +28,8 @@ module.exports =`
 
   type Mutation {
     createAssessment(id_patient:ID!,id_doctor: ID!): createResponse!
+    closeAssessment(id_doctor:ID!,id_assessment: ID!): createResponse!
+    exitAssessment(id_assessment: ID!): updateResponse!
   }
 
 `;

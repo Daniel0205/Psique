@@ -6,7 +6,6 @@ import { setBody } from "./App/store/body/action";
 import { connect } from "react-redux";
 import SignIn from './App/components/signIn'
 
-
 function App(props) {
 
   function body(){
@@ -15,6 +14,8 @@ function App(props) {
         return <Redirect to="/login" />
       case 'init':
         return <Redirect to="/home" />
+      case "assessment":
+        return <Redirect to="/startAssessment" />
       case 'Wada':
         return <Redirect to="/test/wada" />
       case "WAIS IV":
@@ -106,6 +107,7 @@ function App(props) {
 
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+      <Route exact path="/startAssessment"  component={()=><Sidenav body={"assessment"}></Sidenav>} />
 
       <Route exact path="/login" component={SignIn} />
       

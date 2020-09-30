@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Body from '../body/body';
+import PatientModule from '../body/patientModule';
 import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
 import Header from "../header/header"
@@ -84,6 +85,8 @@ function Sidenav(props) {
         return <Zung ></Zung>
       case "Wada":
         return <Wada></Wada>
+      case 'moduloPacientes':
+        return <PatientModule></PatientModule>
       default:
         break;
     }

@@ -177,7 +177,7 @@ function Header(props) {
     </div>
     <Divider />
     <List>
-        <ListItem button >
+        <ListItem button onClick={() => {props.setBody("moduloPacientes")} }>
             <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
         </ListItem>
@@ -185,7 +185,7 @@ function Header(props) {
             <ListItemIcon><DescriptionIcon/></ListItemIcon>
             <ListItemText primary={"Informes"} />
         </ListItem>
-        <ListItem button >
+        <ListItem button onClick={() => {props.setBody("init")} }>
             <ListItemIcon><GestureIcon/></ListItemIcon>
             <ListItemText primary={"Pruebas"} />
         </ListItem>

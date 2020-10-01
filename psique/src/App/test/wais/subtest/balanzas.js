@@ -242,12 +242,12 @@ function Balanzas(props) {
        return (
        <div id= "inicio" >
         <h1>Balanzas</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>A continuacion se enseñaran unas balanzas con dos platillos</p>
         <p>el sujeto debe seleccionar entre cinco opciones</p>
         <p>el objeto con el cual equilibrar la balanza</p>
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <li>Utilizar los botones para indicar la respuesta del paciente </li>

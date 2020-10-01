@@ -155,12 +155,12 @@ function Cancelacion(props) {
         return(
         <div >
           <h1>Cancelacion</h1>
-          <b>Intrucciones generales:</b>
+          <b>instrucciones generales:</b>
           <p>El paciente recibira un cuadernillo en el cual debera tachar</p>
           <p>2 formas geometricas determinadas exactamente identicas a </p>
           <p>las figuras que se encuentran en la parte superior del cuadernillo</p>
           <br/>
-          <b>Intrucciones de calificacion:</b>
+          <b>instrucciones de calificacion:</b>
           <p>Al final de cada item se registraran las repuestas correctas e incorrectas</p>
           <p>El sistema calificara automaticamente la respuesta</p>
           <br/>

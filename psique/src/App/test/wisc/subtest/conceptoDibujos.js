@@ -230,12 +230,12 @@ function ConceptoDibujos(props) {
        return (
        <div>
         <h1>Conceptos con dibujos</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>A continuacion se presentaran dos o tres filas de dibujos</p>
         <p>el paciente debe senalar o decir las imagenes que tenga una caracteristica en comun</p>
 
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>La respuesta del paciente se registra en los campos bajo la imagen</p>

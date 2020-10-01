@@ -72,3 +72,8 @@ CREATE TABLE zung(
 	id_test BIGINT REFERENCES test(id_test),
 	result INT 
 );
+
+
+INSERT INTO patient values(1234,'Test','Test','M','Cali','02-05-1999')
+
+

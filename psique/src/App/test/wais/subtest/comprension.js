@@ -245,11 +245,11 @@ function Comprension(props) {
         return(
           <div>
             <h1>Comprension</h1>
-            <b>Intrucciones generales:</b>
+            <b>instrucciones generales:</b>
             <p>A continuación se daran una serie de Comprension al paciente</p>
             <p>el cual debera relacionarlo con un concepto. </p>
             <br/>
-            <b>Intrucciones para registrar la respuesta de paciente:</b>
+            <b>instrucciones para registrar la respuesta de paciente:</b>
             <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>

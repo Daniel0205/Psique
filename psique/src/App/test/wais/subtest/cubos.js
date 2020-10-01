@@ -206,12 +206,12 @@ function Cubos(props) {
         return (
         <div id= "inicio" >
         <h1>Cubos</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>A continuacion se enseñaran una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
         <p>disponiendo de un tiempo limite para hacerlo</p>
   
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>Para calificar se debe presionar las teclas numericas deacuerdo a la respuesta del paciente de la siguiente manera </p>

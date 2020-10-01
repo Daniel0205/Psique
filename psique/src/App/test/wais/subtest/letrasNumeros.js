@@ -200,13 +200,13 @@ function LetrasNumeros(props) {
        return (
        <div>
         <h1>Letras y Numeros</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>A continuacion se enseñaran una serie de numeros y letras</p>
         <p>el doctor debera decirle al paciente cada serie</p>
         <p>despues de esto el paciente debera repetir en orden la serie</p>
         <p>en el orden no importa si son primero las letras o los numeros</p>
         <br/>
-        <b>Intrucciones de calificacion:</b>
+        <b>instrucciones de calificacion:</b>
         <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
         <p>EL sistema calificara automaticamente las respuestas </p>
         <br/>

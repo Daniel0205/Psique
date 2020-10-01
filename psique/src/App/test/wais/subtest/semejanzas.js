@@ -220,12 +220,12 @@ function Semejanzas(props) {
         return(
           <div>
             <h1>Semejanzas</h1>
-            <b>Intrucciones generales:</b>
+            <b>instrucciones generales:</b>
             <p>Se presentarán dos palabras que representan objetos o conceptos comunes</p>
             <p>La tarea del paciente es determinar en que se parecen esos objetos o conceptos</p>
             <p>Los items se presentan de forma verbal</p>
             <br/>
-            <b>Intrucciones para registrar la respuesta de paciente:</b>
+            <b>instrucciones para registrar la respuesta de paciente:</b>
             <p>Para calificar se debe presionar el botón que corresponda con la calificacion que desea dar al item </p>
             <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
             <li>0 : Cualquier clasificación general que es poco pertinente y que define con poca precisión ambos elementos</li>

@@ -198,12 +198,12 @@ function FigurasIncompletas(props) {
        return (
        <div id= "inicio" >
        <h1>Figuras incompletas</h1>
-       <b>Intrucciones generales:</b>
+       <b>instrucciones generales:</b>
        <p>A continuacion se enseñaran unas imagenes las cuales les hace falta algo</p>
        <p>el sujeto debe senalar o decir la parte faltante de la imagen</p>
  
        <br/>
-       <b>Intrucciones para registrar la respuesta de paciente:</b>
+       <b>instrucciones para registrar la respuesta de paciente:</b>
        <br/>
        <br/>
        <li>0 : para indicar la respuesta no fue correcta o no contesto</li>

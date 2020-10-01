@@ -252,12 +252,12 @@ function Aritmetica(props) {
        return (
         <div>
           <h1>Aritmetica</h1>
-          <b>Intrucciones generales:</b>
+          <b>instrucciones generales:</b>
           <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
           <p>según sea el caso, las cuales, en el caso de las imágenes deben ser mostradas al paciente para que</p>
           <p>las visualice, y en el caso de las preguntas deben ser mencionadas al paciente</p>
           <br/>
-          <b>Intrucciones para registrar la respuesta de paciente:</b>
+          <b>instrucciones para registrar la respuesta de paciente:</b>
           <br/>
           <br/>
           <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>

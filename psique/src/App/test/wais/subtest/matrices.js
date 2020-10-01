@@ -190,11 +190,11 @@ function Matrices(props) {
         return (
         <div id= "inicio" >
         <h1>Matrices</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>Se presentarán una matriz o una serie incompleta al paciente</p>
         <p>La tarea es escoger, entre cinco opciones, la que mejor complete la matriz o la serie</p>
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>

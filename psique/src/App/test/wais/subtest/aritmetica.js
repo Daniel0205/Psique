@@ -72,12 +72,18 @@ function Aritmetica(props) {
   const classes = useStyles();
   var [state,setState]=useState("instruccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
-  var [numberItem,setNumberItem] = useState(0)
-//  var [actualStimuli, setActualStimuli] = useState("");
+  var [numberItem,setNumberItem] = useState(0);
+  //var [returnDone,setReturnDone] = useState(false);// Esta variable me ayuda a controlar el uso de la regla del retorno
+  //var [returnVar, setReturnVar] = useState(false); // Esta variable me ayuda a controlar el uso de la regla del retorno
+  //var [countRe, setCountRe] = useState(0); //Esta variable me dice cuando se puede salir de la condición de retorno
+  //var [flagRe, setFlagRe] = useState(null);//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
+
+  //var [badAnswerCount, setBadAnswerCount] = useState(0); //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+  //var [actualStimuli, setActualStimuli] = useState("");
 
   var [givenAnswer, setGivenAnswer] = useState("");
 
-  function changeStimuli(punt){    
+  function changeStimuli(punt){
     var returnController = firstItem===6 && returnVar && numberItem===1 && countRe!== 2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
@@ -145,11 +151,20 @@ function Aritmetica(props) {
         answers[numberItem] = givenAnswer;
         setGivenAnswer('');
         setNumberItem(firstItem);
+
         if(firstItem === 6){
           setState('aplicacion');
         }else{
           setState('aplicacionImg');
-        }                
+        }
+
+        //Reset globals
+        returnDone = false;
+        returnVar = false;
+        countRe = 0;
+        flagRe = null;
+        badAnswerCount = 0;
+        answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
       break;
 
       case 'results':
@@ -193,7 +208,7 @@ function Aritmetica(props) {
     if(numberItem !== 15 && numberItem !== 16 && numberItem !== 19){
       if(answers[numberItem] === rightAnswers[numberItem]){
         if(returnVar){        
-          countRe +=1;        
+          countRe +=1;
         }
 
         if(badAnswerCount > 0){        
@@ -214,14 +229,14 @@ function Aritmetica(props) {
         }}))
 
         badAnswerCount += 1;
-        countRe=0;
+        countRe = 0;
         changeStimuli(0);
       }
 
     }else{ //If stimuli number is 15, 16 or 19
       if(punt === 1){
         if(returnVar){        
-          countRe +=1;        
+          countRe += 1;
         }
     
         badAnswerCount = 0;        
@@ -377,7 +392,7 @@ function Aritmetica(props) {
                 <div className={classes.field}>
                   {index!== 0? <TextField
                     className={classes.textfield}
-                    label={"Calificacion"}
+                    label={"Calificación"}
                     type="number"
                     defaultValue={result}
                     inputProps={{min:0, max:1}}                  

@@ -32,14 +32,14 @@ const NUMBER_STIMULI = 34;
 const stimuliSource = ["01","02","03","04","05"];
 const rightAnswers = ['3','5','10','9','2','4','5','3','6','2','7','6','15','14','25','5','7','9','20','32','24','19','7','6','8.50','20','3','60','30','3','34','48','2:00 pm','40 km'];
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
 
-let badAnswerCount = 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 
-let answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
+let answers;
 const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "Cuenta estos pollitos con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "Cuenta estos árboles con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
@@ -158,6 +158,14 @@ function Aritmetica(props) {
     }else{
       setState('aplicacion');
     }
+
+    //Set Globals
+    returnDone = false;
+    returnVar = false;
+    countRe = 0;
+    flagRe = null;
+    badAnswerCount = 0;
+    answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
   }
 
   function next(){
@@ -279,7 +287,7 @@ function Aritmetica(props) {
        case "aplicacionImg":
        return(
          <div>
-            <h1>{consigna[numberItem]}</h1>
+            <h1>Reactivo {numberItem+1}. {consigna[numberItem]}</h1>
             <img 
               className={classes.img}
               alt={"Estimulo "+stimuliSource[numberItem]}
@@ -303,7 +311,7 @@ function Aritmetica(props) {
        case "aplicacion":
        return(
          <div>
-            <h1>{consigna[numberItem]}</h1>           
+            <h1>Reactivo {numberItem+1}. {consigna[numberItem]}</h1>           
             <br></br>        
             <TextField
               label = "Respuesta dada"

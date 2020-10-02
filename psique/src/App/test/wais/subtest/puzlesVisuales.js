@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
-let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
 let example = false; //Indica si esta en el ejemplo
 
@@ -160,7 +160,16 @@ function PuzlesVisuales(props) {
       case 'ejemplo-demostracion':
         setState('test');
         setNumberItem(firstItem);
+
+        //Set Globals
+        returnDone = false;
+        returnVar = false;
+        countRe = 0;
+        flagRe = null;
+        badAnswerCount= 0;
+        example = false;
         break;
+
       case 'results':
         setState('revision');
         break;

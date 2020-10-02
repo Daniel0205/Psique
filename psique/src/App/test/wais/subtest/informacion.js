@@ -15,7 +15,7 @@ const LIMIT_ERROR = 3
 
 const NUMBER_STIMULI = 26
 
-let answers = new Array(NUMBER_STIMULI).fill("");
+let answers;
 
 let clues =["* 1. ¿Qué día viene despues del lunes?",
             "* 2. ¿Qué forma tienen la mayoría de las pelotas?",
@@ -147,14 +147,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
-let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
-let firstItem;// Item en el que inicio la prueba
-      
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let firstItem;// Item en el que inicio la prueba      
 
 function Informacion(props) {
   var [state,setState] = useState("instruccion")
@@ -213,6 +211,14 @@ function Informacion(props) {
     firstItem=item
     setNumberItem(item)
     setState("test")
+
+    //Set Globals
+    returnDone = false;
+    returnVar = false;
+    countRe = 0;
+    flagRe = null;
+    badAnswerCount= 0;
+    answers = new Array(NUMBER_STIMULI).fill("");
   }
 
 

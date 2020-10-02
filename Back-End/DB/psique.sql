@@ -62,6 +62,18 @@ CHECK(hemisphere IN ('D','I','P'))
 DROP TABLE IF EXISTS aphasia CASCADE;
 CREATE TABLE aphasia(
 	id_test BIGINT REFERENCES test(id_test),
-	time int,
+	time INT,
 	name TEXT NOT NUll
 );
+
+
+DROP TABLE IF EXISTS zung CASCADE;
+CREATE TABLE zung(
+	id_test BIGINT REFERENCES test(id_test),
+	result INT 
+);
+
+
+INSERT INTO patient values(1234,'Test','Test','M','Cali','02-05-1999')
+
+

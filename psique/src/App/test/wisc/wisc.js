@@ -24,10 +24,10 @@ import Semejanzas from "./subtest/semejanzas"
 import Vocabulario from "./subtest/vocabulario"
 
 
-const texts = ["Cubos","Semejanzas","Digitos",
+const texts =  ["Cubos","Semejanzas","Dígitos",
 "Conceptos con dibujos","Claves","Vocabulario","Sucesion de numeros y letras",
-"Matrices","Comprension","Busqueda de simbolos","Figuras incompletas",
-"Registros","Informacion", "Aritmetica","Pistas"]
+"Matrices","Comprensión","Búsqueda de símbolos","Figuras incompletas",
+"Registros","Información", "Aritmética","Pistas"]
 
 const componentTest = [<Cubos></Cubos>,
                     <Semejanzas></Semejanzas>,

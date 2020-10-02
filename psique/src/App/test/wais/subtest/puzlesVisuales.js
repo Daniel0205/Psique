@@ -208,11 +208,11 @@ function PuzlesVisuales(props) {
         return (
           <div id= "inicio" >
             <h1>Pluzles Visuales</h1>
-            <b>Intrucciones generales:</b>
+            <b>instrucciones generales:</b>
             <p>Se presentará una imagen principal en la parte superior y seis imágenes más debajo de esta.</p>
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
-            <b>Intrucciones de calificacion:</b>
+            <b>instrucciones de calificación:</b>
             <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>
@@ -227,16 +227,16 @@ function PuzlesVisuales(props) {
         return(
          <div>
             <h1>Pluzles Visuales</h1>
-            <p>¿En que estimulo desea iniciar la prueba? </p>
+            <p>¿En questímulodesea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-              msj="Estimulo 1"
+              msj="Estímulo 1"
               callback={()=>imagenInit(2)}
             ></CustomButton>
 
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-              msj="Estimulo 5"
+              msj="Estímulo 5"
               callback={()=>imagenInit(6)}
             ></CustomButton> 
           </div>
@@ -248,7 +248,7 @@ function PuzlesVisuales(props) {
             <h1> Estimulo {example ? "Ejemplo": "Demostración"}</h1>
             <img 
               className={classes.img} 
-              alt={"Estimulo "+state+numberItem} 
+              alt={"Estímulo "+state+numberItem} 
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
             
@@ -288,7 +288,7 @@ function PuzlesVisuales(props) {
             <h1> Estimulo {numberItem-1}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+(numberItem-1)}
+              alt={"Estímulo "+(numberItem-1)}
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
 

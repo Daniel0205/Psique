@@ -102,7 +102,7 @@ function BusquedaSimbolos(props) {
         return(
           <div>
             <h1>Búsqueda de símbolos</h1>
-            <b>Intrucciones generales:</b>
+            <b>instrucciones generales:</b>
             <p>Seleccione la opción según sea el caso</p>
             
             <CustomButton
@@ -139,8 +139,8 @@ function BusquedaSimbolos(props) {
           return(
             <div>
               <h1>Búsqueda de Símbolos</h1>
-              <b>Intrucciones:</b>
-              <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+              <b>instrucciones:</b>
+              <p>Registre las calificaciónes obtenidas por el paciente en la subprueba</p>
 
               <div className={classes.fields}>
                 <h3> Página 1 </h3>

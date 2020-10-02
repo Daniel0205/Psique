@@ -244,12 +244,12 @@ function Comprension(props) {
       case "instruccion":
         return(
           <div>
-            <h1>Comprension</h1>
-            <b>Intrucciones generales:</b>
-            <p>A continuación se daran una serie de Comprension al paciente</p>
-            <p>el cual debera relacionarlo con un concepto. </p>
+            <h1>Comprensión</h1>
+            <b>instrucciones generales:</b>
+            <p>A continuación se darán una serie de preguntas al paciente</p>
+            <p>el cual deberá relacionarlo con un concepto. </p>
             <br/>
-            <b>Intrucciones para registrar la respuesta de paciente:</b>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
@@ -264,16 +264,16 @@ function Comprension(props) {
       case "seleccion":
         return(
           <div >
-            <h1>Comprension</h1>
-            <p>En que estimulo desea iniciar la prueba? </p>
+            <h1>Comprensión</h1>
+            <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-            msj="Estimulo 1"
+            msj="Estímulo 1"
             callback={()=>imagenInit(1)}
             ></CustomButton>
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-            msj="Estimulo 3"
+            msj="Estímulo 3"
             callback={()=>imagenInit(3)}
             ></CustomButton>       
           </div>
@@ -331,7 +331,7 @@ function Comprension(props) {
       case "revision":
         return(
         <div>
-          <h1>Comprension</h1>
+          <h1>Comprensión</h1>
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
@@ -376,7 +376,7 @@ function Comprension(props) {
       case "results":
         return(
          <Results
-         name="Comprension"
+         name="Comprensión"
          result={getResult()}
          callback={()=>{
           setResultsAux(results) 

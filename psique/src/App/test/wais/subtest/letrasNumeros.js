@@ -24,8 +24,6 @@ const stimuli =  [['2','B'],['D','1'],['4','C'],
                   ['6','P','7','S','2','N','9','A'],['E','1','R','9','X','4','K','3'],['7','M','2','T','6','F','9','A']]
 
 
-const answersExample = [[0,0],[0,0]]
-
 const rightExample = [["1","C"],["4","A"]]
 
 const rightAnswers = [['2','B'],['D','1'],['4','C'],
@@ -66,16 +64,17 @@ function LetrasNumeros(props) {
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [scored,setScored] = useState(undefined)
-  const [answers,setAnswers] =  useState(["0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0"])
+  const [answersExample,setAnswersExample] =  useState(["",""])
+  const [answers,setAnswers] =  useState(["","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","",""])
 
 
   const classes = useStyles();
@@ -176,13 +175,13 @@ function LetrasNumeros(props) {
     let result
       
     if(state==="ejemplo A"){
-      if(answersExample[0].join(',')=== rightExample[0].join(',')){
+      if(answersExample[0].split("").join(',')=== rightExample[0].join(',') ){
         result = true
       }
       else result = false
     }
     else {
-      if(answersExample[1].join(',')=== rightExample[1].join(',')){
+      if(answersExample[1].split("").join(',')=== rightExample[1].join(',') ){
         result =  true
       }
       else result =  false
@@ -191,6 +190,7 @@ function LetrasNumeros(props) {
     setScored(result)
    
   }
+
 
  function content(){
   
@@ -227,23 +227,20 @@ function LetrasNumeros(props) {
             
             {scored===undefined ? 
             <div>
-              <p>Respuesta:</p>
-              <TextField
-                defaultValue="0"
-                
-                variant="outlined"
-                onChange={(x)=>{state==="ejemplo A"?answersExample[0][0]=x.target.value.slice(0,1).toUpperCase():
-                answersExample[1][0]=x.target.value.slice(0,1).toUpperCase()}}
-              />
-              &nbsp;  &nbsp;
-              <TextField
-                defaultValue="0"
-                
-                variant="outlined"
-                onChange={(x)=>{state==="ejemplo A"?answersExample[0][1]=x.target.value.slice(0,1).toUpperCase()
-                :answersExample[1][1]=x.target.value.slice(0,1).toUpperCase()}}
-              />
-            </div>
+            <p>Respuesta:</p>
+            <TextField
+              value={answersExample[state==="ejemplo A"? 0:1].split("").join("-")}
+              variant="outlined"
+              onChange={(x)=>{
+                var valueString =x.target.value.toUpperCase().split("-").join("")
+                if (!/^[0-9A-Z]*$/.test(valueString)) return               
+                setAnswersExample(update(answersExample,{
+                  [state==="ejemplo A"? 0:1]: {
+                    $set: x.target.value.toUpperCase().split("-").join("")
+                  }}))
+              }}
+            />            
+          </div>
             : scored ? <h2><u><i>¡CORRECTO!</i></u></h2>:<h2><u><i>¡INCORRECTO! </i></u></h2> }
             
             <CustomButton 
@@ -268,9 +265,12 @@ function LetrasNumeros(props) {
                 value={answers[numberItem-1].split("").join("-")}
                 variant="outlined"
                 onChange={(x)=>{
+                  var valueString =x.target.value.toUpperCase().split("-").join("")
+                  if (!/^[0-9A-Z]*$/.test(valueString)) return               
+
                   setAnswers(update(answers,{
                     [numberItem-1]: {
-                      $set: x.target.value.toUpperCase().split("-").join("").slice(0,stimuli[numberItem-1].length)
+                      $set: valueString
                     }}))
                 }}
               />

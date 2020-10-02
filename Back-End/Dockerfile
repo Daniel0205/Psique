@@ -5,7 +5,7 @@ FROM node:12.18.4-alpine3.9
 WORKDIR /Back-End
 
 RUN npm install -g nodemon
-RUN npm install 
+RUN npm install bcrypt
 
 # start app
 CMD ["nodemon"]

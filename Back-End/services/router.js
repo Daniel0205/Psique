@@ -39,9 +39,10 @@ router.get("/createUsers", async (req, res) => {
   Doctor.bulkCreate(data)
   .then((item)=>{
     res.send({ response: "Users created succesfully!" }).status(200)
-  }).catch((err)=>
+  }).catch((err)=>{
+    console.log(err)
     res.send({ response: "Users cannot be created!" }).status(200)
-  )
+  })
 
 
   

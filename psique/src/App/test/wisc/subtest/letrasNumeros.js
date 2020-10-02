@@ -205,7 +205,7 @@ function LetrasNumeros(props) {
         <p>despues de esto el paciente debera repetir en orden la serie</p>
         <p>en el orden no importa si son primero las letras o los numeros</p>
         <br/>
-        <b>instrucciones de calificacion:</b>
+        <b>instrucciones de calificación:</b>
         <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
         <p>EL sistema calificara automaticamente las respuestas </p>
         <br/>
@@ -291,7 +291,7 @@ function LetrasNumeros(props) {
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{

@@ -210,15 +210,15 @@ function Matrices(props) {
         return(
          <div >
          <h1>Matrices</h1>
-         <p>En que estimulo desea iniciar la prueba? </p>
+         <p>¿En qué estímulo desea iniciar la prueba? </p>
          <p>Pacientes con sospechas de discapacidad intelectual</p>
           <CustomButton
-          msj="Estimulo 1"
+          msj="Estímulo 1"
           callback={()=>imagenInit(1)}
           ></CustomButton>
           <p>Pacientes de edad 16-89:</p>
           <CustomButton
-          msj="Estimulo 4"
+          msj="Estímulo 4"
           callback={()=>imagenInit(4)}
           ></CustomButton> 
        </div>
@@ -229,7 +229,7 @@ function Matrices(props) {
               <h1> Estimulo {state}</h1>
               <img 
               className={classes.img} 
-              alt={"Estimulo "+state} 
+              alt={"Estímulo "+state} 
               src={require("../../../assets/estimulos/matrices/"+stateExample+".jpg")} />
               
               <CustomButton 
@@ -244,7 +244,7 @@ function Matrices(props) {
              <h1> Estimulo {numberItem}</h1>
              <img 
                className={classes.img}
-               alt={"Estimulo "+numberItem}
+               alt={"Estímulo "+numberItem}
                src={require("../../../assets/estimulos/matrices/"+numberItem+".jpg")} />
                <KeyboardEventHandler 
                handleKeys={['1','2','3','4','5']} 

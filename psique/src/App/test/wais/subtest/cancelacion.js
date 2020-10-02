@@ -154,14 +154,14 @@ function Cancelacion(props) {
       case "instruccion":
         return(
         <div >
-          <h1>Cancelacion</h1>
+          <h1>Cancelación</h1>
           <b>instrucciones generales:</b>
-          <p>El paciente recibira un cuadernillo en el cual debera tachar</p>
-          <p>2 formas geometricas determinadas exactamente identicas a </p>
+          <p>El paciente recibirá un cuadernillo en el cual deberá tachar</p>
+          <p>2 formas geométricas determinadas exactamente identicas a </p>
           <p>las figuras que se encuentran en la parte superior del cuadernillo</p>
           <br/>
-          <b>instrucciones de calificacion:</b>
-          <p>Al final de cada item se registraran las repuestas correctas e incorrectas</p>
+          <b>instrucciones de calificación:</b>
+          <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
           <p>El sistema calificara automaticamente la respuesta</p>
           <br/>
           <CustomButton
@@ -173,7 +173,7 @@ function Cancelacion(props) {
       case "seleccion":
         return(
         <div >
-        <h1>Cancelacion</h1>
+        <h1>Cancelación</h1>
         <p>Pacientes de edad 16-69:</p>
           <CustomButton
           msj="Iniciar Subrueba"
@@ -188,7 +188,7 @@ function Cancelacion(props) {
           <div  className={classes.root} >
             <div >
               
-              <h1>Cancelacion</h1>  
+              <h1>Cancelación</h1>  
               <h2>Reactivo {reactivo}</h2>
               <div className={classes.fields}>
                 <TextField
@@ -259,7 +259,7 @@ function Cancelacion(props) {
       case "resultados":
       return(
         <Results
-          name="Cancelacion"
+          name="Cancelación"
           result={calcularResultado()}
           callback={()=>{
             correct1Aux=correct1
@@ -277,7 +277,7 @@ function Cancelacion(props) {
         return ( 
         <div  >
           <div className={classes.revision}>
-          <h1>Cancelacion</h1>
+          <h1>Cancelación</h1>
             <h2>Reactivo 1</h2>
             <div className={classes.fields}>
               <TextField

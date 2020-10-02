@@ -56,7 +56,6 @@ const resolvers = {
     Query:{
         patientAssessment: async (parent,{id_patient}) =>{
             
-          console.log(id_patient)
           var assessments = await Assessment.findOne({where: { id_patient: id_patient,is_active:true}, include:{model:Test,include:[Wada,Zung]}})
   
           if(assessments!==null){
@@ -91,7 +90,7 @@ const resolvers = {
               const is_active = true
     
               const assessmentUpdate =  await Assessment.update({is_active:false,end_date:start_date},{where:{id_assessment:id_assessment},transaction: t, returning:true });
-              console.log(assessmentUpdate[1][0].dataValues.id_patient)
+
               const assessment =  await Assessment.create({id_doctor,id_patient:assessmentUpdate[1][0].dataValues.id_patient,is_active,start_date},{ transaction: t });
               
               return {

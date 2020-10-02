@@ -78,7 +78,7 @@ function Aritmetica(props) {
   var [givenAnswer, setGivenAnswer] = useState("");
 
   function changeStimuli(punt){    
-    var returnController = firstItem===6 && returnVar && numberItem===1 && countRe!== 2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
+    var returnController = firstItem===6 && returnVar && numberItem===1 && countRe!== 2; // Verifica que al hacer el retorno y llegar al Estímulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
       
@@ -274,7 +274,7 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimulo desea iniciar la prueba? </p>
+          <p>En que estimuló desea iniciar la prueba? </p>
           <p>Pacientes con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 1"
           callback={()=>imagenInit(1)}></CustomButton>          
@@ -310,7 +310,7 @@ function Aritmetica(props) {
             <h1>Reactivo {numberItem}. {consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+stimuliSource[numberItem]}
+              alt={"Estímulo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmetica/"+stimuliSource[numberItem-1]+".jpg")}
             />
             <br></br><br></br><br></br>
@@ -377,7 +377,7 @@ function Aritmetica(props) {
                 <div className={classes.field}>
                   {index!== 0? <TextField
                     className={classes.textfield}
-                    label={"Calificacion"}
+                    label={"Calificación"}
                     type="number"
                     defaultValue={result}
                     inputProps={{min:0, max:1}}                  

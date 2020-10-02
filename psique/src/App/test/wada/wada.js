@@ -90,16 +90,11 @@ function Wada(props) {
     for (let i = 0; i < selectedTest.length; i++) {
       if(selectedTest[i])wadaData[testNames[i]]=results[i]
     }
-    console.log(wadaData)
-    console.log(aphasias)
-    console.log({ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias})
 
     const {data}= await createWada({ variables:{ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias}});
 
-    console.log(data)
 
     if (data.createWada.id) {
-      console.log( blob)
       socket.emit("stopRecording", blob,data.createWada.id);
       props.setBody("init")      
     }
@@ -305,7 +300,6 @@ function Wada(props) {
 
       case "results":
         recorder.stopRecording(function() {
-          console.log( recorder.getBlob())
           blob=recorder.getBlob();
         });
         return (

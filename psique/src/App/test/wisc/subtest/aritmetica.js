@@ -261,7 +261,7 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimulo desea iniciar la prueba? </p>
+          <p>¿En qué estímulo desea iniciar la prueba? </p>
           <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 3"
           callback={()=>imagenInit(2)}></CustomButton>          
@@ -271,7 +271,7 @@ function Aritmetica(props) {
           callback={()=>imagenInit(8)}></CustomButton>
           <br/><br/>
           <p>Pacientes de edad 10-16:</p>
-          <CustomButton msj="Estimulo 12"
+          <CustomButton msj="Estímulo 12"
           callback={()=>imagenInit(11)}></CustomButton>          
         </div>
        );
@@ -282,7 +282,7 @@ function Aritmetica(props) {
             <h1>{consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+stimuliSource[numberItem]}
+              alt={"Estímulo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmeticawisc/"+stimuliSource[numberItem]+".jpg")}
             />
             <br></br><br></br><br></br>
@@ -330,7 +330,7 @@ function Aritmetica(props) {
               <div key={index} className={classes.field}>
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{

@@ -311,7 +311,7 @@ function BusquedaSimbolos(props) {
               <div>
                 <h1>Búsqueda de Símbolos</h1>
                 <b>instrucciones:</b>
-                <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+                <p>Registre las calificaciónes obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 4 </h3>
@@ -429,7 +429,7 @@ function BusquedaSimbolos(props) {
               <div>
                 <h1>Búsqueda de Símbolos</h1>
                 <b>instrucciones:</b>
-                <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+                <p>Registre las calificaciónes obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 8 </h3>

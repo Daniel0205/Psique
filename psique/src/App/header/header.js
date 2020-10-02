@@ -126,7 +126,6 @@ function Header(props) {
   }
 
   function save(){
-    console.log("ENTROOOOOO")
     props.setBody("assessment")
     props.setAssessment(null)
   }
@@ -134,7 +133,7 @@ function Header(props) {
   async function end(){
     
     const {data}= await exit({ variables: {id_assessment:props.id_assessment} });
-    console.log(data)
+
     if (data.exitAssessment.ok)save()
   }
 

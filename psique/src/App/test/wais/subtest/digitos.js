@@ -266,7 +266,7 @@ function Digitos(props) {
          <p>y la tarea del paciente es repetir, repetir en orden inverso y repetir organizando los numeros</p>
          <p>Los items se presentan de forma verbal</p>
          <br/>
-         <b>instrucciones de calificacion:</b>
+         <b>instrucciones de calificación:</b>
          <p>Para calificar debe escribir los números que de el paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
          <p>El sistema se encargará de asignar la puntuación correspondiente</p>
          <br/>
@@ -287,7 +287,7 @@ function Digitos(props) {
        case "testDirecto":
          return(
          <div>
-             <h1> Estimulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
+             <h1> Estímulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
              <br/>
              <br/>
              <h1>{estimulosDD[numberItem-1].join("-")}</h1>
@@ -326,7 +326,7 @@ function Digitos(props) {
         return(
         <div>
             
-            <h1> Estimulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
+            <h1> Estímulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
             <br/>
             <br/>
             <h1>{estimulosDI[numberItem-1].join("-")}</h1>
@@ -365,7 +365,7 @@ function Digitos(props) {
         return(
         <div>
             
-            <h1> Estimulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
+            <h1> Estímulo {Math.trunc((numberItem-1)/2)+1}- Intento # {(numberItem-1)%2+1}</h1>
             <br/>
             <br/>
             <h1>{estimulosDC[numberItem-1].join("-")}</h1>
@@ -404,7 +404,7 @@ function Digitos(props) {
                <div key={index} className={classes.field}>  
                  <TextField
                    className={classes.textfield}
-                   label={"Calificacion"}
+                   label={"Calificación"}
                    type="number"
                    defaultValue={result}
                    inputProps={{
@@ -455,7 +455,7 @@ function Digitos(props) {
                <div key={index} className={classes.field}>  
                  <TextField
                    className={classes.textfield}
-                   label={"Calificacion"}
+                   label={"Calificación"}
                    type="number"
                    defaultValue={result}
                    inputProps={{
@@ -505,7 +505,7 @@ function Digitos(props) {
                <div key={index} className={classes.field}>  
                  <TextField
                    className={classes.textfield}
-                   label={"Calificacion"}
+                   label={"Calificación"}
                    type="number"
                    defaultValue={result}
                    inputProps={{

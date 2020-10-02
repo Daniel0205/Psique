@@ -255,7 +255,7 @@ function Semejanzas(props) {
             <p>Los items se presentan de forma verbal</p>
             <br/>
             <b>instrucciones para registrar la respuesta de paciente:</b>
-            <p>Para calificar se debe presionar el botón que corresponda con la calificacion que desea dar al item </p>
+            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
             <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
             <li>0 : Cualquier clasificación general que es poco pertinente y que define con poca precisión ambos elementos</li>
             <li>1 : Cualquier propiedad común que supone una semejanza secundaria o menos pertinente</li>
@@ -271,20 +271,20 @@ function Semejanzas(props) {
         return(
           <div >
             <h1>Semejanzas</h1>
-            <p>En que estimulo desea iniciar la prueba? </p>
+            <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual o de edad 6-8:</p>
             <CustomButton
-            msj="Estimulo 1"
+            msj="Estímulo 1"
             callback={()=>imagenInit(1)}
             ></CustomButton>
             <p>Pacientes de edad 9-11:</p>
             <CustomButton
-            msj="Estimulo 3"
+            msj="Estímulo 3"
             callback={()=>imagenInit(3)}
             ></CustomButton>
             <p>Pacientes de edad 12-16:</p>
             <CustomButton
-            msj="Estimulo 5"
+            msj="Estímulo 5"
             callback={()=>imagenInit(5)}
             ></CustomButton>       
           </div>

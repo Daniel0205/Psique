@@ -240,12 +240,12 @@ function Cubos(props) {
         return(
          <div >
          <h1>Cubos</h1>
-         <p>En que estimulo desea iniciar la prueba? </p>
+         <p>¿En qué estímulo desea iniciar la prueba? </p>
          <p>Pacientes de edad 6-7 o con sospechas de discapacidad intelectual:</p>
-         <CustomButton msj="Estimulo 1"
+         <CustomButton msj="Estímulo 1"
          callback={()=>imagenInit(1)}></CustomButton> 
          <p>Pacientes de edad 8-16</p>
-         <CustomButton msj="Estimulo 3"
+         <CustomButton msj="Estímulo 3"
          callback={()=>imagenInit(3)}></CustomButton> 
        </div>
         )
@@ -256,7 +256,7 @@ function Cubos(props) {
              {timeBool ? <h2><u><i>¡TIEMPO TERMINADO!</i></u></h2> : ""}
              <img 
                className={classes.img}
-               alt={"Estimulo "+numberItem}
+               alt={"Estímulo "+numberItem}
                src={require("../../../assets/estimulos/cubos-wisc/"+numberItem+".jpg")} />
                <KeyboardEventHandler 
                handleKeys={ numberItem<=3 ? ['0','1','2'] : numberItem>8 ? ['0','4','5','6','7'] : ['0','4'] 

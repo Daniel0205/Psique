@@ -210,7 +210,7 @@ function Digitos(props) {
          <p>y la tarea del paciente es repetir y repetir en orden inverso</p>
          <p>Los items se presentan de forma verbal</p>
          <br/>
-         <b>instrucciones de calificacion:</b>
+         <b>instrucciones de calificación:</b>
          <p>Para calificar debe escribir los números que de el paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
          <p>El sistema se encargará de asignar la puntuación correspondiente</p>
          <br/>
@@ -309,7 +309,7 @@ function Digitos(props) {
                <div key={index} className={classes.field}>  
                  <TextField
                    className={classes.textfield}
-                   label={"Calificacion"}
+                   label={"Calificación"}
                    type="number"
                    defaultValue={result}
                    inputProps={{
@@ -360,7 +360,7 @@ function Digitos(props) {
                <div key={index} className={classes.field}>  
                  <TextField
                    className={classes.textfield}
-                   label={"Calificacion"}
+                   label={"Calificación"}
                    type="number"
                    defaultValue={result}
                    inputProps={{

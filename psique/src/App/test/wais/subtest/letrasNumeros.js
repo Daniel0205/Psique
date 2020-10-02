@@ -199,17 +199,18 @@ function LetrasNumeros(props) {
      case 'instruccion':
        return (
        <div>
-        <h1>Letras y Numeros</h1>
+        <h1>Letras y Números</h1>
         <b>instrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de numeros y letras</p>
-        <p>el doctor debera decirle al paciente cada serie</p>
-        <p>despues de esto el paciente debera repetir en orden la serie</p>
-        <p>en el orden no importa si son primero las letras o los numeros</p>
+        <p>A continuación se enseñaran una serie de números y letras</p>
+        <p>el doctor deberá decirle al paciente cada serie</p>
+        <p>después de esto el paciente deberá repetir en orden la serie</p>
+        <p>en el orden no importa si son primero las letras o los números</p>
         <br/>
-        <b>instrucciones de calificacion:</b>
-        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
-        <p>EL sistema calificara automaticamente las respuestas </p>
+        <b>instrucciones de calificación:</b>
+        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estímulo </p>
+        <p>El sistema calificara automaticamente las respuestas </p>
         <br/>
+
        <CustomButton
          msj="Iniciar subprueba"
          callback={()=>imagenInit(1)}
@@ -255,7 +256,7 @@ function LetrasNumeros(props) {
         return(
         <div>
             
-            <h1> Estimulo {Math.trunc((numberItem-1)/3)+1}- Intento # {(numberItem-1)%3+1}</h1>
+            <h1> Estímulo {Math.trunc((numberItem-1)/3)+1}- Intento # {(numberItem-1)%3+1}</h1>
             <br/>
             <br/>
             <h1>{stimuli[numberItem-1].join("-")}</h1>
@@ -284,15 +285,15 @@ function LetrasNumeros(props) {
       case "revision":
         return(
         <div>
-          <h1>Letras y Numeros</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h1>Letras y Números</h1>
+          <h3>El puntaje por cada ítem fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
               [<h3 key={index+1}>Item {index+1}</h3>,
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{
@@ -365,7 +366,7 @@ function LetrasNumeros(props) {
       case "results":
             return(
            <Results
-           name="Letras y Numeros"
+           name="Letras y Números"
            result={getResult()}
            callback={next}
            url="WAIS-selection"

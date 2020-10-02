@@ -52,7 +52,7 @@ function Cubos(props) {
 
   const classes = useStyles();
 
-  //Esta función cambia el estimulo actual y cambia los resultados
+  //Esta función cambia el estímulo actual y cambia los resultados
   function changeStimuli(key){
 
     clearTimeout(timer) 
@@ -129,7 +129,7 @@ function Cubos(props) {
     }
   }
 
-  //Esta función establece el primer estimulo a ser mostrado
+  //Esta función establece el primer estímulo a ser mostrado
   function imagenInit(item){
     
     if(item!==1){
@@ -252,7 +252,7 @@ function Cubos(props) {
         return(
         <div >
          <h1>Cubos</h1>
-         <p>La prueba se inicia en el estimulo 5 para los pacientes entre los 16-89 años </p>
+         <p>La prueba se inicia en el estímulo 5 para los pacientes entre los 16-89 años </p>
          <CustomButton msj="Siguiente"
          callback={()=>imagenInit(5)}></CustomButton> 
         </div>
@@ -260,11 +260,11 @@ function Cubos(props) {
        case "test":
          return(
          <div>
-             <h1> Estimulo {numberItem}</h1>
+             <h1> Estímulo {numberItem}</h1>
              {timeBool ? <h2><u><i>¡TIEMPO TERMINADO!</i></u></h2> : ""}
              <img 
                className={classes.img}
-               alt={"Estimulo "+numberItem}
+               alt={"Estímulo "+numberItem}
                src={require("../../../assets/estimulos/cubos/"+numberItem+".png")} />
                <KeyboardEventHandler 
                handleKeys={ numberItem<=4 ? ['0','1','2'] : numberItem>8 ? ['0','4','5','6','7'] : ['0','4'] 

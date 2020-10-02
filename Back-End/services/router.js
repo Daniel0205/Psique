@@ -8,10 +8,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/createUsers", async (req, res) => {
-  console.log("ENTROOOOO1")
-  
-  console.log(await bcrypt.hash('123456789', 12))
-  console.log("ENTROOOOO1")
   
   var data = [
     {
@@ -39,7 +35,6 @@ router.get("/createUsers", async (req, res) => {
       password: await bcrypt.hash('1234', 12)
     }
 ];
-console.log("ENTROOOOO1")
   
   Doctor.bulkCreate(data)
   .then((item)=>{

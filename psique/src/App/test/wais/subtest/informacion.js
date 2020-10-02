@@ -17,7 +17,7 @@ const NUMBER_STIMULI = 26
 
 let answers;
 
-let clues =["* 1. ¿Qué día viene despues del lunes?",
+let clues =["* 1. ¿Qué día viene después del lunes?",
             "* 2. ¿Qué forma tienen la mayoría de las pelotas?",
             "† 3. ¿Qué es un termómetro?",
             "† 4. ¿Quién fue Salvador Dalí?",
@@ -25,7 +25,7 @@ let clues =["* 1. ¿Qué día viene despues del lunes?",
             "6. ¿Quién escribio el Quijote?",
             "7. ¿Cuál es la capital de japón?",
             "8. ¿De que está compuesta el agua?",
-            "9. ¿En que condinete está egipto?",
+            "9. ¿En que continente está egipto?",
             "10. ¿Quién pintó la Capilla Sixtina?",
             "11. ¿En que año se descubrió América?",
             "12. ¿A qué temperatura hierve el agua en condiciones normales?",
@@ -38,7 +38,7 @@ let clues =["* 1. ¿Qué día viene despues del lunes?",
             "19. ¿Quién fue Mahatma Gandhi?",
             "20. ¿Qué cordillera separa Asia de Europa?",
             "* 21. Dígame el nombre de tres tipos de vasos sanguíneos del cuerpo humano",
-            "22. ¿Quien fue Catalina la Grande?",
+            "22. ¿Quién fue Catalina la Grande?",
             "23. ¿Cuál es el órgano del cuerpo humano más grande?",
             "* 24. ¿Cuántos minutos tarda la luz del Sol en alcanzar la Tierra?",
             "25. ¿Quién escribió Alicia en el País de las Maravilla?",
@@ -93,7 +93,7 @@ let badAnswer = ["Ayer/Hoy/Mañana (P)*\nNavidad/Mi cumpleaños [se refiere a un
                 "Escritor/Novelista (P)\nGabriel\nMacondo\n[Nombra otro autor]",
                 "Ganador del Premio Nobel de la Paz (P)\nLíder/Religioso (P)\nUn budista/Un filósofo\nPresidente de la India\nEra de la India (P)\nDejó de comer (P)",
                 "[Nombra otra cordillera]",
-                "Aorta, carótida y femoral [nombra un vaso específico](P)*\n[Nombra menos de tres tipos de vaos sanguíneos](P)**",
+                "Aorta, carótida y femoral [nombra un vaso específico](P)*\n[Nombra menos de tres tipos de vasos sanguíneos](P)**",
                 "La mujer de Alejandro el Grande\nReina española [nombra un país incorrecto]\nReina (monarca/emperatriz)/De la realeza (P)",
                 "[Nombra otro órgano]",
                 "Un año\n250000 a 320000 kilómetros por segundo [cualquier respuesta en referencia a la velocidad de la luz](P)*",
@@ -282,7 +282,7 @@ function Informacion(props) {
             <h1>Información</h1>
             <b>Intrucciones generales:</b>
             <p>A continuación se mostrará el enunciado por cada uno de los puntos, ademas</p>
-            <p>Se dispone de cajas de texto que sirven como guia para evaluar la respuesta dada por el paciente.</p>
+            <p>Se dispone de cajas de texto que sirven como guía para evaluar la respuesta dada por el paciente.</p>
             <p>Debajo de las cajas de texto puede haber información en caso de que el paciente de ciertas respuestas</p>
             <br/>
             <b>Intrucciones para registrar la respuesta de paciente:</b>

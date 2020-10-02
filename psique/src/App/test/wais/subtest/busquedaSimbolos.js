@@ -103,7 +103,7 @@ function BusquedaSimbolos(props) {
           <div>
             <h1>Búsqueda de símbolos</h1>
             <b>Intrucciones generales:</b>
-            <p>Seleccione la opción según sea el caso</p>
+            <p>Seleccione la opción según sea el caso:</p>
             
             <CustomButton
               msj="Aplicación de subPrueba"

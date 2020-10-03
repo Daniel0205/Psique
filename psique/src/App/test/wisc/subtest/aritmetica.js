@@ -44,9 +44,9 @@ const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta par
                   "Cuenta estos pollitos con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "Cuenta estos árboles con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "¿Cuántas mariposas y grillos hay en total?",
-                  "¿Cuántas nueces quedarán si cada ardilla se come una",
+                  "¿Cuántas nueces quedarán si cada ardilla se come una?",
                   "Roberto tiene 5 libros. Pierde 1 ¿Cuántos libros le quedan?",
-                  "Cuántas son 2 crayolas más 3 crayolas",
+                  "¿Cuántas son 2 crayolas más 3 crayolas?",
                   "José tiene 5 galletas. Le da 1 a samuel y 1 a jimena. ¿Cuántas galletas le quedan?",
                   "Juan tenía 4 pesos y su mamá le dio 2 más. ¿Cuántos pesos tiene en total?",
                   "si corto una manzana por la mitad. ¿Cuántos pedazos tendré?",
@@ -56,13 +56,13 @@ const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta par
                   "Marcos tenía 8 pelotas y compró 6 más. ¿Cuántas pelotas tiene en total?",
                   "Francisco ganó 10 calcomanías el lunes y 15 calcomanías el martes. ¿Cuántas calcomanías ganó en total?",
                   "En un campo hay tres vacas. Otras cuatro vacas llegan al campo y después se van 2 vacas. ¿Cuántas vacas quedan en el campo?",
-                  "Catalina tenía 12 globos y vendió 5. ¿Cuantos globos quedaron?",
+                  "Catalina tenía 12 globos y vendió 5. ¿Cuántos globos quedaron?",
                   "Juana compró 4 manzanas en una tienda y 2 manzanas en otra. Su mamá le dio 3 manzanas más. ¿Cuántas manzanas tiene en total?",
                   "Si compras 2 plumas a 40 pesos cada una. ¿Cuánto cambio te regresaran si pagas con 100 pesos?",
                   "Tomás anotó 17 puntos en un juego y 15 en otro juego. ¿Cuántas puntos anotó en total?",
-                  "Una feria tiene 8 concursos destintos. Si cada concurso concede 3 premios. ¿Cuantos premios en total se dan en la feria?",
-                  "En una clase de karate se inscribieron 30 estudiantes. Después de un mes, 11 estudiantes e van de la clase. ¿Cuántos estudiantes quedan en la clase?",
-                  "Rosa compró 3 libros de caricaturas por 2 pesos cada uno y un juguete de 7 pesos. ¿Cuánto cambio le regresarán si pafa con un billete de 20 pesos?",
+                  "Una feria tiene 8 concursos distintos. Si cada concurso concede 3 premios. ¿Cuántos premios en total se dan en la feria?",
+                  "En una clase de karate se inscribieron 30 estudiantes. Después de un mes, 11 estudiantes se van de la clase. ¿Cuántos estudiantes quedan en la clase?",
+                  "Rosa compró 3 libros de caricaturas por 2 pesos cada uno y un juguete de 7 pesos. ¿Cuánto cambio le regresarán si paga con un billete de 20 pesos?",
                   "Laura mira a 8 pájaros posados en la barda, 4 de ellos vuelan y otros 2 llegan de visita. ¿Cuántos pájaros observa Laura ahora?",
                   "Juan tiene el doble de dinero que Sergio. Juan tiene 17 pesos. ¿Cuánto dinero tiene Sergio?",
                   "Una escuela tiene 25 alumnos en cada salón de clases. Si en total hay 500 alumnos en toda la escuela. ¿Cuántos salones de clase hay?",
@@ -246,11 +246,11 @@ function Aritmetica(props) {
       case 'instruccion':
        return (
         <div>
-          <h1>Aritmetica</h1>
+          <h1>Aritmética</h1>
           <b>Intrucciones generales:</b>
           <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
-          <p>según sea el caso, las cuales, en el caso de las imágenes deben ser mostradas al paciente para que</p>
-          <p>las visualice, y en el caso de las preguntas deben ser mencionadas al paciente</p>
+          <p>Las imágenes deben ser mostradas al paciente para que las visualice</p>
+          <p>Las preguntas deben ser mencionadas al paciente</p>
           <br/>
           <b>Intrucciones para registrar la respuesta de paciente:</b>
           <br/>
@@ -279,7 +279,7 @@ function Aritmetica(props) {
           callback={()=>imagenInit(8)}></CustomButton>
           <br/><br/>
           <p>Pacientes de edad 10-16:</p>
-          <CustomButton msj="Estimulo 12"
+          <CustomButton msj="Reactivo 12"
           callback={()=>imagenInit(11)}></CustomButton>          
         </div>
        );
@@ -290,7 +290,7 @@ function Aritmetica(props) {
             <h1>Reactivo {numberItem+1}. {consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+stimuliSource[numberItem]}
+              alt={"Reactivo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmeticawisc/"+stimuliSource[numberItem]+".jpg")}
             />
             <br></br><br></br><br></br>

@@ -10,9 +10,11 @@ if(process.env.NODE_ENV==="production"){
   DB = new Sequelize(process.env.DATABASE_URL);
 }
 else{
-  DB=new Sequelize('Psique', 'postgres', '1234', {
-    host: 'localhost', 
-    dialect: 'postgres',      
+  
+  DB=new Sequelize("Psique", "postgres", 1234, {
+    host: 'DB', 
+    dialect: 'postgres',  
+    port:5432,
     pool: {
       max: 5,
       min: 0,
@@ -20,6 +22,7 @@ else{
       idle: 10000
     }
   })
+
 }
 
 

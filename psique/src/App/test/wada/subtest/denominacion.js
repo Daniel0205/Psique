@@ -36,7 +36,7 @@ function Denominacion(props) {
       })}>
           <img
           className={classes.img}
-          alt={"Estimulo #"+props.stimuli}      
+          alt={"Estímulo #"+props.stimuli}      
           src={require('../../../assets/estimulos/wada/'+props.stimuli+".jpeg")}
           />
           {props.type==="doctor"?

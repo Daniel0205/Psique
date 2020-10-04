@@ -228,11 +228,11 @@ function Pistas(props) {
         return(
           <div>
             <h1>Pistas</h1>
-            <b>Intrucciones generales:</b>
-            <p>A continuación se daran una serie de pistas al paciente</p>
-            <p>el cual debera relacionarlo con un concepto. </p>
+            <b>instrucciones generales:</b>
+            <p>A continuación se darán una serie de pistas al paciente</p>
+            <p>el cual deberá relacionarlo con un concepto. </p>
             <br/>
-            <b>Intrucciones para registrar la respuesta de paciente:</b>
+            <b>instrucciones para registrar la respuesta de paciente:</b>
             <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
@@ -248,15 +248,15 @@ function Pistas(props) {
         return(
           <div >
             <h1>Pistas</h1>
-            <p>En que estimulo desea iniciar la prueba? </p>
+            <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual o de edad 6-9:</p>
             <CustomButton
-            msj="Estimulo 1"
+            msj="Estímulo 1"
             callback={()=>imagenInit(1)}
             ></CustomButton>
             <p>Pacientes de edad 10-16:</p>
             <CustomButton
-            msj="Estimulo 5"
+            msj="Estímulo 5"
             callback={()=>imagenInit(5)}
             ></CustomButton>       
             <p>No aplicar a paciente de edad  70-89</p>

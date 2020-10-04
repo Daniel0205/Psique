@@ -6,6 +6,7 @@ import Body from '../body/body';
 import PatientModule from '../body/patientModule';
 import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
+import Assessment from "./assessment"
 import Header from "../header/header"
 import Stroop from '../test/stroop/stroop';
 import Wais from '../test/wais/wais';
@@ -73,6 +74,8 @@ function Sidenav(props) {
     switch (props.body) {
       case 'init':
         return <Body callback={(x)=>setAux(x)}/>
+      case 'assessment':
+        return <Assessment/>
       case "WAIS IV":
         return <Wais  subtest={props.subtest}></Wais>
       case "WISC IV":

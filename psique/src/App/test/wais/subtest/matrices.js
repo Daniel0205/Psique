@@ -190,11 +190,11 @@ function Matrices(props) {
         return (
         <div id= "inicio" >
         <h1>Matrices</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>Se presentarán una matriz o una serie incompleta al paciente</p>
         <p>La tarea es escoger, entre cinco opciones, la que mejor complete la matriz o la serie</p>
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>
@@ -210,15 +210,15 @@ function Matrices(props) {
         return(
          <div >
          <h1>Matrices</h1>
-         <p>En que estimulo desea iniciar la prueba? </p>
+         <p>¿En qué estímulo desea iniciar la prueba? </p>
          <p>Pacientes con sospechas de discapacidad intelectual</p>
           <CustomButton
-          msj="Estimulo 1"
+          msj="Estímulo 1"
           callback={()=>imagenInit(1)}
           ></CustomButton>
           <p>Pacientes de edad 16-89:</p>
           <CustomButton
-          msj="Estimulo 4"
+          msj="Estímulo 4"
           callback={()=>imagenInit(4)}
           ></CustomButton> 
        </div>
@@ -229,7 +229,7 @@ function Matrices(props) {
               <h1> Estimulo {state}</h1>
               <img 
               className={classes.img} 
-              alt={"Estimulo "+state} 
+              alt={"Estímulo "+state} 
               src={require("../../../assets/estimulos/matrices/"+stateExample+".jpg")} />
               
               <CustomButton 
@@ -244,7 +244,7 @@ function Matrices(props) {
              <h1> Estimulo {numberItem}</h1>
              <img 
                className={classes.img}
-               alt={"Estimulo "+numberItem}
+               alt={"Estímulo "+numberItem}
                src={require("../../../assets/estimulos/matrices/"+numberItem+".jpg")} />
                <KeyboardEventHandler 
                handleKeys={['1','2','3','4','5']} 

@@ -88,7 +88,7 @@ function SignIn(props) {
       localStorage.setItem('token', data.login.token);
       localStorage.setItem('refreshToken', data.login.refreshToken);
       props.setDoctor(parseInt(username))
-      props.setBody("init")
+      props.setBody("assessment")
     }
     else setMsj("Usuario o contrasena incorrecto")
   }

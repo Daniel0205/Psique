@@ -239,12 +239,12 @@ function Aritmetica(props) {
        return (
         <div>
           <h1>Aritmetica</h1>
-          <b>Intrucciones generales:</b>
+          <b>instrucciones generales:</b>
           <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
           <p>según sea el caso, las cuales, en el caso de las imágenes deben ser mostradas al paciente para que</p>
           <p>las visualice, y en el caso de las preguntas deben ser mencionadas al paciente</p>
           <br/>
-          <b>Intrucciones para registrar la respuesta de paciente:</b>
+          <b>instrucciones para registrar la respuesta de paciente:</b>
           <br/>
           <br/>
           <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
@@ -261,7 +261,7 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimulo desea iniciar la prueba? </p>
+          <p>¿En qué estímulo desea iniciar la prueba? </p>
           <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 3"
           callback={()=>imagenInit(2)}></CustomButton>          
@@ -271,7 +271,7 @@ function Aritmetica(props) {
           callback={()=>imagenInit(8)}></CustomButton>
           <br/><br/>
           <p>Pacientes de edad 10-16:</p>
-          <CustomButton msj="Estimulo 12"
+          <CustomButton msj="Estímulo 12"
           callback={()=>imagenInit(11)}></CustomButton>          
         </div>
        );
@@ -282,7 +282,7 @@ function Aritmetica(props) {
             <h1>{consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+stimuliSource[numberItem]}
+              alt={"Estímulo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmeticawisc/"+stimuliSource[numberItem]+".jpg")}
             />
             <br></br><br></br><br></br>
@@ -330,7 +330,7 @@ function Aritmetica(props) {
               <div key={index} className={classes.field}>
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{

@@ -162,12 +162,12 @@ function Registros(props) {
         return(
         <div >
           <h1>Registros</h1>
-          <b>Intrucciones generales:</b>
-          <p>El paciente recibira una hoja con diferentes objetos y animales</p>
-          <p>en ella debera tachar con un lapiz todos lo animales qe alcance en el tiempo</p>
+          <b>instrucciones generales:</b>
+          <p>El paciente recibirá una hoja con diferentes objetos y animales</p>
+          <p>en ella deberá tachar con un lápiz todos lo animales que alcance en el tiempo</p>
           <br/>
-          <b>Intrucciones de calificacion:</b>
-          <p>Al final de cada item se registraran las repuestas correctas e incorrectas</p>
+          <b>Instrucciones de calificación:</b>
+          <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
           <p>El sistema calificara automaticamente la respuesta</p>
           <br/>
           <CustomButton

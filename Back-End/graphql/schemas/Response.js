@@ -8,6 +8,13 @@ module.exports =`
 
   }
 
+
+  type IdResponse {
+    ok: Boolean!
+    id:ID
+  }
+  
+
   type Error {
     path: String!
     message: String
@@ -18,6 +25,10 @@ module.exports =`
     error: [Error!]
   }
 
+  type updateResponse{
+    ok: Boolean!
+    error: [Error!]
+  }
 
 `;
 

@@ -311,7 +311,7 @@ function Comprension(props) {
           <div>
             <h1>Comprensión</h1>
             <b>Instrucciones generales:</b>
-            <p>A continuación se le realizara una serie de preguntas al paciente</p>
+            <p>A continuación se le realizará una serie de preguntas al paciente</p>
             <p>el cual debera responder de acuerdo a la pregunta que se le haga.</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
@@ -330,20 +330,20 @@ function Comprension(props) {
         return(
           <div >
             <h1>Comprensión</h1>
-            <p>En que estimulo desea iniciar la prueba? </p>
+            <p>¿En que estimulo desea iniciar la prueba? </p>
             <p>Pacientes de edad 6-8 años o con sospechas de discapacidad intelectual:</p>
             <CustomButton
-              msj="Estimulo 1"
+              msj="Estímulo 1"
               callback={()=>testInit(0)}
             ></CustomButton>
             <p>Pacientes de edad 9-11:</p>
             <CustomButton
-              msj="Estimulo 3"
+              msj="Estímulo 3"
               callback={()=>testInit(2)}
             ></CustomButton>
             <p>Pacientes de edad 12-16:</p>
             <CustomButton
-              msj="Estimulo 5"
+              msj="Estímulo 5"
               callback={()=>testInit(4)}
             ></CustomButton>
           </div>
@@ -450,7 +450,7 @@ function Comprension(props) {
                 <div key={index} className={classes.field}>
                   <TextField
                     className={classes.textfield}
-                    label={"Calificacion"}
+                    label={"Calificación"}
                     type="number"
                     defaultValue={result}
                     inputProps={{

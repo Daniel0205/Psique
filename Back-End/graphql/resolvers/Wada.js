@@ -47,7 +47,7 @@ const resolvers = {
                     
                     const wada =  await Wada.create(wadaData,{ transaction: t });  
                     aphasiasData.map(x=>x.id_test=wada.id_test)
-                    console.log(aphasiasData)
+                    
                     const aphasia = await Aphasia.bulkCreate(aphasiasData,{ transaction: t });  
 
                     return {id: wada.id_test}

@@ -229,19 +229,20 @@ function ConceptoDibujos(props) {
      case 'instruccion':
        return (
        <div>
-        <h1>Conceptos con dibujos</h1>
-        <b>Intrucciones generales:</b>
-        <p>A continuacion se presentaran dos o tres filas de dibujos</p>
-        <p>el paciente debe senalar o decir las imagenes que tenga una caracteristica en comun</p>
+       <h1>Conceptos con dibujos</h1>
+        <b>Instrucciones generales:</b>
+        <p>A continuación se presentaran dos o tres filas de dibujos</p>
+        <p>el paciente debe señalar o decir las imágenes que tenga una caracteristica en comun</p>
 
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>La respuesta del paciente se registra en los campos bajo la imagen</p>
         <p>Indicando las opciones seleccionadas por el paciente</p>
         <p>El sistema calificara automaticamente la prueba</p>
         <br/>
+
        <CustomButton
          msj="Iniciar subprueba"
          callback={next}
@@ -252,15 +253,15 @@ function ConceptoDibujos(props) {
        return(
         <div >
         <h1>Conceptos con dibujos</h1>
-        <p>En que estimulo desea iniciar la prueba? </p>
+        <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
-        <CustomButton msj="Estimulo 1"
+        <CustomButton msj="Estímulo 1"
         callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 9-11</p>
-        <CustomButton msj="Estimulo 5"
+        <CustomButton msj="Estímulo 5"
         callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
-        <CustomButton msj="Estimulo 7"
+        <CustomButton msj="Estímulo 7"
         callback={()=>imagenInit(7)}></CustomButton> 
       </div>
        )
@@ -268,7 +269,7 @@ function ConceptoDibujos(props) {
     case "ejemplo B":
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <img 
             className={classes.img} 
             alt={"Estimulo "+state} 
@@ -377,7 +378,7 @@ function ConceptoDibujos(props) {
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{

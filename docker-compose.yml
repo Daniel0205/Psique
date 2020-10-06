@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  psique:
+    container_name: Front
+    image: "node:12.18.4-alpine3.9"
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    volumes:
+      - ./psique:/psique
+    stdin_open: true # docker run -i
+    working_dir: /psique
+    command: 
+      - "npm"
+      - "start"
+ 
+
+  server:
+    build: ./Back-End
+    container_name: Back
+    ports:
+      - 5000:5000
+    volumes:
+      - ./Back-End:/Back-End
+    stdin_open: true # docker run -i
+    depends_on:
+      - database
+  
+  database:
+    container_name: DB
+    image: "postgres:13"
+    ports:
+      - 5433:5432
+    volumes:
+      - ./Back-End/DB/psique.sql:/docker-entrypoint-initdb.d/Psique.sql
+    stdin_open: true # docker run -i
+    environment:
+      POSTGRES_DB: Psique
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+ 
+          
+
+    
+
+

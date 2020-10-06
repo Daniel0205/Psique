@@ -1,5 +1,5 @@
 const initialState = {
-    id_assessment:1
+    id_assessment:null
   };
   
   function assessmentReducer(state = initialState, action) {

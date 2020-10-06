@@ -242,12 +242,12 @@ function Balanzas(props) {
        return (
        <div id= "inicio" >
         <h1>Balanzas</h1>
-        <b>Intrucciones generales:</b>
-        <p>A continuacion se enseñaran unas balanzas con dos platillos</p>
+        <b>instrucciones generales:</b>
+        <p>A continuación se enseñan una serie de balanzas con dos platillos</p>
         <p>el sujeto debe seleccionar entre cinco opciones</p>
         <p>el objeto con el cual equilibrar la balanza</p>
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <li>Utilizar los botones para indicar la respuesta del paciente </li>
@@ -265,12 +265,12 @@ function Balanzas(props) {
        return(
         <div >
         <h1>Balanzas</h1>
-        <p>En que estimulo desea iniciar la prueba? </p>
+        <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes con sospechas de discapacidad intelectual:</p>
-        <CustomButton msj="Estimulo 1"
+        <CustomButton msj="Estímulo 1"
         callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 16-69:</p>
-        <CustomButton msj="Estimulo 4"
+        <CustomButton msj="Estímulo 4"
         callback={()=>imagenInit(4)}></CustomButton> 
         <p><b>No aplicar a paciente de edad  70-89</b></p>
       </div>
@@ -280,10 +280,10 @@ function Balanzas(props) {
     case "ejemplo b":
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <img 
             className={classes.img} 
-            alt={"Estimulo "+state} 
+            alt={"Estímulo "+state} 
             src={require("../../../assets/estimulos/balanzas/"+state+".png")} />
             
             {state!=="ejemplo" ?
@@ -311,11 +311,11 @@ function Balanzas(props) {
       case "test":
         return(
         <div>
-            <h1> Estimulo {numberItem}</h1>
+            <h1> Estímulo {numberItem}</h1>
             {timeBool ? <h2><u><i>¡TIEMPO TERMINADO!</i></u></h2> : ""}
             <img 
               className={classes.img}
-              alt={"Estimulo "+numberItem}
+              alt={"Estímulo "+numberItem}
               src={require("../../../assets/estimulos/balanzas/"+numberItem+".png")} />
               <p>Respuesta:</p>
               
@@ -334,7 +334,7 @@ function Balanzas(props) {
         return(
         <div>
           <h1>Balanzas</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h3>El puntaje por cada ítem fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
               <div key={index} className={classes.field}>

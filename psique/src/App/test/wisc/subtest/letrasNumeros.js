@@ -23,8 +23,6 @@ const stimuli =  [['A','3'],['B','1'],['2','C'],
                   ['S','3','K','4','Y','1','G'],['7','S','9','K','1','T','6'],['L','2','J','6','Q','3','G'],
                   ['4','B','8','R','1','M','7','H'],['J','2','U','8','A','5','C','4'],['6','L','1','Z','5','H','2','W']]
 
-const answersExample = [[0,0],[0,0]]
-
 const rightExample = [["2","A"],["3","B"]]
 
 const rightAnswers = [['A','3'],['B','1'],['C','2'],
@@ -65,20 +63,18 @@ function LetrasNumeros(props) {
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
   const [scored,setScored] = useState(undefined)
-  const [answers,setAnswers] =  useState(["0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0",
-                                        "0","0","0","0","0"])
-
-
+  const [answersExample,setAnswersExample] =  useState(["",""])
+  const [answers,setAnswers] =  useState(["","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","","",
+                                          "","","","",""])
   const classes = useStyles();
-
 
   function changeStimuli(key){
 
@@ -175,13 +171,13 @@ function LetrasNumeros(props) {
     let result
       
     if(state==="ejemplo A"){
-      if(answersExample[0].join(',')=== rightExample[0].join(',')){
+      if(answersExample[0].split("").join(',')=== rightExample[0].join(',') ){
         result = true
       }
       else result = false
     }
     else {
-      if(answersExample[1].join(',')=== rightExample[1].join(',')){
+      if(answersExample[1].split("").join(',')=== rightExample[1].join(',') ){
         result =  true
       }
       else result =  false
@@ -198,14 +194,14 @@ function LetrasNumeros(props) {
      case 'instruccion':
        return (
        <div>
-        <h1>Letras y Numeros</h1>
-        <b>Intrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de numeros y letras</p>
+        <h1>Letras y Números</h1>
+        <b>instrucciones generales:</b>
+        <p>A continuacion se enseñaran una serie de números y letras</p>
         <p>el doctor debera decirle al paciente cada serie</p>
         <p>despues de esto el paciente debera repetir en orden la serie</p>
-        <p>en el orden no importa si son primero las letras o los numeros</p>
+        <p>en el orden no importa si son primero las letras o los números</p>
         <br/>
-        <b>Intrucciones de calificacion:</b>
+        <b>instrucciones de calificación:</b>
         <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
         <p>EL sistema calificara automaticamente las respuestas </p>
         <br/>
@@ -221,26 +217,23 @@ function LetrasNumeros(props) {
             <h1> Estimulo {state}</h1>
             <br/>
             <br/>
-            {state==="ejemplo A"?<h1>C-1</h1>:<h1>A-4</h1>}
+            {state==="ejemplo A"?<h1>A-2</h1>:<h1>B-3</h1>}
             
             {scored===undefined ? 
             <div>
               <p>Respuesta:</p>
               <TextField
-                defaultValue="0"
-                
+                value={answersExample[state==="ejemplo A"? 0:1].split("").join("-")}
                 variant="outlined"
-                onChange={(x)=>{state==="ejemplo A"?answersExample[0][0]=x.target.value.slice(0,1).toUpperCase():
-                answersExample[1][0]=x.target.value.slice(0,1).toUpperCase()}}
-              />
-              &nbsp;  &nbsp;
-              <TextField
-                defaultValue="0"
-                
-                variant="outlined"
-                onChange={(x)=>{state==="ejemplo A"?answersExample[0][1]=x.target.value.slice(0,1).toUpperCase()
-                :answersExample[1][1]=x.target.value.slice(0,1).toUpperCase()}}
-              />
+                onChange={(x)=>{
+                  var valueString =x.target.value.toUpperCase().split("-").join("")
+                  if (!/^[0-9A-Z]*$/.test(valueString)) return               
+                  setAnswersExample(update(answersExample,{
+                    [state==="ejemplo A"? 0:1]: {
+                      $set: x.target.value.toUpperCase().split("-").join("")
+                    }}))
+                }}
+              />            
             </div>
             : scored ? <h2><u><i>¡CORRECTO!</i></u></h2>:<h2><u><i>¡INCORRECTO! </i></u></h2> }
             
@@ -266,9 +259,12 @@ function LetrasNumeros(props) {
                 value={answers[numberItem-1].split("").join("-")}
                 variant="outlined"
                 onChange={(x)=>{
+                  var valueString =x.target.value.toUpperCase().split("-").join("")
+                  if (!/^[0-9A-Z]*$/.test(valueString)) return               
+
                   setAnswers(update(answers,{
                     [numberItem-1]: {
-                      $set: x.target.value.toUpperCase().split("-").join("").slice(0,stimuli[numberItem-1].length)
+                      $set: valueString
                     }}))
                 }}
               />
@@ -283,7 +279,7 @@ function LetrasNumeros(props) {
       case "revision":
         return(
         <div>
-          <h1>Letras y Numeros</h1>
+          <h1>Letras y Números</h1>
           <h3>El puntaje por cada Item fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
@@ -291,7 +287,7 @@ function LetrasNumeros(props) {
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{
@@ -364,7 +360,7 @@ function LetrasNumeros(props) {
       case "results":
             return(
            <Results
-           name="Letras y Numeros"
+           name="Letras y números"
            result={getResult()}
            callback={next}
            url="WAIS-selection"

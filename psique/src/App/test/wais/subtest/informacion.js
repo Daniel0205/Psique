@@ -301,15 +301,15 @@ function Informacion(props) {
         return(
           <div >
             <h1>Información</h1>
-            <p>En que estimulo desea iniciar la prueba? </p>
+            <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-              msj="Estimulo 1"
+              msj="Estímulo 1"
               callback={()=>testInit(0)}
             ></CustomButton>
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-              msj="Estimulo 3"
+              msj="Estímulo 3"
               callback={()=>testInit(2)}
             ></CustomButton>
           </div>
@@ -387,7 +387,7 @@ function Informacion(props) {
                 <div key={index} className={classes.field}>
                   <TextField
                     className={classes.textfield}
-                    label={"Calificacion"}
+                    label={"Calificación"}
                     type="number"
                     defaultValue={result}
                     inputProps={{

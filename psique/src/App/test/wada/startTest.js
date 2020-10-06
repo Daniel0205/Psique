@@ -112,7 +112,7 @@ function ResultsWada(props) {
             case "brain":
               return(<div>
                 <h1>Test de Wada</h1>
-                <p>Seleccione el lobulo donde se aplicara el propofol:</p>
+                <p>Seleccione el hemisferio donde se aplicara el propofol:</p>
                 <Query query={GET_WADA_APPLIED} variables={{ id_assessment: props.id_assessment,hemisphere:"D"}}>
                   {({ loading, error, data }) => {
                     if (loading) return "Cargando";
@@ -120,7 +120,7 @@ function ResultsWada(props) {
 
                     return (
                       <CustomButton
-                      msj="Lobulo Derecho"
+                      msj="Hemisferio Derecho"
                       disabled={data.isWadaDone}
                       callback={()=>{
                         props.setLobulo("Derecho")
@@ -139,7 +139,7 @@ function ResultsWada(props) {
 
                     return (
                       <CustomButton
-                      msj="Lobulo Izquierdo"
+                      msj="Hemisferio Izquierdo"
                       disabled={data.isWadaDone}
                       callback={()=>{
                         props.setLobulo("Izquierdo")
@@ -158,7 +158,7 @@ function ResultsWada(props) {
 
                     return (
                       <CustomButton
-                        msj="Evaluacion Preliminar"
+                        msj="Evaluación Preliminar"
                         disabled={data.isWadaDone}
                         callback={()=>{
                           props.setLobulo("Preliminar")

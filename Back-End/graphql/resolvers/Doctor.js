@@ -35,13 +35,13 @@ async function tryLogin(username, password, SECRET, SECRET2){
 
 // The resolvers
 const resolvers = {
-    Query:{
-        hola:()=>true
-    },
 
     Mutation: {
         login: (parent, { username, password }) =>{
         return tryLogin(username, password)},
+        getId: (parent , {token}) =>{          
+          return auth.getId(token)
+        }
     } 
 
   };

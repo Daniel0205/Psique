@@ -52,8 +52,7 @@ module.exports = function(server) {
         })
 
         socket.on('stopRecording', (blob,id) =>{  
-            console.log(blob)          
-            console.log(id)          
+                  
             var buf = new Buffer.from(blob, 'base64'); // decode
             fs.writeFile("resources/"+id+".webm", buf,(err) => {
                 if (err) throw err;

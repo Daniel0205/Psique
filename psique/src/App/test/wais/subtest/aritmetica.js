@@ -284,7 +284,7 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimulo desea iniciar la prueba? </p>
+          <p>En que estimuló desea iniciar la prueba? </p>
           <p>Pacientes con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 1"
           callback={()=>imagenInit(1)}></CustomButton>          
@@ -320,7 +320,7 @@ function Aritmetica(props) {
             <h1>Reactivo {numberItem}. {consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+stimuliSource[numberItem]}
+              alt={"Estímulo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmetica/"+stimuliSource[numberItem-1]+".jpg")}
             />
             <br></br><br></br><br></br>

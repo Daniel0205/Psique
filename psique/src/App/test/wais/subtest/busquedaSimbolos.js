@@ -139,8 +139,7 @@ function BusquedaSimbolos(props) {
           return(
             <div>
               <h1>Búsqueda de Símbolos</h1>
-              <b>Instrucciones:</b>
-              <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+              <p><b>Instrucciones:</b> Registre las calificaciones obtenidas por el paciente en la subprueba</p>
 
               <div className={classes.fields}>
                 <h3> Página 1 </h3>

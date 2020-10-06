@@ -66,6 +66,8 @@ function BusquedaSimbolos(props) {
   var [pag11I, setPag11I] = useState();
   var [pag11Alert, setPag11Alert] = useState(false);
 
+  var [isCheckResults, setIsCheckResults] = useState(false);
+
   const classes = useStyles();
 
   function testInit(simbolos){
@@ -114,6 +116,7 @@ function BusquedaSimbolos(props) {
 
     setResult(varTotal);
     setState("terminado");
+    setIsCheckResults(true);
   }
 
   function getResult(){
@@ -309,9 +312,8 @@ function BusquedaSimbolos(props) {
           if(busquedaA){
             return(
               <div>
-                <h1>Búsqueda de Símbolos</h1>
-                <b>Instrucciones:</b>
-                <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+                <h1>Búsqueda de Símbolos A</h1>                
+                <p><b>Instrucciones:</b> Registre las calificaciones obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 4 </h3>
@@ -418,18 +420,26 @@ function BusquedaSimbolos(props) {
                   </div>
                 </div>
 
-                <CustomButton
-                  msj="Calificar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <CustomButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></CustomButton>
+                  }
+                  <CustomButton
+                    msj="Calificar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
               )
           }else{
             return(
               <div>
-                <h1>Búsqueda de Símbolos</h1>
-                <b>Instrucciones:</b>
-                <p>Registre las calificaciones obtenidas por el paciente en la subprueba</p>
+                <h1>Búsqueda de Símbolos B</h1>
+                <p><b>Instrucciones:</b> Registre las calificaciones obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 8 </h3>
@@ -571,10 +581,19 @@ function BusquedaSimbolos(props) {
                   </div>
                 </div>
 
-                <CustomButton
-                  msj="Calificar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <CustomButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></CustomButton>
+                  }
+                  <CustomButton
+                    msj="Calificar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
             )
           }

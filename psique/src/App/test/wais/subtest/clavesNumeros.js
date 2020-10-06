@@ -48,7 +48,7 @@ function ClavesNumeros(props) {
         return(
           <div>
             <h1>Clave de números</h1>
-            <b>Intrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Seleccione la opción según sea el caso:</p>
             
             <CustomButton
@@ -85,7 +85,7 @@ function ClavesNumeros(props) {
           return(
             <div>
               <h1>Clave de números</h1>                
-              <b>Intrucciones:</b>
+              <b>Instrucciones:</b>
               <p>Registre la calificación obtenida por el paciente en la prueba</p>    
 
               <TextField

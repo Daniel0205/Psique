@@ -84,9 +84,8 @@ function ClavesNumeros(props) {
         case "registro":          
           return(
             <div>
-              <h1>Clave de números</h1>                
-              <b>Instrucciones:</b>
-              <p>Registre la calificación obtenida por el paciente en la prueba</p>    
+              <h1>Clave de números</h1>
+              <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente en la prueba</p>    
 
               <TextField
                 className={classes.textfield}

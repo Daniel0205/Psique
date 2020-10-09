@@ -13,8 +13,7 @@ const Wada = db.define ('wada',{
         allowNull: false    
     },
     propofol_aplication:{
-        type: Sequelize.INTEGER,
-        allowNull: false    
+        type: Sequelize.INTEGER
     },
     duration:{
         type: Sequelize.INTEGER,

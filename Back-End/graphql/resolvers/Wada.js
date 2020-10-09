@@ -5,7 +5,7 @@ const {formatErrors} = require('../../services/formatErrors');
 const Wada = require('../../DB/models/Wada');
 const Test = require('../../DB/models/Test');
 const Aphasia = require('../../DB/models/Aphasia');
-const { includes } = require('../schemas/Wada');
+//const { includes } = require('../schemas/Wada');
 
 function verifyWada(wadaApplied,hemisphere){
     if(hemisphere){
@@ -25,11 +25,11 @@ const resolvers = {
 
     Query:{
         isWadaDone:async (parent,{id_assessment,hemisphere}) =>{
-
             let wadaApplied = await Test.findAll({
                 where: {id_assessment},
                 include: Wada
               });
+            
             return verifyWada(wadaApplied,hemisphere)            
         }
     },

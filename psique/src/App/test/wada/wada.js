@@ -18,7 +18,7 @@ import RecordRTC from 'recordrtc'
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_TODO = gql`
-  mutation ($wadaData:Wada!,$id_assessment:Int!,$aphasiasData:[Aphasia!]) {
+  mutation ($wadaData:WadaIn!,$id_assessment:ID!,$aphasiasData:[Aphasia!]) {
     createWada(wadaData:$wadaData,id_assessment:$id_assessment,aphasiasData:$aphasiasData){
       id
       error{
@@ -82,25 +82,31 @@ function Wada(props) {
 
 
   async function save(){
-    let wadaData={
-      hemisphere:hemisphere[lobulo],
-      propofol_aplication:propofol,
-      duration:seconds,
-    }
+    let wadaData=(lobulo!=="Preliminar"?
+                  {
+                    hemisphere:hemisphere[lobulo],
+                    propofol_aplication:propofol,
+                    duration:seconds
+                  }:{
+                    hemisphere:hemisphere[lobulo],
+                    duration:seconds
+                  })
+    
     for (let i = 0; i < selectedTest.length; i++) {
       if(selectedTest[i])wadaData[testNames[i]]=results[i]
-    }
-
+    }    
     const {data}= await createWada({ variables:{ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias}});
-
+    
 
     if (data.createWada.id) {
       socket.emit("stopRecording", blob,data.createWada.id);
-      props.setBody("init")      
+      props.setBody("init")     
     }
     else{
-      console.log("EEROR AL ALMACENAR LOS DATO")
+      console.log("ERROR AL ALMACENAR LOS DATO")
     }
+    
+    socket.emit("disconnect")
 
   }
   
@@ -160,7 +166,38 @@ function Wada(props) {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
+  useEffect(() => {
+    
 
+    function disconnect() {   
+      if(type==="doctor" && state!=="results"){
+          if(recorder)recorder.stopRecording();
+          setState("intro")
+          setStimuli(1);
+          setSeconds(0);
+          setIsActive(false)
+          setStream();
+          setSelectedTest([true,true,true ,true,true,true]);
+          results = [0,0,0,0,0,0]
+          actualTest = -1;
+          propofol=0;
+      }
+      else if(type==="paciente" ){
+        if(stream){
+          stream.getTracks().forEach(function(track) {
+            track.stop();
+          });
+        }
+        setState("intro")
+        setStimuli(1);
+      }
+    }
+
+    socket.once('disconnect', disconnect);
+    
+    socket._callbacks.$disconnect = []
+    socket._callbacks.$disconnect[0] = disconnect    
+  }, [state,stream]);
 
   useEffect(()=>{
 
@@ -170,7 +207,10 @@ function Wada(props) {
 
       if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
     
-        if(type==="paciente")peer = new Peer({ initiator: true,trickle: false, stream: stream })
+        if(type==="paciente"){
+          peer = new Peer({ initiator: true, stream: stream })
+          
+        }
         else{
           peer = new Peer();
           peer.on('stream', function (stream) {
@@ -220,7 +260,17 @@ function Wada(props) {
         setStimuli(estado.text);
       });
 
-
+      return ()=> {
+        socket.disconnect()
+        setStimuli(1);
+        setSeconds(0);
+        setIsActive(false)
+        setStream();
+        setSelectedTest([true,true,true ,true,true,true]);
+        results = [0,0,0,0,0,0]
+        actualTest = -1;
+        propofol=0;
+      }
   }, []);
 
   
@@ -256,6 +306,7 @@ function Wada(props) {
           aphasias={aphasias}
           socket={socket}
           registerPropofol={()=>{propofol=seconds}}
+          lobulo={lobulo}
           />)
       case "Denominacion":
         return (

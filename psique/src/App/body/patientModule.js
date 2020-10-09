@@ -1,5 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 /* 
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -11,21 +16,14 @@ import CustomButton from '../components/customButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    width: 500,
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
-  divider: {
-    height: 28,
-    margin: 4,
+    textAlign: "center",
+    width: "100%",
+    height: "100%",
+    borderRadius: "3%",
+    backgroundColor: "#017F8D",   
+    "&:hover":{
+        backgroundColor: "#7DC545"
+    }
   },
   bodypage:{
     textAlign: "-webkit-center",
@@ -46,7 +44,16 @@ function PatientModule(props) {
     
     return(
     <div  className={classes.bodypage} >
-        <h2>Patient Module</h2>
+
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Crear paciente
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </div>
     )
 

@@ -63,7 +63,6 @@ function ConceptoDibujos(props) {
   const [scored,setScored] = useState(undefined)
   const [fields,setFields] = useState([0,0,0])
 
-
   const classes = useStyles();
 
 
@@ -75,10 +74,10 @@ function ConceptoDibujos(props) {
         
         if(1===key){
           countRe++;
+          terminacion=0
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
-            terminacion=0
             setNumberItem(flagRe)
             return 
           }
@@ -194,6 +193,7 @@ function ConceptoDibujos(props) {
   function score(index){
     let array1=answers[index].slice()
     let array2=rightAnswers[index].slice()
+
     if(array1.sort().join(',')=== array2.sort().join(',')){
       changeStimuli(1)
     }
@@ -328,7 +328,7 @@ function ConceptoDibujos(props) {
                 variant="outlined"
                 onChange={(x)=>{
                   setFields([x.target.value,fields[1],fields[2]])
-                  answers[numberItem-1][1]=parseInt(x.target.value)
+                  answers[numberItem-1][0]=parseInt(x.target.value)
                 }}
               />
               &nbsp;  &nbsp;

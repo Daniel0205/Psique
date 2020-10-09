@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS wada CASCADE;
 CREATE TABLE wada(
 	id_test BIGINT REFERENCES test(id_test),
 	hemisphere  CHAR(1) NOT NULL,
-	propofol_aplication INT NOT NULL,
+	propofol_aplication INT,
 	duration INT NOT NULL,
 	counting INT,
 	denomination INT,

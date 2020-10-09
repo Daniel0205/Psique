@@ -63,10 +63,10 @@ function FigurasIncompletas(props) {
         
         if(1===key){
           countRe++;
+          terminacion=0
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
-            terminacion=0
             setNumberItem(flagRe)
             startTimer()
             return 

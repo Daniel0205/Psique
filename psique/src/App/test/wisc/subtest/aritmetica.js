@@ -32,21 +32,21 @@ const NUMBER_STIMULI = 34;
 const stimuliSource = ["01","02","03","04","05"];
 const rightAnswers = ['3','5','10','9','2','4','5','3','6','2','7','6','15','14','25','5','7','9','20','32','24','19','7','6','8.50','20','3','60','30','3','34','48','2:00 pm','40 km'];
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
 
-let badAnswerCount = 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 
-let answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
+let answers;
 const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "Cuenta estos pollitos con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "Cuenta estos árboles con tu dedo. Cuéntalos en voz alta para que yo pueda escucharte",
                   "¿Cuántas mariposas y grillos hay en total?",
-                  "¿Cuántas nueces quedarán si cada ardilla se come una",
+                  "¿Cuántas nueces quedarán si cada ardilla se come una?",
                   "Roberto tiene 5 libros. Pierde 1 ¿Cuántos libros le quedan?",
-                  "Cuántas son 2 crayolas más 3 crayolas",
+                  "¿Cuántas son 2 crayolas más 3 crayolas?",
                   "José tiene 5 galletas. Le da 1 a samuel y 1 a jimena. ¿Cuántas galletas le quedan?",
                   "Juan tenía 4 pesos y su mamá le dio 2 más. ¿Cuántos pesos tiene en total?",
                   "si corto una manzana por la mitad. ¿Cuántos pedazos tendré?",
@@ -56,13 +56,13 @@ const consigna = ["Cuenta estos pájaros con tu dedo. Cuéntalos en voz alta par
                   "Marcos tenía 8 pelotas y compró 6 más. ¿Cuántas pelotas tiene en total?",
                   "Francisco ganó 10 calcomanías el lunes y 15 calcomanías el martes. ¿Cuántas calcomanías ganó en total?",
                   "En un campo hay tres vacas. Otras cuatro vacas llegan al campo y después se van 2 vacas. ¿Cuántas vacas quedan en el campo?",
-                  "Catalina tenía 12 globos y vendió 5. ¿Cuantos globos quedaron?",
+                  "Catalina tenía 12 globos y vendió 5. ¿Cuántos globos quedaron?",
                   "Juana compró 4 manzanas en una tienda y 2 manzanas en otra. Su mamá le dio 3 manzanas más. ¿Cuántas manzanas tiene en total?",
                   "Si compras 2 plumas a 40 pesos cada una. ¿Cuánto cambio te regresaran si pagas con 100 pesos?",
                   "Tomás anotó 17 puntos en un juego y 15 en otro juego. ¿Cuántas puntos anotó en total?",
-                  "Una feria tiene 8 concursos destintos. Si cada concurso concede 3 premios. ¿Cuantos premios en total se dan en la feria?",
-                  "En una clase de karate se inscribieron 30 estudiantes. Después de un mes, 11 estudiantes e van de la clase. ¿Cuántos estudiantes quedan en la clase?",
-                  "Rosa compró 3 libros de caricaturas por 2 pesos cada uno y un juguete de 7 pesos. ¿Cuánto cambio le regresarán si pafa con un billete de 20 pesos?",
+                  "Una feria tiene 8 concursos distintos. Si cada concurso concede 3 premios. ¿Cuántos premios en total se dan en la feria?",
+                  "En una clase de karate se inscribieron 30 estudiantes. Después de un mes, 11 estudiantes se van de la clase. ¿Cuántos estudiantes quedan en la clase?",
+                  "Rosa compró 3 libros de caricaturas por 2 pesos cada uno y un juguete de 7 pesos. ¿Cuánto cambio le regresarán si paga con un billete de 20 pesos?",
                   "Laura mira a 8 pájaros posados en la barda, 4 de ellos vuelan y otros 2 llegan de visita. ¿Cuántos pájaros observa Laura ahora?",
                   "Juan tiene el doble de dinero que Sergio. Juan tiene 17 pesos. ¿Cuánto dinero tiene Sergio?",
                   "Una escuela tiene 25 alumnos en cada salón de clases. Si en total hay 500 alumnos en toda la escuela. ¿Cuántos salones de clase hay?",
@@ -158,6 +158,14 @@ function Aritmetica(props) {
     }else{
       setState('aplicacion');
     }
+
+    //Set Globals
+    returnDone = false;
+    returnVar = false;
+    countRe = 0;
+    flagRe = null;
+    badAnswerCount = 0;
+    answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
   }
 
   function next(){
@@ -238,13 +246,13 @@ function Aritmetica(props) {
       case 'instruccion':
        return (
         <div>
-          <h1>Aritmetica</h1>
-          <b>instrucciones generales:</b>
+          <h1>Aritmética</h1>
+          <b>Instrucciones generales:</b>
           <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
-          <p>según sea el caso, las cuales, en el caso de las imágenes deben ser mostradas al paciente para que</p>
-          <p>las visualice, y en el caso de las preguntas deben ser mencionadas al paciente</p>
+          <p>Las imágenes deben ser mostradas al paciente para que las visualice</p>
+          <p>Las preguntas deben ser mencionadas al paciente</p>
           <br/>
-          <b>instrucciones para registrar la respuesta de paciente:</b>
+          <b>Instrucciones para registrar la respuesta de paciente:</b>
           <br/>
           <br/>
           <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
@@ -271,7 +279,7 @@ function Aritmetica(props) {
           callback={()=>imagenInit(8)}></CustomButton>
           <br/><br/>
           <p>Pacientes de edad 10-16:</p>
-          <CustomButton msj="Estímulo 12"
+          <CustomButton msj="Reactivo 12"
           callback={()=>imagenInit(11)}></CustomButton>          
         </div>
        );
@@ -279,10 +287,10 @@ function Aritmetica(props) {
        case "aplicacionImg":
        return(
          <div>
-            <h1>{consigna[numberItem]}</h1>
+            <h1>Reactivo {numberItem+1}. {consigna[numberItem]}</h1>
             <img 
               className={classes.img}
-              alt={"Estímulo "+stimuliSource[numberItem]}
+              alt={"Reactivo "+stimuliSource[numberItem]}
               src={require("../../../assets/estimulos/aritmeticawisc/"+stimuliSource[numberItem]+".jpg")}
             />
             <br></br><br></br><br></br>
@@ -303,7 +311,7 @@ function Aritmetica(props) {
        case "aplicacion":
        return(
          <div>
-            <h1>{consigna[numberItem]}</h1>           
+            <h1>Reactivo {numberItem+1}. {consigna[numberItem]}</h1>           
             <br></br>        
             <TextField
               label = "Respuesta dada"

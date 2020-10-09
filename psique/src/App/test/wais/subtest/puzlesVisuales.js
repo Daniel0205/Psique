@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
-let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
 let example = false; //Indica si esta en el ejemplo
 
@@ -160,7 +160,16 @@ function PuzlesVisuales(props) {
       case 'ejemplo-demostracion':
         setState('test');
         setNumberItem(firstItem);
+
+        //Set Globals
+        returnDone = false;
+        returnVar = false;
+        countRe = 0;
+        flagRe = null;
+        badAnswerCount= 0;
+        example = false;
         break;
+
       case 'results':
         setState('revision');
         break;
@@ -208,11 +217,11 @@ function PuzlesVisuales(props) {
         return (
           <div id= "inicio" >
             <h1>Pluzles Visuales</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Se presentará una imagen principal en la parte superior y seis imágenes más debajo de esta.</p>
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
-            <b>instrucciones de calificación:</b>
+            <b>Instrucciones de calificación:</b>
             <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>

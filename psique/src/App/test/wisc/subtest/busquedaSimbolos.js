@@ -66,6 +66,8 @@ function BusquedaSimbolos(props) {
   var [pag11I, setPag11I] = useState();
   var [pag11Alert, setPag11Alert] = useState(false);
 
+  var [isCheckResults, setIsCheckResults] = useState(false);
+
   const classes = useStyles();
 
   function testInit(simbolos){
@@ -114,6 +116,7 @@ function BusquedaSimbolos(props) {
 
     setResult(varTotal);
     setState("terminado");
+    setIsCheckResults(true);
   }
 
   function getResult(){
@@ -250,7 +253,7 @@ function BusquedaSimbolos(props) {
         return(
           <div>
             <h1>Búsqueda de símbolos</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Seleccione la opción según sea el caso</p>
             
             <CustomButton
@@ -270,8 +273,8 @@ function BusquedaSimbolos(props) {
             <h1>Búsqueda de símbolos: Guía de aplicación</h1>
             <p>Según la edad o condición del paciente se le entrega la hoja de aplicación indicada a continuación </p>
             <p> </p>
-            <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual: <b> Reactivos de muestra de Búsqueda de símbolos A, reactivos de práctica, después reactivos de prueba </b></p>
-            <p>Pacientes de edad 8-16: <b> Reactivos de muestra de Búsqueda de símbolos B, reactivos de práctica, después reactivos de prueba </b></p>
+            <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual: <b> Reactivos de muestra de Búsqueda de símbolos A, reactivos de práctica, reactivos de prueba </b></p>
+            <p>Pacientes de edad 8-16: <b> Reactivos de muestra de Búsqueda de símbolos B, reactivos de práctica, reactivos de prueba </b></p>
             <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
             <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
 
@@ -309,9 +312,8 @@ function BusquedaSimbolos(props) {
           if(busquedaA){
             return(
               <div>
-                <h1>Búsqueda de Símbolos</h1>
-                <b>instrucciones:</b>
-                <p>Registre las calificaciónes obtenidas por el paciente en la subprueba</p>
+                <h1>Búsqueda de Símbolos A</h1>                
+                <p><b>Instrucciones:</b> Registre las calificaciones obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 4 </h3>
@@ -418,18 +420,26 @@ function BusquedaSimbolos(props) {
                   </div>
                 </div>
 
-                <CustomButton
-                  msj="Calificar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <CustomButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></CustomButton>
+                  }
+                  <CustomButton
+                    msj="Calificar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
               )
           }else{
             return(
               <div>
-                <h1>Búsqueda de Símbolos</h1>
-                <b>instrucciones:</b>
-                <p>Registre las calificaciónes obtenidas por el paciente en la subprueba</p>
+                <h1>Búsqueda de Símbolos B</h1>
+                <p><b>Instrucciones:</b> Registre las calificaciones obtenidas por el paciente en la subprueba</p>
 
                 <div className={classes.fields}>
                   <h3> Página 8 </h3>
@@ -571,10 +581,19 @@ function BusquedaSimbolos(props) {
                   </div>
                 </div>
 
-                <CustomButton
-                  msj="Calificar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <CustomButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></CustomButton>
+                  }
+                  <CustomButton
+                    msj="Calificar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
             )
           }

@@ -15,7 +15,7 @@ const LIMIT_ERROR = 5
 
 const NUMBER_STIMULI = 33
 
-let answers = new Array(NUMBER_STIMULI).fill("");
+let answers;
 
 let clues =["† 1. Enseñame tu pie",
             "† 2. Señalando hacia su propia nariz, pregunte: ¿Cómo se llama esto?",
@@ -67,7 +67,7 @@ let rightAnswer = ["[Toca, señala o indica de cualquier otro modo su propio pie
                   "El descubridor de (América, las Indias occidentales, el Nuevo Mundo)\nLo mandó la reina de España para establecer una ruta de comercio\nNavegó para probar que la tierra era redonda\nNavegó hacia América\nUn explorador; Navegó por el océano para descubrir tierra\nNavegó en (la Nina, la Pinta y la Santa María)\nUn explorador que quería encontrar una mejor ruta para la India; Un hombre que deseaba explorar las Indias",
                   "Verano, otoño, invierno, primavera (en cualquier orden)",
                   "[Verbal o físicamente indica 12]",
-                  "Digiere alimentos; Es parte del sistema digestivo; Prepara la comida para la digestión Toma nutrientes de los alimentos; Convierte los alimentos en energía\n(Procesa, Descompone, Muele) la comida\n(Mantiene, Absorbe, Mezcla) la comida\nForma ácido\nConvierte la comida en líquido",
+                  "Digiere alimentos; Es parte del sistema digestivo; Prepara la comida para la digestión. Toma nutrientes de los alimentos; Convierte los alimentos en energía\n(Procesa, Descompone, Muele) la comida\n(Mantiene, Absorbe, Mezcla) la comida\nForma ácido\nConvierte la comida en líquido",
                   "Febrero",
                   "Algo orgánico que (se ha convertido en piedra, está conservado en piedra)\nAlgo que se convirtió (en piedra, roca)\nHueso (endurecido, petrificado, fosilizado)\nHueso (antiguo, prehistórico, viejo); Un hueso de hace mucho tiempo\nImagen que dejó una (hoja, huella, animal, dinosaurio) en una piedra\nUna (impresión, vestigio) de algo sobre roca\n(Impresión, marca) dejada por algo de hace mucho tiempo\nRestos de algo viejo; Residuos de algo conservado por la naturaleza\nEvidencia de algo vivo en el pasado\nUn hueso de dinosaurio; Huella de un dinosaurio\n",
                   "Parte de la atmósfera que bloquea (la radiación, los rayos UV); Parte de la atmósfera que protege a la tierra\nCapa protectora en el exterior de la tierra\nCapa que nos protege de los rayos UV\nMantiene fuera los rayos del sol; Nos protege del sol; Protege a la tierra\nCubierta de gases que cubre a la tierra; Una capa de gas\nAtmósfera; Parte de la atmósfera\nTres átomos de oxígeno; Capa de O3",
@@ -81,7 +81,7 @@ let rightAnswer = ["[Toca, señala o indica de cualquier otro modo su propio pie
                   "Carbón; Carbón (cristalizado, comprimido); Carbón bajo presión\nHulla (con alguna transformación, calentada); Hulla bajo presión; Hulla comprimida\nGrafito\nCarboncillo bajo presión",
                   "(Filósofo, pensador) chino\nLíder religioso chino; Líder chino\n(Educador; Maestro; Estudioso) chino\nChino que escribió (frases sencillas, proverbios); Escritor chino\n(Líder, maestro) religioso\nDesarrolló una forma de (filosofía, religión); Filósofo; Sabio\nHombre que escribió refranes sabio",
                   "Día más corto del invierno; La noche más larga del año; El día con menos sol\nPrimer día del invierno\nCuando los días empiezan a hacerse más largos\nCuando la tierra está (con la inclinación, en el ángulo) más alejado del sol\nEl sol está más bajo en el cielo en el hemisferio norte\n20, 21, 22, 23 de diciembre",
-                  "Mide la presión (atmosférica, en el arre, barométrica)\nUn indicador de la presión; Algo que mide la presión\nPredice los cambios de clima; Dice si va a llover",
+                  "Mide la presión (atmosférica, en el aire, barométrica)\nUn indicador de la presión; Algo que mide la presión\nPredice los cambios de clima; Dice si va a llover",
                   "Átomos que se dividen y crean energía\nUna fuente de energía radioactiva\nForma de energía; Crea potencia\nCuando el núcleo se divide\nSeparación de átomos de uranio\nExplosión de un átomo",
                   "4 800 a 6 400 kilómetros\n3 000 a 4 000 milla",
                   "De las plantas; De los cortes que se hacen a las plantas; De la secreción de las plantas; De la savia de las plantas; De los fósiles; De los fósiles animales y vegetales\nDe los árboles; De los troncos; Del pino, del álamo; De los cortes que se hacen a los árboles; De los cortes que se hacen a los troncos de los árboles; De los capullos de los árboles"];
@@ -176,11 +176,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
-let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
       
 
@@ -244,6 +244,14 @@ function Informacion(props) {
     firstItem=item
     setNumberItem(item)
     setState("test")
+
+    //Set Globals
+    answers = new Array(NUMBER_STIMULI).fill("");
+    returnDone = false;
+    returnVar = false;
+    countRe = 0;
+    flagRe = null;
+    badAnswerCount= 0;
   }
 
 
@@ -305,12 +313,12 @@ function Informacion(props) {
         return(
           <div>
             <h1>Información</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>A continuación se mostrará el enunciado por cada uno de los puntos, ademas</p>
             <p>Se dispone de cajas de texto que sirven como guia para evaluar la respuesta dada por el paciente.</p>
             <p>Debajo de las cajas de texto puede haber información en caso de que el paciente de ciertas respuestas</p>
             <br/>
-            <b>instrucciones para registrar la respuesta de paciente:</b>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>

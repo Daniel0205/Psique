@@ -41,29 +41,29 @@ let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paci
 let badAnswerCount = 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 
 let answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
-const consigna = ["Juan tiene 6 pelotas. Pierde 3 ¿Cuantas pelotas le quedan?",
-                  "Cuente estas flores con el dedo en voz alta para que o pueda oirlo",
-                  "Cuente estas manzanas con el dedo en voz alta para que o pueda oirlo",
-                  "¿Cuantas raquetas y pelotas hay en total?",
-                  "¿Cuantos pajaros y gatos hay en total?",
-                  "¿Cuantas correas quedaran si cada perro lleva una?",
-                  "Fernando tiene 4 mantas y compra otras 4 ¿Cuantas mantas tiene Fernando en total?",
-                  "Raul tiene 9 lapiceros y regala 4 a Marta ¿Cuantos lapiceros le quedan a Raul?",
-                  "En una clase hay 4 niños y 20 juguetes. Si cada niño recibe el mismo numero de juguetes.¿Cuantos juguetes recibira cada niño?",
-                  "Susana tiene 35 años. Roberto tiene 18 años ¿Cuantos años es Susana mayor que Roberto?",
-                  "Juan tiene 28 libros. Si vende la mitad de ellos a una libreria y regala otros 9 a un amigo ¿Cuantos libros le quedan?",
-                  "Jorge tiene 51 discos.Si regala 6 discos a cada uno de sus 8 amigos ¿Cuantos discos le quedan?",
-                  "En cada paquete hay 25 chicles ¿Cuantos chicles hay en 8 paquetes?",
-                  "Alberto da 4 tarjetas a cada uno de sus 8 amigos. Si todavia le quedan 6 tarjetas para mañana ¿Cuantas tarjetas tenia Alberto en total?",
-                  "Un atleta corre 22 minutos cada dia de lunes a viernes. Si corre 30 minutos el sabado ¿Cuantos minutos corre en total por semana?",
-                  "Beatriz espera en la cola del cine detras de 160 personas.Como no han llegado sus amigos ella dejar pasar a 20 personas. Si 6 personas llegan a la taquilla cada minutos.¿Cuanto tiempo tardaran Beatriz y sus amigos en llegar a la taquilla?",
-                  "Un pastelero puede cocinar 2 pasteles en 31 minutos ¿Cuantos tiempo tardara en cocinar 12 pasteles?",
-                  "Alejandro ha vendido los 2/3 del numero de periodicos que ha vendido Miguel. Alejandro ha vendido 400 periodicos ¿Cuantos periodicos a vendido Miguel?",
-                  "Un obrero ha trabajado 188 horas en 4 semanas. Si trabaja el mismo numero de horas cada semana ¿Cuantas horas por semana ha trabajado?",
-                  "David pesa el doble que Javier.Si David pesa 99 kilos ¿Cuantos kilos pesa Javier?",
-                  "Un ciclista da, habitualmente, 60 vueltas alrededor de un circuito. Si hoy recorre un 15% menos ¿Cuantas vueltas ha dado hoy?",
-                  "Si 18 maquinas pueden completar el trabajo en 6 dias ¿Cuantas maquinas se necesitarian para finalizar el trabajo en medio dia?",
-                  "En una afocina de correos, se clasificaron 20000 cartas en octubre. En noviembre, el número de cartas para clasificar se incremento un 10%. En diciembre, el numero de cartas para clasificar se incremento otro 5% ¿Cuantas cartas se clasificaron en diciembre, despues de los dos incrementos?",
+const consigna = ["Juan tiene 6 pelotas. Pierde 3 ¿Cuántas pelotas le quedan?",
+                  "Cuente estas flores con el dedo en voz alta para que yo pueda oirlo",
+                  "Cuente estas manzanas con el dedo en voz alta para que yo pueda oirlo",
+                  "¿Cuántas raquetas y pelotas hay en total?",
+                  "¿Cuántos pajaros y gatos hay en total?",
+                  "¿Cuántas correas quedarán si cada perro lleva una?",
+                  "Fernando tiene 4 mantas y compra otras 4 ¿Cuántas mantas tiene Fernando en total?",
+                  "Raul tiene 9 lapiceros y regala 4 a Marta ¿Cuántos lapiceros le quedan a Raul?",
+                  "En una clase hay 4 niños y 20 juguetes. Si cada niño recibe el mismo número de juguetes.¿Cuántos juguetes recibira cada niño?",
+                  "Susana tiene 35 años. Roberto tiene 18 años ¿Cuántos años es Susana mayor que Roberto?",
+                  "Juan tiene 28 libros. Si vende la mitad de ellos a una librería y regala otros 9 a un amigo ¿Cuántos libros le quedan?",
+                  "Jorge tiene 51 discos. Si regala 6 discos a cada uno de sus 8 amigos ¿Cuántos discos le quedan?",
+                  "En cada paquete hay 25 chicles ¿Cuántos chicles hay en 8 paquetes?",
+                  "Alberto da 4 tarjetas a cada uno de sus 8 amigos. Si todavía le quedan 6 tarjetas para mañana ¿Cuántas tarjetas tenia Alberto en total?",
+                  "Un atleta corre 22 minutos cada día de lunes a viernes. Si corre 30 minutos el sábado ¿Cuántos minutos corre en total por semana?",
+                  "Beatriz espera en la cola del cine detrás de 160 personas. Como no han llegado sus amigos ella dejar pasar a 20 personas. Si 6 personas llegan a la taquilla cada minutos.¿Cuánto tiempo tardarán Beatriz y sus amigos en llegar a la taquilla?",
+                  "Un pastelero puede cocinar 2 pasteles en 31 minutos ¿Cuántos tiempo tardara en cocinar 12 pasteles?",
+                  "Alejandro ha vendido los 2/3 del número de periódicos que ha vendido Miguel. Alejandro ha vendido 400 periódicos ¿Cuántos periódicos a vendido Miguel?",
+                  "Un obrero ha trabajado 188 horas en 4 semanas. Si trabaja el mismo número de horas cada semana ¿Cuántas horas por semana ha trabajado?",
+                  "David pesa el doble que Javier. Si David pesa 99 kilos ¿Cuántos kilos pesa Javier?",
+                  "Un ciclista da, habitualmente, 60 vueltas alrededor de un circuito. Si hoy recorre un 15% menos ¿Cuántas vueltas ha dado hoy?",
+                  "Si 18 máquinas pueden completar el trabajo en 6 dias ¿Cuántas máquinas se necesitarían para finalizar el trabajo en medio día?",
+                  "En una oficina de correos, se clasificaron 20000 cartas en octubre. En noviembre, el número de cartas para clasificar se incrementó un 10%. En diciembre, el número de cartas para clasificar se incremento otro 5% ¿Cuántas cartas se clasificaron en diciembre, después de los dos incrementos?",
 ];
 
 let firstItem;
@@ -72,13 +72,14 @@ function Aritmetica(props) {
   const classes = useStyles();
   var [state,setState]=useState("instruccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
-  var [numberItem,setNumberItem] = useState(0)
-//  var [actualStimuli, setActualStimuli] = useState("");
+  var [numberItem,setNumberItem] = useState(0);
+
+  //var [actualStimuli, setActualStimuli] = useState("");
 
   var [givenAnswer, setGivenAnswer] = useState("");
 
-  function changeStimuli(punt){    
-    var returnController = firstItem===6 && returnVar && numberItem===1 && countRe!== 2; // Verifica que al hacer el retorno y llegar al Estímulo 0 no siga avanzando en la prueba
+  function changeStimuli(punt){
+    var returnController = firstItem===6 && returnVar && numberItem===1 && countRe!== 2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
       
@@ -145,11 +146,20 @@ function Aritmetica(props) {
         answers[numberItem] = givenAnswer;
         setGivenAnswer('');
         setNumberItem(firstItem);
+
         if(firstItem === 6){
           setState('aplicacion');
         }else{
           setState('aplicacionImg');
-        }                
+        }
+
+        //Reset globals
+        returnDone = false;
+        returnVar = false;
+        countRe = 0;
+        flagRe = null;
+        badAnswerCount = 0;
+        answers = ['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0'];
       break;
 
       case 'results':
@@ -193,7 +203,7 @@ function Aritmetica(props) {
     if(numberItem !== 15 && numberItem !== 16 && numberItem !== 19){
       if(answers[numberItem] === rightAnswers[numberItem]){
         if(returnVar){        
-          countRe +=1;        
+          countRe +=1;
         }
 
         if(badAnswerCount > 0){        
@@ -214,14 +224,14 @@ function Aritmetica(props) {
         }}))
 
         badAnswerCount += 1;
-        countRe=0;
+        countRe = 0;
         changeStimuli(0);
       }
 
     }else{ //If stimuli number is 15, 16 or 19
       if(punt === 1){
         if(returnVar){        
-          countRe +=1;        
+          countRe += 1;
         }
     
         badAnswerCount = 0;        
@@ -251,17 +261,17 @@ function Aritmetica(props) {
       case 'instruccion':
        return (
         <div>
-          <h1>Aritmetica</h1>
-          <b>instrucciones generales:</b>
+          <h1>Aritmética</h1>
+          <b>Instrucciones generales:</b>
           <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
-          <p>según sea el caso, las cuales, en el caso de las imágenes deben ser mostradas al paciente para que</p>
-          <p>las visualice, y en el caso de las preguntas deben ser mencionadas al paciente</p>
+          <p>las imágenes deben ser mostradas al paciente para que las visualice</p>
+          <p>en el caso de las preguntas deben ser mencionadas al paciente</p>
           <br/>
-          <b>instrucciones para registrar la respuesta de paciente:</b>
+          <b>Instrucciones para registrar la respuesta de paciente:</b>
           <br/>
           <br/>
           <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
-          <p>El sistema calificara automaticamente la respuesta</p>
+          <p>El sistema calificara automáticamente la respuesta</p>
           <br/>
           <CustomButton
             msj="Iniciar subprueba"
@@ -348,7 +358,7 @@ function Aritmetica(props) {
               :
               <div>
                 <p>El programa puede que no califique la respuesta del paciente correctamente para este estimulo</p>
-                <p>Por favor seleccioné la puntación correcta para la respuesta del paciente</p>
+                <p>Por favor seleccione la puntación correcta para la respuesta del paciente</p>
                 <p><b>Respuesta Correcta: </b> {rightAnswers[numberItem]} </p>
                 <div className={classes.points}>
                   <CustomButton 
@@ -369,7 +379,7 @@ function Aritmetica(props) {
         return(
         <div>
           <h1>Aritmética</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h3>El puntaje por cada reactivo fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
               [<div key={index}>

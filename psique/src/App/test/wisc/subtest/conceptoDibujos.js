@@ -231,8 +231,8 @@ function ConceptoDibujos(props) {
        <div>
        <h1>Conceptos con dibujos</h1>
         <b>Instrucciones generales:</b>
-        <p>A continuación se presentaran dos o tres filas de dibujos</p>
-        <p>el paciente debe señalar o decir las imágenes que tenga una caracteristica en comun</p>
+        <p>A continuación se presentarán dos o tres filas de dibujos</p>
+        <p>el paciente debe señalar o decir las imágenes que tenga una característica en común</p>
 
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
@@ -240,7 +240,7 @@ function ConceptoDibujos(props) {
         <br/>
         <p>La respuesta del paciente se registra en los campos bajo la imagen</p>
         <p>Indicando las opciones seleccionadas por el paciente</p>
-        <p>El sistema calificara automaticamente la prueba</p>
+        <p>El sistema calificará automáticamente la prueba</p>
         <br/>
 
        <CustomButton
@@ -371,10 +371,10 @@ function ConceptoDibujos(props) {
         return(
         <div>
           <h1>Concepto con Dibujos</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h3>El puntaje por cada ítem fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
-              [<h3 key={index+1}>Item {index+1}</h3>,
+              [<h3 key={index+1}>ítem {index+1}</h3>,
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}

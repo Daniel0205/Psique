@@ -55,8 +55,11 @@ const useStyles =  makeStyles((theme) => ({
     alingContents: 'center',
     margin: 'auto',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center',    
   },
+  figureName: {
+    alignSelf: "center",
+  }
 }));
 
 
@@ -331,14 +334,14 @@ function King() {
           <br></br><br></br><br></br>
                         
           <Grid container justify="center" spacing={2}>
-            <Grid item xs={1}> <FormLabel>No. </FormLabel> </Grid>
-            <Grid item xs={1}> <FormLabel>Ausente </FormLabel> </Grid>
-            <Grid item xs={3}> <FormLabel>Estado de la fig. </FormLabel> </Grid>
-            <Grid item xs={1}> <FormLabel>Bien situada </FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>No. </FormLabel> </Grid>
+            <Grid item xs={1} className={classes.figureName}> <FormLabel>Ausente </FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>Estado de la fig. </FormLabel> </Grid>
+            <Grid item xs={1} className={classes.figureName}> <FormLabel>Bien situada </FormLabel> </Grid>
           </Grid>
 
           <Grid container justify="center" spacing={2}>
-            <Grid item xs={1}> <FormLabel>1</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>1. Cruz</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig1(!absentFig1)} checked={absentFig1} inputProps={{ 'aria-label': 'absent-Fig1' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig1} onChange={(e)=>setstateFig1(e.target.value)} disabled={absentFig1}> 
@@ -350,7 +353,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={2}>
-            <Grid item xs={1}> <FormLabel>2</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>2. Rect. Grande</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig2(!absentFig2)} checked={absentFig2} inputProps={{ 'aria-label': 'absent-Fig2' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig2} onChange={(e)=>setstateFig2(e.target.value)} disabled={absentFig2}> 
@@ -362,7 +365,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>3</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>3. Diagonales del rect.</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig3(!absentFig3)} checked={absentFig3} inputProps={{ 'aria-label': 'absent-Fig3' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig3} onChange={(e)=>setstateFig3(e.target.value)} disabled={absentFig3}> 
@@ -374,7 +377,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>4</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>4. Línea horz.</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig4(!absentFig4)} checked={absentFig4} inputProps={{ 'aria-label': 'absent-Fig4' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig4} onChange={(e)=>setstateFig4(e.target.value)} disabled={absentFig4}> 
@@ -386,7 +389,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>5</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>5. Línea vert.</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig5(!absentFig5)} checked={absentFig5} inputProps={{ 'aria-label': 'absent-Fig5' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig5} onChange={(e)=>setstateFig5(e.target.value)} disabled={absentFig5}> 
@@ -398,7 +401,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>6</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>6. Rect. con diagonales</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig6(!absentFig6)} checked={absentFig6} inputProps={{ 'aria-label': 'absent-Fig6' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig6} onChange={(e)=>setstateFig6(e.target.value)} disabled={absentFig6}> 
@@ -410,7 +413,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>7</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>7. Segmento peq.</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig7(!absentFig7)} checked={absentFig7} inputProps={{ 'aria-label': 'absent-Fig7' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig7} onChange={(e)=>setstateFig7(e.target.value)} disabled={absentFig7}> 
@@ -422,7 +425,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>8</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>8.  líneas paralelas</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig8(!absentFig8)} checked={absentFig8} inputProps={{ 'aria-label': 'absent-Fig8' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig8} onChange={(e)=>setstateFig8(e.target.value)} disabled={absentFig8}> 
@@ -434,7 +437,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>9</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>9. Triangulo rect.</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig9(!absentFig9)} checked={absentFig9} inputProps={{ 'aria-label': 'absent-Fig9' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig9} onChange={(e)=>setstateFig9(e.target.value)} disabled={absentFig9}> 
@@ -446,7 +449,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>10</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>10. Línea</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig10(!absentFig10)} checked={absentFig10} inputProps={{ 'aria-label': 'absent-Fig10' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig10} onChange={(e)=>setstateFig10(e.target.value)} disabled={absentFig10}> 
@@ -458,7 +461,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>11</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>11. Circulo con 3 puntos</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig11(!absentFig11)} checked={absentFig11} inputProps={{ 'aria-label': 'absent-Fig11' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig11} onChange={(e)=>setstateFig11(e.target.value)} disabled={absentFig11}> 
@@ -470,7 +473,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>12</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>12. 5 líneas paralelas</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig12(!absentFig12)} checked={absentFig12} inputProps={{ 'aria-label': 'absent-Fig12' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig12} onChange={(e)=>setstateFig12(e.target.value)} disabled={absentFig12}> 
@@ -482,7 +485,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>13</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>13. Triángulo isósceles</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig13(!absentFig13)} checked={absentFig13} inputProps={{ 'aria-label': 'absent-Fig13' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig13} onChange={(e)=>setstateFig13(e.target.value)} disabled={absentFig13}> 
@@ -494,7 +497,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>14</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>14. Rombo</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig14(!absentFig14)} checked={absentFig14} inputProps={{ 'aria-label': 'absent-Fig14' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig14} onChange={(e)=>setstateFig14(e.target.value)} disabled={absentFig14}> 
@@ -506,7 +509,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>15</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>15. Línea</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig15(!absentFig15)} checked={absentFig15} inputProps={{ 'aria-label': 'absent-Fig15' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig15} onChange={(e)=>setstateFig15(e.target.value)} disabled={absentFig15}> 
@@ -518,7 +521,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>16</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>16. Línea</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig16(!absentFig16)} checked={absentFig16} inputProps={{ 'aria-label': 'absent-Fig16' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig16} onChange={(e)=>setstateFig16(e.target.value)} disabled={absentFig16}> 
@@ -530,7 +533,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>17</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>17. Cruz inferior</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig17(!absentFig17)} checked={absentFig17} inputProps={{ 'aria-label': 'absent-Fig17' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig17} onChange={(e)=>setstateFig17(e.target.value)} disabled={absentFig17}> 
@@ -542,7 +545,7 @@ function King() {
           </Grid>
 
           <Grid container justify="center" spacing={1}>
-            <Grid item xs={1}> <FormLabel>18</FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>18. Cuadrado con diagonal</FormLabel> </Grid>
             <Grid item xs={1}> <Checkbox color="primary" onChange={(e)=>setabsentFig18(!absentFig18)} checked={absentFig18} inputProps={{ 'aria-label': 'absent-Fig18' }}/> </Grid>
             <Grid item xs={3}> 
               <Select value={stateFig18} onChange={(e)=>setstateFig18(e.target.value)} disabled={absentFig18}> 

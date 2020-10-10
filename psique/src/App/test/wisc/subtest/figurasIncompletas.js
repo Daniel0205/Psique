@@ -208,7 +208,7 @@ function FigurasIncompletas(props) {
        <br/>
        <li>0 : para indicar la respuesta no fue correcta o no contestó</li>
        <li>1 : para indicar la respuesta fue correcta</li>
-       <p>El sistema calificara automaticamente la prueba</p>
+       <p>El sistema calificará automáticamente la prueba</p>
        <br/>
        <CustomButton
          msj="Iniciar subprueba"
@@ -268,7 +268,7 @@ function FigurasIncompletas(props) {
         return(
         <div>
           <h1>Figuras incompletas</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h3>El puntaje por cada ítem fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
               <div key={index} className={classes.field}>

@@ -208,7 +208,7 @@ function FigurasIncompletas(props) {
        <br/>
        <li>0 : para indicar la respuesta no fue correcta o no contestó</li>
        <li>1 : para indicar la respuesta fue correcta</li>
-       <p>El sistema calificara automaticamente la prueba</p>
+       <p>El sistema calificará automáticamente la prueba</p>
        <br/>
        <CustomButton
          msj="Iniciar subprueba"
@@ -232,7 +232,7 @@ function FigurasIncompletas(props) {
     case "ejemplo":
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <img 
             className={classes.img} 
             alt={"Estímulo "+state} 

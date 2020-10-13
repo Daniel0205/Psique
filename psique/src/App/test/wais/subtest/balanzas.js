@@ -253,7 +253,7 @@ function Balanzas(props) {
         <br/>
         <li>Utilizar los botones para indicar la respuesta del paciente </li>
 
-        <p>El sistema calificara automaticamente la respuesta</p>
+        <p>El sistema calificará automáticamente la respuesta</p>
 
        <br/>
        <CustomButton

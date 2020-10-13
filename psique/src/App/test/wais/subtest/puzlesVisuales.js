@@ -222,7 +222,7 @@ function PuzlesVisuales(props) {
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
             <b>Instrucciones de calificación:</b>
-            <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
+            <p>Registre los números de las figuras seleccionadas por el paciente para los estímulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>
             <CustomButton
@@ -254,7 +254,7 @@ function PuzlesVisuales(props) {
       case "ejemplo-demostracion":
         return(
           <div >
-            <h1> Estimulo {example ? "Ejemplo": "Demostración"}</h1>
+            <h1> Estímulo {example ? "Ejemplo": "Demostración"}</h1>
             <img 
               className={classes.img} 
               alt={"Estímulo "+state+numberItem} 
@@ -294,7 +294,7 @@ function PuzlesVisuales(props) {
        case "test":
          return(
           <div>
-            <h1> Estimulo {numberItem-1}</h1>
+            <h1> Estímulo {numberItem-1}</h1>
             <img 
               className={classes.img}
               alt={"Estímulo "+(numberItem-1)}

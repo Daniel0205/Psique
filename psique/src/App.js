@@ -50,13 +50,13 @@ function App(props) {
         return <Redirect to="/test/wais/selection" />
       case "WAIS-baremos":
           return <Redirect to="/test/wais/baremos" />
-      case "WAIS-Letras y Numeros":
+      case "WAIS-Letras y Números":
         return <Redirect to="/test/wais/numerosLetras" />
       case "WAIS-Figuras Incompletas":
         return <Redirect to="/test/wais/figurasIncompletas" />
       case "WAIS-Cancelacion":
         return <Redirect to="/test/wais/cancelacion" />
-      case "WAIS-Comprension":
+      case "WAIS-Comprensión":
         return <Redirect to="/test/wais/comprension" />
       case "WAIS-Balanzas":
         return <Redirect to="/test/wais/balanzas" />
@@ -68,15 +68,15 @@ function App(props) {
         return <Redirect to="/test/wais/matrices" />
       case "WAIS-Vocabulario":
         return <Redirect to="/test/wais/vocabulario" />
-      case "WAIS-Digitos":
+      case "WAIS-Dígitos":
         return <Redirect to="/test/wais/digitos" />
-      case "WAIS-Aritmetica":
+      case "WAIS-Aritmética":
         return <Redirect to="/test/wais/aritmetica" />
-      case "WAIS-Clave de Numeros":
+      case "WAIS-Clave de Números":
         return <Redirect to="/test/wais/clavesNumeros" />
-      case "WAIS-Busqueda de Simbolos":
+      case "WAIS-Búsqueda de Símbolos":
         return <Redirect to="/test/wais/busquedaSimbolos" />
-      case "WAIS-Informacion":
+      case "WAIS-Información":
         return <Redirect to="/test/wais/informacion" />
       case "WAIS-Puzles Visuales":
         return <Redirect to="/test/wais/pluzlesVisuales" />
@@ -90,7 +90,7 @@ function App(props) {
         return <Redirect to="/test/wisc/registros" />
       case "WISC-Conceptos con dibujos":
         return <Redirect to="/test/wisc/concepto" />
-      case "WISC-Aritmetica":
+      case "WISC-Aritmética":
         return <Redirect to="/test/wisc/aritmetica" />
       case "WISC-Pistas":
         return <Redirect to="/test/wisc/pistas" />
@@ -106,15 +106,15 @@ function App(props) {
         return <Redirect to="/test/wisc/matrices" />
       case "WISC-Vocabulario":
         return <Redirect to="/test/wisc/vocabulario" />
-      case "WISC-Digitos":
+      case "WISC-Dígitos":
         return <Redirect to="/test/wisc/digitos" />
-      case "WISC-Comprension":
+      case "WISC-Comprensión":
         return <Redirect to="/test/wisc/comprension" />
       case "WISC-Claves":
         return <Redirect to="/test/wisc/claves" />
-      case "WISC-Busqueda de simbolos":
+      case "WISC-Búsqueda de símbolos":
         return <Redirect to="/test/wisc/busquedaSimbolos" />
-      case "WISC-Informacion":
+      case "WISC-Información":
         return <Redirect to="/test/wisc/informacion" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />

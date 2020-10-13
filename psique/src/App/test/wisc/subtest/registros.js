@@ -164,11 +164,11 @@ function Registros(props) {
           <h1>Registros</h1>
           <b>instrucciones generales:</b>
           <p>El paciente recibirá una hoja con diferentes objetos y animales</p>
-          <p>en ella deberá tachar con un lápiz todos lo animales que alcance en el tiempo</p>
+          <p>en ella deberá tachar con un lápiz todos los animales que alcance en el tiempo</p>
           <br/>
           <b>Instrucciones de calificación:</b>
           <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
-          <p>El sistema calificara automaticamente la respuesta</p>
+          <p>El sistema calificará automáticamente la respuesta</p>
           <br/>
           <CustomButton
           msj="Iniciar Subrueba"

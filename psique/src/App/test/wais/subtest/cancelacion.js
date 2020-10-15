@@ -157,12 +157,12 @@ function Cancelacion(props) {
           <h1>Cancelación</h1>
           <b>instrucciones generales:</b>
           <p>El paciente recibirá un cuadernillo en el cual deberá tachar</p>
-          <p>2 formas geométricas determinadas exactamente identicas a </p>
+          <p>2 formas geométricas determinadas exactamente idénticas a </p>
           <p>las figuras que se encuentran en la parte superior del cuadernillo</p>
           <br/>
           <b>instrucciones de calificación:</b>
           <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
-          <p>El sistema calificara automaticamente la respuesta</p>
+          <p>El sistema calificará automáticamente la respuesta</p>
           <br/>
           <CustomButton
           msj="Iniciar Subrueba"

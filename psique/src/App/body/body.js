@@ -81,7 +81,7 @@ function Body(props) {
 
     if(state==="category"){
       
-      return (
+      return ( 
       <Category  
       names={names}
       sources={sources}
@@ -147,7 +147,7 @@ function Body(props) {
       <Paper component="form" className={classes.root}>
           <InputBase
             className={classes.input}
-            placeholder="Buscar Prueba Neuropsicologica"
+            placeholder="Buscar Prueba Neuropsicológica"
             inputProps={{ 'aria-label': 'search google maps' }}
           />
           <IconButton type="submit" className={classes.iconButton} aria-label="search">

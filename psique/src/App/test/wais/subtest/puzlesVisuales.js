@@ -58,7 +58,7 @@ function PuzlesVisuales(props) {
   const classes = useStyles();
 
   function changeStimuli(punt){
-    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
+    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estímulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
 
@@ -139,7 +139,7 @@ function PuzlesVisuales(props) {
     }    
   }
 
-  //Esta función establece el primer estimulo a ser mostrado
+  //Esta función establece el primer estímulo a ser mostrado
   function imagenInit(item){    
     if(item!==2){
       let arrayAux = results
@@ -236,7 +236,7 @@ function PuzlesVisuales(props) {
         return(
          <div>
             <h1>Pluzles Visuales</h1>
-            <p>¿En questímulodesea iniciar la prueba? </p>
+            <p>¿En que estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
               msj="Estímulo 1"

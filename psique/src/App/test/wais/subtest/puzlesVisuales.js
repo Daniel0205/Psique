@@ -58,7 +58,7 @@ function PuzlesVisuales(props) {
   const classes = useStyles();
 
   function changeStimuli(punt){
-    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
+    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estímulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
 
@@ -139,7 +139,7 @@ function PuzlesVisuales(props) {
     }    
   }
 
-  //Esta función establece el primer estimulo a ser mostrado
+  //Esta función establece el primer estímulo a ser mostrado
   function imagenInit(item){    
     if(item!==2){
       let arrayAux = results
@@ -222,7 +222,7 @@ function PuzlesVisuales(props) {
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
             <b>Instrucciones de calificación:</b>
-            <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
+            <p>Registre los números de las figuras seleccionadas por el paciente para los estímulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>
             <CustomButton
@@ -236,16 +236,16 @@ function PuzlesVisuales(props) {
         return(
          <div>
             <h1>Pluzles Visuales</h1>
-            <p>¿En que estimulo desea iniciar la prueba? </p>
+            <p>¿En que estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-              msj="Estimulo 1"
+              msj="Estímulo 1"
               callback={()=>imagenInit(2)}
             ></CustomButton>
 
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-              msj="Estimulo 5"
+              msj="Estímulo 5"
               callback={()=>imagenInit(6)}
             ></CustomButton> 
           </div>
@@ -254,7 +254,7 @@ function PuzlesVisuales(props) {
       case "ejemplo-demostracion":
         return(
           <div >
-            <h1> Estimulo {example ? "Ejemplo": "Demostración"}</h1>
+            <h1> Estímulo {example ? "Ejemplo": "Demostración"}</h1>
             <img 
               className={classes.img} 
               alt={"Estimulo "+state+numberItem} 
@@ -294,7 +294,7 @@ function PuzlesVisuales(props) {
        case "test":
          return(
           <div>
-            <h1> Estimulo {numberItem-1}</h1>
+            <h1> Estímulo {numberItem-1}</h1>
             <img 
               className={classes.img}
               alt={"Estimulo "+(numberItem-1)}

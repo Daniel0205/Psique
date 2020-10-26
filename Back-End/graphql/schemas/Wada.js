@@ -1,7 +1,22 @@
 
 module.exports =`
 
-  input Wada{
+  input WadaIn{
+	hemisphere:String!,
+	propofol_aplication:Int!,
+	duration:Int!,
+	counting:Int,
+	denomination:Int,
+	verbal_instructions:Int,
+	repetition:Int,
+	lecture:Int,
+	follow_instructions:Int
+  }
+
+  type Wada implements Test{
+	is_active:Boolean!
+    start_date: Date!
+	id_test:ID!,
 	hemisphere:String!,
 	propofol_aplication:Int!,
 	duration:Int!,
@@ -23,7 +38,7 @@ module.exports =`
   }
 
   type Mutation {
-    createWada(wadaData:Wada!,id_assessment:Int!,aphasiasData:[Aphasia!]): createResponse!
+    createWada(wadaData:WadaIn!,id_assessment:Int!,aphasiasData:[Aphasia!]): createResponse!
   }	
   
 `;

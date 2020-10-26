@@ -198,15 +198,15 @@ function FigurasIncompletas(props) {
        return (
        <div id= "inicio" >
        <h1>Figuras incompletas</h1>
-       <b>Intrucciones generales:</b>
-       <p>A continuacion se enseñaran unas imagenes las cuales les hace falta algo</p>
-       <p>el sujeto debe senalar o decir la parte faltante de la imagen</p>
+       <b>instrucciones generales:</b>
+       <p>A continuación se enseñan unas imágenes las cuales les hace falta algo</p>
+       <p>el sujeto debe señalar o decir la parte faltante de la imagen</p>
  
        <br/>
-       <b>Intrucciones para registrar la respuesta de paciente:</b>
+       <b>instrucciones para registrar la respuesta de paciente:</b>
        <br/>
        <br/>
-       <li>0 : para indicar la respuesta no fue correcta o no contesto</li>
+       <li>0 : para indicar la respuesta no fue correcta o no contestó</li>
        <li>1 : para indicar la respuesta fue correcta</li>
        <p>El sistema calificara automaticamente la prueba</p>
        <br/>
@@ -220,25 +220,25 @@ function FigurasIncompletas(props) {
        return(
         <div >
         <h1>Figuras incompletas</h1>
-        <p>En que estimulo desea iniciar la prueba? </p>
+        <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
-        <CustomButton msj="Estimulo 1"
+        <CustomButton msj="Estímulo 1"
         callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 9-11</p>
-        <CustomButton msj="Estimulo 5"
+        <CustomButton msj="Estímulo 5"
         callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
-        <CustomButton msj="Estimulo 10"
+        <CustomButton msj="Estímulo 10"
         callback={()=>imagenInit(10)}></CustomButton> 
       </div>
        )
     case "ejemplo":
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <img 
             className={classes.img} 
-            alt={"Estimulo "+state} 
+            alt={"Estímulo "+state} 
             src={require("../../../assets/estimulos/figurasIncompletas-wisc/"+state+".jpg")} />
             
             <CustomButton 
@@ -250,11 +250,11 @@ function FigurasIncompletas(props) {
       case "test":
         return(
         <div>
-            <h1> Estimulo {numberItem}</h1>
+            <h1> Estímulo {numberItem}</h1>
             {timeBool ? <h2><u><i>¡TIEMPO TERMINADO!</i></u></h2> : ""}
             <img 
               className={classes.img}
-              alt={"Estimulo "+numberItem}
+              alt={"Estímulo "+numberItem}
               src={require("../../../assets/estimulos/figurasIncompletas-wisc/"+numberItem+".jpg")} />
               <KeyboardEventHandler 
               handleKeys={['1','0']} 

@@ -31,7 +31,7 @@ function Instrucciones(props) {
             [classes.div]:props.type==='paciente'
           })}>
             {props.type==="paciente"?<img
-            alt={"Estimulo #"+props.stimuli}      
+            alt={"Estímulo #"+props.stimuli}      
             width="100%"
             src={require('../../../assets/estimulos/wada/instruc.png')}
             />:null}

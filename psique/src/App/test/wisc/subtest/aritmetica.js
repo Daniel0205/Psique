@@ -269,7 +269,7 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimulo desea iniciar la prueba? </p>
+          <p>¿En qué estímulo desea iniciar la prueba? </p>
           <p>Pacientes de edad 6-7 años o con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 3"
           callback={()=>imagenInit(2)}></CustomButton>          
@@ -338,7 +338,7 @@ function Aritmetica(props) {
               <div key={index} className={classes.field}>
                 <TextField
                   className={classes.textfield}
-                  label={"Calificacion"}
+                  label={"Calificación"}
                   type="number"
                   defaultValue={result}
                   inputProps={{

@@ -257,7 +257,7 @@ function PuzlesVisuales(props) {
             <h1> Estímulo {example ? "Ejemplo": "Demostración"}</h1>
             <img 
               className={classes.img} 
-              alt={"Estimulo "+state+numberItem} 
+              alt={"Estímulo "+state+numberItem} 
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
             
@@ -297,7 +297,7 @@ function PuzlesVisuales(props) {
             <h1> Estímulo {numberItem-1}</h1>
             <img 
               className={classes.img}
-              alt={"Estimulo "+(numberItem-1)}
+              alt={"Estímulo "+(numberItem-1)}
               src={require("../../../assets/estimulos/PuzlesVisuales/"+stimuliSrc[numberItem]+".jpg")}
             />
 

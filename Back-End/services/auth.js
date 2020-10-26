@@ -64,3 +64,16 @@ exports.validateToken = async (req, res, next)=>{
   next();
 }
 
+
+exports.getId = (token)=>{
+  const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET,(err, decoded)=> {
+    if (err) return null
+    else return decoded.userId
+  });  
+
+  if(decoded!==null){
+
+    return {ok:true,id:decoded}
+  }
+  else return  {ok:false}
+}

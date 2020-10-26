@@ -194,11 +194,11 @@ function Matrices(props) {
         return (
         <div id= "inicio" >
         <h1>Matrices</h1>
-        <b>Intrucciones generales:</b>
+        <b>instrucciones generales:</b>
         <p>Se presentarán una matriz o una serie incompleta al paciente</p>
         <p>La tarea es escoger, entre cinco opciones, la que mejor complete la matriz o la serie</p>
         <br/>
-        <b>Intrucciones para registrar la respuesta de paciente:</b>
+        <b>instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <br/>
         <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>
@@ -214,15 +214,15 @@ function Matrices(props) {
         return(
          <div >
          <h1>Matrices</h1>
-         <p>En que estimulo desea iniciar la prueba? </p>
+         <p>¿En qué estímulo desea iniciar la prueba? </p>
          <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
-         <CustomButton msj="Estimulo 4"
+         <CustomButton msj="Estímulo 4"
          callback={()=>imagenInit(4)}></CustomButton> 
          <p>Pacientes de edad 9-11</p>
-         <CustomButton msj="Estimulo 7"
+         <CustomButton msj="Estímulo 7"
          callback={()=>imagenInit(7)}></CustomButton> 
          <p>Pacientes de edad 12-16</p>
-         <CustomButton msj="Estimulo 11"
+         <CustomButton msj="Estímulo 11"
          callback={()=>imagenInit(11)}></CustomButton> 
        </div>
         )
@@ -232,7 +232,7 @@ function Matrices(props) {
               <h1> Estimulo {state}</h1>
               <img 
               className={classes.img} 
-              alt={"Estimulo "+state} 
+              alt={"Estímulo "+state} 
               src={require("../../../assets/estimulos/matrices-wisc/"+stateExample+".jpg")} />
               
               <CustomButton 
@@ -247,7 +247,7 @@ function Matrices(props) {
              <h1> Estimulo {numberItem}</h1>
              <img 
                className={classes.img}
-               alt={"Estimulo "+numberItem}
+               alt={"Estímulo "+numberItem}
                src={require("../../../assets/estimulos/matrices-wisc/"+numberItem+".jpg")} />
                <KeyboardEventHandler 
                handleKeys={['1','2','3','4','5']} 

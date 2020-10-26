@@ -49,6 +49,7 @@ let diagnosis = "Ausencia de depresión";
 function Zung() {
   const [end,setEnd] = useState(false)
   const [state,setState] = useState("test")
+  const [show,setShow] = useState(false)
 
   const classes = useStyles();
 
@@ -143,7 +144,12 @@ function Zung() {
       revision={false}
       name="Zung"
       url="init"
-      comment={<h2>{"Tu diagnostico es: "+diagnosis}</h2>}
+      comment={<div>
+        {show?<h2>{"Tu diagnostico es: "+diagnosis}</h2>:null}
+        <CustomButton
+        msj={show?"Ocultar diagnostico":"Mostar diagnostico"}
+        callback={()=>setShow(!show)}/>
+        </div>}
       result={calificar()}
       ></Results>
     )

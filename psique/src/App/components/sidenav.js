@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Body from '../body/body';
-import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
 import Assessment from "./assessment"
 import Header from "../header/header"
@@ -17,11 +16,6 @@ import Wada from '../test/wada/wada';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-  },
-  cover:{
-    backgroundImage: "url("+Clouds+")",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
   },
   content: {
     flexGrow: 1,    
@@ -96,7 +90,6 @@ function Sidenav(props) {
   return (
     <div className={clsx({
       [classes.root]:true,
-      [classes.cover]:props.body==='init'
     })}>
       <CssBaseline />
       <Header open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}></Header>

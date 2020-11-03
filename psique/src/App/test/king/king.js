@@ -20,7 +20,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import moment from "moment";
 
 import reyImage from '../../assets/ReyTest/ReyImage.png';
-import Background from '../../assets/Fondo/FondoNubes.jfif';
 
 const useStyles =  makeStyles((theme) => ({
   root: {
@@ -37,13 +36,7 @@ const useStyles =  makeStyles((theme) => ({
   ReyImage: {
     backgroundImage: "url(" + reyImage + ")",
     backgroundSize: "cover",
-  },
-
-  reyTestpage: {
-    backgroundImage: "url(" + Background + ")",
-    width: '100%',
-    margin: 0,
-    backgroundSize: "cover",
+    maxInlineSize: "-webkit-fill-available",
   },
   snackbarStyle: {
     color: "white",
@@ -51,11 +44,14 @@ const useStyles =  makeStyles((theme) => ({
     backgroundColor: '#F55448',
     width: '50%',
   },
-  alingContents: {
+  aling_Contents: {
     alingContents: 'center',
     margin: 'auto',
     alignItems: 'center',
-    justifyContent: 'center',    
+    justifyContent: 'center',
+    textAlign: "center",
+    alignSelf: "center",
+    verticalAlign: "center",
   },
   figureName: {
     alignSelf: "center",
@@ -272,7 +268,7 @@ function King() {
   }
 
   return (   
-    <div className={classes.reyTestpage}>
+    <div>
       <br></br>
       {showResults()}
       <Container justify="center" align="center" fixed>      
@@ -328,13 +324,13 @@ function King() {
             <h3 align="center">Calificación de la prueba</h3>
           </Grid>
           <Grid container justify="center">
-            <img src={reyImage} alt="Rey-test"/> 
+            <img className={classes.ReyImage} src={reyImage} alt="Rey-test"/> 
           </Grid>
 
           <br></br><br></br><br></br>
                         
           <Grid container justify="center" spacing={2}>
-            <Grid item xs={3} className={classes.figureName}> <FormLabel>No. </FormLabel> </Grid>
+            <Grid item xs={3} className={classes.figureName}> <FormLabel>Número </FormLabel> </Grid>
             <Grid item xs={1} className={classes.figureName}> <FormLabel>Ausente </FormLabel> </Grid>
             <Grid item xs={3} className={classes.figureName}> <FormLabel>Estado de la fig. </FormLabel> </Grid>
             <Grid item xs={1} className={classes.figureName}> <FormLabel>Bien situada </FormLabel> </Grid>

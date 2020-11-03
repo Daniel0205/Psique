@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: "-webkit-box",
-    backgroundColor: "#10cde7",
+    backgroundColor: "#017F8D",
     maxHeight: "80px"
   },
 }));

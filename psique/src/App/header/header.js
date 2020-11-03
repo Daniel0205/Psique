@@ -222,7 +222,7 @@ function Header(props) {
     <List>
         {props.id_assessment!==null?
         <ListItem button onClick={()=>props.setBody("init")} >
-            <ListItemIcon ><HomeIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
             <ListItemText primary={"Inicio"} />
         </ListItem>:null}
         <ListItem button >

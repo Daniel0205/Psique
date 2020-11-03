@@ -66,7 +66,7 @@ function ResultsWada(props) {
         <h1>Resultados</h1>
         <h2>Tipo de prueba: {props.lobulo}</h2>
         <h2>Tiempo empleado: {props.cronometer()}</h2>
-        <h2>Momento de aplicacion del propofol: {getTime(props.propofol)}</h2>
+        {props.lobulo!=="Preliminar"?<h2>Momento de aplicacion del propofol: {getTime(props.propofol)}</h2>:null}
         <TableContainer component={Paper}>
         <Table  aria-label="simple table">
           <TableHead>
@@ -93,6 +93,8 @@ function ResultsWada(props) {
           </TableBody>
         </Table>
         </TableContainer>
+        {props.lobulo!=="Preliminar"?
+        <div>
         <h1>Eventos Registradas</h1>
         {props.aphasias.length!==0?<TableContainer component={Paper}>
         <Table  aria-label="simple table">
@@ -130,6 +132,8 @@ function ResultsWada(props) {
           )}
         </FormGroup>
       </FormControl>
+      </div>:null}
+
       <br/>
       <CustomButton
         msj="Guardar Resultados"

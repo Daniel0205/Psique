@@ -16,7 +16,7 @@ module.exports = function(server) {
     io.on('connect', (socket) => {
         socket.on('join', ({ type, test }, callback) => {  
             const { error, user } = addUser({ id: socket.id, type, test });
-        
+            
             if(error) return callback(error);
         
             socket.join(user.test);
@@ -118,10 +118,13 @@ module.exports = function(server) {
     
         socket.on('disconnect', () => {
             const user = removeUser(socket.id);
-        
-            if(user) {
-                io.to(user.test).emit('message', { user: 'Admin', text: `${user.type} has left.` });
-                io.to(user.test).emit('roomData', { test: user.test, users: getUsersInTest(user.test)});
+            
+            if(user){
+                const users = getUsersInTest(user.test);
+
+                if(users!==[])io.to(user.test).emit("disconnect")
+                            
+                users.forEach(x => removeUser(x.id))
             }
         })
     });

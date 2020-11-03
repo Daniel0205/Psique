@@ -75,6 +75,7 @@ function Balanzas(props) {
         
         if(1===key){
           countRe++;
+          terminacion=0
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
@@ -252,7 +253,7 @@ function Balanzas(props) {
         <br/>
         <li>Utilizar los botones para indicar la respuesta del paciente </li>
 
-        <p>El sistema calificara automaticamente la respuesta</p>
+        <p>El sistema calificará automáticamente la respuesta</p>
 
        <br/>
        <CustomButton

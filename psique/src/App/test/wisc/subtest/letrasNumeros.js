@@ -196,14 +196,14 @@ function LetrasNumeros(props) {
        <div>
         <h1>Letras y Números</h1>
         <b>instrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de números y letras</p>
-        <p>el doctor debera decirle al paciente cada serie</p>
-        <p>despues de esto el paciente debera repetir en orden la serie</p>
+        <p>A continuación se enseñarán una serie de números y letras</p>
+        <p>el doctor deberá decirle al paciente cada serie</p>
+        <p>después de esto el paciente deberá repetir en orden la serie</p>
         <p>en el orden no importa si son primero las letras o los números</p>
         <br/>
         <b>instrucciones de calificación:</b>
-        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
-        <p>EL sistema calificara automaticamente las respuestas </p>
+        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estímulo </p>
+        <p>EL sistema calificará automáticamente las respuestas </p>
         <br/>
        <CustomButton
          msj="Iniciar subprueba"
@@ -214,7 +214,7 @@ function LetrasNumeros(props) {
     case "ejemplo B":  
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <br/>
             <br/>
             {state==="ejemplo A"?<h1>A-2</h1>:<h1>B-3</h1>}

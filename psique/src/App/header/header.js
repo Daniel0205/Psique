@@ -12,6 +12,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import HomeIcon from '@material-ui/icons/Home';
 import ListItemText from '@material-ui/core/ListItemText';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -212,6 +213,11 @@ function Header(props) {
     </div>
     <Divider />
     <List>
+        {props.id_assessment!==null?
+        <ListItem button onClick={()=>props.setBody("init")} >
+            <ListItemIcon><HomeIcon/></ListItemIcon>
+            <ListItemText primary={"Inicio"} />
+        </ListItem>:null}
         <ListItem button >
             <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />

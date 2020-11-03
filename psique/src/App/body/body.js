@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "-webkit-center",
   },
   space:{
-    paddingTop:"4%",
-    paddingBottom: "3%"
+    paddingTop:"30px",
+    paddingBottom: "30px"
   },
   buton:{
     backgroundColor: "#017F8D",  

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,13 +11,21 @@ const useStyles = makeStyles({
     width: "100%",
     height: "100%",
     borderRadius: "3%",
-    backgroundColor: "#017F8D",   
+    backgroundColor: "#017F8D",
+    color: "white",
     "&:hover":{
-        backgroundColor: "#7DC545"
+      backgroundColor: "#016570",
     }
   },
   media: {
-    maxHeight:"300px",
+    maxHeight:"150px",
+    maxInlineSize: "-webkit-fill-available",
+  },
+  textCardContent: {
+    paddingBottom: "5px",
+    paddingTop: "0px",
+    paddingRight: "0px",
+    paddingLeft: "0px",
   },
 });
 
@@ -48,10 +56,10 @@ export default function CardButton(props) {
       onClick={emit}>
           {imageReturn()}
         
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+        <CardContent className={classes.textCardContent}>          
+          <Typography gutterBottom variant="h5" component="h2"> 
             {props.name}
-            </Typography>
+          </Typography>        
         </CardContent>
       </CardActionArea>
     </Card>

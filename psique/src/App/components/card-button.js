@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
   textCardContent: {
     paddingBottom: "5px",
-    paddingTop: "0px",
+    paddingTop: "5px",
     paddingRight: "0px",
     paddingLeft: "0px",
   },
@@ -57,7 +57,7 @@ export default function CardButton(props) {
           {imageReturn()}
         
         <CardContent className={classes.textCardContent}>          
-          <Typography gutterBottom variant="h5" component="h2"> 
+          <Typography  variant="h5" component="h2"> 
             {props.name}
           </Typography>        
         </CardContent>

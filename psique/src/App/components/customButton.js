@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
       borderColor: '#0062cc',
       boxShadow: 'none',
     },
+    textTransform: "none",
   },
 }));
 

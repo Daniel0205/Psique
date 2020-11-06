@@ -80,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: "3%",
   },
-  
   title: {
     fontSize: 14,
   },

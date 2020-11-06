@@ -49,19 +49,9 @@ const useStyles = makeStyles(theme => ({
 
 function Sidenav(props) {
   const classes = useStyles();
-  
   const [open, setOpen] = React.useState(false);
   const [aux, setAux] = React.useState("category");
 
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
-
-  
 
   function body(){
     switch (props.body) {
@@ -92,7 +82,7 @@ function Sidenav(props) {
       [classes.root]:true,
     })}>
       <CssBaseline />
-      <Header open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}></Header>
+      <Header></Header>
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,

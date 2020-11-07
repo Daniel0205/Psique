@@ -156,7 +156,7 @@ function SignIn(props) {
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
-                  Forgot password?
+                  ¿Olvidó su contraseña?
                 </Link>
               </Grid>
             </Grid>

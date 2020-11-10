@@ -78,6 +78,12 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "60px",
     //backgroundColor: "#FFFFFF",
   },
+  buttonDrawer:{
+    color: "white",
+  },
+  drawerDivider:{
+    backgroundColor: "white",
+  },
  
   menuDiv:{
     width: "-webkit-fill-available",
@@ -92,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     backgroundColor: "#017F8D",   
     width: drawerWidth,
+    color: "white",
   },
   drawerHeader: {
     display: 'flex',
@@ -102,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: "-webkit-box",
-    backgroundColor: "#10cde7",
+    backgroundColor: "#017F8D",
     maxHeight: "80px"
   },
 }));
@@ -207,41 +214,41 @@ function Header(props) {
     }}
   >
     <div className={classes.drawerHeader}>
-      <IconButton onClick={props.handleDrawerClose}>
+      <IconButton onClick={props.handleDrawerClose} className={classes.buttonDrawer}>
         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </IconButton>
     </div>
-    <Divider />
+    <Divider className={classes.drawerDivider} />
     <List>
         {props.id_assessment!==null?
         <ListItem button onClick={()=>props.setBody("init")} >
-            <ListItemIcon><HomeIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
             <ListItemText primary={"Inicio"} />
         </ListItem>:null}
         <ListItem button >
-            <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
         </ListItem>
         <ListItem button >
-            <ListItemIcon><DescriptionIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
             <ListItemText primary={"Informes"} />
         </ListItem>
         <ListItem button >
-            <ListItemIcon><GestureIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>
             <ListItemText primary={"Pruebas"} />
         </ListItem>
         <ListItem button >
-            <ListItemIcon><PersonOutlineIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><PersonOutlineIcon/></ListItemIcon>
             <ListItemText primary={"Mi Perfil"} />
         </ListItem>
         {props.id_assessment!==null?
         <ListItem button onClick={save}>
-            <ListItemIcon><SaveIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><SaveIcon/></ListItemIcon>
             <ListItemText primary={"Guardar y salir"} />
         </ListItem>:null}
         {props.id_assessment!==null?
         <ListItem button onClick={end}>
-            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
             <ListItemText primary={"Terminar evaluación"} />
         </ListItem>:null}
     </List>

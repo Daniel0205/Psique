@@ -16,7 +16,6 @@ module.exports = function(server) {
     io.on('connect', (socket) => {
         socket.on('join', ({ type, test }, callback) => {  
             const { error, user } = addUser({ id: socket.id, type, test });
-            
             if(error) return callback(error);
         
             socket.join(user.test);
@@ -67,7 +66,7 @@ module.exports = function(server) {
         socket.on('activateStream', (callback) =>{
             const user = getUser(socket.id);
         
-            socket.broadcast.to(user.test).emit('activateStream');
+            io.to(user.test).emit('activateStream');
             callback()
         })
 
@@ -78,7 +77,6 @@ module.exports = function(server) {
         })
     
         socket.on('videoConnect', () =>{
-    
             const user = getUser(socket.id);
         
             socket.broadcast.to(user.test).emit('connect-all');
@@ -118,7 +116,7 @@ module.exports = function(server) {
     
         socket.on('disconnect', () => {
             const user = removeUser(socket.id);
-            
+        
             if(user){
                 const users = getUsersInTest(user.test);
 

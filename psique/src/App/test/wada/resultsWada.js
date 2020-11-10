@@ -21,6 +21,15 @@ const useStyles = makeStyles({
   }
 });
 
+let maxResults = {
+  "Conteo":1,
+  "Denominacion":6,
+  "Instrucciones verbales":3,
+  "Repeticion":3,
+  "Lectura":2,
+  "Seguimiento de instrucciones":4
+}
+
 let aphasiasFinal = ["Afasia aferente","Afasia eferente","Afasia mixta"]
 
 function ResultsWada(props) {
@@ -62,6 +71,15 @@ function ResultsWada(props) {
         }
     }
 
+    function getSelectedTotal(){
+      var aux = 0
+      for (let i = 0; i < props.selectedTest.length; i++) {
+        if(props.selectedTest[i])aux+=maxResults[props.test[i]]        
+      }
+      return aux
+
+    }
+
     return(<div className={classes.div}>
         <h1>Resultados</h1>
         <h2>Tipo de prueba: {props.lobulo}</h2>
@@ -81,14 +99,14 @@ function ResultsWada(props) {
                 <TableCell component="th" scope="row">
                   {name}
                 </TableCell>
-                <TableCell align="center">{props.results[index]}</TableCell>
+              <TableCell align="center">{props.results[index]}/{maxResults[name]}</TableCell>
               </TableRow>:null
             )}
             <TableRow >
                 <TableCell component="th" scope="row">
                   Total
                 </TableCell>
-                <TableCell align="center">{getTotal()}</TableCell>
+            <TableCell align="center">{getTotal()}/{getSelectedTotal()}</TableCell>
               </TableRow>
           </TableBody>
         </Table>

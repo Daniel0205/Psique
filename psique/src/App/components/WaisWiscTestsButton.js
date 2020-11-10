@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
+  buttonStyle: {
     margin: theme.spacing(1), 
     backgroundColor: "#017F8D",
     color: "white",
@@ -14,11 +14,18 @@ const useStyles = makeStyles((theme) => ({
       borderColor: '#0062cc',
       boxShadow: 'none',
     },
+    minInlineSize: "-webkit-fill-available",
+    lineHeight: "normal",
+    alignSelf: "center",
+    height: "60px",
   },
+  divButtonStyle: {
+    alignSelf: "center",
+  }
 }));
 
 
-export default function CustomButton(props) {
+export default function WaisWiscTestsButton(props) {
   const classes = useStyles();
 
   if(props.disabled){
@@ -35,12 +42,12 @@ export default function CustomButton(props) {
   }
   else{
     return (
-      <div>
-          <Button variant="contained" color="primary"
-          onClick={props.callback}
-          className={classes.margin}>
-           {props.msj}
-          </Button>
+      <div className={classes.divButtonStyle}>
+        <Button variant="contained" color="primary"
+        onClick={props.callback}
+        className={classes.buttonStyle}>
+          {props.msj}
+        </Button>
       </div>
     ); 
   }

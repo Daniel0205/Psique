@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import TestStart from '../../components/testStart';
 import CustomButton from '../../components/customButton';
+import WaisWiscTestsButton from '../../components/WaisWiscTestsButton';
 import Baremos from '../../components/Baremos';
 import { makeStyles } from '@material-ui/core/styles';
 import { setBody } from "../../store/body/action";
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: "10%",
     gridColumnGap: "5%"
   },
+  divPadding:{
+    paddingTop: "15px",
+  }
 }));
 
 function Wais(props) {
@@ -90,26 +94,28 @@ function Wais(props) {
         
       case 'aplicacion':
         return(<div id='iniciowais' >
-        <h1>WAIS</h1> <br/>
+        <h1>WAIS</h1>
         <p>Estas son las subpruebas disponibles para aplicar al paciente, cliquea sobre una para empezar</p>
         <p>Recuerda que debes aplicar al menos 10 subpruebas</p>
         <br/>
     
         <div className={classes.subprueba}>
           {texts.map((name,i)=>
-          <CustomButton
+          <WaisWiscTestsButton
           key={i}
           msj={name}
           callback={()=>props.setBody("WAIS-"+name)}>
-          </CustomButton>)}
+          </WaisWiscTestsButton>)}
         </div>
         <br/>
         <br/>
-    
-        <CustomButton
-          msj="Cancelar"
-          callback={()=>props.setBody("init")}>
-        </CustomButton>
+        
+        <div className={classes.divPadding}>
+          <CustomButton
+            msj="Cancelar"
+            callback={()=>props.setBody("init")}>
+          </CustomButton>
+        </div>
 
         <CustomButton
           msj="Calcular puntuación escalar"

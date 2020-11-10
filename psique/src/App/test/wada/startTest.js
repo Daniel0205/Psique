@@ -44,10 +44,12 @@ function ResultsWada(props) {
     useEffect(()=>setState(props.state),[props.state])
 
     function join(typeIn){ 
-      
-      if(props.socket.disconnected) props.socket.connect()
+        if(props.socket.disconnected) {
+          props.socket.connect()
+        }
         props.socket.emit('join', { type:typeIn ,test:props.id_assessment}, (error) => {
             if(error) {
+              console.log(error)
                 alert(error);
             }
         });

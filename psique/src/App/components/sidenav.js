@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 function Sidenav(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open] = React.useState(false);
   const [aux, setAux] = React.useState("category");
 
 

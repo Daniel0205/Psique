@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const useStyles = makeStyles({
   table: {
@@ -113,6 +116,10 @@ function BusquedaSimbolos(props) {
               msj="Registro de resultados"
               callback={()=>setState('registro')}
             ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WAIS-selection")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -128,10 +135,10 @@ function BusquedaSimbolos(props) {
             <TestsTimer duration={TESTDURATION}></TestsTimer>
             <br/>
 
-            <CustomButton
+            <WaisWiscReturnButton
               msj="Regresar a la subPrueba"
               callback={()=>setState("instruccion")}
-            ></CustomButton>
+            ></WaisWiscReturnButton>
           </div>
         )
       
@@ -322,11 +329,17 @@ function BusquedaSimbolos(props) {
                   &nbsp;  &nbsp;                
                 </div>
               </div>
-
-              <CustomButton
-                msj="Calificar"
-                callback={()=>ShowResults()}
-              ></CustomButton>
+              
+              <Grid container justify="center">
+                <WaisWiscReturnButton
+                  msj="Retroceder"
+                  callback={()=>setState("instruccion")}
+                ></WaisWiscReturnButton>
+                <CustomButton
+                  msj="Calificar"
+                  callback={()=>ShowResults()}
+                ></CustomButton>
+              </Grid>
             </div>
             )
         
@@ -361,6 +374,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

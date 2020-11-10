@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const TIME_LIMIT= 45;
 
@@ -164,10 +167,16 @@ function Cancelacion(props) {
           <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
           <p>El sistema calificará automáticamente la respuesta</p>
           <br/>
-          <CustomButton
-          msj="Iniciar Subrueba"
-          callback={()=>setState("seleccion")}
-          ></CustomButton>
+          <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WAIS-selection")}
+            ></WaisWiscReturnButton>
+            <CustomButton
+              msj="Iniciar subprueba"
+              callback={()=>setState("seleccion")}
+            ></CustomButton>  
+          </Grid>
         </div>
         )
       case "seleccion":
@@ -180,6 +189,11 @@ function Cancelacion(props) {
           callback={()=>setState("test")}
           ></CustomButton>
           <p><b>No aplicar a paciente de edad  70-89</b></p>
+          <br/>
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>setState("instruccion")}
+          ></WaisWiscReturnButton>
         </div>
         )
 
@@ -416,6 +430,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

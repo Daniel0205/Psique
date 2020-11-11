@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import CustomButton from '../../../components/customButton'
-import Results from '../../../components/results'
+import CustomButton from '../../../components/customButton';
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
+import Results from '../../../components/results';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const useStyles = makeStyles((theme) => ({
   img:{
@@ -273,10 +276,16 @@ function Aritmetica(props) {
           <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
           <p>El sistema calificara automáticamente la respuesta</p>
           <br/>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={next}
-          ></CustomButton>
+          <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WAIS-selection")}
+            ></WaisWiscReturnButton>
+            <CustomButton
+              msj="Iniciar subprueba"
+              callback={next}
+            ></CustomButton>  
+          </Grid>
         </div>
        );
 
@@ -284,14 +293,22 @@ function Aritmetica(props) {
        return(
         <div>
           <h1>Aritmética</h1>
-          <p>En que estimuló desea iniciar la prueba? </p>
+          <p>¿En que estimulo desea iniciar la prueba? </p>
           <p>Pacientes con sospechas de discapacidad intelectual:</p>
           <CustomButton msj="Reactivo 1"
-          callback={()=>imagenInit(1)}></CustomButton>          
-          <br/><br/>
+            callback={()=>imagenInit(1)}>
+          </CustomButton>          
+          <br/>
           <p>Pacientes de edad 16-89:</p>
-          <CustomButton msj="Reactivo 6"
-          callback={()=>imagenInit(6)}></CustomButton>
+          <CustomButton
+            msj="Reactivo 6"
+            callback={()=>imagenInit(6)}>
+          </CustomButton>
+          <br/>
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>setState("instruccion")}
+          ></WaisWiscReturnButton>
         </div>
        );
 
@@ -459,6 +476,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

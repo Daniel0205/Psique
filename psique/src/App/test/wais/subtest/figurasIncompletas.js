@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +8,8 @@ import update from 'react-addons-update';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 4
 
@@ -209,11 +212,17 @@ function FigurasIncompletas(props) {
        <li>0 : para indicar la respuesta no fue correcta o no contestó</li>
        <li>1 : para indicar la respuesta fue correcta</li>
        <p>El sistema calificará automáticamente la prueba</p>
-       <br/>
-       <CustomButton
-         msj="Iniciar subprueba"
-         callback={next}
-       ></CustomButton>  
+       <br/>      
+       <Grid container justify="center">
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>props.setBody("WAIS-selection")}
+          ></WaisWiscReturnButton>
+          <CustomButton
+            msj="Iniciar subprueba"
+            callback={next}
+          ></CustomButton>  
+        </Grid>
      </div>)
      
      case "seleccion":
@@ -226,7 +235,11 @@ function FigurasIncompletas(props) {
         callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 16-89</p>
         <CustomButton msj="Estímulo 4"
-        callback={()=>imagenInit(4)}></CustomButton> 
+        callback={()=>imagenInit(4)}></CustomButton>
+        <WaisWiscReturnButton
+          msj="Retroceder"
+          callback={()=>setState('instruccion')}
+        ></WaisWiscReturnButton>
       </div>
        )
     case "ejemplo":
@@ -337,6 +350,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

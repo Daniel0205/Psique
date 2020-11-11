@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import CustomButton from '../../../components/customButton'
-import Results from '../../../components/results'
+import CustomButton from '../../../components/customButton';
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
+import Results from '../../../components/results';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -225,10 +228,16 @@ function PuzlesVisuales(props) {
             <p>Registre los números de las figuras seleccionadas por el paciente para los estímulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={next}
-            ></CustomButton>  
+            <Grid container justify="center">
+              <WaisWiscReturnButton
+                msj="Retroceder"
+                callback={()=>props.setBody("WAIS-selection")}
+              ></WaisWiscReturnButton>
+              <CustomButton
+                msj="Iniciar subprueba"
+                callback={next}
+              ></CustomButton>
+            </Grid>
           </div>
         )
       
@@ -247,7 +256,12 @@ function PuzlesVisuales(props) {
             <CustomButton
               msj="Estímulo 5"
               callback={()=>imagenInit(6)}
-            ></CustomButton> 
+            ></CustomButton>
+            
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState('instruccion')}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -414,6 +428,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

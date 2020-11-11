@@ -18,12 +18,10 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import DescriptionIcon from '@material-ui/icons/Description';
 import GestureIcon from '@material-ui/icons/Gesture';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import { setDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
 import { setAssessment } from "../store/assessment/action";
@@ -76,6 +74,8 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     maxHeight: "60px",
+    paddingBottom: "2px",
+    paddingTop: "2px",
     //backgroundColor: "#FFFFFF",
   },
   buttonDrawer:{
@@ -110,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     display: "-webkit-box",
     backgroundColor: "#017F8D",
+    height: "70px",
     maxHeight: "80px"
   },
 }));
@@ -117,15 +118,23 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [drawerVar, setdrawerVar] = React.useState(false);
   const [exit] = useMutation(LOGIN_QUERY);
 
-  const handleClick = (event) => {
+  /*const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };*/
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setdrawerVar(open);
   };
 
   function goBack(){
@@ -156,49 +165,25 @@ function Header(props) {
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={props.handleDrawerOpen}
+          onClick={toggleDrawer(true)}
           edge="start"
           className={clsx(classes.menuButton, props.open && classes.hide)}
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.spacer}>    
+        <div className={classes.spacer}>
           <Toolbar>
-
               <img 
               className={classes.logo}
               alt="Logo"
               onClick={goBack}
               src={Logo}/>
               &nbsp;&nbsp;
-              Psique
+              <Typography variant="h6" className={classes.spacer}>
+                Psique
+              </Typography>
           </Toolbar>
-          </Typography>
-
-        <div className={classes.menuDiv}>
-
-          <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleClick}
-            >        
-          <ArrowDropDownIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={()=>{
-              localStorage.clear();
-              props.setDoctor(null)
-              props.setBody("login")
-            }}>Cerrar sesión.</MenuItem>
-        </Menu>
-        
-        </div>
+        </div>      
       </Toolbar>
 
       
@@ -208,13 +193,14 @@ function Header(props) {
     className={classes.drawer}
     variant="temporary"
     anchor="left"
-    open={props.open}
+    open={drawerVar}
+    onClose={toggleDrawer(false)}
     classes={{
       paper: classes.drawerPaper,
     }}
   >
     <div className={classes.drawerHeader}>
-      <IconButton onClick={props.handleDrawerClose} className={classes.buttonDrawer}>
+      <IconButton onClick={toggleDrawer(false)} className={classes.buttonDrawer}>
         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </IconButton>
     </div>
@@ -248,9 +234,17 @@ function Header(props) {
         </ListItem>:null}
         {props.id_assessment!==null?
         <ListItem button onClick={end}>
-            <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
+            <ListItemIcon className={classes.buttonDrawer}><AssignmentTurnedInIcon/></ListItemIcon>
             <ListItemText primary={"Terminar evaluación"} />
         </ListItem>:null}
+        <ListItem button onClick={()=>{
+              localStorage.clear();
+              props.setDoctor(null)
+              props.setBody("login")
+            }}>
+            <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
+            <ListItemText primary={"Cerrar sesión"} />
+        </ListItem>
     </List>
   </Drawer>]
 }

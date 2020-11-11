@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import update from 'react-addons-update';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
@@ -10,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -310,10 +313,16 @@ function Vocabulario(props) {
             <li>1 : En general se trata de respuestas correctas pero con contenido escaso o pobre</li>
             <li>2 : La respuesta refleja una buena comprensión de la palabra</li>
             <br/>
-            <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>setState("seleccion")}
-            ></CustomButton>   
+            <Grid container justify="center">
+              <WaisWiscReturnButton
+                msj="Retroceder"
+                callback={()=>props.setBody("WISC-selection")}
+              ></WaisWiscReturnButton>
+              <CustomButton
+                msj="Iniciar subprueba"
+                callback={()=>setState("seleccion")}
+              ></CustomButton>
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -323,19 +332,24 @@ function Vocabulario(props) {
             <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual o de edad 6-8:</p>
             <CustomButton
-            msj="Estímulo 5"
-            callback={()=>imagenInit(5)}
+              msj="Estímulo 5"
+              callback={()=>imagenInit(5)}
             ></CustomButton>
             <p>Pacientes de edad 9-11:</p>
             <CustomButton
-            msj="Estímulo 7"
-            callback={()=>imagenInit(7)}
+              msj="Estímulo 7"
+              callback={()=>imagenInit(7)}
             ></CustomButton>
             <p>Pacientes de edad 12-16:</p>
             <CustomButton
-            msj="Estímulo 9"
-            callback={()=>imagenInit(9)}
-            ></CustomButton>       
+              msj="Estímulo 9"
+              callback={()=>imagenInit(9)}
+            ></CustomButton>
+            
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState("instruccion")}
+            ></WaisWiscReturnButton>
           </div>
         )
         case "testImage":
@@ -524,6 +538,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

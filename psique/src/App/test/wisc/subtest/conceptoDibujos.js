@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 5
 
@@ -243,10 +246,16 @@ function ConceptoDibujos(props) {
         <p>El sistema calificará automáticamente la prueba</p>
         <br/>
 
-       <CustomButton
-         msj="Iniciar subprueba"
-         callback={next}
-       ></CustomButton>  
+        <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
+            <CustomButton
+              msj="Iniciar subprueba"
+              callback={next}
+            ></CustomButton>
+          </Grid>
      </div>)
      
      case "seleccion":
@@ -262,7 +271,12 @@ function ConceptoDibujos(props) {
         callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
         <CustomButton msj="Estímulo 7"
-        callback={()=>imagenInit(7)}></CustomButton> 
+        callback={()=>imagenInit(7)}></CustomButton>
+
+        <WaisWiscReturnButton
+          msj="Retroceder"
+          callback={()=>setState("instruccion")}
+        ></WaisWiscReturnButton>
       </div>
        )
     case "ejemplo A":
@@ -467,6 +481,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

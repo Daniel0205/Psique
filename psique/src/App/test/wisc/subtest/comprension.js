@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import update from 'react-addons-update';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
@@ -10,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -320,10 +322,16 @@ function Comprension(props) {
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0, 1 y 2 para la puntuación de la respuesta</li>
             <br/>
+            <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
             <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>setState("seleccion")}
-            ></CustomButton>   
+              msj="Iniciar subprueba"
+              callback={()=>setState("seleccion")}
+            ></CustomButton>
+          </Grid>
           </div>
         )
       case "seleccion":
@@ -346,6 +354,11 @@ function Comprension(props) {
               msj="Estímulo 5"
               callback={()=>testInit(4)}
             ></CustomButton>
+
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState("instruccion")}
+            ></WaisWiscReturnButton>          
           </div>
         )
       case "test":
@@ -515,6 +528,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

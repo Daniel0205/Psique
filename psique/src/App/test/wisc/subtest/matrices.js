@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -7,6 +8,8 @@ import update from 'react-addons-update';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -204,10 +207,16 @@ function Matrices(props) {
         <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>
         <p>El sistema calificara automaticamente la prueba</p>
         <br/>
-        <CustomButton
-          msj="Iniciar subprueba"
-          callback={next}
-        ></CustomButton>  
+        <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
+            <CustomButton
+              msj="Iniciar subprueba"
+              callback={next}
+            ></CustomButton>
+          </Grid>
       </div>)
       
       case "seleccion":
@@ -223,13 +232,18 @@ function Matrices(props) {
          callback={()=>imagenInit(7)}></CustomButton> 
          <p>Pacientes de edad 12-16</p>
          <CustomButton msj="Estímulo 11"
-         callback={()=>imagenInit(11)}></CustomButton> 
+         callback={()=>imagenInit(11)}></CustomButton>
+         
+         <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>setState("instruccion")}
+          ></WaisWiscReturnButton>
        </div>
         )
       case "ejemplo":
         return(
           <div >
-              <h1> Estimulo {state}</h1>
+              <h1> Estímulo {state}</h1>
               <img 
               className={classes.img} 
               alt={"Estímulo "+state} 
@@ -244,7 +258,7 @@ function Matrices(props) {
        case "test":
          return(
          <div>
-             <h1> Estimulo {numberItem}</h1>
+             <h1> Estímulo {numberItem}</h1>
              <img 
                className={classes.img}
                alt={"Estímulo "+numberItem}
@@ -329,6 +343,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

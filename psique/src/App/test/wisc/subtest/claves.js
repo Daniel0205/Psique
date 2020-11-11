@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import TestsTimer from '../../../components/TestsTimer'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,6 +15,7 @@ import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import { setBody } from "../../../store/body/action";
 
 let clavesA = false;
 const TESTDURATION = 120;
@@ -100,6 +102,10 @@ function Claves(props) {
               msj="Registro de resultados"
               callback={()=>setState("seleccion")}
             ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -118,10 +124,10 @@ function Claves(props) {
             <TestsTimer duration={TESTDURATION}></TestsTimer>
             <br/>
 
-            <CustomButton
+            <WaisWiscReturnButton
               msj="Regresar a la subPrueba"
               callback={()=>setState("instruccion")}
-            ></CustomButton>
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -141,6 +147,11 @@ function Claves(props) {
               msj="Clave de Números B"
               callback={()=>testInit('B')}
             ></CustomButton>
+            <br/>
+            <WaisWiscReturnButton
+              msj="Regresar a la subPrueba"
+              callback={()=>setState("instruccion")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -190,10 +201,10 @@ function Claves(props) {
                 <br />
                 <Grid container justify="center" spacing={2}>
                   {isCheckResults ? <div/> :
-                    <CustomButton
+                    <WaisWiscReturnButton
                       msj="Regresar a selección"
                       callback={()=>setState("seleccion")}
-                    ></CustomButton>
+                    ></WaisWiscReturnButton>
                   }
                   <CustomButton
                     msj="Terminar"
@@ -222,10 +233,10 @@ function Claves(props) {
                 <br />
                 <Grid container justify="center" spacing={2}>
                   {isCheckResults ? <div/> :
-                    <CustomButton
+                    <WaisWiscReturnButton
                       msj="Regresar a selección"
                       callback={()=>setState("seleccion")}
-                    ></CustomButton>
+                    ></WaisWiscReturnButton>
                   }
                   <CustomButton
                     msj="Terminar"
@@ -267,6 +278,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

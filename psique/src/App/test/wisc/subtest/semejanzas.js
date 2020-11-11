@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import update from 'react-addons-update';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
@@ -9,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -261,10 +264,16 @@ function Semejanzas(props) {
             <li>1 : Cualquier propiedad común que supone una semejanza secundaria o menos pertinente</li>
             <li>2 : Cualquier clasificación general pertinente y que define con precisión ambos elementos</li>
             <br/>
-            <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>setState("seleccion")}
-            ></CustomButton>   
+            <Grid container justify="center">
+              <WaisWiscReturnButton
+                msj="Retroceder"
+                callback={()=>props.setBody("WISC-selection")}
+              ></WaisWiscReturnButton>
+              <CustomButton
+                msj="Iniciar subprueba"
+                callback={()=>setState("seleccion")}
+              ></CustomButton>
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -286,7 +295,11 @@ function Semejanzas(props) {
             <CustomButton
             msj="Estímulo 5"
             callback={()=>imagenInit(5)}
-            ></CustomButton>       
+            ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState("instruccion")}
+          ></WaisWiscReturnButton>
           </div>
         )
         case "ejemplo":
@@ -486,6 +499,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

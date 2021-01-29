@@ -50,7 +50,7 @@ const sources = ["attentionTest","cognitiveTest",
 
 
 const testDev ={
-  attentionTest: ["Prueba de STROOP"],
+  attentionTest: ["Prueba de STROOP","Prueba de los Cinco Dígitos"],
   cognitiveTest : ["Prueba de Zung"],
   intelligenceTests : ["WAIS IV", "WISC IV"],
   learningTests:[],

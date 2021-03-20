@@ -11,6 +11,8 @@ CREATE TABLE doctor(
     password TEXT NOT NULL
 );
 
+INSERT INTO doctor values(1234,'Test','Test','1234');
+
 
 DROP TABLE IF EXISTS patient CASCADE;
 CREATE TABLE patient(
@@ -18,16 +20,20 @@ CREATE TABLE patient(
 	name VARCHAR(30) NOT NULL,
 	surname VARCHAR(30) NOT NULL,
     gender CHAR(1) NOT NULL,
-    city  VARCHAR(20) NOT NULL,
+    actual_city  VARCHAR(20) NOT NULL,
+	born_city  VARCHAR(20) NOT NULL,
     birth_date DATE NOT NULL,
 CHECK(gender IN ('M','F','N'))
 );
 
+
+INSERT INTO patient values(1234,'Test','Test','M','Cali','Bogota','02-05-1999');
+
 /*background-New table*/
 DROP TABLE IF EXISTS background CASCADE;
 CREATE TABLE background(
+	id_background SERIAL PRIMARY KEY,
 	id_patient BIGINT REFERENCES patient(id_patient),
-	id_test SERIAL PRIMARY KEY,
 	head_trauma BOOLEAN NOT NULL,
 	prenatal_trauma BOOLEAN NOT NULL,
 	meningitis BOOLEAN NOT NULL,
@@ -48,6 +54,14 @@ CREATE TABLE background(
 	alcoholism BOOLEAN NOT NULL
 );
 
+
+INSERT INTO background (id_patient,	head_trauma,prenatal_trauma,
+meningitis,premature_birth,narcotics,asthma,earache,sinusitis,rhinitis,
+pneumothorax,tuberculosis,heart_problems,renal_problems,bone_problems,
+epidermal_problems,high_blood_pressure,smoking,alcoholism) 
+values(1234, true, true, true, true, true, true, 
+true, true, true, true, true, true, true, true, true, true, true, true);
+
 /*CRISIS-NEW TABLE*/
 DROP TABLE IF EXISTS crisis CASCADE;
 CREATE TABLE crisis(
@@ -55,12 +69,18 @@ CREATE TABLE crisis(
 	type TEXT NOT NULL
 );
 
+INSERT INTO crisis (id_crisis,type) values(0000,'crisis_test');
+
+
 DROP TABLE IF EXISTS crisis_per_patient CASCADE;
 CREATE TABLE crisis_per_patient(
 	id_patient BIGINT REFERENCES patient(id_patient),
 	id_crisis INT REFERENCES crisis(id_crisis),
-	frequency  INT NOT NULL
+	frequency  INT NOT NULL,
+	insert_date DATE NOT NULL
 );
+
+INSERT INTO crisis_per_patient values(1234,0000,5);
 
 /*medication-new*/
 DROP TABLE IF EXISTS medication CASCADE;
@@ -69,13 +89,9 @@ CREATE TABLE medication(
 	medicine TEXT NOT NULL
 );
 
-/*Side effects-new*/
-DROP TABLE IF EXISTS side_effects CASCADE;
-CREATE TABLE side_effects(
-	id_medication INT REFERENCES medication(id_medication),
-	id_effect SERIAL PRIMARY KEY,
-	type TEXT NOT NULL
-);
+
+INSERT INTO medication values(1111,'TEST MEDICINE');
+
 
 /*cognitive disease - new*/
 DROP TABLE IF EXISTS cognitive_disease CASCADE;
@@ -85,11 +101,15 @@ CREATE TABLE cognitive_disease(
 	type TEXT NOT NULL
 );
 
+INSERT INTO cognitive_disease values(1234,3333,'PATATUS TEST DISEASE');
+
 DROP TABLE IF EXISTS medication_per_disease CASCADE;
 CREATE TABLE medication_per_disease(
 	id_medication INT REFERENCES medication(id_medication),
 	id_disease INT REFERENCES cognitive_disease(id_disease)
 );
+
+INSERT INTO medication_per_disease values(1111,3333);
 
 
 DROP TABLE IF EXISTS medication_per_patient_per_disease CASCADE;
@@ -97,17 +117,18 @@ CREATE TABLE medication_per_patient_per_disease(
 	id_medication INT REFERENCES medication(id_medication),
 	id_disease INT REFERENCES cognitive_disease(id_disease),
 	id_patient BIGINT REFERENCES patient(id_patient),
-	dosis INT NOT NULL,
-	start_date DATE NOT NULL,
-	end_date DATE NOT NULL
+	dosis INT NOT NULL
 );
+
+INSERT INTO medication_per_patient_per_disease values(1111,3333,1234, 10);
 
 DROP TABLE IF EXISTS cognitive_disease_per_patient CASCADE;
 CREATE TABLE cognitive_disease_per_patient(
 	id_disease INT REFERENCES cognitive_disease(id_disease),
-	id_patient BIGINT REFERENCES patient(id_patient),
-	start_date DATE NOT NULL
+	id_patient BIGINT REFERENCES patient(id_patient)
 );
+
+INSERT INTO cognitive_disease_per_patient values(3333,1234);
 
 
 /*****************************/
@@ -340,7 +361,3 @@ CREATE TABLE wais(
 	clues INT NOT NULL
 );
 /***************************************************/
-
-INSERT INTO patient values(1234,'Test','Test','M','Cali','02-05-1999')
-
-

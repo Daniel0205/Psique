@@ -1,5 +1,5 @@
 const initialState = {
-    body:"Prueba de los Cinco Dígitos"
+    body:"login"
   };
   
   function bodyReducer(state = initialState, action) {

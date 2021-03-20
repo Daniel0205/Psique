@@ -19,7 +19,11 @@ const Patient = db.define ('patient',{
         type: Sequelize.STRING(1),
         allowNull: false     
     },
-    city:{
+    actual_city:{
+        type: Sequelize.STRING(20),
+        allowNull: false     
+    },
+    born_city:{
         type: Sequelize.STRING(20),
         allowNull: false     
     },

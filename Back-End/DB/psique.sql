@@ -23,11 +23,16 @@ CREATE TABLE patient(
     actual_city  VARCHAR(20) NOT NULL,
 	born_city  VARCHAR(20) NOT NULL,
     birth_date DATE NOT NULL,
+	civil_state CHAR(1) NOT NULL,
+	scholarship TEXT NOT NULL,
+	handedness CHAR(1) NOT NULL,
+	socioeconomic_status INT NOT NULL,
+	update_date DATE NOT NULL
 CHECK(gender IN ('M','F','N'))
 );
 
 
-INSERT INTO patient values(1234,'Test','Test','M','Cali','Bogota','02-05-1999');
+INSERT INTO patient values(1234,'Test','Test','M','Cali','Bogota',TO_DATE('02/05/1999', 'DD/MM/YYYY'),'M','Universitario','D',2,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
 
 /*background-New table*/
 DROP TABLE IF EXISTS background CASCADE;
@@ -51,16 +56,17 @@ CREATE TABLE background(
 	epidermal_problems BOOLEAN NOT NULL,
 	high_blood_pressure BOOLEAN NOT NULL,
 	smoking BOOLEAN NOT NULL,
-	alcoholism BOOLEAN NOT NULL
+	alcoholism BOOLEAN NOT NULL,
+	update_date DATE NOT NULL
 );
 
 
 INSERT INTO background (id_patient,	head_trauma,prenatal_trauma,
 meningitis,premature_birth,narcotics,asthma,earache,sinusitis,rhinitis,
 pneumothorax,tuberculosis,heart_problems,renal_problems,bone_problems,
-epidermal_problems,high_blood_pressure,smoking,alcoholism) 
+epidermal_problems,high_blood_pressure,smoking,alcoholism,update_date) 
 values(1234, true, true, true, true, true, true, 
-true, true, true, true, true, true, true, true, true, true, true, true);
+true, true, true, true, true, true, true, true, true, true, true, true,TO_DATE('21/03/2021', 'DD/MM/YYYY'));
 
 /*CRISIS-NEW TABLE*/
 DROP TABLE IF EXISTS crisis CASCADE;
@@ -80,7 +86,7 @@ CREATE TABLE crisis_per_patient(
 	insert_date DATE NOT NULL
 );
 
-INSERT INTO crisis_per_patient values(1234,0000,5);
+INSERT INTO crisis_per_patient values(1234,0000,5,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
 
 /*medication-new*/
 DROP TABLE IF EXISTS medication CASCADE;
@@ -142,6 +148,9 @@ CREATE TABLE assessment(
 	end_date DATE,
 	is_active BOOLEAN	
 );
+
+
+INSERT INTO assessment values(5555,1234,1234,TO_DATE('20/03/2021', 'DD/MM/YYYY'),TO_DATE('20/03/2021', 'DD/MM/YYYY'),false);
 
 
 DROP TABLE IF EXISTS test CASCADE;

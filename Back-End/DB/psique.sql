@@ -11,7 +11,7 @@ CREATE TABLE doctor(
     password TEXT NOT NULL
 );
 
-INSERT INTO doctor values(1234,'Test','Test','1234');
+INSERT INTO "doctor" ("id_doctor","name","surname","password") VALUES (201629338,'Daniel','Diaz','$2b$12$ber4ypDSHtusrvk3Y0V/iORo/xUb5EJ8QWg/XOj4cyKAG1OZPa4t2'),(201626055,'Felipe','Gil','$2b$12$DGgFaeT3DdEIBJkztK2gw./yKjxFjI7I6MdM8uBTrk6YLtsv6srku'),(201670129,'Steban','Cadena','$2b$12$NBJnR3XWmMNU9JTkIH/P5e/fnyx.8zqi56IK9Eia7OLxz8VS1gFzy'),(1234,'Test','test','$2b$12$DADUOfvOT/WlrnJdm9HdQ.zIeVmBV6rsruOZKSyTJQ5tmHe.h1Imu') RETURNING "id_doctor","name","surname","password";
 
 
 DROP TABLE IF EXISTS patient CASCADE;

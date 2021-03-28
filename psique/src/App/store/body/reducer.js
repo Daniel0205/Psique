@@ -1,5 +1,5 @@
 const initialState = {
-    body:"login"
+    body:"assessment"
   };
   
   function bodyReducer(state = initialState, action) {

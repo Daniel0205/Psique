@@ -8,6 +8,18 @@ import { connect } from "react-redux";
 import SignIn from './App/components/signIn'
 import { gql,  useMutation } from '@apollo/client';
 
+import cubejs from '@cubejs-client/core';
+import { CubeProvider } from '@cubejs-client/react';
+
+const API_URL = 'http://localhost:4000';
+const CUBEJS_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTU5NTk5ODEsImV4cCI6MTYxNjA0NjM4MX0.CBd2b37zrJrxsfrnA_kyjmIdh02SlJZM48RWLpp2Ha0';
+
+
+const cubejsApi = cubejs(CUBEJS_TOKEN, {
+  apiUrl: `${API_URL}/cubejs-api/v1`,
+});
+
 const ID_QUERY = gql`
   mutation($token:String!) {
     getId(token:$token) {
@@ -38,6 +50,8 @@ function App(props) {
     switch (props.body) {
       case 'login':
         return <Redirect to="/login" />
+      case 'dashboard':
+        return <Redirect to="/dashboard" />
       case 'init':
         return <Redirect to="/home" />
       case "assessment":
@@ -130,60 +144,63 @@ function App(props) {
   }
 
   return (
-    
-    <Router>
-
-      {body()}            
-      <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
-      <Route exact path="/startAssessment"  component={()=><Sidenav body={"assessment"}></Sidenav>} />
-
-      <Route exact path="/login" component={SignIn} />
+    <CubeProvider cubejsApi={cubejsApi}>
       
-      <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
-      <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
-      <Route exact path="/test/wisc/baremos" component={()=><Sidenav body={"WISC IV"} subtest={"baremos"}></Sidenav>} />
-      <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estímulos*/}
-      <Route exact path="/test/wisc/cubos" component={()=><Sidenav body={"WISC IV"} subtest={"Cubos"}></Sidenav>} />
-      <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />{/*Estímulos*/}
-      <Route exact path="/test/wisc/concepto" component={()=><Sidenav body={"WISC IV"} subtest={"Conceptos con dibujos"}></Sidenav>} />{/*Estímulos*/}
-      <Route exact path="/test/wisc/pistas" component={()=><Sidenav body={"WISC IV"} subtest={"Pistas"}></Sidenav>} /> {/*Manual*/}
-      <Route exact path="/test/wisc/numerosLetras" component={()=><Sidenav body={"WISC IV"} subtest={"Sucesion de numeros y letras"}></Sidenav>} /> {/*Manual*/}
-      <Route exact path="/test/wisc/semejanzas" component={()=><Sidenav body={"WISC IV"} subtest={"Semejanzas"}></Sidenav>} />
-      <Route exact path="/test/wisc/matrices" component={()=><Sidenav body={"WISC IV"} subtest={"Matrices"}></Sidenav>} />
-      <Route exact path="/test/wisc/vocabulario" component={()=><Sidenav body={"WISC IV"} subtest={"Vocabulario"}></Sidenav>} />
-      <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Dígitos"}></Sidenav>} />
-      <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmética"}></Sidenav>} />
-      <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprensión"}></Sidenav>} />
-      <Route exact path="/test/wisc/claves" component={()=><Sidenav body={"WISC IV"} subtest={"Claves"}></Sidenav>} />
-      <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Búsqueda de símbolos"}></Sidenav>} />
-      <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Información"}></Sidenav>} />
-      
-      <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
-      <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
-      <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
-      <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Números"}></Sidenav>} /> {/*Manual*/}
-      <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estímulos*/}
-      <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelación"}></Sidenav>} />{/*Manual*/}
-      <Route exact path="/test/wais/comprension" component={()=><Sidenav body={"WAIS IV"} subtest={"Comprensión"}></Sidenav>} />{/*Manual*/}
-      <Route exact path="/test/wais/balanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Balanzas"}></Sidenav>} />{/*Manual*/}
-      <Route exact path="/test/wais/cubos" component={()=><Sidenav body={"WAIS IV"} subtest={"Cubos"}></Sidenav>} />
-      <Route exact path="/test/wais/semejanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Semejanzas"}></Sidenav>} />
-      <Route exact path="/test/wais/matrices" component={()=><Sidenav body={"WAIS IV"} subtest={"Matrices"}></Sidenav>} />
-      <Route exact path="/test/wais/vocabulario" component={()=><Sidenav body={"WAIS IV"} subtest={"Vocabulario"}></Sidenav>} />
-      <Route exact path="/test/wais/digitos" component={()=><Sidenav body={"WAIS IV"} subtest={"Dígitos"}></Sidenav>} />
-      <Route exact path="/test/wais/aritmetica" component={()=><Sidenav body={"WAIS IV"} subtest={"Aritmética"}></Sidenav>} />
-      <Route exact path="/test/wais/clavesNumeros" component={()=><Sidenav body={"WAIS IV"} subtest={"Clave de Números"}></Sidenav>} />
-      <Route exact path="/test/wais/busquedaSimbolos" component={()=><Sidenav body={"WAIS IV"} subtest={"Búsqueda de Símbolos"}></Sidenav>} />
-      <Route exact path="/test/wais/informacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Información"}></Sidenav>} />
-      <Route exact path="/test/wais/pluzlesVisuales" component={()=><Sidenav body={"WAIS IV"} subtest={"Puzles Visuales"}></Sidenav>} />
-      
-      <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
-      <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
-      <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />
-      <Route exact path="/test/wada" component={()=><Sidenav body={"Wada"}></Sidenav>} />
-      <Route exact path="/test/digits" component={()=><Sidenav body={"Prueba de los Cinco Dígitos"}></Sidenav>} />
+      <Router>
 
-  </Router>
+        {body()}            
+        <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
+        <Route exact path="/startAssessment"  component={()=><Sidenav body={"assessment"}></Sidenav>} />
+
+        <Route exact path="/login" component={SignIn} />
+        
+        <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
+        <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
+        <Route exact path="/test/wisc/baremos" component={()=><Sidenav body={"WISC IV"} subtest={"baremos"}></Sidenav>} />
+        <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estímulos*/}
+        <Route exact path="/test/wisc/cubos" component={()=><Sidenav body={"WISC IV"} subtest={"Cubos"}></Sidenav>} />
+        <Route exact path="/test/wisc/registros" component={()=><Sidenav body={"WISC IV"} subtest={"Registros"}></Sidenav>} />{/*Estímulos*/}
+        <Route exact path="/test/wisc/concepto" component={()=><Sidenav body={"WISC IV"} subtest={"Conceptos con dibujos"}></Sidenav>} />{/*Estímulos*/}
+        <Route exact path="/test/wisc/pistas" component={()=><Sidenav body={"WISC IV"} subtest={"Pistas"}></Sidenav>} /> {/*Manual*/}
+        <Route exact path="/test/wisc/numerosLetras" component={()=><Sidenav body={"WISC IV"} subtest={"Sucesion de numeros y letras"}></Sidenav>} /> {/*Manual*/}
+        <Route exact path="/test/wisc/semejanzas" component={()=><Sidenav body={"WISC IV"} subtest={"Semejanzas"}></Sidenav>} />
+        <Route exact path="/test/wisc/matrices" component={()=><Sidenav body={"WISC IV"} subtest={"Matrices"}></Sidenav>} />
+        <Route exact path="/test/wisc/vocabulario" component={()=><Sidenav body={"WISC IV"} subtest={"Vocabulario"}></Sidenav>} />
+        <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Dígitos"}></Sidenav>} />
+        <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmética"}></Sidenav>} />
+        <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprensión"}></Sidenav>} />
+        <Route exact path="/test/wisc/claves" component={()=><Sidenav body={"WISC IV"} subtest={"Claves"}></Sidenav>} />
+        <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Búsqueda de símbolos"}></Sidenav>} />
+        <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Información"}></Sidenav>} />
+        
+        <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
+        <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
+        <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
+        <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Números"}></Sidenav>} /> {/*Manual*/}
+        <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estímulos*/}
+        <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelación"}></Sidenav>} />{/*Manual*/}
+        <Route exact path="/test/wais/comprension" component={()=><Sidenav body={"WAIS IV"} subtest={"Comprensión"}></Sidenav>} />{/*Manual*/}
+        <Route exact path="/test/wais/balanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Balanzas"}></Sidenav>} />{/*Manual*/}
+        <Route exact path="/test/wais/cubos" component={()=><Sidenav body={"WAIS IV"} subtest={"Cubos"}></Sidenav>} />
+        <Route exact path="/test/wais/semejanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Semejanzas"}></Sidenav>} />
+        <Route exact path="/test/wais/matrices" component={()=><Sidenav body={"WAIS IV"} subtest={"Matrices"}></Sidenav>} />
+        <Route exact path="/test/wais/vocabulario" component={()=><Sidenav body={"WAIS IV"} subtest={"Vocabulario"}></Sidenav>} />
+        <Route exact path="/test/wais/digitos" component={()=><Sidenav body={"WAIS IV"} subtest={"Dígitos"}></Sidenav>} />
+        <Route exact path="/test/wais/aritmetica" component={()=><Sidenav body={"WAIS IV"} subtest={"Aritmética"}></Sidenav>} />
+        <Route exact path="/test/wais/clavesNumeros" component={()=><Sidenav body={"WAIS IV"} subtest={"Clave de Números"}></Sidenav>} />
+        <Route exact path="/test/wais/busquedaSimbolos" component={()=><Sidenav body={"WAIS IV"} subtest={"Búsqueda de Símbolos"}></Sidenav>} />
+        <Route exact path="/test/wais/informacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Información"}></Sidenav>} />
+        <Route exact path="/test/wais/pluzlesVisuales" component={()=><Sidenav body={"WAIS IV"} subtest={"Puzles Visuales"}></Sidenav>} />
+        
+        <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
+        <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
+        <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />
+        <Route exact path="/test/wada" component={()=><Sidenav body={"Wada"}></Sidenav>} />
+        <Route exact path="/test/digits" component={()=><Sidenav body={"Prueba de los Cinco Dígitos"}></Sidenav>} />
+
+        <Route exact path="/dashboard" component={()=><Sidenav body={"dashboard"}></Sidenav>} />
+      </Router>
+    </CubeProvider>
   );
 }
 

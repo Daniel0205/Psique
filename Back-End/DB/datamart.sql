@@ -6,27 +6,28 @@
 DROP TABLE IF EXISTS demographic CASCADE;
 CREATE TABLE demographic(
 	id_demographic BIGINT UNIQUE NOT NULL,
-	update_date DATE NOT NULL,
+	update_date BIGINT NOT NULL,
     gender CHAR(1) NOT NULL,
     born_city  VARCHAR(20) NOT NULL,
 	actual_city  VARCHAR(20) NOT NULL,
+	civil_state CHAR(1) NOT NULL,
 	socioeconomic_status INT NOT NULL,
     age INT NOT NULL,
 	handedness CHAR(1) NOT NULL,
-	scholarship CHAR(1) NOT NULL,
+	scholarship TEXT NOT NULL,
 	PRIMARY KEY(id_demographic, update_date)
 );
 
-INSERT INTO demographic values(1111,TO_DATE('20/05/2019', 'DD/MM/YYYY'),'M','Cali','Medellin',2,19,'L','T');
-INSERT INTO demographic values(2222,TO_DATE('20/05/2019', 'DD/MM/YYYY'),'F','Bogota','Bogota',3,23,'R','U');
-INSERT INTO demographic values(3333,TO_DATE('20/05/2019', 'DD/MM/YYYY'),'N','Medellin','Pasto',4,22,'L','B');
+INSERT INTO demographic values(1111,20190520,'M','Cali','Medellin','S',2,19,'L','T');
+INSERT INTO demographic values(2222,20190520,'F','Bogota','Bogota','C',3,23,'R','U');
+INSERT INTO demographic values(3333,20190520,'N','Medellin','Pasto','D',4,22,'L','B');
 
 
 
 DROP TABLE IF EXISTS background CASCADE;
 CREATE TABLE background(
 	id_background BIGINT UNIQUE NOT NULL,
-	update_date DATE NOT NULL,
+	update_date BIGINT NOT NULL,
 	head_trauma BOOLEAN NOT NULL,
 	prenatal_trauma BOOLEAN NOT NULL,
 	meningitis BOOLEAN NOT NULL,
@@ -49,14 +50,14 @@ CREATE TABLE background(
 );
 
 
-INSERT INTO background values(3333,TO_DATE('20/05/2019', 'DD/MM/YYYY'),false,false,false,false,false,false,false,false,false,
+INSERT INTO background values(3333,20190520,false,false,false,false,false,false,false,false,false,
 										 false,false,false,false,false,false,false,false,false);
 
-INSERT INTO background values(1111,TO_DATE('20/05/2019', 'DD/MM/YYYY'),true,true,true,true,true,true,true,true,true,
+INSERT INTO background values(1111,20190520,true,true,true,true,true,true,true,true,true,
 										 true,true,true,true,true,true,true,true,true);
 
 
-INSERT INTO background values(2222,TO_DATE('20/05/2019', 'DD/MM/YYYY'),true,true,true,true,true,true,true,true,true,
+INSERT INTO background values(2222,20190520,true,true,true,true,true,true,true,true,true,
 									false,false,false,false,false,false,false,false,false);
 
 DROP TABLE IF EXISTS crisis CASCADE;
@@ -105,30 +106,30 @@ INSERT INTO date values(3333,30,12,2012);
 
 DROP TABLE IF EXISTS neuropsychological_assessment CASCADE;
 CREATE TABLE neuropsychological_assessment(
-	id_assessment INT NOT NULL,
+	id_assessment INT PRIMARY KEY,
 	id_background INT NOT NULL,
+	id_background_date INT NOT NULL,
 	id_demographic INT NOT NULL,
-	id_crisis INT NOT NULL,
+	id_demographic_date INT NOT NULL,
 	id_disease INT NOT NULL,
-	id_medicine INT NOT NULL,
+	id_medication INT NOT NULL,
 	id_date INT NOT NULL,
-	iq INT NOT NULL,
-	executive_functions INT NOT NULL,
-	language INT NOT NULL,
-	visuospatial INT NOT NULL,
-	memory INT NOT NULL,
-	FOREIGN KEY(id_background) REFERENCES background(id_background),
-	FOREIGN KEY(id_demographic) REFERENCES demographic(id_demographic),
-	FOREIGN KEY(id_crisis) REFERENCES crisis(id_crisis),
+	iq INT ,
+	executive_functions INT ,
+	language INT,
+	visuospatial INT,
+	memory INT,
+	FOREIGN KEY(id_background,id_background_date) REFERENCES background(id_background,update_date),
+	FOREIGN KEY(id_demographic,id_demographic_date) REFERENCES demographic(id_demographic,update_date),
 	FOREIGN KEY(id_disease) REFERENCES cognitive_disease(id_disease),
-	FOREIGN KEY(id_medicine) REFERENCES medication(id_medication)
+	FOREIGN KEY(id_medication) REFERENCES medication(id_medication)
 );
 
 
-INSERT INTO neuropsychological_assessment values(1,1111,1111,1111,1111,1111,1111,1,1,1,1,1);
-INSERT INTO neuropsychological_assessment values(2,2222,2222,2222,2222,2222,1111,2,2,2,2,2);
-INSERT INTO neuropsychological_assessment values(3,3333,3333,3333,3333,3333,1111,3,3,3,3,3);
-INSERT INTO neuropsychological_assessment values(4,1111,1111,3333,3333,3333,2222,3,3,3,3,3);
-INSERT INTO neuropsychological_assessment values(5,1111,1111,2222,2222,3333,2222,3,3,3,3,3);
-INSERT INTO neuropsychological_assessment values(6,2222,2222,1111,2222,3333,3333,3,3,3,3,3);
-INSERT INTO neuropsychological_assessment values(7,3333,2222,3333,2222,3333,3333,3,3,3,3,3);
+INSERT INTO neuropsychological_assessment values(1,1111,20190520,1111,20190520,1111,1111,1111,1,1,1,1,1);
+INSERT INTO neuropsychological_assessment values(2,2222,20190520,2222,20190520,2222,2222,1111,2,2,2,2,2);
+INSERT INTO neuropsychological_assessment values(3,3333,20190520,3333,20190520,3333,3333,1111,3,3,3,3,3);
+INSERT INTO neuropsychological_assessment values(4,1111,20190520,1111,20190520,3333,3333,2222,3,3,3,3,3);
+INSERT INTO neuropsychological_assessment values(5,1111,20190520,1111,20190520,2222,3333,2222,3,3,3,3,3);
+INSERT INTO neuropsychological_assessment values(6,2222,20190520,2222,20190520,2222,3333,3333,3,3,3,3,3);
+INSERT INTO neuropsychological_assessment values(7,3333,20190520,2222,20190520,2222,3333,3333,3,3,3,3,3);

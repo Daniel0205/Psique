@@ -15,7 +15,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import HomeIcon from '@material-ui/icons/Home';
 import ListItemText from '@material-ui/core/ListItemText';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import DescriptionIcon from '@material-ui/icons/Description';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import GestureIcon from '@material-ui/icons/Gesture';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -215,9 +215,13 @@ function Header(props) {
             <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
         </ListItem>
-        <ListItem button >
-            <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
-            <ListItemText primary={"Informes"} />
+        <ListItem button onClick={()=>{
+              localStorage.clear();
+              props.setDoctor(null)
+              props.setBody("dashboard")
+            }}>
+            <ListItemIcon className={classes.buttonDrawer}><DashboardIcon/></ListItemIcon>
+            <ListItemText primary={"Dashboard"} />
         </ListItem>
         <ListItem button >
             <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>

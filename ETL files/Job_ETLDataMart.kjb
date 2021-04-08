@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job>
+  <name>Job_createTables</name>
+  <description/>
+  <extended_description/>
+  <job_version/>
+  <job_status>0</job_status>
+  <directory>/</directory>
+  <created_user>-</created_user>
+  <created_date>2021/02/20 18:40:06.020</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2021/02/20 18:40:06.020</modified_date>
+  <parameters>
+    </parameters>
+  <connection>
+    <name>PsiqueDM</name>
+    <server>ec2-34-194-215-27.compute-1.amazonaws.com</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>dc0kg23ostrssl</database>
+    <port>5432</port>
+    <username>mujbzernpmbhqb</username>
+    <password>Encrypted 3563323634343136373636356533396563643833306365346436383066383230326138313039363932316437393566328ea198f8089696d7f84cfc208fc2f783</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>5432</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <slaveservers>
+    </slaveservers>
+  <job-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <size_limit_lines/>
+    <interval/>
+    <timeout_days/>
+    <field>
+      <id>ID_JOB</id>
+      <enabled>Y</enabled>
+      <name>ID_JOB</name>
+    </field>
+    <field>
+      <id>CHANNEL_ID</id>
+      <enabled>Y</enabled>
+      <name>CHANNEL_ID</name>
+    </field>
+    <field>
+      <id>JOBNAME</id>
+      <enabled>Y</enabled>
+      <name>JOBNAME</name>
+    </field>
+    <field>
+      <id>STATUS</id>
+      <enabled>Y</enabled>
+      <name>STATUS</name>
+    </field>
+    <field>
+      <id>LINES_READ</id>
+      <enabled>Y</enabled>
+      <name>LINES_READ</name>
+    </field>
+    <field>
+      <id>LINES_WRITTEN</id>
+      <enabled>Y</enabled>
+      <name>LINES_WRITTEN</name>
+    </field>
+    <field>
+      <id>LINES_UPDATED</id>
+      <enabled>Y</enabled>
+      <name>LINES_UPDATED</name>
+    </field>
+    <field>
+      <id>LINES_INPUT</id>
+      <enabled>Y</enabled>
+      <name>LINES_INPUT</name>
+    </field>
+    <field>
+      <id>LINES_OUTPUT</id>
+      <enabled>Y</enabled>
+      <name>LINES_OUTPUT</name>
+    </field>
+    <field>
+      <id>LINES_REJECTED</id>
+      <enabled>Y</enabled>
+      <name>LINES_REJECTED</name>
+    </field>
+    <field>
+      <id>ERRORS</id>
+      <enabled>Y</enabled>
+      <name>ERRORS</name>
+    </field>
+    <field>
+      <id>STARTDATE</id>
+      <enabled>Y</enabled>
+      <name>STARTDATE</name>
+    </field>
+    <field>
+      <id>ENDDATE</id>
+      <enabled>Y</enabled>
+      <name>ENDDATE</name>
+    </field>
+    <field>
+      <id>LOGDATE</id>
+      <enabled>Y</enabled>
+      <name>LOGDATE</name>
+    </field>
+    <field>
+      <id>DEPDATE</id>
+      <enabled>Y</enabled>
+      <name>DEPDATE</name>
+    </field>
+    <field>
+      <id>REPLAYDATE</id>
+      <enabled>Y</enabled>
+      <name>REPLAYDATE</name>
+    </field>
+    <field>
+      <id>LOG_FIELD</id>
+      <enabled>Y</enabled>
+      <name>LOG_FIELD</name>
+    </field>
+    <field>
+      <id>EXECUTING_SERVER</id>
+      <enabled>N</enabled>
+      <name>EXECUTING_SERVER</name>
+    </field>
+    <field>
+      <id>EXECUTING_USER</id>
+      <enabled>N</enabled>
+      <name>EXECUTING_USER</name>
+    </field>
+    <field>
+      <id>START_JOB_ENTRY</id>
+      <enabled>N</enabled>
+      <name>START_JOB_ENTRY</name>
+    </field>
+    <field>
+      <id>CLIENT</id>
+      <enabled>N</enabled>
+      <name>CLIENT</name>
+    </field>
+  </job-log-table>
+  <jobentry-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+    <field>
+      <id>ID_BATCH</id>
+      <enabled>Y</enabled>
+      <name>ID_BATCH</name>
+    </field>
+    <field>
+      <id>CHANNEL_ID</id>
+      <enabled>Y</enabled>
+      <name>CHANNEL_ID</name>
+    </field>
+    <field>
+      <id>LOG_DATE</id>
+      <enabled>Y</enabled>
+      <name>LOG_DATE</name>
+    </field>
+    <field>
+      <id>JOBNAME</id>
+      <enabled>Y</enabled>
+      <name>TRANSNAME</name>
+    </field>
+    <field>
+      <id>JOBENTRYNAME</id>
+      <enabled>Y</enabled>
+      <name>STEPNAME</name>
+    </field>
+    <field>
+      <id>LINES_READ</id>
+      <enabled>Y</enabled>
+      <name>LINES_READ</name>
+    </field>
+    <field>
+      <id>LINES_WRITTEN</id>
+      <enabled>Y</enabled>
+      <name>LINES_WRITTEN</name>
+    </field>
+    <field>
+      <id>LINES_UPDATED</id>
+      <enabled>Y</enabled>
+      <name>LINES_UPDATED</name>
+    </field>
+    <field>
+      <id>LINES_INPUT</id>
+      <enabled>Y</enabled>
+      <name>LINES_INPUT</name>
+    </field>
+    <field>
+      <id>LINES_OUTPUT</id>
+      <enabled>Y</enabled>
+      <name>LINES_OUTPUT</name>
+    </field>
+    <field>
+      <id>LINES_REJECTED</id>
+      <enabled>Y</enabled>
+      <name>LINES_REJECTED</name>
+    </field>
+    <field>
+      <id>ERRORS</id>
+      <enabled>Y</enabled>
+      <name>ERRORS</name>
+    </field>
+    <field>
+      <id>RESULT</id>
+      <enabled>Y</enabled>
+      <name>RESULT</name>
+    </field>
+    <field>
+      <id>NR_RESULT_ROWS</id>
+      <enabled>Y</enabled>
+      <name>NR_RESULT_ROWS</name>
+    </field>
+    <field>
+      <id>NR_RESULT_FILES</id>
+      <enabled>Y</enabled>
+      <name>NR_RESULT_FILES</name>
+    </field>
+    <field>
+      <id>LOG_FIELD</id>
+      <enabled>N</enabled>
+      <name>LOG_FIELD</name>
+    </field>
+    <field>
+      <id>COPY_NR</id>
+      <enabled>N</enabled>
+      <name>COPY_NR</name>
+    </field>
+  </jobentry-log-table>
+  <channel-log-table>
+    <connection/>
+    <schema/>
+    <table/>
+    <timeout_days/>
+    <field>
+      <id>ID_BATCH</id>
+      <enabled>Y</enabled>
+      <name>ID_BATCH</name>
+    </field>
+    <field>
+      <id>CHANNEL_ID</id>
+      <enabled>Y</enabled>
+      <name>CHANNEL_ID</name>
+    </field>
+    <field>
+      <id>LOG_DATE</id>
+      <enabled>Y</enabled>
+      <name>LOG_DATE</name>
+    </field>
+    <field>
+      <id>LOGGING_OBJECT_TYPE</id>
+      <enabled>Y</enabled>
+      <name>LOGGING_OBJECT_TYPE</name>
+    </field>
+    <field>
+      <id>OBJECT_NAME</id>
+      <enabled>Y</enabled>
+      <name>OBJECT_NAME</name>
+    </field>
+    <field>
+      <id>OBJECT_COPY</id>
+      <enabled>Y</enabled>
+      <name>OBJECT_COPY</name>
+    </field>
+    <field>
+      <id>REPOSITORY_DIRECTORY</id>
+      <enabled>Y</enabled>
+      <name>REPOSITORY_DIRECTORY</name>
+    </field>
+    <field>
+      <id>FILENAME</id>
+      <enabled>Y</enabled>
+      <name>FILENAME</name>
+    </field>
+    <field>
+      <id>OBJECT_ID</id>
+      <enabled>Y</enabled>
+      <name>OBJECT_ID</name>
+    </field>
+    <field>
+      <id>OBJECT_REVISION</id>
+      <enabled>Y</enabled>
+      <name>OBJECT_REVISION</name>
+    </field>
+    <field>
+      <id>PARENT_CHANNEL_ID</id>
+      <enabled>Y</enabled>
+      <name>PARENT_CHANNEL_ID</name>
+    </field>
+    <field>
+      <id>ROOT_CHANNEL_ID</id>
+      <enabled>Y</enabled>
+      <name>ROOT_CHANNEL_ID</name>
+    </field>
+  </channel-log-table>
+  <pass_batchid>N</pass_batchid>
+  <shared_objects_file/>
+  <entries>
+    <entry>
+      <name>SQL</name>
+      <description/>
+      <type>SQL</type>
+      <attributes/>
+      <sql>/***********************************************************************************
+------------------------------------------------------------------------------------
+-------------------------------DEFINICION DE TABLAS---------------------------------
+------------------------------------------------------------------------------------
+***********************************************************************************/
+DROP TABLE IF EXISTS demographic CASCADE;
+CREATE TABLE demographic(
+	id_demographic SERIAL PRIMARY KEY,	
+	name VARCHAR(30) NOT NULL,
+	surname VARCHAR(30) NOT NULL,
+    gender CHAR(1) NOT NULL,
+    city  VARCHAR(20) NOT NULL,
+    age INT NOT NULL
+);
+
+DROP TABLE IF EXISTS background CASCADE;
+CREATE TABLE background(
+	id_background SERIAL PRIMARY KEY,
+	head_trauma BOOLEAN NOT NULL,
+	prenatal_trauma BOOLEAN NOT NULL,
+	meningitis BOOLEAN NOT NULL,
+	premature_birth BOOLEAN NOT NULL,
+	narcotics BOOLEAN NOT NULL,
+	asthma BOOLEAN NOT NULL,
+	earache BOOLEAN NOT NULL,
+	sinusitis BOOLEAN NOT NULL,
+	rhinitis BOOLEAN NOT NULL,
+	pneumothorax BOOLEAN NOT NULL,
+	tuberculosis BOOLEAN NOT NULL,
+	heart_problems BOOLEAN NOT NULL,
+	renal_problems BOOLEAN NOT NULL,
+	bone_problems BOOLEAN NOT NULL,
+	epidermal_problems BOOLEAN NOT NULL,
+	high_blood_pressure BOOLEAN NOT NULL,
+	smoking BOOLEAN NOT NULL,
+	alcoholism BOOLEAN NOT NULL
+);
+
+DROP TABLE IF EXISTS crisis CASCADE;
+CREATE TABLE crisis(
+	id_crisis SERIAL PRIMARY KEY,
+	frequency  INT NOT NULL,
+	type VARCHAR(30) NOT NULL
+);
+
+DROP TABLE IF EXISTS cognitive_disease CASCADE;
+CREATE TABLE cognitive_disease(
+	id_disease SERIAL PRIMARY KEY,
+	type VARCHAR(30) NOT NULL,
+	start_date DATE NOT NULL
+);
+
+DROP TABLE IF EXISTS side_effects CASCADE;
+CREATE TABLE side_effects(
+	id_side_effect SERIAL PRIMARY KEY,
+	type TEXT NOT NULL
+);
+
+DROP TABLE IF EXISTS medication CASCADE;
+CREATE TABLE medication(
+	id_medication SERIAL PRIMARY KEY,
+	medicine VARCHAR(30) NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL
+);
+
+
+DROP TABLE IF EXISTS neuropsychological_assessment CASCADE;
+CREATE TABLE neuropsychological_assessment(
+	id_background INT NOT NULL,
+	id_demographic INT NOT NULL,
+	id_crisis INT NOT NULL,
+	id_disease INT NOT NULL,
+	id_medicine INT NOT NULL,
+	id_side_effect INT NOT NULL,
+	iq INT NOT NULL,
+	executive_functions INT NOT NULL,
+	language INT NOT NULL,
+	visuospatial INT NOT NULL,
+	memory INT NOT NULL,
+	FOREIGN KEY(id_background) REFERENCES background(id_background),
+	FOREIGN KEY(id_demographic) REFERENCES demographic(id_demographic),
+	FOREIGN KEY(id_crisis) REFERENCES crisis(id_crisis),
+	FOREIGN KEY(id_disease) REFERENCES cognitive_disease(id_disease),
+	FOREIGN KEY(id_medicine) REFERENCES medication(id_medication),
+	FOREIGN KEY(id_side_effect) REFERENCES side_effects(id_side_effect)
+);</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>T</sendOneStatement>
+      <connection>PsiqueDM</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>256</xloc>
+      <yloc>224</yloc>
+      <attributes_kjc/>
+    </entry>
+  </entries>
+  <hops>
+  </hops>
+  <notepads>
+  </notepads>
+  <attributes/>
+</job>

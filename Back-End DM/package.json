@@ -1,0 +1,21 @@
+{
+  "name": "hello-world",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "./node_modules/.bin/cubejs-server"
+  },
+  "template": "docker",
+  "templateVersion": "0.26.71",
+  "devDependencies": {
+    "@cubejs-backend/cubestore-driver": "^0.26.71",
+    "@cubejs-backend/postgres-driver": "^0.26.69",
+    "@cubejs-backend/server": "^0.26.71"
+  },
+  "dependencies": {
+    "@cubejs-client/core": "^0.26.70",
+    "@cubejs-client/ngx": "^0.26.61",
+    "@cubejs-client/react": "^0.26.70",
+    "@cubejs-client/vue": "^0.26.70"
+  }
+}

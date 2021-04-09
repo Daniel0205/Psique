@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import update from 'react-addons-update';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,29 +8,31 @@ import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
 const NUMBER_STIMULI = 18
 
-let clues =["Porque la gente lleva reloj?",
-            "Porque lavamos la ropa?",
-            "Que deberia hacer usted  si se encuentra en la calle un sobre cerrado con la direccion escrita y el sello sin usar?",
-            "Porque nos interesamos, cada vez mas en las energias renovables?",
-            "Digame algunas razones por las que es importante que un pais tenga buenas relaciones con otro pais.",
-            "Que interes puede tener un inventor en patentar una idea?",
-            "Porque hay museos?",
-            "Porque se necesita receta para comprar ciertos medicamentos?",
-            "Porque fue importante, para algunas civilizaciones,la creacion  de la escritura?",
-            "Porque es importante para la mayoria de la gente, tener amigos?",
+let clues =["¿Por qué la gente lleva reloj?",
+            "¿Por qué lavamos la ropa?",
+            "¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
+            "¿Por qué nos interesamos, cada vez mas en las energías renovables?",
+            "Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
+            "¿Qué interes puede tener un inventor en patentar una idea?",
+            "¿Por qué hay museos?",
+            "¿Por qué se necesita receta para comprar ciertos medicamentos?",
+            "¿Por qué fue importante, para algunas civilizaciones,la creación  de la escritura?",
+            "¿Por qué es importante para la mayoria de la gente, tener amigos?",
             "Digame algunas razones por las que algunas personas piensan que deberiamos explorar el espacio.",
-            "Porque es importante el estudio de la historia?",
-            "Porque exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al publico?",
-            "Que quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
-            "Porque algunas personas piensan que es importante proteger a los animales en peligro de extincion?",
-            "Porque cuesta mas un terreno en la ciudad que en el campo?",
+            "¿Por qué es importante el estudio de la historia?",
+            "¿Por qué exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al público?",
+            "¿Qué quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
+            "¿Por qué algunas personas piensan que es importante proteger a los animales en peligro de extinción?",
+            "¿Por qué cuesta mas un terreno en la ciudad que en el campo?",
             "Digame algunas razones por las que conviene  que haya un regimen de libertad condicional.",
-            "Que quiere decir el refran \"una golondrina no hace verano\"",]
+            "¿Qué quiere decir el refran \"una golondrina no hace verano\"",]
 
 
 
@@ -68,7 +71,7 @@ let mediumAnswer =["Concepto general de estetica \nPara ir a la moda/ Por estét
                   "Una respuesta que indique uno de los conceptos generales anteriores",
                   "Concepto general que haga referencia a la persistencia sin referencia clara al fracaso \nAprender de los errores (P)\nNo abandonar(P)\nSeguir intentándolo(P)",
                   "Concepto general que haga referencia a la importancia de los animales sin una referencia a la interdependencia de las especies\nLos animales pueden desaparecer(P)\nMantener las formas de vida (biodiversidad)(P)\nNo puedes destruir una especie \nDesaparecerían para siempre",
-                  "Concepto general que haga referencia vaga a una oferta limitada sin un a clara implicación de una mayor demanda, o viceversa\nEscasea en la ciudad/Menos terreno en la ciudad/Mayor demanda del terreno de la ciudad(P)\nPorque hay más ventajas en la ciudad: teatros, tiendas, transportes, servicios…[ mencion de  más de una ventaja en la ciudad] (p)\nHay (vive) más gente en la ciudad que en el campo (P)",
+                  "Concepto general que haga referencia vaga a una oferta limitada sin un a clara implicación de una mayor demanda, o viceversa\nEscasea en la ciudad/Menos terreno en la ciudad/Mayor demanda del terreno de la ciudad(P)\nPorque hay más ventajas en la ciudad: teatros, tiendas, transportes, servicios…[ mención de  más de una ventaja en la ciudad] (p)\nHay (vive) más gente en la ciudad que en el campo (P)",
                   "Una respuesta que indique uno de los conceptos generales anteriores",
                   "Concepto general que haga referencia vaga a la idea de no generalizar a partir de un único hecho \nPorque hagas una cosa bien no significa que todo lo vayas a hacer bien\nSe necesita más de una cosa para decir que se conseguido lo que se pretendía\nUna sola cosa no lo hace todo\nNo hay que generalizar (P)"]
 
@@ -148,10 +151,10 @@ function Comprension(props) {
         
         if(1===key | 2===key){
           countRe++;
+          terminacion=0
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
-            terminacion=0
             setNumberItem(flagRe)
             return 
           }
@@ -255,10 +258,16 @@ function Comprension(props) {
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0,1 y 2 para la puntuación de la respuesta</li>
             <br/>
-            <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>setState("seleccion")}
-            ></CustomButton>   
+            <Grid container justify="center">
+              <WaisWiscReturnButton
+                msj="Retroceder"
+                callback={()=>props.setBody("WAIS-selection")}
+              ></WaisWiscReturnButton>
+              <CustomButton
+                msj="Iniciar subprueba"
+                callback={()=>setState("seleccion")}
+              ></CustomButton>  
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -275,7 +284,11 @@ function Comprension(props) {
             <CustomButton
             msj="Estímulo 3"
             callback={()=>imagenInit(3)}
-            ></CustomButton>       
+            ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState("instruccion")}
+            ></WaisWiscReturnButton>
           </div>
         )
       case "test":
@@ -406,6 +419,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

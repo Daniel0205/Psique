@@ -18,7 +18,7 @@ import RecordRTC from 'recordrtc'
 import { gql, useMutation } from '@apollo/client';
 
 const ADD_TODO = gql`
-  mutation ($wadaData:Wada!,$id_assessment:Int!,$aphasiasData:[Aphasia!]) {
+  mutation ($wadaData:WadaIn!,$id_assessment:ID!,$aphasiasData:[Aphasia!]) {
     createWada(wadaData:$wadaData,id_assessment:$id_assessment,aphasiasData:$aphasiasData){
       id
       error{
@@ -57,6 +57,9 @@ const useStyles = makeStyles({
     width: "90%",
     maxWidth: "300px"
   },
+  videoPatient:{
+    display:"none"
+  },
   div:{
     fontSize: "xxx-large"
   },
@@ -82,25 +85,31 @@ function Wada(props) {
 
 
   async function save(){
-    let wadaData={
-      hemisphere:hemisphere[lobulo],
-      propofol_aplication:propofol,
-      duration:seconds,
-    }
+    let wadaData=(lobulo!=="Preliminar"?
+                  {
+                    hemisphere:hemisphere[lobulo],
+                    propofol_aplication:propofol,
+                    duration:seconds
+                  }:{
+                    hemisphere:hemisphere[lobulo],
+                    duration:seconds
+                  })
+    
     for (let i = 0; i < selectedTest.length; i++) {
       if(selectedTest[i])wadaData[testNames[i]]=results[i]
-    }
-
+    }    
     const {data}= await createWada({ variables:{ wadaData:wadaData, id_assessment:props.id_assessment,aphasiasData:aphasias}});
-
+    
 
     if (data.createWada.id) {
       socket.emit("stopRecording", blob,data.createWada.id);
-      props.setBody("init")      
+      props.setBody("init")     
     }
     else{
-      console.log("EEROR AL ALMACENAR LOS DATO")
+      console.log("ERROR AL ALMACENAR LOS DATO")
     }
+    
+    socket.emit("disconnect")
 
   }
   
@@ -160,19 +169,69 @@ function Wada(props) {
     return () => clearInterval(interval);
   }, [isActive, seconds]);
 
+  useEffect(() => {
+    
 
+    function disconnect() {   
+      if(type==="doctor" && state!=="results"){
+          if(recorder)recorder.stopRecording();
+          setState("intro")
+          setStimuli(1);
+          setSeconds(0);
+          setIsActive(false)
+          setStream();
+          setSelectedTest([true,true,true ,true,true,true]);
+          results = [0,0,0,0,0,0]
+          actualTest = -1;
+          propofol=0;
+          
+          if(stream){
+            stream.getTracks().forEach(function(track) {
+              track.stop();
+            });
+          }
+      }
+      else if(type==="paciente" ){
+        if(stream){
+          stream.getTracks().forEach(function(track) {
+            track.stop();
+          });
+        }
+        setStream();
+        setIsActive(false)
+        setState("intro")
+        setStimuli(1);
+      }
+    }
+    socket.off('disconnect')
+    socket.on('disconnect', disconnect);
+    /*
+    socket._callbacks.$disconnect = []
+    socket._callbacks.$disconnect[0] = disconnect    */
+  }, [state,stream]);
 
   useEffect(()=>{
 
-    if(stream!==undefined && type==='paciente')socket.emit("videoConnect")
-      
-    socket.on('connect-all',()=>{
-
-      if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
+    if(stream!==undefined)socket.emit("videoConnect")
     
-        if(type==="paciente")peer = new Peer({ initiator: true,trickle: false, stream: stream })
+    socket.off('connect-all')
+    socket.on('connect-all',()=>{
+      console.log("SE CONECTAROOON")
+      if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
+        var aux = peer
+        console.log(peer===aux)
+        if(type==="paciente"){
+          peer = new Peer({ initiator: true, stream: stream })
+          peer.on('stream', function (stream) {
+            setIsActive(true)
+            if (partnerVideo.current) {
+              partnerVideo.current.srcObject = stream;
+            }
+          });
+          
+        }
         else{
-          peer = new Peer();
+          peer = new Peer({ initiator: false, stream: stream });
           peer.on('stream', function (stream) {
             setIsActive(true)
             recorder =new RecordRTC(stream, {
@@ -186,6 +245,7 @@ function Wada(props) {
             }
           });
         }
+        console.log(peer===aux)
 
         peer.on('signal', data => {
           socket.emit("sendSignal",data)
@@ -195,17 +255,31 @@ function Wada(props) {
     })
   },[stream])
 
+  var onError = function(error) {
+    
+    alert( 'Error accediendo a la camara y  microfono');
+  }
+
   useEffect(() => {
+      socket.off('sendSignal')
+      socket.on('sendSignal',(data)=>   peer.signal(data))
 
-      socket.on('sendSignal',(data)=> peer.signal(data))
-
+      socket.off('activateStream')
       socket.on('activateStream',()=> {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
-          setStream(stream);
-          
-        })
+        var options;
+        if(type==="doctor")options ={ video: false, audio: true }
+        else options={ video: true, audio: true }
+
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia(options).then(stream => {
+            setStream(stream);
+          })
+        } else {
+            onError();
+        }
       })
 
+      socket.off('state')
       socket.on('state', estado => {
         if(type==="doctor" && estado.text==="fin"){
           setState("results");
@@ -216,17 +290,28 @@ function Wada(props) {
         setStimuli(1)
       });
 
+      socket.off('stimuli')
       socket.on('stimuli', estado => {
         setStimuli(estado.text);
       });
 
-
+      return ()=> {
+        socket.disconnect()
+        setStimuli(1);
+        setSeconds(0);
+        setIsActive(false)
+        setStream();
+        setSelectedTest([true,true,true ,true,true,true]);
+        results = [0,0,0,0,0,0]
+        actualTest = -1;
+        propofol=0;
+      }
   }, []);
 
   
  
   function body(){
-  
+    console.log(socket)
     switch (state) {
       case "intro":
       case "waiting":
@@ -256,6 +341,7 @@ function Wada(props) {
           aphasias={aphasias}
           socket={socket}
           registerPropofol={()=>{propofol=seconds}}
+          lobulo={lobulo}
           />)
       case "Denominacion":
         return (
@@ -302,6 +388,9 @@ function Wada(props) {
         recorder.stopRecording(function() {
           blob=recorder.getBlob();
         });
+        stream.getTracks().forEach(function(track) {
+          track.stop();
+        });
         return (
           <ResultsWada
           cronometer={cronometer}
@@ -318,8 +407,8 @@ function Wada(props) {
         stream.getTracks().forEach(function(track) {
           track.stop();
         });
-       
-        return<div className={classes.div}><h1 className={classes.h1}>Fin de la Prueba</h1></div>
+        socket.disconnect()
+        break;
     
       default:
         break;
@@ -330,6 +419,7 @@ function Wada(props) {
   return (
     <div className={classes.root}>
       {type==="doctor" && isActive ? <video className={classes.video} playsInline ref={partnerVideo} autoPlay /> :null}
+      {type==="paciente" && isActive ? <audio  className={classes.videoPatient} autoPlay ref={partnerVideo}/> :null}
       {type==="doctor" && isActive ? <h2>{cronometer()}</h2>:null}
       {body()}
     </div>

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import CustomButton from '../../../components/customButton'
-import Results from '../../../components/results'
+import CustomButton from '../../../components/customButton';
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
+import Results from '../../../components/results';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 2
 
@@ -214,19 +217,31 @@ function Digitos(props) {
          <p>Para calificar debe escribir los números que de el paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
          <p>El sistema se encargará de asignar la puntuación correspondiente</p>
          <br/>
-        <CustomButton
-          msj="Iniciar subprueba"
-          callback={()=>imagenInit(1)}
-        ></CustomButton>  
+        <Grid container justify="center">
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>props.setBody("WISC-selection")}
+          ></WaisWiscReturnButton>
+          <CustomButton
+            msj="Iniciar subprueba"
+            callback={()=>imagenInit(1)}
+          ></CustomButton>
+        </Grid>
       </div>)
      case "initDirecto":
       return (
         <div>
          <h1>Dígitos en Orden directo</h1>
-        <CustomButton
-          msj="Iniciar Digitos en orden directo"
-          callback={()=>setState('testDirecto')}
-        ></CustomButton>  
+         <Grid container justify="center">
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>setState('instruccion')}
+          ></WaisWiscReturnButton>
+          <CustomButton
+            msj="Iniciar Digitos en orden directo"
+            callback={()=>setState('testDirecto')}
+          ></CustomButton>  
+        </Grid>
       </div>)
        case "testDirecto":
          return(
@@ -451,6 +466,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

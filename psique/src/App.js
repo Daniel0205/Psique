@@ -52,13 +52,13 @@ function App(props) {
         return <Redirect to="/test/wais/selection" />
       case "WAIS-baremos":
           return <Redirect to="/test/wais/baremos" />
-      case "WAIS-Letras y Numeros":
+      case "WAIS-Letras y Números":
         return <Redirect to="/test/wais/numerosLetras" />
       case "WAIS-Figuras Incompletas":
         return <Redirect to="/test/wais/figurasIncompletas" />
-      case "WAIS-Cancelacion":
+      case "WAIS-Cancelación":
         return <Redirect to="/test/wais/cancelacion" />
-      case "WAIS-Comprension":
+      case "WAIS-Comprensión":
         return <Redirect to="/test/wais/comprension" />
       case "WAIS-Balanzas":
         return <Redirect to="/test/wais/balanzas" />
@@ -70,15 +70,15 @@ function App(props) {
         return <Redirect to="/test/wais/matrices" />
       case "WAIS-Vocabulario":
         return <Redirect to="/test/wais/vocabulario" />
-      case "WAIS-Digitos":
+      case "WAIS-Dígitos":
         return <Redirect to="/test/wais/digitos" />
-      case "WAIS-Aritmetica":
+      case "WAIS-Aritmética":
         return <Redirect to="/test/wais/aritmetica" />
-      case "WAIS-Clave de Numeros":
+      case "WAIS-Clave de Números":
         return <Redirect to="/test/wais/clavesNumeros" />
-      case "WAIS-Busqueda de Simbolos":
+      case "WAIS-Búsqueda de Símbolos":
         return <Redirect to="/test/wais/busquedaSimbolos" />
-      case "WAIS-Informacion":
+      case "WAIS-Información":
         return <Redirect to="/test/wais/informacion" />
       case "WAIS-Puzles Visuales":
         return <Redirect to="/test/wais/pluzlesVisuales" />
@@ -92,7 +92,7 @@ function App(props) {
         return <Redirect to="/test/wisc/registros" />
       case "WISC-Conceptos con dibujos":
         return <Redirect to="/test/wisc/concepto" />
-      case "WISC-Aritmetica":
+      case "WISC-Aritmética":
         return <Redirect to="/test/wisc/aritmetica" />
       case "WISC-Pistas":
         return <Redirect to="/test/wisc/pistas" />
@@ -108,15 +108,15 @@ function App(props) {
         return <Redirect to="/test/wisc/matrices" />
       case "WISC-Vocabulario":
         return <Redirect to="/test/wisc/vocabulario" />
-      case "WISC-Digitos":
+      case "WISC-Dígitos":
         return <Redirect to="/test/wisc/digitos" />
-      case "WISC-Comprension":
+      case "WISC-Comprensión":
         return <Redirect to="/test/wisc/comprension" />
       case "WISC-Claves":
         return <Redirect to="/test/wisc/claves" />
-      case "WISC-Busqueda de simbolos":
+      case "WISC-Búsqueda de símbolos":
         return <Redirect to="/test/wisc/busquedaSimbolos" />
-      case "WISC-Informacion":
+      case "WISC-Información":
         return <Redirect to="/test/wisc/informacion" />
       case "Prueba de STROOP":
         return <Redirect to="/test/stroop" />
@@ -124,6 +124,8 @@ function App(props) {
         return <Redirect to="/test/king" />
       case "Prueba de Zung":
         return <Redirect to="/test/zung" />
+      case "Prueba de los Cinco Dígitos":
+        return <Redirect to="/test/digits" />
       default:
         break;
     }
@@ -152,37 +154,38 @@ function App(props) {
       <Route exact path="/test/wisc/semejanzas" component={()=><Sidenav body={"WISC IV"} subtest={"Semejanzas"}></Sidenav>} />
       <Route exact path="/test/wisc/matrices" component={()=><Sidenav body={"WISC IV"} subtest={"Matrices"}></Sidenav>} />
       <Route exact path="/test/wisc/vocabulario" component={()=><Sidenav body={"WISC IV"} subtest={"Vocabulario"}></Sidenav>} />
-      <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Digitos"}></Sidenav>} />
-      <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmetica"}></Sidenav>} />
-      <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprension"}></Sidenav>} />
+      <Route exact path="/test/wisc/digitos" component={()=><Sidenav body={"WISC IV"} subtest={"Dígitos"}></Sidenav>} />
+      <Route exact path="/test/wisc/aritmetica" component={()=><Sidenav body={"WISC IV"} subtest={"Aritmética"}></Sidenav>} />
+      <Route exact path="/test/wisc/comprension" component={()=><Sidenav body={"WISC IV"} subtest={"Comprensión"}></Sidenav>} />
       <Route exact path="/test/wisc/claves" component={()=><Sidenav body={"WISC IV"} subtest={"Claves"}></Sidenav>} />
-      <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Busqueda de simbolos"}></Sidenav>} />
-      <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Informacion"}></Sidenav>} />
+      <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Búsqueda de símbolos"}></Sidenav>} />
+      <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Información"}></Sidenav>} />
       
       <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
-      <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Numeros"}></Sidenav>} /> {/*Manual*/}
+      <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Números"}></Sidenav>} /> {/*Manual*/}
       <Route exact path="/test/wais/figurasIncompletas" component={()=><Sidenav body={"WAIS IV"} subtest={"Figuras Incompletas"}></Sidenav>} />{/*Estímulos*/}
-      <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelacion"}></Sidenav>} />{/*Manual*/}
-      <Route exact path="/test/wais/comprension" component={()=><Sidenav body={"WAIS IV"} subtest={"Comprension"}></Sidenav>} />{/*Manual*/}
+      <Route exact path="/test/wais/cancelacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Cancelación"}></Sidenav>} />{/*Manual*/}
+      <Route exact path="/test/wais/comprension" component={()=><Sidenav body={"WAIS IV"} subtest={"Comprensión"}></Sidenav>} />{/*Manual*/}
       <Route exact path="/test/wais/balanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Balanzas"}></Sidenav>} />{/*Manual*/}
       <Route exact path="/test/wais/cubos" component={()=><Sidenav body={"WAIS IV"} subtest={"Cubos"}></Sidenav>} />
       <Route exact path="/test/wais/semejanzas" component={()=><Sidenav body={"WAIS IV"} subtest={"Semejanzas"}></Sidenav>} />
       <Route exact path="/test/wais/matrices" component={()=><Sidenav body={"WAIS IV"} subtest={"Matrices"}></Sidenav>} />
       <Route exact path="/test/wais/vocabulario" component={()=><Sidenav body={"WAIS IV"} subtest={"Vocabulario"}></Sidenav>} />
-      <Route exact path="/test/wais/digitos" component={()=><Sidenav body={"WAIS IV"} subtest={"Digitos"}></Sidenav>} />
-      <Route exact path="/test/wais/aritmetica" component={()=><Sidenav body={"WAIS IV"} subtest={"Aritmetica"}></Sidenav>} />
-      <Route exact path="/test/wais/clavesNumeros" component={()=><Sidenav body={"WAIS IV"} subtest={"Clave de Numeros"}></Sidenav>} />
-      <Route exact path="/test/wais/busquedaSimbolos" component={()=><Sidenav body={"WAIS IV"} subtest={"Busqueda de Simbolos"}></Sidenav>} />
-      <Route exact path="/test/wais/informacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Informacion"}></Sidenav>} />
+      <Route exact path="/test/wais/digitos" component={()=><Sidenav body={"WAIS IV"} subtest={"Dígitos"}></Sidenav>} />
+      <Route exact path="/test/wais/aritmetica" component={()=><Sidenav body={"WAIS IV"} subtest={"Aritmética"}></Sidenav>} />
+      <Route exact path="/test/wais/clavesNumeros" component={()=><Sidenav body={"WAIS IV"} subtest={"Clave de Números"}></Sidenav>} />
+      <Route exact path="/test/wais/busquedaSimbolos" component={()=><Sidenav body={"WAIS IV"} subtest={"Búsqueda de Símbolos"}></Sidenav>} />
+      <Route exact path="/test/wais/informacion" component={()=><Sidenav body={"WAIS IV"} subtest={"Información"}></Sidenav>} />
       <Route exact path="/test/wais/pluzlesVisuales" component={()=><Sidenav body={"WAIS IV"} subtest={"Puzles Visuales"}></Sidenav>} />
       
       <Route exact path="/test/stroop" component={()=><Sidenav body={"Prueba de STROOP"}></Sidenav>} />
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
       <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />
       <Route exact path="/test/wada" component={()=><Sidenav body={"Wada"}></Sidenav>} />
-      
+      <Route exact path="/test/digits" component={()=><Sidenav body={"Prueba de los Cinco Dígitos"}></Sidenav>} />
+
   </Router>
   );
 }

@@ -1,6 +1,9 @@
 import React,{useState, useEffect} from 'react';
 import TestStart from '../../components/testStart';
-import CustomButton from '../../components/customButton';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import WaisWiscTestsButton from '../../components/WaisWiscTestsButton';
 import Baremos from '../../components/Baremos';
 import { makeStyles } from '@material-ui/core/styles';
 import { setBody } from "../../store/body/action";
@@ -50,13 +53,43 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: theme.spacing(3),
   },
-  subprueba:{
+  gridTextStyle: {
+    paddingTop: "15px",
+    paddingBottom: "10px",    
+  },
+  gridButtonsStyle: {
     display: "grid",
     gridTemplateColumns: "repeat(5, 1fr)",
     paddingLeft: "10%",
     paddingRight: "10%",
-    gridRowGap: "10%",
-    gridColumnGap: "5%"
+    paddingTop: "10px",
+    paddingBottom: "10px",
+  },
+  gridBottomStyle: {
+    paddingTop: "10px",
+    paddingBottom: "15px",    
+  },
+  cancelarButton: {
+    margin: theme.spacing(1), 
+    backgroundColor: "#87262C",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#712329",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+  calcularButton: {
+    margin: theme.spacing(1), 
+    backgroundColor: "#63B884",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#5DAF9A",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
   },
 }));
 
@@ -86,33 +119,43 @@ function Wisc(props) {
         ></TestStart>)
         
       case 'aplicacion':
-        return(<div id='inicioWisc' >
-        <h1>WISC</h1> <br/>
-        <p>Estas son las subpruebas disponibles para aplicar al paciente, cliquea sobre una para empezar</p>
-        <p>Recuerda que debes aplicar al menos 10 subpruebas</p>
-        <br/>
+        return(
+        <div id='inicioWisc' >
+          <Grid className={classes.gridTextStyle}>
+              <Typography  variant="h4">
+                WISC
+              </Typography>        
+              <Typography  variant="body1" component="h6">
+                Estas son las subpruebas disponibles para aplicar al paciente, cliquea sobre una para empezar 
+              </Typography>
+              <Typography  variant="body1" component="h6">
+                Recuerda que debes aplicar al menos 10 subpruebas
+              </Typography>
+            </Grid>
     
-        <div className={classes.subprueba}>
-          {texts.map((name,i)=>
-          <CustomButton
-          key={i}
-          msj={name}
-          callback={()=>props.setBody("WISC-"+name)}>
-          </CustomButton>)}
-        </div>
-        <br/>
-        <br/>
+            <Grid container className={classes.gridButtonsStyle} justify="space-evenly" alignItems="center" spacing={3}>
+              {texts.map((name,i)=>
+                <Grid item key={i} xs>
+                  <WaisWiscTestsButton
+                    msj={name}
+                    callback={()=>props.setBody("WISC-"+name)}>
+                  </WaisWiscTestsButton>
+                </Grid>)
+              }
+            </Grid>
     
-        <CustomButton
-          msj="Cancelar"
-          callback={()=>props.setBody("init")}>
-        </CustomButton>
-
-        <CustomButton
-          msj="Calcular puntuación escalar"
-          callback={()=>props.setBody("WISC-baremos")}>
-        </CustomButton>
-    
+            <Grid container justify="center" className={classes.gridBottomStyle}>
+          <Button variant="contained" color="primary"
+            onClick={()=>props.setBody("init")}
+            className={classes.cancelarButton}>
+              Cancelar
+          </Button>
+          <Button variant="contained" color="primary"
+            onClick={()=>props.setBody("WISC-baremos")}
+            className={classes.calcularButton}>
+              Calcular puntuación escalar
+          </Button>
+        </Grid>
       </div>)
 
       case 'baremos':

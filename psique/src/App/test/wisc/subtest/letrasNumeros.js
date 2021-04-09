@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -196,25 +199,31 @@ function LetrasNumeros(props) {
        <div>
         <h1>Letras y Números</h1>
         <b>instrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de números y letras</p>
-        <p>el doctor debera decirle al paciente cada serie</p>
-        <p>despues de esto el paciente debera repetir en orden la serie</p>
+        <p>A continuación se enseñarán una serie de números y letras</p>
+        <p>el doctor deberá decirle al paciente cada serie</p>
+        <p>después de esto el paciente deberá repetir en orden la serie</p>
         <p>en el orden no importa si son primero las letras o los números</p>
         <br/>
         <b>instrucciones de calificación:</b>
-        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estimulo </p>
-        <p>EL sistema calificara automaticamente las respuestas </p>
+        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estímulo </p>
+        <p>EL sistema calificará automáticamente las respuestas </p>
         <br/>
-       <CustomButton
-         msj="Iniciar subprueba"
-         callback={()=>imagenInit(1)}
-       ></CustomButton>  
+       <Grid container justify="center">
+          <WaisWiscReturnButton
+            msj="Retroceder"
+            callback={()=>props.setBody("WISC-selection")}
+          ></WaisWiscReturnButton>
+          <CustomButton
+            msj="Iniciar subprueba"
+            callback={()=>imagenInit(1)}
+          ></CustomButton>
+        </Grid>
      </div>)
     case "ejemplo A":
     case "ejemplo B":  
       return(
         <div >
-            <h1> Estimulo {state}</h1>
+            <h1> Estímulo {state}</h1>
             <br/>
             <br/>
             {state==="ejemplo A"?<h1>A-2</h1>:<h1>B-3</h1>}
@@ -388,6 +397,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

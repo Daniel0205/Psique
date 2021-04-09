@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 5
 
@@ -63,7 +66,6 @@ function ConceptoDibujos(props) {
   const [scored,setScored] = useState(undefined)
   const [fields,setFields] = useState([0,0,0])
 
-
   const classes = useStyles();
 
 
@@ -75,10 +77,10 @@ function ConceptoDibujos(props) {
         
         if(1===key){
           countRe++;
+          terminacion=0
           if(countRe===2){
             retorno=false;
             retornoHecho=false;
-            terminacion=0
             setNumberItem(flagRe)
             return 
           }
@@ -194,6 +196,7 @@ function ConceptoDibujos(props) {
   function score(index){
     let array1=answers[index].slice()
     let array2=rightAnswers[index].slice()
+
     if(array1.sort().join(',')=== array2.sort().join(',')){
       changeStimuli(1)
     }
@@ -231,8 +234,8 @@ function ConceptoDibujos(props) {
        <div>
        <h1>Conceptos con dibujos</h1>
         <b>Instrucciones generales:</b>
-        <p>A continuación se presentaran dos o tres filas de dibujos</p>
-        <p>el paciente debe señalar o decir las imágenes que tenga una caracteristica en comun</p>
+        <p>A continuación se presentarán dos o tres filas de dibujos</p>
+        <p>el paciente debe señalar o decir las imágenes que tenga una característica en común</p>
 
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
@@ -240,13 +243,19 @@ function ConceptoDibujos(props) {
         <br/>
         <p>La respuesta del paciente se registra en los campos bajo la imagen</p>
         <p>Indicando las opciones seleccionadas por el paciente</p>
-        <p>El sistema calificara automaticamente la prueba</p>
+        <p>El sistema calificará automáticamente la prueba</p>
         <br/>
 
-       <CustomButton
-         msj="Iniciar subprueba"
-         callback={next}
-       ></CustomButton>  
+        <Grid container justify="center">
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
+            <CustomButton
+              msj="Iniciar subprueba"
+              callback={next}
+            ></CustomButton>
+          </Grid>
      </div>)
      
      case "seleccion":
@@ -262,7 +271,12 @@ function ConceptoDibujos(props) {
         callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
         <CustomButton msj="Estímulo 7"
-        callback={()=>imagenInit(7)}></CustomButton> 
+        callback={()=>imagenInit(7)}></CustomButton>
+
+        <WaisWiscReturnButton
+          msj="Retroceder"
+          callback={()=>setState("instruccion")}
+        ></WaisWiscReturnButton>
       </div>
        )
     case "ejemplo A":
@@ -328,7 +342,7 @@ function ConceptoDibujos(props) {
                 variant="outlined"
                 onChange={(x)=>{
                   setFields([x.target.value,fields[1],fields[2]])
-                  answers[numberItem-1][1]=parseInt(x.target.value)
+                  answers[numberItem-1][0]=parseInt(x.target.value)
                 }}
               />
               &nbsp;  &nbsp;
@@ -371,10 +385,10 @@ function ConceptoDibujos(props) {
         return(
         <div>
           <h1>Concepto con Dibujos</h1>
-          <h3>El puntaje por cada Item fue: </h3>
+          <h3>El puntaje por cada ítem fue: </h3>
           <div className={classes.fields}>
             {results.map((result,index)=>
-              [<h3 key={index+1}>Item {index+1}</h3>,
+              [<h3 key={index+1}>ítem {index+1}</h3>,
               <div key={index} className={classes.field}>  
                 <TextField
                   className={classes.textfield}
@@ -467,6 +481,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

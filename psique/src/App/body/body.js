@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "-webkit-center",
   },
   space:{
-    paddingTop:"4%",
-    paddingBottom: "3%"
+    paddingTop:"30px",
+    paddingBottom: "30px"
   },
   buton:{
     backgroundColor: "#017F8D",  
@@ -50,7 +50,7 @@ const sources = ["attentionTest","cognitiveTest",
 
 
 const testDev ={
-  attentionTest: ["Prueba de STROOP"],
+  attentionTest: ["Prueba de STROOP","Prueba de los Cinco Dígitos"],
   cognitiveTest : ["Prueba de Zung"],
   intelligenceTests : ["WAIS IV", "WISC IV"],
   learningTests:[],
@@ -81,7 +81,7 @@ function Body(props) {
 
     if(state==="category"){
       
-      return (
+      return ( 
       <Category  
       names={names}
       sources={sources}
@@ -147,7 +147,7 @@ function Body(props) {
       <Paper component="form" className={classes.root}>
           <InputBase
             className={classes.input}
-            placeholder="Buscar Prueba Neuropsicologica"
+            placeholder="Buscar Prueba Neuropsicológica"
             inputProps={{ 'aria-label': 'search google maps' }}
           />
           <IconButton type="submit" className={classes.iconButton} aria-label="search">

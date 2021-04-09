@@ -10,6 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 
 const ASSESSMENT_QUERY = gql`
 
@@ -80,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     borderRadius: "3%",
   },
-  
   title: {
     fontSize: 14,
   },
@@ -152,17 +152,19 @@ function Assessment(props) {
             </Typography>
           </CardContent>
           <CardActions>
-            <CustomButton 
-            msj="Nueva evaluación"
-            callback={()=>closeAssessment(data.patientAssessment.assessments.id_assessment)}
-            />
-          <CustomButton 
-            msj="Continuar evaluación"
-            callback={()=>{
-              props.setBody("init")
-              props.setAssessment(data.patientAssessment.assessments.id_assessment)
-            }}
-            />
+            <Grid container justify="center">
+              <CustomButton 
+                msj="Nueva evaluación"
+                callback={()=>closeAssessment(data.patientAssessment.assessments.id_assessment)}
+              />
+              <CustomButton 
+                msj="Continuar evaluación"
+                callback={()=>{
+                  props.setBody("init")
+                  props.setAssessment(data.patientAssessment.assessments.id_assessment)
+                }}
+              />
+            </Grid>
           </CardActions>
         </Card>
 

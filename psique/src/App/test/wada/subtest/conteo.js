@@ -47,27 +47,30 @@ function Conteo(props) {
                 msj="Incorrecto"
                 callback={()=>props.next(1,0)}
                 ></CustomButton>
-                {!propofolApplied ? 
-                    <div>
+                {props.lobulo!=="Preliminar"?
+                <div>
+                    {!propofolApplied ? 
+                        <div>
+                        <hr />
+                        <p>Presione el siguiente boton para registrar el momento de aplicacion del propofol:</p>
+                        <CustomButton
+                        msj={"Registrar Propofol"}
+                        callback={()=>{
+                            props.registerPropofol()
+                            setPropofolApplied(true)
+                        }}
+                        ></CustomButton>
+                        </div>
+                    :null}
                     <hr />
-                    <p>Presione el siguiente boton para registrar el momento de aplicacion del propofol:</p>
-                    <CustomButton
-                    msj={"Registrar Propofol"}
-                    callback={()=>{
-                        props.registerPropofol()
-                        setPropofolApplied(true)
-                    }}
-                    ></CustomButton>
-                    </div>
-                :null}
-                <hr />
-                <p>Indique si se presenta alguno de los siguientes eventos:</p>
-                
-                {aphasias.map((x,i)=><CustomButton
-                key={i}
-                msj={x}
-                callback={()=>props.aphasias.push({name:x,time:props.seconds})}
-                ></CustomButton>)}
+                    <p>Indique si se presenta alguno de los siguientes eventos:</p>
+                    
+                    {aphasias.map((x,i)=><CustomButton
+                    key={i}
+                    msj={x}
+                    callback={()=>props.aphasias.push({name:x,time:props.seconds})}
+                    ></CustomButton>)}
+                </div>:null}
             </div>:null}
         </div>)
     }

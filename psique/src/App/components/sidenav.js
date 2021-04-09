@@ -14,15 +14,11 @@ import Wisc from '../test/wisc/wisc';
 import Zung from '../test/zung/zung';
 import King from '../test/king/king';
 import Wada from '../test/wada/wada';
+import Digits from '../test/digits/digits';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-  },
-  cover:{
-    backgroundImage: "url("+Clouds+")",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
   },
   content: {
     flexGrow: 1,    
@@ -56,19 +52,9 @@ const useStyles = makeStyles(theme => ({
 
 function Sidenav(props) {
   const classes = useStyles();
-  
-  const [open, setOpen] = React.useState(false);
+  const [open] = React.useState(false);
   const [aux, setAux] = React.useState("category");
 
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
-
-  
 
   function body(){
     switch (props.body) {
@@ -90,6 +76,8 @@ function Sidenav(props) {
         return <Wada></Wada>
       case 'moduloPacientes':
         return <PatientModule></PatientModule>
+      case "Prueba de los Cinco Dígitos":
+        return <Digits></Digits>
       default:
         break;
     }
@@ -99,10 +87,9 @@ function Sidenav(props) {
   return (
     <div className={clsx({
       [classes.root]:true,
-      [classes.cover]:props.body==='init'
     })}>
       <CssBaseline />
-      <Header open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}></Header>
+      <Header></Header>
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,

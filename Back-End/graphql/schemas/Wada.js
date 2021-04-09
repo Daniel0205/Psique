@@ -3,7 +3,7 @@ module.exports =`
 
   input WadaIn{
 	hemisphere:String!,
-	propofol_aplication:Int!,
+	propofol_aplication:Int,
 	duration:Int!,
 	counting:Int,
 	denomination:Int,
@@ -18,7 +18,7 @@ module.exports =`
     start_date: Date!
 	id_test:ID!,
 	hemisphere:String!,
-	propofol_aplication:Int!,
+	propofol_aplication:Int,
 	duration:Int!,
 	counting:Int,
 	denomination:Int,
@@ -34,11 +34,11 @@ module.exports =`
   }
 
   type Query{
-	  isWadaDone(id_assessment:Int!,hemisphere:String):Boolean!
+	  isWadaDone(id_assessment:ID!,hemisphere:String):Boolean!
   }
 
   type Mutation {
-    createWada(wadaData:WadaIn!,id_assessment:Int!,aphasiasData:[Aphasia!]): createResponse!
+    createWada(wadaData:WadaIn!,id_assessment:ID!,aphasiasData:[Aphasia!]): createResponse!
   }	
   
 `;

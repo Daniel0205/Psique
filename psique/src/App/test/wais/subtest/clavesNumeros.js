@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const useStyles = makeStyles({
   textfield:{
@@ -48,8 +51,8 @@ function ClavesNumeros(props) {
         return(
           <div>
             <h1>Clave de números</h1>
-            <b>instrucciones generales:</b>
-            <p>Seleccione la opción según sea el caso</p>
+            <b>Instrucciones generales:</b>
+            <p>Seleccione la opción según sea el caso:</p>
             
             <CustomButton
               msj="Aplicación de subPrueba"
@@ -59,13 +62,17 @@ function ClavesNumeros(props) {
               msj="Registro de resultados"
               callback={()=>setState("registro")}
             ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WAIS-selection")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
       case "aplicacion":
         return(
           <div>
-            <h1>Clave de números: Guia de aplicación</h1>
+            <h1>Clave de números: Guía de aplicación</h1>
             <p> <b>Edad 16-89:</b> Aplicar items de demostración, items de ejemplo e items del test </p>
             <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
             <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
@@ -74,19 +81,18 @@ function ClavesNumeros(props) {
             <TestsTimer duration={TESTDURATION}></TestsTimer>
             <br/>
 
-            <CustomButton
+            <WaisWiscReturnButton
               msj="Regresar a la subPrueba"
               callback={()=>setState("instruccion")}
-            ></CustomButton>
+            ></WaisWiscReturnButton>
           </div>
         )
 
         case "registro":          
           return(
             <div>
-              <h1>Clave de números</h1>                
-              <b>instrucciones:</b>
-              <p>Registre la calificación obtenida por el paciente en la prueba</p>    
+              <h1>Clave de números</h1>
+              <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente en la prueba</p>    
 
               <TextField
                 className={classes.textfield}
@@ -101,11 +107,16 @@ function ClavesNumeros(props) {
                 onChange={(x)=>{setResult(x.target.value)}}
               /> 
               <br/> 
-
-              <CustomButton
-                msj="Terminar"
-                callback={()=>ShowResults()}
-              ></CustomButton>
+              <Grid container justify="center">
+                <WaisWiscReturnButton
+                  msj="Retroceder"
+                  callback={()=>setState("instruccion")}
+                ></WaisWiscReturnButton>
+                <CustomButton
+                  msj="Terminar"
+                  callback={()=>ShowResults()}
+                ></CustomButton>
+              </Grid>
             </div>
           )          
         
@@ -140,6 +151,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

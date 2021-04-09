@@ -30,15 +30,14 @@ function Instrucciones(props) {
         return(<div className={clsx({
             [classes.div]:props.type==='paciente'
           })}>
-            {props.type==="paciente"?<img
+            <img
             alt={"Estímulo #"+props.stimuli}      
             width="100%"
             src={require('../../../assets/estimulos/wada/instruc.png')}
-            />:null}
+            />
             {props.type==="doctor"?
             <div>
                 <h1>{props.stimuli+". "+instrucciones[props.stimuli-1]}</h1>
-                <h1>{props.stimuli===3 ||props.stimuli===0 ? "Respuesta correcta: Si":"Respuesta correcta: No"}</h1>
                 <CustomButton
                 msj="Correcto"
                 callback={()=>props.next(4,1)}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import TestsTimer from '../../../components/TestsTimer'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,17 +9,23 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import { setBody } from "../../../store/body/action";
 
 let clavesA = false;
 const TESTDURATION = 120;
 
 const useStyles = makeStyles({
   table: {
+    alignSelf: "center",
+    width: "fit-content",
+  },
+  buttons: {
     alignSelf: "center",
   },
   textfield:{
@@ -43,6 +50,7 @@ const rows = [
 function Claves(props) {
   var [state,setState] = useState("instruccion");
   var [result,setResult] = useState();
+  var [isCheckResults, setIsCheckResults] = useState(false);
   const classes = useStyles();
 
   function testInit(clvs){
@@ -61,6 +69,7 @@ function Claves(props) {
   function ShowResults(){
     validateAnswers();
     setState("terminado");
+    setIsCheckResults(true);
   }
 
   function getResult() {
@@ -82,7 +91,7 @@ function Claves(props) {
         return(
           <div>
             <h1>Clave de números</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Seleccione la opción según sea el caso</p>
             
             <CustomButton
@@ -93,6 +102,10 @@ function Claves(props) {
               msj="Registro de resultados"
               callback={()=>setState("seleccion")}
             ></CustomButton>
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>props.setBody("WISC-selection")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -111,10 +124,10 @@ function Claves(props) {
             <TestsTimer duration={TESTDURATION}></TestsTimer>
             <br/>
 
-            <CustomButton
+            <WaisWiscReturnButton
               msj="Regresar a la subPrueba"
               callback={()=>setState("instruccion")}
-            ></CustomButton>
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -134,6 +147,11 @@ function Claves(props) {
               msj="Clave de Números B"
               callback={()=>testInit('B')}
             ></CustomButton>
+            <br/>
+            <WaisWiscReturnButton
+              msj="Regresar a la subPrueba"
+              callback={()=>setState("instruccion")}
+            ></WaisWiscReturnButton>
           </div>
         )
 
@@ -141,32 +159,33 @@ function Claves(props) {
           if(clavesA){
             return(
               <div>
-                <h1>Clave de números</h1>
+                <h1>Clave de números A</h1>
 
-                <TableContainer component={Paper} className={classes.table}>
-                  <Table  size="small" aria-label="Claves A Table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">Rango del tiempo de terminación (en segundos)</TableCell>
-                        <TableCell align="center">Puntos de bonificación</TableCell>
-                        <TableCell align="center">Puntuación natural total</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {rows.map((row) => (
-                        <TableRow key={row.timeRange}>
-                          <TableCell align="center">{row.timeRange}</TableCell>
-                          <TableCell align="center">{row.bonusP}</TableCell>
-                          <TableCell align="center">{row.totalNS}</TableCell>
+                <Grid container justify="center">
+                  <TableContainer component={Paper} className={classes.table}>
+                    <Table  size="small" aria-label="Claves A Table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="center">Rango del tiempo de terminación (en segundos)</TableCell>
+                          <TableCell align="center">Puntos de bonificación</TableCell>
+                          <TableCell align="center">Puntuación natural total</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      </TableHead>
+                      <TableBody>
+                        {rows.map((row) => (
+                          <TableRow key={row.timeRange}>
+                            <TableCell align="center">{row.timeRange}</TableCell>
+                            <TableCell align="center">{row.bonusP}</TableCell>
+                            <TableCell align="center">{row.totalNS}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
 
                 <br/>
-                <b>instrucciones:</b>
-                <p>Registre la calificación obtenida por el paciente en la prueba</p>
+                <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente en la prueba</p>
 
                 <TextField
                   className={classes.textfield}
@@ -179,19 +198,26 @@ function Claves(props) {
                   onChange={(x)=>{setResult(x.target.value)}}
                 /> 
                 <br/> 
-
-                <CustomButton
-                  msj="Terminar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <WaisWiscReturnButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></WaisWiscReturnButton>
+                  }
+                  <CustomButton
+                    msj="Terminar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
               )
           }else{
             return(
               <div>
-                <h1>Clave de números</h1>                
-                <b>instrucciones:</b>
-                <p>Registre la calificación obtenida por el paciente en la prueba</p>    
+                <h1>Clave de números B</h1>
+                <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente en la prueba</p>    
 
                 <TextField
                   className={classes.textfield}
@@ -204,11 +230,19 @@ function Claves(props) {
                   onChange={(x)=>{setResult(x.target.value)}}
                 /> 
                 <br/> 
-
-                <CustomButton
-                  msj="Terminar"
-                  callback={()=>ShowResults()}
-                ></CustomButton>
+                <br />
+                <Grid container justify="center" spacing={2}>
+                  {isCheckResults ? <div/> :
+                    <WaisWiscReturnButton
+                      msj="Regresar a selección"
+                      callback={()=>setState("seleccion")}
+                    ></WaisWiscReturnButton>
+                  }
+                  <CustomButton
+                    msj="Terminar"
+                    callback={()=>ShowResults()}
+                  ></CustomButton>
+                </Grid>
               </div>
             )
           }
@@ -244,6 +278,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

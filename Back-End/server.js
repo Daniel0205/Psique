@@ -55,7 +55,7 @@ var corsOptions = {
 
 
 //Routes
-app.use(router,cors());
+app.use(router);
 
 //Public folder
 app.use(cors(corsOptions),express.static(__dirname + '/resources'));

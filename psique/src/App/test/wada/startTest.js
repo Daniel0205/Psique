@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 const GET_WADA_APPLIED = gql`
-  query IsWadaDone($id_assessment: Int!,$hemisphere:String!) {
+  query IsWadaDone($id_assessment: ID!,$hemisphere:String) {
     isWadaDone(id_assessment:$id_assessment,hemisphere:$hemisphere) 
   }
 `;
@@ -44,8 +44,12 @@ function ResultsWada(props) {
     useEffect(()=>setState(props.state),[props.state])
 
     function join(typeIn){ 
-        props.socket.emit('join', { type:typeIn ,test:props.id_assessment.toString()}, (error) => {
+        if(props.socket.disconnected) {
+          props.socket.connect()
+        }
+        props.socket.emit('join', { type:typeIn ,test:props.id_assessment}, (error) => {
             if(error) {
+              console.log(error)
                 alert(error);
             }
         });
@@ -108,13 +112,17 @@ function ResultsWada(props) {
               callback={()=>setState("start")}
               disabled={props.selectedTest.findIndex(x=>x)===-1}
               ></CustomButton>
+              <CustomButton
+              msj="Atrás"
+              callback={()=>setState("brain")}
+              ></CustomButton>
             </div>)
             case "brain":
               return(<div>
                 <h1>Test de Wada</h1>
                 <p>Seleccione el hemisferio donde se aplicara el propofol:</p>
                 <Query query={GET_WADA_APPLIED} variables={{ id_assessment: props.id_assessment,hemisphere:"D"}}>
-                  {({ loading, error, data }) => {
+                  {({ loading, error, data,variables }) => {
                     if (loading) return "Cargando";
                     if (error) return `Error! ${error}`;
 
@@ -175,10 +183,16 @@ function ResultsWada(props) {
                 
               </div>)
             case "start":
-              return(<TestStart
+              return(<div>
+              <TestStart
                 name={"Wada-"+lobulo}
                 change={props.changeTest}
-              ></TestStart>)
+              ></TestStart>
+               <CustomButton
+              msj="Atrás"
+              callback={()=>setState("select")}
+              ></CustomButton>
+              </div>)
                 
             default:
                 break;

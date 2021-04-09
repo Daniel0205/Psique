@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import CustomButton from '../../../components/customButton'
-import Results from '../../../components/results'
+import CustomButton from '../../../components/customButton';
+import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
+import Results from '../../../components/results';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
+import Grid from '@material-ui/core/Grid';
+import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
@@ -30,11 +33,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-let returnDone = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let returnVar = false; // Esta variable me ayuda a controlar el uso de la regla del retorno
-let countRe = 0; //Esta variable me dice cuando se puede salir de la condición de retorno
-let flagRe = null;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
-let badAnswerCount= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
+let returnDone; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let returnVar; // Esta variable me ayuda a controlar el uso de la regla del retorno
+let countRe; //Esta variable me dice cuando se puede salir de la condición de retorno
+let flagRe;//Esta variable me ayuda a decir en que posicion quedo el paciente antes de entrar al retorno 
+let badAnswerCount; //Esta variable me dice cuantos ceros consecutivos tuvo el paciente
 let firstItem;// Item en el que inicio la prueba
 let example = false; //Indica si esta en el ejemplo
 
@@ -58,7 +61,7 @@ function PuzlesVisuales(props) {
   const classes = useStyles();
 
   function changeStimuli(punt){
-    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estimulo 0 no siga avanzando en la prueba
+    var returnController = firstItem!==2 && returnVar && numberItem===2 && countRe!==2; // Verifica que al hacer el retorno y llegar al estímulo 0 no siga avanzando en la prueba
     if((badAnswerCount < LIMIT_ERROR && numberItem < NUMBER_STIMULI) && !returnController){ // Verifica que no se haya cumplido la condicion de termino
       var nextNumber = numberItem;
 
@@ -139,7 +142,7 @@ function PuzlesVisuales(props) {
     }    
   }
 
-  //Esta función establece el primer estimulo a ser mostrado
+  //Esta función establece el primer estímulo a ser mostrado
   function imagenInit(item){    
     if(item!==2){
       let arrayAux = results
@@ -160,7 +163,16 @@ function PuzlesVisuales(props) {
       case 'ejemplo-demostracion':
         setState('test');
         setNumberItem(firstItem);
+
+        //Set Globals
+        returnDone = false;
+        returnVar = false;
+        countRe = 0;
+        flagRe = null;
+        badAnswerCount= 0;
+        example = false;
         break;
+
       case 'results':
         setState('revision');
         break;
@@ -208,18 +220,24 @@ function PuzlesVisuales(props) {
         return (
           <div id= "inicio" >
             <h1>Pluzles Visuales</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Se presentará una imagen principal en la parte superior y seis imágenes más debajo de esta.</p>
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
-            <b>instrucciones de calificación:</b>
-            <p>Registre los números de las figuras seleccionadas por el paciente para los estimulos de la prueba en el campo de texto  </p>
+            <b>Instrucciones de calificación:</b>
+            <p>Registre los números de las figuras seleccionadas por el paciente para los estímulos de la prueba en el campo de texto  </p>
             <p>El campo separará automáticamente los números</p>
             <br/>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={next}
-            ></CustomButton>  
+            <Grid container justify="center">
+              <WaisWiscReturnButton
+                msj="Retroceder"
+                callback={()=>props.setBody("WAIS-selection")}
+              ></WaisWiscReturnButton>
+              <CustomButton
+                msj="Iniciar subprueba"
+                callback={next}
+              ></CustomButton>
+            </Grid>
           </div>
         )
       
@@ -227,7 +245,7 @@ function PuzlesVisuales(props) {
         return(
          <div>
             <h1>Pluzles Visuales</h1>
-            <p>¿En questímulodesea iniciar la prueba? </p>
+            <p>¿En que estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
               msj="Estímulo 1"
@@ -238,14 +256,19 @@ function PuzlesVisuales(props) {
             <CustomButton
               msj="Estímulo 5"
               callback={()=>imagenInit(6)}
-            ></CustomButton> 
+            ></CustomButton>
+            
+            <WaisWiscReturnButton
+              msj="Retroceder"
+              callback={()=>setState('instruccion')}
+            ></WaisWiscReturnButton>
           </div>
         )
 
       case "ejemplo-demostracion":
         return(
           <div >
-            <h1> Estimulo {example ? "Ejemplo": "Demostración"}</h1>
+            <h1> Estímulo {example ? "Ejemplo": "Demostración"}</h1>
             <img 
               className={classes.img} 
               alt={"Estímulo "+state+numberItem} 
@@ -285,7 +308,7 @@ function PuzlesVisuales(props) {
        case "test":
          return(
           <div>
-            <h1> Estimulo {numberItem-1}</h1>
+            <h1> Estímulo {numberItem-1}</h1>
             <img 
               className={classes.img}
               alt={"Estímulo "+(numberItem-1)}
@@ -405,6 +428,7 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setBody: (item) => dispatch(setBody(item)),
     setResWechsler: (pro1, pro2) => dispatch(setResWechsler(pro1,pro2)),
   };
 }

@@ -42,6 +42,8 @@ function App(props) {
         return <Redirect to="/home" />
       case 'moduloPacientes':
         return <Redirect to="/pacientes" />
+      case 'moduloInvestigaciones':
+        return <Redirect to="/investigaciones" />
       case "assessment":
         return <Redirect to="/startAssessment" />
       case 'Wada':
@@ -138,6 +140,7 @@ function App(props) {
       {body()}            
       <Route exact path="/home" component={()=><Sidenav body={"init"}></Sidenav>} />
       <Route exact path="/pacientes" component={()=><Sidenav body={"moduloPacientes"}></Sidenav>} />
+      <Route exact path="/investigaciones" component={()=><Sidenav body={"moduloInvestigaciones"}></Sidenav>} />
       <Route exact path="/startAssessment"  component={()=><Sidenav body={"assessment"}></Sidenav>} />
 
       <Route exact path="/login" component={SignIn} />

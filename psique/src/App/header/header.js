@@ -21,6 +21,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SaveIcon from '@material-ui/icons/Save';
+import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import clsx from 'clsx';
 import { setDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
@@ -207,17 +208,13 @@ function Header(props) {
     <Divider className={classes.drawerDivider} />
     <List>
 
-        <ListItem button onClick={() => {props.setBody("moduloPacientes")} }>
-            <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
-        </ListItem>  
-
         {props.id_assessment!==null?
         <ListItem button onClick={()=>props.setBody("init")} >
             <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
             <ListItemText primary={"Inicio"} />
         </ListItem>:null}
 
-        <ListItem button >
+        <ListItem button onClick={() => {props.setBody("moduloPacientes")} } >
             <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
         </ListItem>
@@ -235,6 +232,11 @@ function Header(props) {
         <ListItem button >
             <ListItemIcon className={classes.buttonDrawer}><PersonOutlineIcon/></ListItemIcon>
             <ListItemText primary={"Mi Perfil"} />
+        </ListItem>
+
+        <ListItem button onClick={() => {props.setBody("moduloInvestigaciones")} }>
+            <ListItemIcon className={classes.buttonDrawer}><AccountTreeIcon/></ListItemIcon>
+            <ListItemText primary={"Investigaciones"} />
         </ListItem>
 
         {props.id_assessment!==null?
@@ -257,7 +259,7 @@ function Header(props) {
             <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
             <ListItemText primary={"Cerrar sesión"} />
         </ListItem>
-        
+
     </List>
   </Drawer>]
 }

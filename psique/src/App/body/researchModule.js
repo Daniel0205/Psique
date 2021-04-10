@@ -57,31 +57,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PatientModule(props) {
+function ResearchModule(props) {
 
     const classes = useStyles();
     
     return(
-    
+
+
     <div  className={classes.bodypage} >  
         <div className={classes.grid}>
-          
+
             <div className={classes.cardButton}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardContent className={classes.textCardContent}>          
-                            <Typography  variant="h5" component="h2">
-                              Crear Paciente
+                            <Typography  variant="h5" component="h2"> 
+                                Crear Investigación
                             </Typography>        
                         </CardContent>
                     </CardActionArea>
                 </Card> 
-            </div>
-
+            </div> 
+             
         </div>
     </div>
     )
 
 }
 
-export default PatientModule;
+export default ResearchModule;

@@ -27,12 +27,6 @@ router.get("/createUsers", async (req, res) => {
       name:'Steban',
       surname:'Cadena',
       password: await bcrypt.hash('123456789', 12)
-    },
-    {
-      id_doctor:1234,
-      name:'Test',
-      surname:'test',
-      password: await bcrypt.hash('1234', 12)
     }
 ];
   

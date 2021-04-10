@@ -4,7 +4,6 @@ import { makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Body from '../body/body';
 import PatientModule from '../body/patientModule';
-import Clouds from "../assets/Fondo/FondoNubes.jfif";
 
 import Assessment from "./assessment"
 import Header from "../header/header"

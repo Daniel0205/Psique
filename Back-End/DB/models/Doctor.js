@@ -8,11 +8,11 @@ const Doctor = db.define ('doctor',{
         primaryKey: true 
     },
     name:{
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING(30),
         allowNull: false     
     },
     surname:{
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING(30),
         allowNull: false     
     },
     password:{

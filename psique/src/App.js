@@ -122,6 +122,8 @@ function App(props) {
         return <Redirect to="/test/king" />
       case "Prueba de Zung":
         return <Redirect to="/test/zung" />
+      case "Prueba de los Cinco Dígitos":
+        return <Redirect to="/test/digits" />
       default:
         break;
     }
@@ -179,7 +181,8 @@ function App(props) {
       <Route exact path="/test/king" component={()=><Sidenav body={"Prueba de Rey"}></Sidenav>} />
       <Route exact path="/test/zung" component={()=><Sidenav body={"Prueba de Zung"}></Sidenav>} />
       <Route exact path="/test/wada" component={()=><Sidenav body={"Wada"}></Sidenav>} />
-      
+      <Route exact path="/test/digits" component={()=><Sidenav body={"Prueba de los Cinco Dígitos"}></Sidenav>} />
+
   </Router>
   );
 }

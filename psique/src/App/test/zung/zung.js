@@ -3,6 +3,9 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomButton from '../../components/customButton';
 import Results from '../../components/results'
@@ -40,6 +43,19 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     textAlign: "center",
   },
+  centerAlign: {
+    alignSelf: "center",
+  },
+  radioButtonGroup: {
+    justifyContent: "center",
+  },
+  questionContainer: {
+    alignSelf: "center",
+    paddingBottom: "inherit"
+  },
+  formControlClass:{
+    whiteSpace: "nowrap",
+  }
 }));
 
 let answers = new Array(20).fill(0);
@@ -88,43 +104,51 @@ function Zung() {
   if(state==='test'){
     return (
       <div className={classes.general}>
-        <h1>Escala de depresión de autoevaluación de Zung</h1>
-        <h3>Para cada elemento a continuación, verifique la columna que mejor describe con qué frecuencia se sintió o se comportó de esta manera durante los últimos días.</h3>
-        {phrases.map((x,i)=>
-          <div className={classes.root} key={i} onChange={(x)=>update(x,i)}>
-          <h3>{x}</h3>
-          <FormControl  component="fieldset" >
-          <RadioGroup row aria-label="position" name="position" defaultValue="top">
-            <FormControlLabel
-                value="1"
-                control={<Radio color="primary" />}
-                label="muy pocas veces"
-                labelPlacement="top"
-            />
-            <FormControlLabel
-              value="2"
-              control={<Radio color="primary" />}
-              label="Algunas veces"
-              labelPlacement="top"
-            />
-            <FormControlLabel
-              value="3"
-              control={<Radio color="primary" />}
-              label="Muchas veces"
-              labelPlacement="top"
-            />
-            <FormControlLabel
-              value="4"
-              control={<Radio color="primary" />}
-              label="Casi siempre"
-              labelPlacement="top"
-            />
-          </RadioGroup>
-  
-        </FormControl>
-        </div>
+        <Typography  variant="h4">Escala de depresión de autoevaluación de Zung</Typography>
+        <Typography  variant="body1" component="h6">Para cada elemento a continuación, verifique la columna que mejor describe con qué frecuencia se sintió o se comportó de esta manera durante los últimos días.</Typography>
+        <br></br>
+        {phrases.map((x,i)=>          
+          <Grid container className={classes.questionContainer} justify="center" alignItems="center" onChange={(x)=>update(x,i)}>
+            <Grid item sm={2} xs={12} className={classes.centerAlign}> <Typography className={classes.centerAlign} variant="body1">{x}</Typography></Grid>
+              <FormControl  component="fieldset" >
+              <RadioGroup row aria-label="position" name="position" defaultValue="top" className={classes.radioButtonGroup}>
+                <Grid item lg={4} md={3} sm={2}  className={classes.centerAlign}>
+                  <FormControlLabel
+                    value="1"
+                    control={<Radio color="primary" />}
+                    label="Muy pocas veces"
+                    labelPlacement="top"
+                  />
+                </Grid>
+                <Grid item lg={3} md={2} sm={2}  className={classes.centerAlign}>
+                  <FormControlLabel
+                    value="2"
+                    control={<Radio color="primary" />}
+                    label="Algunas veces"
+                    labelPlacement="top"
+                  />
+                </Grid>
+                <Grid item lg={3} md={2} sm={2}  className={classes.centerAlign}>
+                  <FormControlLabel
+                    value="3"
+                    control={<Radio color="primary" />}
+                    label="Muchas veces"
+                    labelPlacement="top"
+                  />
+                </Grid>
+                <Grid item xs={2} className={classes.formControlClass}>
+                  <FormControlLabel
+                    value="4"
+                    control={<Radio color="primary" />}
+                    label="Casi siempre"
+                    labelPlacement="top"
+                  />
+                </Grid>
+              </RadioGroup>
+              </FormControl>
+            <br></br>
+          </Grid>
         )}
-  
         <p hidden={end}>Todos los campos deben ser respondidos</p> 
   
         <CustomButton

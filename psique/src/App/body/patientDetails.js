@@ -146,7 +146,7 @@ function PatientDetailsModule(props) {
                   icon: () => <SendIcon/>,
                   tooltip:'Details',
                   onClick: (event, rowData) => {
-                    verifyPractitioner()
+                    verifyPractitioner(23)
                   } 
                 }
               ]

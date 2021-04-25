@@ -1,20 +1,15 @@
 import React from 'react';
+import { forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
+import DetailsIcon from '@material-ui/icons/Details';
+import {AddBox,ArrowDownward,Check,ChevronLeft,ChevronRight,Clear,DeleteOutline,Edit,FilterList,FirstPage,LastPage,Remove,SaveAlt,Search,ViewColumn} from "@material-ui/icons";
 
-/*
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import { setBody } from "../store/body/action";
+import { setIdPatient } from "../store/consultation/action";
+import { setDataPatient } from "../store/consultation/action";
 
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import Category from '../components/category';
-import CustomButton from '../components/customButton';
-*/
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   bodypage:{
     textAlign: "-webkit-center",
+    paddingTop:"30px",
+    paddingRight: "20px",
+    paddingLeft: "20px"
   },
   space:{
     paddingTop:"30px",
@@ -61,35 +59,8 @@ const useStyles = makeStyles((theme) => ({
 
 function PatientModule(props) {
 
-    /* COMENTARIO DE EL CAR BUTTON CREAR PACIENTE EN CASO DE SER NECESARIO
-    <div className={classes.grid}>
-          
-            <div className={classes.cardButton}>
-                <Card className={classes.root}>
-                    <CardActionArea>
-                        <CardContent className={classes.textCardContent}>          
-                            <Typography  variant="h5" component="h2">
-                              Crear Paciente
-                            </Typography>        
-                        </CardContent>
-                    </CardActionArea>
-                </Card> 
-            </div>
-
-        </div>
-    */
-
     const classes = useStyles();
-/*
-    {
-      id_patient:ID!,	
-      name:String!,
-      surname: String!,
-      gender:String!,
-      city:String!,
-      birth_date: Date!
-    }
-*/
+
     const [state, setState] = React.useState({
       columns: [
         { title: 'Identificador', field: 'id_patient' },
@@ -117,15 +88,47 @@ function PatientModule(props) {
         },
       ],
     });
+
+    const tableIcons = {
+      Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+      Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+      Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+      DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+      Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+      Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+      FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+      LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+      NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+      ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+      SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+      ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+      ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    };
     
     return(
     
     <div  className={classes.bodypage} >
 
       <MaterialTable
-        title="Editable Example"
+        title="Pacientes"
+        icons={tableIcons}
         columns={state.columns}
         data={state.data}
+        actions={[
+          {
+            icon: () => <DetailsIcon/>,
+            tooltip:'Details',
+            onClick: (event, rowData) => {
+              props.setDataPatient(rowData);
+              props.setBody("moduloDetallesPacientes")
+            } 
+          }
+        ]
+        }
         editable={{
           onRowAdd: newData =>
             new Promise(resolve => {
@@ -167,7 +170,22 @@ function PatientModule(props) {
         
     </div>
     )
-
 }
 
-export default PatientModule;
+const mapStateToProps = (state) => {
+  
+  return {
+    id_patient: state.consultationReducer.id_patient,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setIdPatient: (item) => dispatch(setIdPatient(item)),
+    setDataPatient: (item) => dispatch(setDataPatient(item)),
+    setBody: (item) => dispatch(setBody(item)),
+  };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (PatientModule);

@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Body from '../body/body';
 
 import PatientModule from '../body/patientModule';
+import PatientDetailsModule from '../body/patientDetails';
 import ResearchModule from '../body/researchModule'
 
 import Assessment from "./assessment"
@@ -77,6 +78,8 @@ function Sidenav(props) {
         return <Wada></Wada>
       case 'moduloPacientes':
         return <PatientModule></PatientModule>
+      case 'moduloDetallesPacientes':
+        return <PatientDetailsModule></PatientDetailsModule>
       case 'moduloInvestigaciones':
         return <ResearchModule></ResearchModule>
       case "Prueba de los Cinco Dígitos":

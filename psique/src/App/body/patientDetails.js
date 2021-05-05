@@ -5,11 +5,20 @@ import MaterialTable from 'material-table';
 import SendIcon from '@material-ui/icons/Send';
 import {AddBox,ArrowDownward,Check,ChevronLeft,ChevronRight,Clear,DeleteOutline,Edit,FilterList,FirstPage,LastPage,Remove,SaveAlt,Search,ViewColumn} from "@material-ui/icons";
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
 import { setBody } from "../store/body/action";
 import { setIdPatient } from "../store/consultation/action";
 import { connect } from "react-redux";
+import md5 from 'md5';
 
-import { verifyPractitioner } from './transmision'
+import { verifyPractitioner,doctorParser, createPractitioner, verifyPatient,patientParser, createPatient } from './transmision'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +77,8 @@ function PatientDetailsModule(props) {
         props.dataPatient
     ]);
 
+    const [recipient, setRecipient] = React.useState("")
+
     const [back, setBack] = useState([{
         head_trauma: false,
         prenatal_trauma: false,
@@ -98,6 +109,18 @@ function PatientDetailsModule(props) {
         rawdata:'resultados i guess',
     }])
 
+    const [open, setOpen] = React.useState(false);
+    const [openToPractitioner, setOpenToPractitioner] = React.useState(false);
+    const [openUploadServer, setOpenUploadServer] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
     const tableIcons = {
       Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
       Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -117,6 +140,40 @@ function PatientDetailsModule(props) {
       ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
       ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
+
+    //Functions to load Data
+/*
+    function loadToServer(){
+
+      let verificarPractitioner = new Promise((resolve, reject) => {
+        verifyPractitioner()
+      })
+
+      verificarPractitioner.then()
+    }*/
+
+
+  //Función que permite crear recursos Practitioner en el server FHIR
+    function crearPractitioner(){
+      let objPract = {
+        identifier: props.id_doctor,
+        name: 'Steban Cadena Giraldo'
+      }
+
+      createPractitioner(doctorParser(objPract)).then(x=>{
+        console.log(x);
+        alert("Tus datos han sido cargados con exito")
+      })
+    }
+
+    //Función que permite crear recursos Patient en el server FHIR
+    function crearPatient(){
+
+      createPatient(patientParser(state)).then(x=>{
+        console.log(x);
+        alert("Los datos del paciente han sido cargados con exito")
+      })
+    }
     
     return(
     
@@ -146,7 +203,31 @@ function PatientDetailsModule(props) {
                   icon: () => <SendIcon/>,
                   tooltip:'Details',
                   onClick: (event, rowData) => {
-                    verifyPractitioner(23)
+                    verifyPractitioner(props.id_doctor).then(x=>{
+                      if(x.total===1){
+                        alert("Ya existe el usuario")
+                      }else if(x.total===0){
+                        alert("Aun no existe el usuario")
+                        crearPractitioner()
+                      }
+                      
+                    } )
+                  } 
+                },
+                {
+                  icon: () => <AddBox/>,
+                  tooltip:'Add Patient',
+                  onClick: (event, rowData) => {
+                    let idMd = String(md5(String(state.id_patient)))
+                    verifyPatient(idMd).then(x=>{
+                      if(x.total===1){
+                        alert("Ya existe el paciente")
+                      }else if(x.total===0){
+                        alert("Aun no existe el paciente")
+                        crearPatient()
+                      }
+                      
+                    } )
                   } 
                 }
               ]
@@ -244,7 +325,7 @@ function PatientDetailsModule(props) {
                   icon: () => <SendIcon/>,
                   tooltip:'Details',
                   onClick: (event, rowData) => {
-                    alert("Esto incia la tarea de trasmitir")
+                    handleClickOpen()
                   } 
                 }
               ]
@@ -268,6 +349,83 @@ function PatientDetailsModule(props) {
 
         </div>
 
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Envio de datos"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Vas a compartir los datos y resultados de las pruebas seleccionadas. 
+              Puedes enviar estos datos a un profesional, en cuyo caso se solicitara que cargues una remisión o un consentimiento informado firmado por el paciente.
+              O puedes cargar estos datos a nuestro servidor para que puedan ser consultados por otros usuarios de PSIQUE (Se mantendrán los datos sensibles protegidos mediante la ley 1582 de 2012 por lo que los mismos no podrán ser accedidos por terceros)
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={() => {handleClose();
+              setOpenToPractitioner(true);}} color="primary">
+              Enviar a un profesional
+            </Button>
+            <Button onClick={() => {handleClose();
+              setOpenUploadServer(true);}} color="primary" autoFocus>
+              Cargar al servidor
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+
+
+        <Dialog
+        open={openToPractitioner}
+        onClose={() => {setOpenToPractitioner(false);}}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Envio a profesional"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Ingresa el identificador del profesional al que deseas enviar los datos
+              <TextField value={recipient} onChange={(event)=>{setRecipient(event.target.value)}} />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => {setOpenToPractitioner(false);}} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={() => {setOpenToPractitioner(false);alert(recipient)}} color="primary">
+              Enviar al profesional
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+
+        <Dialog
+        open={openUploadServer}
+        onClose={() => {setOpenUploadServer(false);}}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Cargar al servidor"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Estas seguro que deseas cargar los datos al servidor?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => {setOpenUploadServer(false);}} color="primary">
+              Cancelar
+            </Button>
+            <Button onClick={() => {setOpenUploadServer(false);}} color="primary" autoFocus>
+              Cargar al servidor
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         
     </div>
     )
@@ -278,6 +436,7 @@ const mapStateToProps = (state) => {
   
     return {
       id_patient: state.consultationReducer.id_patient,
+      id_doctor: state.doctorReducer.id_doctor,
       dataPatient: state.consultationReducer.dataPatient,
     };
   };

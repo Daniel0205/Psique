@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import { forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import MaterialTable from 'material-table';
+import SendIcon from '@material-ui/icons/Send';
+import DetailsIcon from '@material-ui/icons/Details';
+import {AddBox,ArrowDownward,Check,ChevronLeft,ChevronRight,Clear,DeleteOutline,Edit,FilterList,FirstPage,LastPage,Remove,SaveAlt,Search,ViewColumn} from "@material-ui/icons";
 
+import { setBody } from "../store/body/action";
+import { connect } from "react-redux";
+
+import { consultResearch } from './transmision'
+
+/*
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-/* 
+
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +26,7 @@ import CustomButton from '../components/customButton';
 */
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: { 
     textAlign: "center",
     width: "100%",
     height: "100%",
@@ -28,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   bodypage:{
     textAlign: "-webkit-center",
+    paddingTop:"30px",
+    paddingRight: "20px",
+    paddingLeft: "20px",
   },
   space:{
     paddingTop:"30px",
@@ -36,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   buton:{
     backgroundColor: "#017F8D",  
     
+  },
+  separator: {
+    marginBottom: '10px'
   },
   grid: {
     display: "grid",
@@ -60,29 +77,191 @@ const useStyles = makeStyles((theme) => ({
 function ResearchModule(props) {
 
     const classes = useStyles();
+
+    const [dataResearch, setDataResearch] = useState([]);
+
+    useEffect(() => {
+      let mounted = true;
+      consultResearch().then(items => {
+          if(mounted) {
+            setDataResearch(items)
+          }
+        })
+      return () => mounted = false;
+    }, [])
+
+    const tableIcons = {
+      Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+      Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+      Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+      DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+      Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+      Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+      FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+      LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+      NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+      PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+      ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+      Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+      SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
+      ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+      ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    };
     
     return(
 
 
-    <div  className={classes.bodypage} >  
-        <div className={classes.grid}>
+    <div  className={classes.bodypage} >
 
-            <div className={classes.cardButton}>
-                <Card className={classes.root}>
-                    <CardActionArea>
-                        <CardContent className={classes.textCardContent}>          
-                            <Typography  variant="h5" component="h2"> 
-                                Crear Investigación
-                            </Typography>        
-                        </CardContent>
-                    </CardActionArea>
-                </Card> 
-            </div> 
-             
+      <div className={classes.separator}>
+
+        <MaterialTable
+          title="INVESTIGACIONES"
+          icons={tableIcons}
+          columns={[
+            { title: 'Identificador', field: 'id_research' },
+            { title: 'Nombre', field: 'name' },
+            { title: 'Estado', field: 'status' },
+            { title: 'Organización ', field: 'organization' },
+            { title: 'Investigador Principal', field: 'investigator' },
+            { title: 'Ciudad', field: 'city' },
+          ]}
+          data={dataResearch}
+          actions={[
+            {
+              icon: () => <DetailsIcon/>,
+              tooltip:'Details',
+              onClick: (event, rowData) => {
+                console.log(rowData);
+                props.setBody("moduloDetallesInvestigacion")
+              } 
+            }
+          ]
+          }
+          editable={{
+            onRowAdd: newData =>
+              new Promise(resolve => {
+                setTimeout(() => {
+                  resolve();
+                  setDataResearch(prevState => {
+                    const data = [...prevState.data];
+                    data.push(newData);
+                    return { ...prevState, data };
+                  });
+                }, 600);
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise(resolve => {
+                setTimeout(() => {
+                  resolve();
+                  if (oldData) {
+                    setDataResearch(prevState => {
+                      const data = [...prevState.data];
+                      data[data.indexOf(oldData)] = newData;
+                      return { ...prevState, data };
+                    });
+                  }
+                }, 600);
+              }),
+          }}
+        />
+
+      </div>
+
+
+
+        <div className={classes.separator}>
+
+          <MaterialTable
+          title="COMPARTIDOS CONMIGO"
+          icons={tableIcons}
+          columns={[
+            { title: 'Paciente', field: 'id_patient' },
+          ]}
+          data={[{
+            id_patient:4,
+          },
+          {
+            id_patient:5,
+          }] }
+          options={{
+              emptyRowsWhenPaging:false,
+              search:false,
+              paging:false
+              }
+          }
+          actions={[
+              {
+                icon: () => <SendIcon/>,
+                tooltip:'Send Rerport',
+                onClick: (event, rowData) => {
+                  alert("report sended")
+                } 
+              }
+            ]
+            }
+          />
+
         </div>
+
+        <div className={classes.separator}>
+
+          <MaterialTable
+          title="OBSERVACIONES"
+          icons={tableIcons}
+          columns={[
+            { title: 'ID Observación', field: 'id_test' },
+            { title: 'Remitente', field: 'id_patient' },
+            { title: 'ID Prueba', field: 'id_test' },
+            { title: 'Prueba', field: 'testType' },
+            { title: 'Observación', field: 'rawdata' },
+          ]}
+          data={[{
+            id_patient:4,
+          },
+          {
+            id_patient:5,
+          }] }
+          options={{
+              emptyRowsWhenPaging:false,
+              search:false,
+              paging:false
+              }
+          }
+          actions={[
+              {
+                icon: () => <SendIcon/>,
+                tooltip:'Send Rerport',
+                onClick: (event, rowData) => {
+                  alert("report sended")
+                } 
+              }
+            ]
+            }
+          />
+
+        </div>
+
+
     </div>
     )
 
 }
 
-export default ResearchModule;
+const mapStateToProps = (state) => {
+  
+  return {
+    id_patient: state.consultationReducer.id_patient,
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setBody: (item) => dispatch(setBody(item)),
+  };
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (ResearchModule);

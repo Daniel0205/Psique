@@ -74,7 +74,7 @@ function PatientModule(props) {
           id_patient:1234194,	
           name:'Pepito',
           surname: 'Perez',
-          gender:'M',
+          gender:'male',
           city:'Cali',
           birth_date: 'x-y-z'
         },
@@ -82,7 +82,7 @@ function PatientModule(props) {
           id_patient:1234236,	
           name:'Pedrito',
           surname: 'Pereira',
-          gender:'M',
+          gender:'male',
           city:'Cali',
           birth_date: 'x-y-z'
         },

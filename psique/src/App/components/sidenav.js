@@ -7,6 +7,7 @@ import Body from '../body/body';
 import PatientModule from '../body/patientModule';
 import PatientDetailsModule from '../body/patientDetails';
 import ResearchModule from '../body/researchModule'
+import ResearchDetailsModule from '../body/researchDetails'
 
 import Assessment from "./assessment"
 import Header from "../header/header"
@@ -82,6 +83,8 @@ function Sidenav(props) {
         return <PatientDetailsModule></PatientDetailsModule>
       case 'moduloInvestigaciones':
         return <ResearchModule></ResearchModule>
+      case 'moduloDetallesInvestigacion':
+        return <ResearchDetailsModule></ResearchDetailsModule>
       case "Prueba de los Cinco Dígitos":
         return <Digits></Digits>
       default:

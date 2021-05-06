@@ -14,7 +14,6 @@ export function verifyPractitioner(identifier) {
 
         axios.get(url)
         .then(res => {
-            console.log(res.data)
             resolve(res.data)
         })
 
@@ -445,31 +444,32 @@ export function createOrganization(resourceOrganization){
 ///////////////////////////////////////CONDITION///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
-export function consultCondition(){
+export function consultCondition(identifier){
 
   return new Promise((resolve,reject) => {
-    const url = 'http://localhost:8080/fhir/Condition'
+    const url = 'http://localhost:8080/fhir/Condition?subject=Patient/' + String(identifier)
   
     axios.get(url)
     .then(res => {
 
       var fhirObjs = res.data.entry
 
-      var formatedObjs = fhirObjs.map( (obj) => {
+      if(res.data.total>=1){
+        var formatedObjs = fhirObjs.map( (obj) => {
 
-        var object = {
-          id_procedure: obj.resource.id,
-          subject: obj.resource.subject,
-          status: obj.resource.status,
-          performer: obj.resource.performer,
-          outcome: obj.resource.outcome,
-          report: obj.resource.report
-        }
- 
-       return object
-      
-      })
+          var object = {
+            id_condition: obj.resource.id,
+            subject: obj.resource.subject.reference,
+            name: obj.resource.code.coding[0].display,
+            icd10: obj.resource.code.coding[0].code,
+          }
+   
+         return object
+        
+        })
         resolve(formatedObjs)
+      }
+  
     })
   })
 
@@ -594,6 +594,84 @@ export function createBinary(resourceBinary){
     const url = 'http://localhost:8080/fhir/Binary'
 
     axios.post(url,resourceBinary)
+    .then(res => {
+        resolve(res.data)
+    })
+
+  })
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////COMMUNICATION//////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+export function consultCommunication(identifier){
+
+  return new Promise((resolve,reject) => {
+    const url = 'http://localhost:8080/fhir/Communication?recipient=Practitioner/' + String(identifier)
+  
+    axios.get(url)
+    .then(res => {
+
+      var fhirObjs = res.data.entry
+
+      var formatedObjs = fhirObjs.map( (obj) => {
+
+        var object = {
+          id_communication: obj.resource.id,
+          sender: obj.resource.sender.reference,
+          recipient: obj.resource.recipient[0].reference,
+          date: obj.resource.sent,
+          reference: obj.resource.about[0].reference,
+          data: obj.resource.payload[0].contentString,
+        }
+ 
+       return object
+      
+      })
+        resolve(formatedObjs)
+    })
+  })
+
+}
+
+//Esta función recibe un recurso Communication JSON y devuelve un JSON en formato FHIR 
+export function communicationParser(objCommunication){
+
+  return(
+    {
+      "resourceType": "Communication",
+      "about": [
+        {
+          "reference": objCommunication.subj
+        }
+      ],
+      "sent": "2016-06-12T18:01:10-08:00",
+      "recipient": [
+        {
+          "reference": objCommunication.receiver
+        }
+      ],
+      "sender": {
+        "reference": objCommunication.sender
+      },
+      "payload": [
+        {
+          "contentString": objCommunication.obs
+        }
+      ]
+    }
+  )
+
+}
+
+
+//Esta funcion recibe un recurso Communication FHIR y lo carga en la base de datos 
+export function createCommunication(resourceCommunication){
+  return new Promise((resolve,reject) => {
+    const url = 'http://localhost:8080/fhir/Communication'
+
+    axios.post(url,resourceCommunication)
     .then(res => {
         resolve(res.data)
     })

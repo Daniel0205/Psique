@@ -21,15 +21,23 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SaveIcon from '@material-ui/icons/Save';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import clsx from 'clsx';
-import { setDoctor } from "../store/doctor/action";
+import { setDoctor, setFhirDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
 import { setAssessment } from "../store/assessment/action";
 import { connect } from "react-redux";
 import { useMutation, gql } from '@apollo/client';
 
+import {verifyPractitioner,createPractitioner,doctorParser} from '../body/transmision.js';
+
 import  Logo from "../assets/Logo/logo72x83.png"
+import { Button } from "@material-ui/core";
 
 const LOGIN_QUERY = gql`
   mutation($id_assessment: ID!) {
@@ -120,6 +128,7 @@ function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [drawerVar, setdrawerVar] = React.useState(false);
+  const [registrationVar, setregistrationVar] = React.useState(false);
   const [exit] = useMutation(LOGIN_QUERY);
 
   /*const handleClick = (event) => {
@@ -153,6 +162,31 @@ function Header(props) {
     const {data}= await exit({ variables: {id_assessment:props.id_assessment} });
 
     if (data.exitAssessment.ok)save()
+  }
+
+  function accessResearch(){
+    verifyPractitioner(props.id_doctor).then( res => {
+      if(res.total===1){
+        props.setFhirDoctor(res.entry[0].resource.id)
+        props.setBody("moduloInvestigaciones")
+      }else if(res.total===0){
+        setregistrationVar(true)
+      }
+    })
+  }
+
+  function crearPractitioner(){
+    
+    let objPract = {
+      identifier: props.id_doctor,
+      name: 'Steban Cadena Giraldo'
+    }
+
+    createPractitioner(doctorParser(objPract)).then(res=>{
+      props.setFhirDoctor(res.id)
+      alert("Tus datos han sido cargados con exito - tu ID es " + String(res.id))
+      props.setBody("moduloInvestigaciones")
+    })
   }
 
   return [
@@ -234,7 +268,7 @@ function Header(props) {
             <ListItemText primary={"Mi Perfil"} />
         </ListItem>
 
-        <ListItem button onClick={() => {props.setBody("moduloInvestigaciones")} }>
+        <ListItem button onClick={accessResearch}>
             <ListItemIcon className={classes.buttonDrawer}><AccountTreeIcon/></ListItemIcon>
             <ListItemText primary={"Investigaciones"} />
         </ListItem>
@@ -261,7 +295,29 @@ function Header(props) {
         </ListItem>
 
     </List>
-  </Drawer>]
+  </Drawer>,
+  <Dialog
+  key={"REG"}
+  open={registrationVar}
+  onClose={()=>{setregistrationVar(false)}}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+  >
+    <DialogTitle id="alert-dialog-title">{"Registro"}</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        ¿Deseas registrar tus datos en el servidor de investigaciones?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={()=>{setregistrationVar(false)}} color="primary">
+        Cancelar
+      </Button>
+      <Button onClick={crearPractitioner} color="primary">
+        Registrarme
+      </Button>
+    </DialogActions>
+  </Dialog>]
 }
 
 
@@ -269,6 +325,8 @@ const mapStateToProps = (state) => {
   
   return {
     id_assessment: state.assessmentReducer.id_assessment,
+    id_doctor: state.doctorReducer.id_doctor,
+    id_fhir_doctor: state.doctorReducer.id_fhir_doctor,
   };
 };
 
@@ -276,6 +334,7 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return {
       setDoctor: (item) => dispatch(setDoctor(item)),
+      setFhirDoctor: (item) => dispatch(setFhirDoctor(item)),
       setBody: (item) => dispatch(setBody(item)),
       setAssessment: (item) => dispatch(setAssessment(item))
   };

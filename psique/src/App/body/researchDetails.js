@@ -94,15 +94,7 @@ function ResearchDetailsModule(props) {
               { title: 'Organización ', field: 'organization' },
               { title: 'Investigador Principal', field: 'investigator' },
               { title: 'Ciudad', field: 'city' },
-            ],
-            data:[{
-                id_research:1005,	
-                name:'WADA ',
-                status: 'Activa',
-                organization:'IMBANACO',
-                investigator:'Caliche',
-                city: 'Cali'
-            }]
+            ]
         }
     );
 
@@ -174,7 +166,7 @@ function ResearchDetailsModule(props) {
             title="Información General de la Investigación"
             icons={tableIcons}
             columns={state.columns}
-            data={state.data}
+            data={[props.research]}
             options={{
                 emptyRowsWhenPaging:false,
                 search:false,
@@ -226,6 +218,7 @@ const mapStateToProps = (state) => {
       id_patient: state.consultationReducer.id_patient,
       id_doctor: state.doctorReducer.id_doctor,
       dataPatient: state.consultationReducer.dataPatient,
+      research: state.researchReducer.research
     };
   };
   

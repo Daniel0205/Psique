@@ -1,66 +1,32 @@
 import React, { useState, useEffect} from 'react';
 import { forwardRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
+import DetailsIcon from '@material-ui/icons/Details';
 import {AddBox,ArrowDownward,Check,ChevronLeft,ChevronRight,Clear,DeleteOutline,Edit,FilterList,FirstPage,LastPage,Remove,SaveAlt,Search,ViewColumn} from "@material-ui/icons";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 import { setBody } from "../store/body/action";
 import { connect } from "react-redux";
 
-import { consultProcedure } from './transmision'
+import { consultProcedure, communicationParser, createCommunication } from './transmision'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign: "center",
-    width: "100%",
-    height: "100%",
-    borderRadius: "3%",
-    backgroundColor: "#017F8D",
-    color: "white",
-    "&:hover":{
-      backgroundColor: "#016570",
-    }
-  },
-  bodypage:{
-    textAlign: "-webkit-center",
-    paddingTop:"30px",
-    paddingRight: "20px",
-    paddingLeft: "20px"
-  },
-  space:{
-    paddingTop:"30px",
-    paddingBottom: "30px"
-  },
-  separator: {
-    marginBottom: '10px'
-  },
-  buton:{
-    backgroundColor: "#017F8D",  
-    
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "33% 33% 33%",
-    
- },
- cardButton:{
-      padding: "5%"
- },
- media: {
-    maxHeight:"150px",
-    maxInlineSize: "-webkit-fill-available",
-  },
-  textCardContent: {
-    paddingBottom: "5px",
-    paddingTop: "5px",
-    paddingRight: "0px",
-    paddingLeft: "0px",
-  },
-}));
 
 function FhirProcedure(props) {
 
-    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    function handleClose(){
+        setOpen(false)
+    }
+
+    const [recipient, setRecipient] = React.useState("")
+    const [about, setAbout] = React.useState("")
+    const [observation, setObservation] = React.useState("")
 
     const [dataProcedure, setDataProcedure] = useState([]);
 
@@ -74,6 +40,21 @@ function FhirProcedure(props) {
         })
       return () => mounted = false;
     }, [])
+
+    function enviarObservation(){
+      var objComm = {
+        receiver: recipient,
+        subj: about,
+        sender: 'Practitioner/' + String(props.id_fhir_doctor),
+        obs: observation
+      }
+
+      createCommunication(communicationParser(objComm)).then(x=>{
+        alert("Tu mensaje se ha enviado con exito")
+        setOpen(false)
+      })
+
+    }
 
     const tableIcons = {
       Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -110,11 +91,52 @@ function FhirProcedure(props) {
                     { title: 'Reporte', field: 'report' },
                   ]}
                   data={dataProcedure}
+                  actions={[
+                    {
+                      icon: () => <DetailsIcon/>,
+                      tooltip:'Ver detalles',
+                      onClick: (event, rowData) => {
+                        alert("Vas a verlos detalles del registro")
+                      } 
+                    },
+                    {
+                      icon: () => <AddBox/>,
+                      tooltip:'Hacer observación',
+                      onClick: (event, rowData) => {
+                        setRecipient(rowData.performer)
+                        setAbout("Procedure/"+rowData.id_procedure)
+                        setOpen(true)
+                      } 
+                    }
+                  ]
+                  }
                   options={{
                       emptyRowsWhenPaging:false,
                       }
                   }
               />
+
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{"Envio de observación"}</DialogTitle>
+            <DialogContent>
+              <TextField disabled={true} value={recipient} label={"Enviar a"} /> <b/>
+              <TextField disabled={true} value={about} label={"Hace refencia a"} />
+              <TextField value={observation} label={"Observación"} onChange={(event)=>{ setObservation(event.target.value)} } />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Cancelar
+              </Button>
+              <Button onClick={enviarObservation} color="primary">
+                Enviar
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
     )
 
@@ -125,6 +147,7 @@ const mapStateToProps = (state) => {
     return {
       id_patient: state.consultationReducer.id_patient,
       id_doctor: state.doctorReducer.id_doctor,
+      id_fhir_doctor: state.doctorReducer.id_fhir_doctor,
       dataPatient: state.consultationReducer.dataPatient,
     };
   };

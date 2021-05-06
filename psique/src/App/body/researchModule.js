@@ -7,9 +7,10 @@ import DetailsIcon from '@material-ui/icons/Details';
 import {AddBox,ArrowDownward,Check,ChevronLeft,ChevronRight,Clear,DeleteOutline,Edit,FilterList,FirstPage,LastPage,Remove,SaveAlt,Search,ViewColumn} from "@material-ui/icons";
 
 import { setBody } from "../store/body/action";
+import { setResearch } from "../store/research/action";
 import { connect } from "react-redux";
 
-import { consultResearch } from './transmision'
+import { consultResearch, consultCommunication } from './transmision'
 
 /*
 import Card from '@material-ui/core/Card';
@@ -79,6 +80,7 @@ function ResearchModule(props) {
     const classes = useStyles();
 
     const [dataResearch, setDataResearch] = useState([]);
+    const [dataCommunication, setDataCommunication] = useState([]);
 
     useEffect(() => {
       let mounted = true;
@@ -87,6 +89,13 @@ function ResearchModule(props) {
             setDataResearch(items)
           }
         })
+
+      consultCommunication(props.id_fhir_doctor).then(items => {
+          if(mounted) {
+            setDataCommunication(items)
+          }
+        })
+
       return () => mounted = false;
     }, [])
 
@@ -134,7 +143,7 @@ function ResearchModule(props) {
               icon: () => <DetailsIcon/>,
               tooltip:'Details',
               onClick: (event, rowData) => {
-                console.log(rowData);
+                props.setResearch(rowData);
                 props.setBody("moduloDetallesInvestigacion")
               } 
             }
@@ -171,59 +180,19 @@ function ResearchModule(props) {
       </div>
 
 
-
-        <div className={classes.separator}>
-
-          <MaterialTable
-          title="COMPARTIDOS CONMIGO"
-          icons={tableIcons}
-          columns={[
-            { title: 'Paciente', field: 'id_patient' },
-          ]}
-          data={[{
-            id_patient:4,
-          },
-          {
-            id_patient:5,
-          }] }
-          options={{
-              emptyRowsWhenPaging:false,
-              search:false,
-              paging:false
-              }
-          }
-          actions={[
-              {
-                icon: () => <SendIcon/>,
-                tooltip:'Send Rerport',
-                onClick: (event, rowData) => {
-                  alert("report sended")
-                } 
-              }
-            ]
-            }
-          />
-
-        </div>
-
         <div className={classes.separator}>
 
           <MaterialTable
           title="OBSERVACIONES"
           icons={tableIcons}
           columns={[
-            { title: 'ID Observación', field: 'id_test' },
-            { title: 'Remitente', field: 'id_patient' },
-            { title: 'ID Prueba', field: 'id_test' },
-            { title: 'Prueba', field: 'testType' },
-            { title: 'Observación', field: 'rawdata' },
+            { title: 'ID Observación', field: 'id_communication' },
+            { title: 'Remitente', field: 'sender' },
+            { title: 'Referencia a', field: 'reference' },
+            { title: 'Fecha de envio', field: 'date' },
+            { title: 'Observación', field: 'data' },
           ]}
-          data={[{
-            id_patient:4,
-          },
-          {
-            id_patient:5,
-          }] }
+          data={dataCommunication}
           options={{
               emptyRowsWhenPaging:false,
               search:false,
@@ -254,12 +223,14 @@ const mapStateToProps = (state) => {
   
   return {
     id_patient: state.consultationReducer.id_patient,
+    id_fhir_doctor: state.doctorReducer.id_fhir_doctor,
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setBody: (item) => dispatch(setBody(item)),
+    setResearch: (item) => dispatch(setResearch(item)),
   };
 }
 

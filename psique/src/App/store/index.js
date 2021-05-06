@@ -5,6 +5,7 @@ import wechslerReducer from "./wechsler/reducer";
 import assessmentReducer from "./assessment/reducer";
 import doctorReducer from "./doctor/reducer";
 import consultationReducer from "./consultation/reducer";
+import researchReducer from "./research/reducer";
 
 const reducers = combineReducers({
     patientReducer,
@@ -12,7 +13,8 @@ const reducers = combineReducers({
     bodyReducer,
     assessmentReducer,
     doctorReducer,
-    consultationReducer
+    consultationReducer,
+    researchReducer
 });
 
 const enhancers = compose(

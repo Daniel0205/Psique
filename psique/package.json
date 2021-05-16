@@ -27,10 +27,10 @@
     "xlsx": "^0.16.5"
   },
   "scripts": {
-    "start": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts start",
-    "build": "REACT_APP_API_URL=https://psique-back.herokuapp.com/graphql REACT_APP_ENDPOINT=psique-back.herokuapp.com/  react-scripts build",
-    "test": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts test",
-    "eject": "REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts eject"
+    "start": "REACT_APP_CUBEJS_URL=http://localhost:3001/ REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts start",
+    "build": "REACT_APP_CUBEJS_URL=https://psique-dashboard.web.app/ REACT_APP_API_URL=https://psique-back.herokuapp.com/graphql REACT_APP_ENDPOINT=psique-back.herokuapp.com/  react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

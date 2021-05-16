@@ -216,10 +216,8 @@ function Wada(props) {
     
     socket.off('connect-all')
     socket.on('connect-all',()=>{
-      console.log("SE CONECTAROOON")
       if((stream!==undefined && type==='paciente' )|| type==="doctor" ){
         var aux = peer
-        console.log(peer===aux)
         if(type==="paciente"){
           peer = new Peer({ initiator: true, stream: stream })
           peer.on('stream', function (stream) {
@@ -245,7 +243,6 @@ function Wada(props) {
             }
           });
         }
-        console.log(peer===aux)
 
         peer.on('signal', data => {
           socket.emit("sendSignal",data)
@@ -311,7 +308,6 @@ function Wada(props) {
   
  
   function body(){
-    console.log(socket)
     switch (state) {
       case "intro":
       case "waiting":

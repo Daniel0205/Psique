@@ -215,9 +215,9 @@ function Header(props) {
             <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
         </ListItem>
-        <ListItem button >
+        <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
             <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
-            <ListItemText primary={"Informes"} />
+            <ListItemText primary={"Informes poblacionales"} />
         </ListItem>
         <ListItem button >
             <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>

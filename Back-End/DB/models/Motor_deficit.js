@@ -1,21 +1,21 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Aphasia = db.define ('aphasia',{
-    id_aphasia:{
+const Motor_deficit = db.define ('motor_deficit',{
+    id_deficit:{
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    aphasia:{
+    deficit:{
         type: Sequelize.TEXT,
         allowNull: false    
-    }
+    },
 },{
     freezeTableName: true,
     timestamps: false
 })
 
-Aphasia.removeAttribute("id");
+Motor_deficit.removeAttribute("id");
 
-module.exports = Aphasia;
+module.exports = Motor_deficit;

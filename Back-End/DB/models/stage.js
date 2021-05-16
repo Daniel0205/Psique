@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Aphasia = db.define ('aphasia',{
-    id_aphasia:{
-        type: Sequelize.INTEGER,
+const Stage = db.define ('stage',{
+    id_stage:{
+        type: Sequelize.BIGINT,
         primaryKey: true,
-        autoIncrement: true
+        allowNull: false,
     },
-    aphasia:{
+    stage:{
         type: Sequelize.TEXT,
         allowNull: false    
     }
@@ -16,6 +16,6 @@ const Aphasia = db.define ('aphasia',{
     timestamps: false
 })
 
-Aphasia.removeAttribute("id");
+Stage.removeAttribute("id");
 
-module.exports = Aphasia;
+module.exports = Stage;

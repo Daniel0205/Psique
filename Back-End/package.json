@@ -15,14 +15,15 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "graphql": "^15.3.0",
+    "graphql": "14.6.0",
     "graphql-tools": "^6.0.14",
     "jsonwebtoken": "^8.5.1",
-    "merge-graphql-schemas": "^1.7.8",
+    "merge-graphql-schemas": "^1.7.0",
     "moment": "^2.27.0",
     "pg": "^8.6.0",
     "recordrtc": "^5.6.1",
-    "sequelize": "^6.3.3",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {

@@ -33,7 +33,7 @@ CHECK(handedness IN ('D','I'))
 );
 
 
-INSERT INTO patient values(12345,'Test','Test','M','Cali','Bogota',TO_DATE('02/05/1999', 'DD/MM/YYYY'),'Casado','Universitario','D',2,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
+INSERT INTO patient values(1234,'Test','Test','M','Cali','Bogota',TO_DATE('02/05/1999', 'DD/MM/YYYY'),'Casado','Universitario','D',2,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
 
 /*background-New table*/
 DROP TABLE IF EXISTS background CASCADE;
@@ -65,7 +65,7 @@ INSERT INTO background (id_patient,	head_trauma,prenatal_trauma,
 meningitis,premature_birth,narcotics,asthma,earache,sinusitis,rhinitis,
 pneumothorax,tuberculosis,heart_problems,renal_problems,bone_problems,
 epidermal_problems,smoking,alcoholism,update_date) 
-values(12345, true, true, true, true, true, true, 
+values(1234, true, true, true, true, true, true, 
 true, true, true, true, true, true, true, true, true, true, true,TO_DATE('21/03/2021', 'DD/MM/YYYY'));
 
 /*CRISIS-NEW TABLE*/
@@ -86,7 +86,7 @@ CREATE TABLE crisis_per_patient(
 	insert_date DATE NOT NULL
 );
 
-INSERT INTO crisis_per_patient values(12345,0000,5,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
+INSERT INTO crisis_per_patient values(1234,0000,5,TO_DATE('20/03/2021', 'DD/MM/YYYY'));
 
 /*medication-new*/
 DROP TABLE IF EXISTS medication CASCADE;
@@ -107,7 +107,7 @@ CREATE TABLE cognitive_disease(
 	type TEXT NOT NULL
 );
 
-INSERT INTO cognitive_disease values(12345,3333,'PATATUS TEST DISEASE');
+INSERT INTO cognitive_disease values(1234,3333,'PATATUS TEST DISEASE');
 
 DROP TABLE IF EXISTS medication_per_disease CASCADE;
 CREATE TABLE medication_per_disease(
@@ -126,7 +126,7 @@ CREATE TABLE medication_per_patient_per_disease(
 	dosis INT NOT NULL
 );
 
-INSERT INTO medication_per_patient_per_disease values(1111,3333,12345, 10);
+INSERT INTO medication_per_patient_per_disease values(1111,3333,1234, 10);
 
 DROP TABLE IF EXISTS cognitive_disease_per_patient CASCADE;
 CREATE TABLE cognitive_disease_per_patient(
@@ -134,7 +134,7 @@ CREATE TABLE cognitive_disease_per_patient(
 	id_patient INT REFERENCES patient(id_patient)
 );
 
-INSERT INTO cognitive_disease_per_patient values(3333,12345);
+INSERT INTO cognitive_disease_per_patient values(3333,1234);
 
 
 /*****************************/
@@ -150,7 +150,7 @@ CREATE TABLE assessment(
 );
 
 
-INSERT INTO assessment values(5555,12345,12345,TO_DATE('20/03/2021', 'DD/MM/YYYY'),TO_DATE('20/03/2021', 'DD/MM/YYYY'),false);
+INSERT INTO assessment values(5555,1234,12345,TO_DATE('20/03/2021', 'DD/MM/YYYY'),TO_DATE('20/03/2021', 'DD/MM/YYYY'),false);
 
 
 DROP TABLE IF EXISTS test CASCADE;

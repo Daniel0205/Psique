@@ -376,9 +376,9 @@ CREATE TABLE switching(
 /*************/
 
 
-/*WISC*/
-DROP TABLE IF EXISTS wisc CASCADE;
-CREATE TABLE wisc(
+/*WAIS*/
+DROP TABLE IF EXISTS wais CASCADE;
+CREATE TABLE wais(
 	id_test INT REFERENCES test(id_test),
 	cube_design INT NOT NULL,
 	similarities INT NOT NULL,
@@ -398,9 +398,9 @@ CREATE TABLE wisc(
 );
 
 
-/*WAIS*/
-DROP TABLE IF EXISTS wais CASCADE;
-CREATE TABLE wais(
+/*WISC*/
+DROP TABLE IF EXISTS wisc CASCADE;
+CREATE TABLE wisc(
 	id_test INT REFERENCES test(id_test),
 	cube_design INT NOT NULL,
 	similarities INT NOT NULL,

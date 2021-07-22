@@ -24,7 +24,7 @@
     "redux": "^4.0.5",
     "simple-peer": "^9.7.2",
     "socket.io-client": "^2.3.0",
-    "xlsx": "^0.16.5"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "REACT_APP_CUBEJS_URL=http://localhost:3001/ REACT_APP_API_URL=http://localhost:5000/graphql REACT_APP_ENDPOINT=localhost:5000/ react-scripts start",

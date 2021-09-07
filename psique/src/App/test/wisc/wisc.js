@@ -3,6 +3,7 @@ import TestStart from '../../components/testStart';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import WaisWiscTestsButton from '../../components/WaisWiscTestsButton';
 import Baremos from '../../components/Baremos';
 import { makeStyles } from '@material-ui/core/styles';
@@ -122,39 +123,41 @@ function Wisc(props) {
         return(
         <div id='inicioWisc' >
           <Grid className={classes.gridTextStyle}>
-              <Typography  variant="h4">
-                WISC
-              </Typography>        
-              <Typography  variant="body1" component="h6">
-                Estas son las subpruebas disponibles para aplicar al paciente, seleccione la prueba que desea aplicar
-              </Typography>
-              <Typography  variant="body1" component="h6">
-                Recuerda que debes aplicar al menos 10 subpruebas
-              </Typography>
-            </Grid>
+            <Typography  variant="h4">
+              WISC
+            </Typography>        
+            <Typography  variant="body1" component="h6">
+              Estas son las subpruebas disponibles para aplicar al paciente, seleccione la prueba que desea aplicar
+            </Typography>
+            <Typography  variant="body1" component="h6">
+              Recuerda que debes aplicar al menos 10 subpruebas
+            </Typography>
+          </Grid>
     
-            <Grid container className={classes.gridButtonsStyle} justify="space-evenly" alignItems="center" spacing={3}>
-              {texts.map((name,i)=>
-                <Grid item key={i} xs>
-                  <WaisWiscTestsButton
-                    msj={name}
-                    callback={()=>props.setBody("WISC-"+name)}>
-                  </WaisWiscTestsButton>
-                </Grid>)
-              }
-            </Grid>
+          <Grid container className={classes.gridButtonsStyle} justify="space-evenly" alignItems="center" spacing={3}>
+            {texts.map((name,i)=>
+              <Grid item key={i} xs>
+                <WaisWiscTestsButton
+                  msj={name}
+                  callback={()=>props.setBody("WISC-"+name)}>
+                </WaisWiscTestsButton>
+              </Grid>)
+            }
+          </Grid>
     
-            <Grid container justify="center" className={classes.gridBottomStyle}>
-          <Button variant="contained" color="primary"
-            onClick={()=>props.setBody("init")}
-            className={classes.cancelarButton}>
-              Cancelar
-          </Button>
-          <Button variant="contained" color="primary"
-            onClick={()=>props.setBody("WISC-baremos")}
-            className={classes.calcularButton}>
-              Calcular puntuación escalar
-          </Button>
+          <Grid container justify="center" className={classes.gridBottomStyle}>
+            <Tooltip title="Regresar al menu de pruebas">
+              <Button variant="contained" color="primary"
+                onClick={()=>props.setBody("init")}
+                className={classes.cancelarButton}>
+                  Cancelar
+              </Button>
+            </Tooltip>
+            <Button variant="contained" color="primary"
+              onClick={()=>props.setBody("WISC-baremos")}
+              className={classes.calcularButton}>
+                Calcular puntuación escalar
+            </Button>
         </Grid>
       </div>)
 

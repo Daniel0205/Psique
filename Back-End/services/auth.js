@@ -2,23 +2,18 @@
 const jwt  = require( "jsonwebtoken");
 
 const REFRESH_TOKEN_SECRET = 'asiodfhoi1hoi23jnl1kejd';
-const ACCESS_TOKEN_SECRET = 'asiodfhoi1hoi23jnl1kejasdjlkfasdd';
+const ACCESS_TOKEN_SECRET = '6c559c4bd913481dcf7b6aa80efe451b6ced53691c84227fae3f3ad7e2ae5a06241c718bb787b12b97d2a579b7fa91fc34955f914db087d60878917e91d9867e';
 
 exports.createTokens =(user)=>{
   
   const refreshToken = jwt.sign(
     { userId: user.id_doctor },
-    user.password+REFRESH_TOKEN_SECRET,
-    {
-      expiresIn: "7d"
-    }
+    REFRESH_TOKEN_SECRET
   );
   
   const token = jwt.sign(
       { userId: user.id_doctor }, 
-      ACCESS_TOKEN_SECRET, {
-        expiresIn: "15min"
-  });
+      ACCESS_TOKEN_SECRET);
 
   return [ refreshToken, token ];
 };

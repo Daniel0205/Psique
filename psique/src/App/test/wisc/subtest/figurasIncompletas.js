@@ -9,6 +9,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 6
@@ -31,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -48,7 +65,7 @@ let firstItem;
 let timer;
 
 function FigurasIncompletas(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -201,13 +218,12 @@ function FigurasIncompletas(props) {
        return (
        <div id= "inicio" >
        <h1>Figuras incompletas</h1>
-       <b>instrucciones generales:</b>
+       <b>Instrucciones generales:</b>
        <p>A continuación se enseñan unas imágenes las cuales les hace falta algo</p>
        <p>el sujeto debe señalar o decir la parte faltante de la imagen</p>
  
        <br/>
-       <b>instrucciones para registrar la respuesta de paciente:</b>
-       <br/>
+       <b>Instrucciones para registrar la respuesta de paciente:</b>
        <br/>
        <li>0 : para indicar la respuesta no fue correcta o no contestó</li>
        <li>1 : para indicar la respuesta fue correcta</li>
@@ -215,13 +231,9 @@ function FigurasIncompletas(props) {
        <br/>
        <Grid container justify="center">
           <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WISC-selection")}
-          ></WaisWiscReturnButton>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={next}
-          ></CustomButton>
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
         </Grid>
      </div>)
      
@@ -232,18 +244,27 @@ function FigurasIncompletas(props) {
         <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
         <CustomButton msj="Estímulo 1"
-        callback={()=>imagenInit(1)}></CustomButton> 
+          callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 9-11</p>
         <CustomButton msj="Estímulo 5"
-        callback={()=>imagenInit(5)}></CustomButton> 
+          callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
         <CustomButton msj="Estímulo 10"
-        callback={()=>imagenInit(10)}></CustomButton>
+          callback={()=>imagenInit(10)}></CustomButton>
 
-        <WaisWiscReturnButton
-          msj="Retroceder"
-          callback={()=>setState("instruccion")}
-        ></WaisWiscReturnButton>
+        <br/>
+        <Grid container justify="center">
+          <Tooltip title="Regresar al menu de wisc">
+            <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+              <ArrowBackIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Instrucciones de la prueba">
+            <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+              <HelpOutlineIcon />
+            </Button>
+          </Tooltip>
+        </Grid>
       </div>
        )
     case "ejemplo":

@@ -9,6 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import { setBody } from "../../../store/body/action";
@@ -171,7 +176,19 @@ const useStyles = makeStyles((theme) => ({
   },
   concepts:{
     width:"80%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -184,7 +201,7 @@ let firstItem;// Item en el que inicio la prueba
       
 
 function Comprension(props) {
-  var [state,setState] = useState("instruccion")
+  var [state,setState] = useState("seleccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0)
   var [givenAnswer, setGivenAnswer] = useState("");
@@ -318,20 +335,15 @@ function Comprension(props) {
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
-            <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0, 1 y 2 para la puntuación de la respuesta</li>
             <br/>
             <Grid container justify="center">
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={()=>setState("seleccion")}
-            ></CustomButton>
-          </Grid>
+              <WaisWiscReturnButton
+                msj="Regresar a prueba"
+                callback={()=>setState("seleccion")}
+              ></WaisWiscReturnButton>          
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -355,10 +367,19 @@ function Comprension(props) {
               callback={()=>testInit(4)}
             ></CustomButton>
 
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-            ></WaisWiscReturnButton>          
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wisc">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>   
           </div>
         )
       case "test":

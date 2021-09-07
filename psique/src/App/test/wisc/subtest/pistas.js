@@ -9,6 +9,11 @@ import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 5
@@ -107,7 +112,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -120,7 +137,7 @@ let firstItem;// Item en el que inicio la prueba
       
 
 function Pistas(props) {
-  const [state,setState] = useState("instruccion")
+  const [state,setState] = useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -231,26 +248,21 @@ function Pistas(props) {
         return(
           <div>
             <h1>Pistas</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>A continuación se darán una serie de pistas al paciente</p>
             <p>el cual deberá relacionarlo con un concepto. </p>
             <br/>
-            <b>instrucciones para registrar la respuesta de paciente:</b>
-            <br/>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0 y 1 para la puntuación de la respuesta</li>
             <br/>
             <Grid container justify="center">
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={()=>setState("seleccion")}
-            ></CustomButton>
-          </Grid>
+              <WaisWiscReturnButton
+                msj="Regresar a prueba"
+                callback={()=>setState("seleccion")}
+              ></WaisWiscReturnButton>          
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -268,10 +280,19 @@ function Pistas(props) {
               msj="Estímulo 5"
               callback={()=>imagenInit(5)}
             ></CustomButton>       
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wisc">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>
           </div>
         )
       case "test":

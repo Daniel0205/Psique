@@ -9,6 +9,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -31,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -43,7 +60,7 @@ let firstItem;// Item en el que inicio la prueba
 
 function Matrices(props) {
 
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [stateExample,setStateExample]=useState("ejemplo1")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -197,48 +214,52 @@ function Matrices(props) {
         return (
         <div id= "inicio" >
         <h1>Matrices</h1>
-        <b>instrucciones generales:</b>
+        <b>Instrucciones generales:</b>
         <p>Se presentarán una matriz o una serie incompleta al paciente</p>
         <p>La tarea es escoger, entre cinco opciones, la que mejor complete la matriz o la serie</p>
         <br/>
-        <b>instrucciones para registrar la respuesta de paciente:</b>
-        <br/>
+        <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>
         <p>El sistema calificara automaticamente la prueba</p>
         <br/>
         <Grid container justify="center">
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={next}
-            ></CustomButton>
-          </Grid>
+          <WaisWiscReturnButton
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
+        </Grid>
       </div>)
       
       case "seleccion":
         return(
-         <div >
-         <h1>Matrices</h1>
-         <p>¿En qué estímulo desea iniciar la prueba? </p>
-         <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
-         <CustomButton msj="Estímulo 4"
-         callback={()=>imagenInit(4)}></CustomButton> 
-         <p>Pacientes de edad 9-11</p>
-         <CustomButton msj="Estímulo 7"
-         callback={()=>imagenInit(7)}></CustomButton> 
-         <p>Pacientes de edad 12-16</p>
-         <CustomButton msj="Estímulo 11"
-         callback={()=>imagenInit(11)}></CustomButton>
-         
-         <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
-       </div>
+          <div >
+          <h1>Matrices</h1>
+          <p>¿En qué estímulo desea iniciar la prueba? </p>
+          <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
+          <CustomButton msj="Estímulo 4"
+            callback={()=>imagenInit(4)}></CustomButton> 
+          <p>Pacientes de edad 9-11</p>
+          <CustomButton msj="Estímulo 7"
+            callback={()=>imagenInit(7)}></CustomButton> 
+          <p>Pacientes de edad 12-16</p>
+          <CustomButton msj="Estímulo 11"
+            callback={()=>imagenInit(11)}></CustomButton>
+          
+          <br/>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wisc">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
+        </div>
         )
       case "ejemplo":
         return(

@@ -7,6 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const TIME_LIMIT= 45;
@@ -28,8 +33,19 @@ const useStyles = makeStyles((theme) => ({
   revision:{
     paddingLeft: "25%",
     paddingRight: "25%",
-  }
-
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 let correct1Aux;
@@ -41,7 +57,7 @@ let time2Aux;
 
 
 function Registros(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [active,setActive] = useState("iniciar")
   const [cronometro,setCronometro] = useState(0)
   const [timeover,setTimeover] = useState(0)
@@ -165,7 +181,7 @@ function Registros(props) {
         return(
         <div >
           <h1>Registros</h1>
-          <b>instrucciones generales:</b>
+          <b>Instrucciones generales:</b>
           <p>El paciente recibirá una hoja con diferentes objetos y animales</p>
           <p>en ella deberá tachar con un lápiz todos los animales que alcance en el tiempo</p>
           <br/>
@@ -175,29 +191,34 @@ function Registros(props) {
           <br/>
           <Grid container justify="center">
             <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Aplicar subprueba"
+              msj="Regresar a prueba"
               callback={()=>setState("seleccion")}
-            ></CustomButton>
+            ></WaisWiscReturnButton>          
           </Grid>
         </div>
         )
       case "seleccion":
         return(
         <div >
-        <h1>Registros</h1>
-        <p>Pacientes de edad 6-16:</p>
-        <CustomButton
-          msj="Iniciar subprueba"
-          callback={()=>setState("test")}
-        ></CustomButton>
-        <WaisWiscReturnButton
-          msj="Retroceder"
-          callback={()=>props.setBody("WISC-selection")}
-        ></WaisWiscReturnButton>
+          <h1>Registros</h1>
+          <p>Pacientes de edad 6-16:</p>
+          <CustomButton
+            msj="Iniciar subprueba"
+            callback={()=>setState("test")}
+          ></CustomButton>
+          <br/>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wisc">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
         </div>
         )
 

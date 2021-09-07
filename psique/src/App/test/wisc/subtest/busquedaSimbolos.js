@@ -6,6 +6,11 @@ import Results from '../../../components/results'
 import TestsTimer from '../../../components/TestsTimer'
 import Grid from '@material-ui/core/Grid';
 import WarningIcon from '@material-ui/icons/Warning';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+//import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
@@ -14,7 +19,7 @@ import { setBody } from "../../../store/body/action";
 let busquedaA = false; // true A; false B
 const TESTDURATION = 120;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     alignSelf: "center",
   },
@@ -33,7 +38,19 @@ const useStyles = makeStyles({
     alignSelf: "center",
     verticalAlign: "middle",
   },
-});
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+}));
 
 
 function BusquedaSimbolos(props) {
@@ -266,10 +283,12 @@ function BusquedaSimbolos(props) {
               msj="Registro de resultados"
               callback={()=>setState("seleccion")}
             ></CustomButton>
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Tooltip title="Regresar al menu de wisc">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
           </div>
         )
 

@@ -8,6 +8,11 @@ import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 5
@@ -37,7 +42,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -59,7 +76,7 @@ const answersExample = [[0,0,0],[0,0,0]]
 let firstItem;// Item en el que inicio la prueba
 
 function ConceptoDibujos(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -240,22 +257,17 @@ function ConceptoDibujos(props) {
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
-        <br/>
         <p>La respuesta del paciente se registra en los campos bajo la imagen</p>
         <p>Indicando las opciones seleccionadas por el paciente</p>
         <p>El sistema calificará automáticamente la prueba</p>
         <br/>
 
         <Grid container justify="center">
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={next}
-            ></CustomButton>
-          </Grid>
+          <WaisWiscReturnButton
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
+        </Grid>
      </div>)
      
      case "seleccion":
@@ -265,18 +277,26 @@ function ConceptoDibujos(props) {
         <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes de edad 6-8 o con sospechas de discapacidad intelectual:</p>
         <CustomButton msj="Estímulo 1"
-        callback={()=>imagenInit(1)}></CustomButton> 
+          callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 9-11</p>
         <CustomButton msj="Estímulo 5"
-        callback={()=>imagenInit(5)}></CustomButton> 
+          callback={()=>imagenInit(5)}></CustomButton> 
         <p>Pacientes de edad 12-16</p>
         <CustomButton msj="Estímulo 7"
-        callback={()=>imagenInit(7)}></CustomButton>
-
-        <WaisWiscReturnButton
-          msj="Retroceder"
-          callback={()=>setState("instruccion")}
-        ></WaisWiscReturnButton>
+          callback={()=>imagenInit(7)}></CustomButton>
+        <br/>
+        <Grid container justify="center">
+          <Tooltip title="Regresar al menu de wisc">
+            <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+              <ArrowBackIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Instrucciones de la prueba">
+            <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+              <HelpOutlineIcon />
+            </Button>
+          </Tooltip>
+        </Grid>
       </div>
        )
     case "ejemplo A":

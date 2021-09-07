@@ -11,7 +11,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Results from '../../../components/results'
+import Results from '../../../components/results';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+//import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
@@ -20,7 +25,7 @@ import { setBody } from "../../../store/body/action";
 let clavesA = false;
 const TESTDURATION = 120;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     alignSelf: "center",
     width: "fit-content",
@@ -31,7 +36,19 @@ const useStyles = makeStyles({
   textfield:{
     width:"20%"
   },
-});
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+}));
 
 function createData(timeRange, bonusP, totalNS) {
   return { timeRange, bonusP, totalNS };
@@ -102,10 +119,12 @@ function Claves(props) {
               msj="Registro de resultados"
               callback={()=>setState("seleccion")}
             ></CustomButton>
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Tooltip title="Regresar al menu de wisc">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip> 
           </div>
         )
 

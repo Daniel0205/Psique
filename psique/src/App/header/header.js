@@ -234,10 +234,10 @@ function Header(props) {
             <ListItemText primary={"Paciente"} />
           </ListItem>
         </BootstrapTooltip>
-        <BootstrapTooltip title="Ver informes" placement="right">
-          <ListItem button >
+        <BootstrapTooltip title="Ver informes poblacionales" placement="right">
+          <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
             <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
-            <ListItemText primary={"Informes"} />
+            <ListItemText primary={"Informes poblacionales"} />
           </ListItem>
         </BootstrapTooltip>
         <BootstrapTooltip title="Ver pruebas" placement="right">

@@ -21,6 +21,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SaveIcon from '@material-ui/icons/Save';
+import Tooltip from '@material-ui/core/Tooltip';
 import clsx from 'clsx';
 import { setDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
@@ -115,6 +116,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useStylesBootstrap = makeStyles((theme) => ({
+  arrow: {
+    color: theme.palette.common.black,
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+function BootstrapTooltip(props) {
+  const classes = useStylesBootstrap();
+
+  return <Tooltip arrow classes={classes} {...props} />;
+}
+
 function Header(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -207,44 +223,57 @@ function Header(props) {
     <Divider className={classes.drawerDivider} />
     <List>
         {props.id_assessment!==null?
-        <ListItem button onClick={()=>props.setBody("init")} >
+        <BootstrapTooltip title="Ir al menu principal" placement="right">
+        <ListItem button onClick={()=>props.setBody("init")} >            
             <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
-            <ListItemText primary={"Inicio"} />
-        </ListItem>:null}
-        <ListItem button >
+            <ListItemText primary={"Inicio"} />            
+        </ListItem></BootstrapTooltip>:null}
+        <BootstrapTooltip title="Ver información del paciente" placement="right">
+          <ListItem button >          
             <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
             <ListItemText primary={"Paciente"} />
-        </ListItem>
-        <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
+          </ListItem>
+        </BootstrapTooltip>
+        <BootstrapTooltip title="Ver informes poblacionales" placement="right">
+          <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
             <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
             <ListItemText primary={"Informes poblacionales"} />
-        </ListItem>
-        <ListItem button >
+          </ListItem>
+        </BootstrapTooltip>
+        <BootstrapTooltip title="Ver pruebas" placement="right">
+          <ListItem button >
             <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>
             <ListItemText primary={"Pruebas"} />
-        </ListItem>
-        <ListItem button >
+          </ListItem>
+        </BootstrapTooltip>
+        <BootstrapTooltip title="Ver información de perfil" placement="right">
+          <ListItem button >
             <ListItemIcon className={classes.buttonDrawer}><PersonOutlineIcon/></ListItemIcon>
             <ListItemText primary={"Mi Perfil"} />
-        </ListItem>
+          </ListItem>
+        </BootstrapTooltip>
         {props.id_assessment!==null?
-        <ListItem button onClick={save}>
+        <BootstrapTooltip title="Guardar datos y salir" placement="right">
+          <ListItem button onClick={save}>
             <ListItemIcon className={classes.buttonDrawer}><SaveIcon/></ListItemIcon>
             <ListItemText primary={"Guardar y salir"} />
-        </ListItem>:null}
+          </ListItem></BootstrapTooltip>:null}
         {props.id_assessment!==null?
-        <ListItem button onClick={end}>
+        <BootstrapTooltip title="Terminar evalución actual y salir" placement="right">
+          <ListItem button onClick={end}>
             <ListItemIcon className={classes.buttonDrawer}><AssignmentTurnedInIcon/></ListItemIcon>
             <ListItemText primary={"Terminar evaluación"} />
-        </ListItem>:null}
-        <ListItem button onClick={()=>{
+          </ListItem></BootstrapTooltip>:null}
+        <BootstrapTooltip title="Cerrar sesión y salir" placement="right">
+          <ListItem button onClick={()=>{
               localStorage.clear();
               props.setDoctor(null)
               props.setBody("login")
             }}>
             <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
             <ListItemText primary={"Cerrar sesión"} />
-        </ListItem>
+          </ListItem>
+        </BootstrapTooltip>
     </List>
   </Drawer>]
 }

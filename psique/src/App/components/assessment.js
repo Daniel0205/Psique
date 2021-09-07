@@ -93,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "30%",
     paddingRight: "30%"
   },
+  centerComp: {
+    alignSelf: "center",
+    justifyContent: "center",
+  }
 }));
 
 function Assessment(props) {
@@ -145,7 +149,7 @@ function Assessment(props) {
             <Typography variant="h6" component="h4">
               Actualmente la evaluación #{data.patientAssessment.assessments.id_assessment} se encuentra activa.
               <br />
-              ¿Desea continuar con esta evaluación o comenzar una nueva?
+              En caso de haber terminado la sesión de evaluación con el paciente haga click en nueva evaluación, de lo contrario haga click en continuar evalución.
             </Typography>
             <Typography variant="body2" component="h4">
               *Si comienza una nueva la evaluación actual se dara por terminada.
@@ -184,7 +188,7 @@ function Assessment(props) {
               Actualmente no hay ninguna evaluación activa  
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions className={classes.centerComp}>
             <CustomButton 
             msj="Nueva evaluación"
             callback={createAssessment}

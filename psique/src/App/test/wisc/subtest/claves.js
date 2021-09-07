@@ -138,7 +138,7 @@ function Claves(props) {
             <p>Pacientes de edad 8-16: <b>Claves B </b></p>
             <p>El temporizador sirve de ayuda para tomar el tiempo, inicie el tiempo una vez dadas las instrucciones de la prueba</p>
             <p>Recuerde al finalizar la prueba guardar el registro de cuanto fue el tiempo usado por el paciente (tiempo total = {TESTDURATION} segundos)</p>
-
+            <p><b>La interfaz sirve de ayuda durante la prueba, la cual debe aplicarse de forma manual con el material de apoyo correspondiente</b></p>
             <br/>
             <TestsTimer duration={TESTDURATION}></TestsTimer>
             <br/>

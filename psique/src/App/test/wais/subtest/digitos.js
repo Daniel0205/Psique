@@ -8,6 +8,11 @@ import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 2
@@ -78,13 +83,25 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
 function Digitos(props) {
   const classes = useStyles();
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("initDirecto")
   const [resultsD, setResultsD] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsDAux ,setResultsDAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsI, setResultsI] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -174,7 +191,7 @@ function Digitos(props) {
 
   function imagenInit(item){
     setNumberItem(item)
-    setState('initDirecto')
+    setState('testDirecto')
   }
 
 
@@ -264,24 +281,20 @@ function Digitos(props) {
         return (
         <div>
          <h1>Dígitos</h1>
-         <b>instrucciones generales:</b>
+         <b>Instrucciones generales:</b>
          <p>Se realizarán tres puebas que consisten en las que el profesional dictara una lista de números </p>
          <p>y la tarea del paciente es repetir, repetir en orden inverso y repetir organizando los numeros</p>
          <p>Los items se presentan de forma verbal</p>
          <br/>
-         <b>instrucciones de calificación:</b>
+         <b>Instrucciones de calificación:</b>
          <p>Para calificar debe escribir los números que de el paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
          <p>El sistema se encargará de asignar la puntuación correspondiente</p>
          <br/>
-        <Grid container justify="center">
+         <Grid container justify="center">
           <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WAIS-selection")}
-          ></WaisWiscReturnButton>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>imagenInit(1)}
-          ></CustomButton>  
+            msj="Regresar a prueba"
+            callback={()=>setState("initDirecto")}
+          ></WaisWiscReturnButton>          
         </Grid>
       </div>)
      case "initDirecto":
@@ -289,14 +302,23 @@ function Digitos(props) {
         <div>
          <h1>Dígitos en Orden directo</h1>
         <Grid container justify="center">
-          <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState('instruccion')}
-          ></WaisWiscReturnButton>
           <CustomButton
             msj="Iniciar Digitos en orden directo"
-            callback={()=>setState('testDirecto')}
+            callback={()=>imagenInit(1)}
           ></CustomButton>  
+        </Grid>
+        <br/>
+        <Grid container justify="center">
+          <Tooltip title="Regresar al menu de wais">
+            <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+              <ArrowBackIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Instrucciones de la prueba">
+            <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+              <HelpOutlineIcon />
+            </Button>
+          </Tooltip>
         </Grid>
       </div>)
        case "testDirecto":

@@ -11,6 +11,11 @@ import Typography from '@material-ui/core/Typography';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -102,6 +107,18 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 245,
     maxHeight: 345,
   },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -112,7 +129,7 @@ let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el p
 let firstItem;// Item en el que inicio la prueba
 
 function Semejanzas(props) {
-  const [state,setState] = useState("instruccion")
+  const [state,setState] = useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -223,12 +240,12 @@ function Semejanzas(props) {
         return(
           <div>
             <h1>Semejanzas</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Se presentarán dos palabras que representan objetos o conceptos comunes</p>
             <p>La tarea del paciente es determinar en que se parecen esos objetos o conceptos</p>
             <p>Los items se presentan de forma verbal</p>
             <br/>
-            <b>instrucciones para registrar la respuesta de paciente:</b>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
             <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
             <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
             <li>0 : Cualquier clasificación general que es poco pertinente y que define con poca precisión ambos elementos</li>
@@ -237,13 +254,9 @@ function Semejanzas(props) {
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>props.setBody("WAIS-selection")}
-              ></WaisWiscReturnButton>
-              <CustomButton
-                msj="Iniciar subprueba"
+                msj="Regresar a prueba"
                 callback={()=>setState("seleccion")}
-              ></CustomButton>
+              ></WaisWiscReturnButton>          
             </Grid>
           </div>
         )
@@ -254,14 +267,23 @@ function Semejanzas(props) {
             <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>La prueba se inicia en el estimulo 4 para los pacientes entre los 16-89 años </p>
             <Grid container justify="center">
-              <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>setState("instruccion")}
-              ></WaisWiscReturnButton>
               <CustomButton
-                msj="Siguiente"
+                msj="Iniciar prueba"
                 callback={()=>imagenInit(4)}
               ></CustomButton>
+            </Grid>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wais">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
             </Grid>
           </div>
         )

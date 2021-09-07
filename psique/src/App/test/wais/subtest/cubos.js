@@ -9,6 +9,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 2
@@ -31,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -47,7 +64,7 @@ let firstItem;
 let timer;
 
 function Cubos(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -209,14 +226,13 @@ function Cubos(props) {
         return (
         <div id= "inicio" >
         <h1>Cubos</h1>
-        <b>instrucciones generales:</b>
+        <b>Instrucciones generales:</b>
         <p>A continuacion se enseñaran una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
         <p>disponiendo de un tiempo limite para hacerlo</p>
   
         <br/>
-        <b>instrucciones para registrar la respuesta de paciente:</b>
-        <br/>
-        <br/>
+        <b>Instrucciones para registrar la respuesta de paciente:</b>
+        <br/>        
         <p>Para calificar se debe presionar las teclas numericas deacuerdo a la respuesta del paciente de la siguiente manera </p>
         <p>Del item 1 al 4</p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
@@ -234,13 +250,9 @@ function Cubos(props) {
         <br/>
         <Grid container justify="center">
           <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WAIS-selection")}
-          ></WaisWiscReturnButton>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={next}
-          ></CustomButton>
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
         </Grid>
       </div>)
       case "ejemplo":
@@ -259,19 +271,29 @@ function Cubos(props) {
         )
       case "seleccion":
         return(
-        <div >
-         <h1>Cubos</h1>
-         <p>La prueba se inicia en el estímulo 5 para los pacientes entre los 16-89 años </p>
-         <Grid container justify="center">
-          <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
-          <CustomButton 
-            msj="Siguiente"
-            callback={()=>imagenInit(5)}>
-          </CustomButton> 
-        </Grid>
+          <div >
+          <h1>Cubos</h1>
+          <p>La prueba se inicia en el estímulo 5 para los pacientes entre los 16-89 años </p>
+          <Grid container justify="center">
+            <CustomButton 
+              msj="Iniciar prueba"
+              callback={()=>imagenInit(5)}>
+            </CustomButton> 
+          </Grid>
+
+          <br/>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wais">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
         </div>
         )
        case "test":

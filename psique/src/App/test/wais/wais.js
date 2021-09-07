@@ -129,7 +129,7 @@ function Wais(props) {
               WAIS
             </Typography>        
             <Typography  variant="body1" component="h6">
-              Estas son las subpruebas disponibles para aplicar al paciente, cliquea sobre una para empezar 
+              Estas son las subpruebas disponibles para aplicar al paciente, seleccione la prueba que desea aplicar 
             </Typography>
             <Typography  variant="body1" component="h6">
               Recuerda que debes aplicar al menos 10 subpruebas

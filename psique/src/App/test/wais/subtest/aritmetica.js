@@ -8,6 +8,11 @@ import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +31,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 const LIMIT_ERROR = 3;
@@ -73,7 +90,7 @@ let firstItem;
 
 function Aritmetica(props) {
   const classes = useStyles();
-  var [state,setState]=useState("instruccion")
+  var [state,setState]=useState("seleccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0);
 
@@ -272,19 +289,14 @@ function Aritmetica(props) {
           <br/>
           <b>Instrucciones para registrar la respuesta de paciente:</b>
           <br/>
-          <br/>
-          <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
+          <p>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</p>
           <p>El sistema calificara automáticamente la respuesta</p>
           <br/>
           <Grid container justify="center">
             <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WAIS-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={next}
-            ></CustomButton>  
+              msj="Regresar a prueba"
+              callback={()=>setState("seleccion")}
+            ></WaisWiscReturnButton>          
           </Grid>
         </div>
        );
@@ -305,10 +317,18 @@ function Aritmetica(props) {
             callback={()=>imagenInit(6)}>
           </CustomButton>
           <br/>
-          <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wais">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
         </div>
        );
 

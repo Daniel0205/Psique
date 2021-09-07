@@ -9,6 +9,11 @@ import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -124,7 +129,19 @@ const useStyles = makeStyles((theme) => ({
   },
   concepts:{
     width:"80%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -137,7 +154,7 @@ let firstItem;// Item en el que inicio la prueba
       
 
 function Comprension(props) {
-  const [state,setState] = useState("instruccion")
+  const [state,setState] = useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -248,25 +265,20 @@ function Comprension(props) {
         return(
           <div>
             <h1>Comprensión</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>A continuación se darán una serie de preguntas al paciente</p>
             <p>el cual deberá relacionarlo con un concepto. </p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
-            <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0,1 y 2 para la puntuación de la respuesta</li>
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>props.setBody("WAIS-selection")}
-              ></WaisWiscReturnButton>
-              <CustomButton
-                msj="Iniciar subprueba"
+                msj="Regresar a prueba"
                 callback={()=>setState("seleccion")}
-              ></CustomButton>  
+              ></WaisWiscReturnButton>          
             </Grid>
           </div>
         )
@@ -277,18 +289,27 @@ function Comprension(props) {
             <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-            msj="Estímulo 1"
-            callback={()=>imagenInit(1)}
+              msj="Estímulo 1"
+              callback={()=>imagenInit(1)}
             ></CustomButton>
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-            msj="Estímulo 3"
-            callback={()=>imagenInit(3)}
+              msj="Estímulo 3"
+              callback={()=>imagenInit(3)}
             ></CustomButton>
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wais">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>
           </div>
         )
       case "test":

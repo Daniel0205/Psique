@@ -7,6 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const TIME_LIMIT= 45;
@@ -28,8 +33,19 @@ const useStyles = makeStyles((theme) => ({
   revision:{
     paddingLeft: "25%",
     paddingRight: "25%",
-  }
-
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 
@@ -43,7 +59,7 @@ let time2Aux;
 
 
 function Cancelacion(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [active,setActive] = useState("iniciar")
   const [cronometro,setCronometro] = useState(0)
   const [timeover,setTimeover] = useState(0)
@@ -158,24 +174,20 @@ function Cancelacion(props) {
         return(
         <div >
           <h1>Cancelación</h1>
-          <b>instrucciones generales:</b>
+          <b>Instrucciones generales:</b>
           <p>El paciente recibirá un cuadernillo en el cual deberá tachar</p>
           <p>2 formas geométricas determinadas exactamente idénticas a </p>
           <p>las figuras que se encuentran en la parte superior del cuadernillo</p>
           <br/>
-          <b>instrucciones de calificación:</b>
+          <b>Instrucciones de calificación:</b>
           <p>Al final de cada ítem se registraron las respuestas correctas e incorrectas</p>
           <p>El sistema calificará automáticamente la respuesta</p>
           <br/>
           <Grid container justify="center">
             <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WAIS-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
+              msj="Regresar a prueba"
               callback={()=>setState("seleccion")}
-            ></CustomButton>  
+            ></WaisWiscReturnButton>          
           </Grid>
         </div>
         )
@@ -188,12 +200,20 @@ function Cancelacion(props) {
           msj="Iniciar Subrueba"
           callback={()=>setState("test")}
           ></CustomButton>
-          <p><b>No aplicar a paciente de edad  70-89</b></p>
+          <p><b>No aplicar a pacientes de edad 70-89</b></p>
           <br/>
-          <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wais">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
         </div>
         )
 

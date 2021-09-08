@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import update from 'react-addons-update';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 //import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -20,30 +23,30 @@ const LIMIT_ERROR = 5
 
 const NUMBER_STIMULI = 24
 
-let clues =["-Sirve para secarse después de que te bañas",
-            "-Sirve para oler cosas",
-            "-Es un satélite natural...\n-Y sólo puedes verlo en la noche.",
-            "-Es un animal con trompa y grandes orejas.",
-            "-Se pone en la cabeza para protegerse del frío y del sol.",
-            "-Tiene una perilla o picaporte y la gente puede abrirla para pasar.",
-            "-Mezcla de tierra con la lluvia...\n-Y puedes manchar con esto tu ropa o el piso.",
-            "-Tiene cosas del pasado o antiguas...\n-Y en este lugar se se exhiben cosas interesantes.",
-            "-Líquido de colores...\n-Y se usa para poner en las paredes.",
-            "Esta es una habitación donde la gente duerme. ",
-            "-Proviene de los charcos/ estanques en la costa del mar...\n-Y es útil para (aderezar, condimentar, sazonar) los alimentos.",
-            "-Nacen al pie de las montañas...\n-Y Por lo general desembocan en el océano.",
-            "-Son los responsables de que tu cuerpo funcione...\n-Y algunos de ellos se pueden trasplantar.",
-            "-Conduce a nuevos descubrimientos...\n-Y comprende un proceso con una serie de pasos…\n-Y puede incluir experimentos.",
-            "-Facilita la convivencia de las personas que son diferentes…\n-Se rompe cuando hay conflictos sociales…-Y es algo que la ONU y muchos gobiernos tratan de mantener.",
-            "-Son normas que debe respetar el ciudadano...\n-Y están escritas con el fin de proteger la sociedad.",
-            "-La gente lo hace para arreglar edificios viejos…\n-Y se hace para devolver el aspecto original de algo.",
-            "-No se detiene\n-No se toca\n-Y se puede medir",
-            "-Es un permiso oficial…\n-Por lo general lo otorga una autoridad…\n-Y puede ser que hagas un examen para obtenerlo.",
-            "-Lo festejas…\n-Aumenta cada año…\n-Y te hace más grande.",
-            "-Nunca se ha visto…\n-Mejora nuestras vidas…\n-Y se puede provocar que la gente gane premios.",
-            "-Este es un lugar…\n-Y te protege de los cambios de clima...\n-Y se halla dentro de otra cosa.",
-            "-Puede ser un río…\n-Y las guerras pueden cambiarlo…\n-Y dos países pueden compartirlo.",
-            "-Ha pasado…\n-Y se puede contar... \n-Y otorga lecciones a la gente."]
+let clues =["1. Sirve para secarse después de que te bañas",
+            "2. Sirve para oler cosas",
+            "3. Es un satélite natural...\n-Y sólo puedes verlo en la noche.",
+            "4. Es un animal con trompa y grandes orejas.",
+            "5. Se pone en la cabeza para protegerse del frío y del sol.",
+            "6. Tiene una perilla o picaporte y la gente puede abrirla para pasar.",
+            "7. Mezcla de tierra con la lluvia...\n-Y puedes manchar con esto tu ropa o el piso.",
+            "8. Tiene cosas del pasado o antiguas...\n-Y en este lugar se se exhiben cosas interesantes.",
+            "9. Líquido de colores...\n-Y se usa para poner en las paredes.",
+            "10. Esta es una habitación donde la gente duerme. ",
+            "11. Proviene de los charcos/ estanques en la costa del mar...\n-Y es útil para (aderezar, condimentar, sazonar) los alimentos.",
+            "12. Nacen al pie de las montañas...\n-Y Por lo general desembocan en el océano.",
+            "13. Son los responsables de que tu cuerpo funcione...\n-Y algunos de ellos se pueden trasplantar.",
+            "14. Conduce a nuevos descubrimientos...\n-Y comprende un proceso con una serie de pasos…\n-Y puede incluir experimentos.",
+            "15. Facilita la convivencia de las personas que son diferentes…\n-Se rompe cuando hay conflictos sociales…-Y es algo que la ONU y muchos gobiernos tratan de mantener.",
+            "16. Son normas que debe respetar el ciudadano...\n-Y están escritas con el fin de proteger la sociedad.",
+            "17. La gente lo hace para arreglar edificios viejos…\n-Y se hace para devolver el aspecto original de algo.",
+            "18. No se detiene\n-No se toca\n-Y se puede medir",
+            "19. Es un permiso oficial…\n-Por lo general lo otorga una autoridad…\n-Y puede ser que hagas un examen para obtenerlo.",
+            "20. Lo festejas…\n-Aumenta cada año…\n-Y te hace más grande.",
+            "21. Nunca se ha visto…\n-Mejora nuestras vidas…\n-Y se puede provocar que la gente gane premios.",
+            "22. Este es un lugar…\n-Y te protege de los cambios de clima...\n-Y se halla dentro de otra cosa.",
+            "23. Puede ser un río…\n-Y las guerras pueden cambiarlo…\n-Y dos países pueden compartirlo.",
+            "24. Ha pasado…\n-Y se puede contar... \n-Y otorga lecciones a la gente."]
 
 
 
@@ -298,21 +301,34 @@ function Pistas(props) {
       case "test":
         return(
         <div > 
-          <h1>Item #{numberItem}</h1>
-          
           <h2>{clues[numberItem-1]}</h2>      
           
           <div className={classes.ordenar}>
             <div >
-              <h2><b>0 Punto</b></h2>
-              <br/>
-            <TextareaAutosize value={badAnswer[numberItem-1]} disabled></TextareaAutosize>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+              <Card className={classes.root}>
+                <CardContent>
+                  {badAnswer[numberItem-1].split("\n").map((i,key) => {
+                    return <div key={key}>
+                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                      </div>;
+                  })}
+                </CardContent>
+              </Card>
             </div>
+
             &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <h2><b>1 Punto</b></h2>
-              <br/>
-              <TextareaAutosize value={rightAnswer[numberItem-1]} disabled></TextareaAutosize>
+            <div>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+              <Card className={classes.root}>
+                <CardContent>
+                  {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                    </div>;
+                  })}
+                </CardContent>
+              </Card>
             </div>
           </div>    
           <br/>

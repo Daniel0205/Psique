@@ -264,14 +264,13 @@ function Balanzas(props) {
        <div id= "inicio" >
         <h1>Balanzas</h1>
         <b>Instrucciones generales:</b>
-        <p>A continuación se enseñan una serie de balanzas con dos platillos</p>
-        <p>el sujeto debe seleccionar entre cinco opciones</p>
-        <p>el objeto con el cual equilibrar la balanza</p>
+        <p>A continuación se enseñan una serie de balanzas</p>
+        <p>El sujeto debe seleccionar entre cinco opciones el objeto con el cual se equilibra la balanza</p>
+        <p><b>La interfaz debe ser mostrada al paciente para observar el estímulo</b></p>
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
         <p>Utilizar los botones para indicar la respuesta del paciente </p>
-
         <p>El sistema calificará automáticamente la respuesta</p>
 
        <br/>

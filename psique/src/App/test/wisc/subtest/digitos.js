@@ -226,12 +226,12 @@ function Digitos(props) {
         <div>
          <h1>Dígitos</h1>
          <b>instrucciones generales:</b>
-         <p>Se realizarán dos puebas que consisten en las que el profesional dictara una lista de números </p>
-         <p>y la tarea del paciente es repetir y repetir en orden inverso</p>
-         <p>Los items se presentan de forma verbal</p>
+         <p>Se realizarán dos puebas, el profesional deberá dictar una lista de números al paciente</p>
+         <p>La tarea del paciente es repetir (1ra prueba) y repetir en orden inverso (2da prueba)</p>
+         <p><b>Los items se presentan de forma verbal</b></p>
          <br/>
          <b>instrucciones de calificación:</b>
-         <p>Para calificar debe escribir los números que de el paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
+         <p>Para calificar debe registrar la respuesta del paciente en el espacio asignado y luego oprimir el botón "Siguiente"</p>
          <p>El sistema se encargará de asignar la puntuación correspondiente</p>
          <br/>
          <Grid container justify="center">

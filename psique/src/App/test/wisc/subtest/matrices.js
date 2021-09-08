@@ -220,8 +220,9 @@ function Matrices(props) {
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
-        <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente </p>
-        <p>El sistema calificara automaticamente la prueba</p>
+        <p>Para calificar se debe presionar en el teclado el número correspondiente a la respuesta dada por el paciente</p>
+        <p><b>Ejemplo:</b>Si la respuesta del paciente es el número "3" presionar la tecla correspondiente al "3"</p>
+        <p>El sistema calificará automaticamente la prueba</p>
         <br/>
         <Grid container justify="center">
           <WaisWiscReturnButton

@@ -252,7 +252,7 @@ function ConceptoDibujos(props) {
        <h1>Conceptos con dibujos</h1>
         <b>Instrucciones generales:</b>
         <p>A continuación se presentarán dos o tres filas de dibujos</p>
-        <p>el paciente debe señalar o decir las imágenes que tenga una característica en común</p>
+        <p>El paciente debe señalar o decir las imágenes que tenga una característica en común</p>
 
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>

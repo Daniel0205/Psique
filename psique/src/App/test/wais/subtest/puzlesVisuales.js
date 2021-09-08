@@ -238,12 +238,12 @@ function PuzlesVisuales(props) {
           <div id= "inicio" >
             <h1>Pluzles Visuales</h1>
             <b>Instrucciones generales:</b>
-            <p>Se presentará una imagen principal en la parte superior y seis imágenes más debajo de esta.</p>
+            <p>Se presentará una imagen principal en la parte superior y seis imágenes más debajo de esta</p>
             <p>La tarea es escoger, entre las seis opciones, las tres figuras que combinadas forman la figura principal </p>
             <br/>
             <b>Instrucciones de calificación:</b>
-            <p>Registre los números de las figuras seleccionadas por el paciente para los estímulos de la prueba en el campo de texto  </p>
-            <p>El campo separará automáticamente los números</p>
+            <p>Registre los números de las figuras seleccionadas por el paciente en el campo de texto</p>
+            <p><b>El campo separará automáticamente los números</b></p>
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton

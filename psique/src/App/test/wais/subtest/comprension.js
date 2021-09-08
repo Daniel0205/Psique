@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import update from 'react-addons-update';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 //import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -20,24 +23,24 @@ const LIMIT_ERROR = 3
 
 const NUMBER_STIMULI = 18
 
-let clues =["¿Por qué la gente lleva reloj?",
-            "¿Por qué lavamos la ropa?",
-            "¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
-            "¿Por qué nos interesamos, cada vez mas en las energías renovables?",
-            "Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
-            "¿Qué interes puede tener un inventor en patentar una idea?",
-            "¿Por qué hay museos?",
-            "¿Por qué se necesita receta para comprar ciertos medicamentos?",
-            "¿Por qué fue importante, para algunas civilizaciones,la creación  de la escritura?",
-            "¿Por qué es importante para la mayoria de la gente, tener amigos?",
-            "Digame algunas razones por las que algunas personas piensan que deberiamos explorar el espacio.",
-            "¿Por qué es importante el estudio de la historia?",
-            "¿Por qué exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al público?",
-            "¿Qué quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
-            "¿Por qué algunas personas piensan que es importante proteger a los animales en peligro de extinción?",
-            "¿Por qué cuesta mas un terreno en la ciudad que en el campo?",
-            "Digame algunas razones por las que conviene  que haya un regimen de libertad condicional.",
-            "¿Qué quiere decir el refran \"una golondrina no hace verano\"",]
+let clues =["1. ¿Por qué la gente lleva reloj?",
+            "2. ¿Por qué lavamos la ropa?",
+            "3. ¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
+            "4. ¿Por qué nos interesamos, cada vez mas en las energías renovables?",
+            "5. Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
+            "6. ¿Qué interes puede tener un inventor en patentar una idea?",
+            "7. ¿Por qué hay museos?",
+            "8. ¿Por qué se necesita receta para comprar ciertos medicamentos?",
+            "9. ¿Por qué fue importante, para algunas civilizaciones,la creación  de la escritura?",
+            "10. ¿Por qué es importante para la mayoria de la gente, tener amigos?",
+            "11. Digame algunas razones por las que algunas personas piensan que deberiamos explorar el espacio.",
+            "12. ¿Por qué es importante el estudio de la historia?",
+            "13. ¿Por qué exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al público?",
+            "14. ¿Qué quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
+            "15. ¿Por qué algunas personas piensan que es importante proteger a los animales en peligro de extinción?",
+            "16. ¿Por qué cuesta mas un terreno en la ciudad que en el campo?",
+            "17. Digame algunas razones por las que conviene  que haya un regimen de libertad condicional.",
+            "18. ¿Qué quiere decir el refran \"una golondrina no hace verano\"",]
 
 
 
@@ -267,7 +270,7 @@ function Comprension(props) {
             <h1>Comprensión</h1>
             <b>Instrucciones generales:</b>
             <p>A continuación se darán una serie de preguntas al paciente</p>
-            <p>el cual deberá relacionarlo con un concepto. </p>
+            <p>el cual deberá responder de acuerdo a la pregunta que se le haga</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
@@ -314,33 +317,61 @@ function Comprension(props) {
         )
       case "test":
         return(
-        <div > 
-          <h1>Item #{numberItem}</h1>
-          
-          <h2>{clues[numberItem-1]}</h2>      
-          <br/>
+        <div> 
+          <h2>{clues[numberItem-1]}</h2>
+
+          <div id="generalC">
             {concepts[numberItem-1]!==""?<div >
-              <h2><b>Conceptos generales</b></h2>
-              <br/>
-              <TextareaAutosize className={classes.concepts} value={concepts[numberItem-1]} disabled></TextareaAutosize>
+              <Typography variant="h6" component="p"> Conceptos Generales </Typography>
+              {concepts[numberItem-1].split("\n\n").map((i,key) => {
+              return <div key={key}>
+                  &nbsp;
+                  <Typography variant="body2" component="p"> {i} </Typography> 
+                </div>;
+              })}
             </div>:""}
+          </div>
+          <br/>
           <div className={classes.ordenar}>
-            <div >
-              <h2><b>0 Puntos</b></h2>
-              <br/>
-            <TextareaAutosize value={badAnswer[numberItem-1]} disabled></TextareaAutosize>
+            <div>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+              <Card className={classes.root}>
+                <CardContent>
+                  {badAnswer[numberItem-1].split("\n").map((i,key) => {
+                    return <div key={key}>
+                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                      </div>;
+                  })}
+                </CardContent>
+              </Card>
             </div>
+
             &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <h2><b>1 Punto</b></h2>
-              <br/>
-              <TextareaAutosize value={mediumAnswer[numberItem-1]} disabled></TextareaAutosize>
+            <div>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+              <Card className={classes.root}>
+                  <CardContent>
+                    {mediumAnswer[numberItem-1].split("\n").map((i,key) => {
+                      return <div key={key}>
+                        <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                      </div>;
+                    })}
+                </CardContent>
+              </Card>
             </div>
+
             &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <h2><b>2 Puntos</b></h2>
-              <br/>
-              <TextareaAutosize value={rightAnswer[numberItem-1]} disabled></TextareaAutosize>
+            <div>
+              <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
+              <Card className={classes.root}>
+                <CardContent>
+                  {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                    </div>;
+                  })}
+                </CardContent>
+              </Card>
             </div>
           </div>    
           <br/>

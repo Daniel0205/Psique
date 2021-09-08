@@ -268,13 +268,13 @@ function Aritmetica(props) {
         <div>
           <h1>Aritmética</h1>
           <b>Instrucciones generales:</b>
-          <p>A continuación se mostrará una serie de imágenes (reactivo 1/retorno) o preguntas (reactivo 6)</p>
-          <p>Las imágenes deben ser mostradas al paciente para que las visualice</p>
-          <p>Las preguntas deben ser mencionadas al paciente</p>
+          <p>A continuación se mostrará una serie de imágenes (reactivo 1 al 5) o preguntas (desde el reactivo 6)</p>
+          <li>Las imágenes deben ser mostradas al paciente para aplicar la prueba</li>
+          <li>Las preguntas deben ser mencionadas oralmente al paciente sin mostrar la interfaz</li>
           <br/>
           <b>Instrucciones para registrar la respuesta de paciente:</b>
           <br/>
-          <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
+          <p>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</p>
           <p>El sistema calificara automaticamente la respuesta</p>
           <br/>
           <Grid container justify="center">

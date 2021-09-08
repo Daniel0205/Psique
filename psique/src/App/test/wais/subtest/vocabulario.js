@@ -305,14 +305,14 @@ function Vocabulario(props) {
             <b>Instrucciones generales:</b>
             <p>Para los items del uno al tres la tarea del paciente consiste en nombrar una serie de imagenes presentadas</p>
             <p>Para el resto de los items la tarea del paciente consiste en definir oralmente una serie de palabras que el examinador lee en voz alta</p>
-            <p>Los items se presentan de forma verbal</p>
+            <p><b>Los items se presentan de forma verbal</b></p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
-            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
-            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
+            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item:</p>
             <li>0 : Una respuesta verbal que no muestra un conocimiento real de la palabra</li>
             <li>1 : En general se trata de respuestas correctas pero con contenido escaso o pobre</li>
             <li>2 : La respuesta refleja una buena comprensión de la palabra</li>
+            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>            
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton

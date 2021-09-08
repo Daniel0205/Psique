@@ -331,7 +331,7 @@ function Comprension(props) {
             <h1>Comprensión</h1>
             <b>Instrucciones generales:</b>
             <p>A continuación se le realizará una serie de preguntas al paciente</p>
-            <p>el cual debera responder de acuerdo a la pregunta que se le haga.</p>
+            <p>el cual deberá responder de acuerdo a la pregunta que se le haga</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
             <br/>
@@ -399,7 +399,7 @@ function Comprension(props) {
           <br/>
 
           <div className={classes.ordenar}>
-            <div >
+            <div>
               <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
               <Card className={classes.root}>
                 <CardContent>
@@ -413,7 +413,7 @@ function Comprension(props) {
               </div>
 
               &nbsp;  &nbsp; &nbsp;  &nbsp;
-              <div >
+              <div>
                 <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
                 <Card className={classes.root}>
                   <CardContent>

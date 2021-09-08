@@ -217,12 +217,12 @@ function LetrasNumeros(props) {
         <h1>Letras y Números</h1>
         <b>Instrucciones generales:</b>
         <p>A continuación se enseñarán una serie de números y letras</p>
-        <p>el doctor deberá decirle al paciente cada serie</p>
-        <p>después de esto el paciente deberá repetir en orden la serie</p>
-        <p>en el orden no importa si son primero las letras o los números</p>
+        <p>El doctor deberá decirle al paciente cada serie</p>
+        <p>El paciente deberá repetir en orden la serie</p>
+        <p>No importa si el paciente menciona primero las letras o los números</p>
         <br/>
         <b>Instrucciones de calificación:</b>
-        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estímulo </p>
+        <p>Para calificar se debe ingresar las respuestas del paciente en los recuadros bajo el estímulo </p>
         <p>EL sistema calificará automáticamente las respuestas </p>
         <br/>
        <Grid container justify="center">

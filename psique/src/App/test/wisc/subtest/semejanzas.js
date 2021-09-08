@@ -272,14 +272,14 @@ function Semejanzas(props) {
             <b>instrucciones generales:</b>
             <p>Se presentarán dos palabras que representan objetos o conceptos comunes</p>
             <p>La tarea del paciente es determinar en que se parecen esos objetos o conceptos</p>
-            <p>Los items se presentan de forma verbal</p>
+            <p><b>Los items se presentan de forma verbal</b></p>
             <br/>
             <b>instrucciones para registrar la respuesta de paciente:</b>
-            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
-            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
+            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item:</p>
             <li>0 : Cualquier clasificación general que es poco pertinente y que define con poca precisión ambos elementos</li>
             <li>1 : Cualquier propiedad común que supone una semejanza secundaria o menos pertinente</li>
             <li>2 : Cualquier clasificación general pertinente y que define con precisión ambos elementos</li>
+            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>            
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton

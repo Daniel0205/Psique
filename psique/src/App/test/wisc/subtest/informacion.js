@@ -333,8 +333,8 @@ function Informacion(props) {
           <div>
             <h1>Información</h1>
             <b>Instrucciones generales:</b>
-            <p>A continuación se mostrará el enunciado por cada uno de los puntos, ademas</p>
-            <p>Se dispone de cajas de texto que sirven como guia para evaluar la respuesta dada por el paciente.</p>
+            <p>A continuación se mostrará el enunciado por cada uno de los puntos</p>
+            <p>La interfaz dispone de campos de texto para registrar la respuesta del paciente.</p>
             <p>Debajo de las cajas de texto puede haber información en caso de que el paciente de ciertas respuestas</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>

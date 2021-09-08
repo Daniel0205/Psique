@@ -220,7 +220,7 @@ function FigurasIncompletas(props) {
        <h1>Figuras incompletas</h1>
        <b>Instrucciones generales:</b>
        <p>A continuación se enseñan unas imágenes las cuales les hace falta algo</p>
-       <p>el sujeto debe señalar o decir la parte faltante de la imagen</p>
+       <p>El paciente debe señalar o decir la parte faltante de la imagen</p>
  
        <br/>
        <b>Instrucciones para registrar la respuesta de paciente:</b>

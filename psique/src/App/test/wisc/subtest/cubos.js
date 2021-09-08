@@ -226,22 +226,21 @@ function Cubos(props) {
         <div id= "inicio" >
         <h1>Cubos</h1>
         <b>Instrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
-        <p>disponiendo de un tiempo limite para hacerlo</p>
+        <p>La prueba consiste en una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
+        <p>utilizando el material de apoyo, disponiendo de un tiempo limite</p>
+        <p><b>Debe permitir que el paciente observe la inerfaz para reproducir dichas imágenes</b></p>
   
         <br/>
         <b>Instrucciones para registrar la respuesta de paciente:</b>
-        <br/>
-        <br/>
         <p>Para calificar se debe presionar las teclas numericas deacuerdo a la respuesta del paciente de la siguiente manera </p>
-        <p>Del item 1 al 3</p>
+        <p><b>Del item 1 al 3</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>1 : En caso de que realize la construcción correcta en el segundo intento</li>
         <li>2 : En caso de que realize la construcción correcta en el primer intento dentro del tiempo establecido</li>
-        <p>Del item 4 al 8</p>
+        <p><b>Del item 4 al 8</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>4 : En caso de que realize la construcción correcta dentro del tiempo establecido</li>
-        <p>Del item 9 al 14</p>
+        <p><b>Del item 9 al 14</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>4 : En caso de que realize la construcción correcta con poco tiempo de sobra dentro del tiempo establecido</li>
         <li>5 : En caso de que realize la construcción correcta con algun tiempo de sobra dentro del tiempo establecido</li>

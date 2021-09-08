@@ -204,7 +204,8 @@ function Claves(props) {
                 </Grid>
 
                 <br/>
-                <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente en la prueba</p>
+                <p><b>Instrucciones:</b> Registre la calificación obtenida por el paciente basandose en los valores de la tabla</p>
+                <p>La tabla muestra la bonificación que se debe agregar al puntaje por terminar la prueba en cierto rango de tiempo</p>
 
                 <TextField
                   className={classes.textfield}

@@ -192,6 +192,24 @@ const useStyles = makeStyles((theme) => ({
     },
     textTransform: "none",
   },
+  container: {
+    width: "80%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 
@@ -390,38 +408,39 @@ function Informacion(props) {
         return(
         <div > 
           <h2>{clues[numberItem]}</h2>
-          <br/>
 
-          <div className={classes.ordenar}>
-            <div >
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={6}>
               <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {badAnswer[numberItem].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-              </div>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {badAnswer[numberItem].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
+                })}
+              </CardContent>
+            </Grid>              
               
-              &nbsp;  &nbsp; &nbsp;  &nbsp;
-              <div>
-                <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {rightAnswer[numberItem].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-          </div>
+            <Grid item component={Card} xs className={classes.card}>
+            <CardContent className={classes.cardContent}>
+                {rightAnswer[numberItem].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>          
+          </Grid>
           
-          &nbsp; &nbsp;
+          <br/>
           <Typography variant="body2" component="p"> {comentary[numberItem]} </Typography>
 
           &nbsp; &nbsp;

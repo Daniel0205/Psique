@@ -63,7 +63,7 @@ let rightAnswer = ["Toalla\nSecador para el pelo\nSecador de aire\njerga\nTrapo"
                   "Recamara\nCuarto de huéspedes",
                   "Sal",
                   "Río\nRiachuelo\nArroyo\nTorrente\nManantial\nCascada\nFuente\nPuerto\nBahía\nEstuario  ",
-                  "Órgano\nCorazón [ Cualquier órgano que se pueda trasplantar]",
+                  "Órgano\nCorazón [Cualquier órgano que se pueda trasplantar]",
                   "Ciencia\nInvestigación\nMétodo científico\nInventar\nInvención\nBiología [Cualquier ciencia específica]\nSolución de problemas\nExperimentación\nRazonamiento deductivo\nHipótesis\nExploración\nTecnología\nTeorías",
                   "Paz\nLibertad\nAutonomía\nLey\nSeguridad\nControl\nPoder\nOrden\nJusticia\nDerechos\nReglas\nDinero\nRiqueza\nSalvaguardia\nAutoridad",
                   "Ley\nRegla\nContrato\nPóliza\nTestamento\nConstrucción\nDeclaración de independencia [ Cualquier documento histórico específico]\nTratado\nConvenio\nDerechos",
@@ -72,7 +72,7 @@ let rightAnswer = ["Toalla\nSecador para el pelo\nSecador de aire\njerga\nTrapo"
                   "Visa\nLicencia\nLicencia de manejo [Cualquier licencia específica]\nPermiso\nTarjeta de inmigración\nCredencial de elector\nBeca\nNaturalización\nPatente\nDerecho de autor",
                   "Edad\nCumpleanos\nEstatura",
                   "Desubrimiento\nInvencion\nInnovacion\nTEcnologia\nImaginacion\nCreatividad\nSueno",
-                  "Interiores\nHabitacion\nREcamara [ Cualquierhabitacion especifica]\nSotano\nAtico\nDentro dela casa\nBoveda\nCAja fuerte\nRefugio (subterraneo,COntra Bombas)\nCueva\nTunel\nBunker",
+                  "Interiores\nHabitacion\nRecamara [Cualquier habitacion especifica]\nSotano\nAtico\nDentro dela casa\nBoveda\nCaja fuerte\nRefugio (subterraneo,Contra Bombas)\nCueva\nTunel\nBunker",
                   "Frontera\nLimite\nLinea fronteriza\n(linea , marca) territorial\nCanal\nRio Bravo\n[Cualquier rio fronterizo especifico]",
                   "Historia\nPasado\n(Acciones, Pensamientos, Decisiones, Errores) Pasados Ayer\nRecuerdos\nDescubrimientos"]
 
@@ -97,9 +97,9 @@ let badAnswer = ["Tina\nBaño",
                   "Seguro social\nVle de alimento\nDErecho al voto\nConcesion de tierra\nEmpleo\nTRabajo\nGrado",
                   "Calendario\naños\nMeses\nPesos\nTalla\nTiempo\nCrecimiento ",
                   "Esperanza\nFelicidad\nViaje intergalactico [Cualquier descubirmiento que no haya sucedido]\nPensamientos\nAprendizaje\nPaz\nIdea\nTelepatia\nInformacion",
-                  "Casa\n[Cualquier construccion especifica]\nSubterraneo\nAlbergue\nArco\nDEpartamento\nTienda en un centro comercial",
-                  "Presa\nPuente\nDIvision\nHito\nPared\nNilo\n[ Cualquier rio especifico nofronterizo]\nDivision",
-                  "Noticias\nFuturo\nGuerra\nMilenio [ Cualquier suceso historico]\nBebe\nNacimiento"]
+                  "Casa\n[Cualquier construccion especifica]\nSubterraneo\nAlbergue\nArco\nDepartamento\nTienda en un centro comercial",
+                  "Presa\nPuente\nDIvision\nHito\nPared\nNilo\n[Cualquier rio especifico no fronterizo]\nDivision",
+                  "Noticias\nFuturo\nGuerra\nMilenio [Cualquier suceso historico]\nBebe\nNacimiento"]
 
 const useStyles = makeStyles((theme) => ({
   ordenar:{
@@ -127,6 +127,24 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: 'none',
     },
     textTransform: "none",
+  },
+  container: {
+    width: "60%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
   },
 }));
 
@@ -301,38 +319,40 @@ function Pistas(props) {
       case "test":
         return(
         <div > 
-          <h2>{clues[numberItem-1]}</h2>      
-          
-          <div className={classes.ordenar}>
-            <div >
-              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {badAnswer[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-            </div>
+          <h2>{clues[numberItem-1]}</h2>
 
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div>
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={6}>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+            </Grid>
+            <Grid item xs={6}>
               <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {badAnswer[numberItem-1].split("\n").map((i,key) => {
                   return <div key={key}>
-                      <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
                     </div>;
-                  })}
-                </CardContent>
-              </Card>
-            </div>
-          </div>    
-          <br/>
-          <br/>
+                })}
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+            <CardContent className={classes.cardContent}>
+                {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>          
+          </Grid>
+          
+          <br/>          
           <div className={classes.ordenar}>
             <CustomButton
               msj="0 Puntos"
@@ -342,8 +362,7 @@ function Pistas(props) {
             <CustomButton
               msj="1 Punto"
               callback={()=>changeStimuli(1)}
-            ></CustomButton>
-            
+            ></CustomButton>            
           </div>
         </div>)
       case "revision":

@@ -26,7 +26,7 @@ const NUMBER_STIMULI = 18
 let clues =["1. ¿Por qué la gente lleva reloj?",
             "2. ¿Por qué lavamos la ropa?",
             "3. ¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
-            "4. ¿Por qué nos interesamos, cada vez mas en las energías renovables?",
+            "4. ¿Por qué nos interesamos, cada vez más en las energías renovables?",
             "5. Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
             "6. ¿Qué interes puede tener un inventor en patentar una idea?",
             "7. ¿Por qué hay museos?",
@@ -51,7 +51,7 @@ let rightAnswer = ["Concepto general de tiempo\nPara decir (saber) la hora\nSabe
                   "Concepto general de protección del medio ambiente o agotamiento de los recursos naturales\nPara proteger el medio ambiente (el planeta)\nPorque las energías tradicionales se agotan ( son contaminantes)\nPorque el petróleo escasea\nPara evitar el calentamiento del planeta",
                   "Una respuesta que indique al menos dos de los conceptos generales anteriores",
                   "Concepto general que haga referencia a los motivos económicos o simple notoriedad \nPara obtener beneficios/Para hacerse rico \nPara ser reconocido por su trabajo/ para ser reconocido ",
-                  "concepto general de conservar o exponer el patrimonio o concepto de aprendizaje \nPara exponer (preservar/mostrar/conservar/presentar) las piezas \nPara exponer pinturas (estatuas/cuadros/piezas arqueológicas/cualquier otro objeto más específico)\nPara conservar el patrimonio \nPara cultivarse/aprender/instruirse/informarse/educarse",
+                  "concepto general de conservar o exponer el patrimonio o concepto de aprendizaje \nPara exponer (preservar/mostrar/conservar/presentar) las piezas \nPara exponer pinturas (estatuas/cuadros/piezas arqueológicas/cualquier otro objeto más específico)\nPara conservar el patrimonio \nPara cultivarse, aprender, instruirse, informarse o educarse",
                   "concepto general que haga referencia al daño personal asociado al uso de medicamentos sin prescripción\nPara controlar el uso \nPorque pueden hacerte daño \nPara no enfermar o intoxicarse\nPorque puedes tomar una dosis inadecuada\nPorque pueden tener efectos secundarios perjudiciales ",
                   "Permite transcribir el saber\nHa permitido conservar los vestigios y la memoria \nPara dejar una prueba tangible de su existencia\nPrueba escrita de lo que ha existido \nPara poder escribir la historia/Para recuperar la historia",
                   "Una respuesta que indique al menos dos de los conceptos generales anteriores",
@@ -144,6 +144,24 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: 'none',
     },
     textTransform: "none",
+  },
+  container: {
+    width: "95%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
   },
 }));
 
@@ -332,49 +350,51 @@ function Comprension(props) {
             </div>:""}
           </div>
           <br/>
-          <div className={classes.ordenar}>
-            <div>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={4}>
               <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {badAnswer[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-            </div>
-
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div>
+            </Grid>
+            <Grid item xs={4}>
               <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
-              <Card className={classes.root}>
-                  <CardContent>
-                    {mediumAnswer[numberItem-1].split("\n").map((i,key) => {
-                      return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
-                      </div>;
-                    })}
-                </CardContent>
-              </Card>
-            </div>
-
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div>
+            </Grid>
+            <Grid item xs={4}>
               <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {badAnswer[numberItem-1].split("\n").map((i,key) => {
                   return <div key={key}>
-                      <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
                     </div>;
-                  })}
-                </CardContent>
-              </Card>
-            </div>
-          </div>    
-          <br/>
+                })}
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {mediumAnswer[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+          </Grid>
+          
           <br/>
           <div className={classes.ordenar}>
             <CustomButton
@@ -387,7 +407,7 @@ function Comprension(props) {
               callback={()=>changeStimuli(1)}
             ></CustomButton>
             <CustomButton
-              msj="2 Punto"
+              msj="2 Puntos"
               callback={()=>changeStimuli(2)}
             ></CustomButton>
             

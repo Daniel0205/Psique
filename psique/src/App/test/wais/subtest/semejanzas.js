@@ -119,6 +119,24 @@ const useStyles = makeStyles((theme) => ({
     },
     textTransform: "none",
   },
+  container: {
+    width: "80%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -331,65 +349,53 @@ function Semejanzas(props) {
           )
       case "test":
         return(
-        <div > 
-          <h1>Item #{numberItem}</h1>
-          
-          <h2>¿En que se parecen {items[numberItem-1][0]} y {items[numberItem-1][1]}?</h2> 
-          
-          <div className={classes.ordenar}>
-            <div >
-              <Typography gutterBottom variant="h5" component="h2">
-                0 puntos
-              </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {answer0[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-              </div>
-              &nbsp;  &nbsp; &nbsp;  &nbsp;
-              <div >
-                <Typography gutterBottom variant="h5" component="h2">
-                  1 punto
-                </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {answer1[numberItem-1].split("\n").map((i,key) => {
-                      return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-                &nbsp;  &nbsp; &nbsp;  &nbsp;
-                <div >
-                <Typography gutterBottom variant="h5" component="h2">
-                  2 puntos
-                </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {answer2[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-          </div>  
+        <div >           
+          <h2>{numberItem}. ¿En que se parecen {items[numberItem-1][0]} y {items[numberItem-1][1]}?</h2> 
 
-          <br/>
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer0[numberItem-1].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
+                })}
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer1[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer2[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+          </Grid>
+
           <br/>
           <div className={classes.ordenar}>
             <CustomButton

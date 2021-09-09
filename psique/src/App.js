@@ -139,7 +139,7 @@ function App(props) {
 
       <Route exact path="/login" component={SignIn} />
       
-      <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"confirmacion"}></Sidenav>} />
+      <Route exact path="/test/wisc" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wisc/selection" component={()=><Sidenav body={"WISC IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wisc/baremos" component={()=><Sidenav body={"WISC IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wisc/figurasIncompletas" component={()=><Sidenav body={"WISC IV"} subtest={"Figuras incompletas"}></Sidenav>} />{/*Estímulos*/}
@@ -158,7 +158,7 @@ function App(props) {
       <Route exact path="/test/wisc/busquedaSimbolos" component={()=><Sidenav body={"WISC IV"} subtest={"Búsqueda de símbolos"}></Sidenav>} />
       <Route exact path="/test/wisc/informacion" component={()=><Sidenav body={"WISC IV"} subtest={"Información"}></Sidenav>} />
       
-      <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"confirmacion"}></Sidenav>} />
+      <Route exact path="/test/wais" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wais/selection" component={()=><Sidenav body={"WAIS IV"} subtest={"aplicacion"}></Sidenav>} />
       <Route exact path="/test/wais/baremos" component={()=><Sidenav body={"WAIS IV"} subtest={"baremos"}></Sidenav>} />
       <Route exact path="/test/wais/numerosLetras" component={()=><Sidenav body={"WAIS IV"} subtest={"Letras y Números"}></Sidenav>} /> {/*Manual*/}

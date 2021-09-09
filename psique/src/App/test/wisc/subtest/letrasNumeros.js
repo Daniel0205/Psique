@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
-import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
+//import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton';
 import Results from '../../../components/results'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,11 @@ import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+//import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -57,7 +62,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 function LetrasNumeros(props) {
@@ -198,21 +215,22 @@ function LetrasNumeros(props) {
        return (
        <div>
         <h1>Letras y Números</h1>
-        <b>instrucciones generales:</b>
+        <b>Instrucciones generales:</b>
         <p>A continuación se enseñarán una serie de números y letras</p>
-        <p>el doctor deberá decirle al paciente cada serie</p>
-        <p>después de esto el paciente deberá repetir en orden la serie</p>
-        <p>en el orden no importa si son primero las letras o los números</p>
+        <p>El doctor deberá decirle al paciente cada serie</p>
+        <p>El paciente deberá repetir en orden la serie</p>
+        <p>No importa si el paciente menciona primero las letras o los números</p>
         <br/>
-        <b>instrucciones de calificación:</b>
-        <p>Para calificar se debe ingresar las Respuestas del paciente en los recuadros bajo el estímulo </p>
+        <b>Instrucciones de calificación:</b>
+        <p>Para calificar se debe ingresar las respuestas del paciente en los recuadros bajo el estímulo </p>
         <p>EL sistema calificará automáticamente las respuestas </p>
         <br/>
        <Grid container justify="center">
-          <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WISC-selection")}
-          ></WaisWiscReturnButton>
+          <Tooltip title="Regresar al menu de wisc">
+            <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+              <ArrowBackIcon />
+            </Button>
+          </Tooltip>
           <CustomButton
             msj="Iniciar subprueba"
             callback={()=>imagenInit(1)}

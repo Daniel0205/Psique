@@ -9,6 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import { setBody } from "../../../store/body/action";
@@ -174,7 +179,37 @@ const useStyles = makeStyles((theme) => ({
   },
   concepts:{
     width:"80%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+  container: {
+    width: "80%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 
@@ -187,7 +222,7 @@ let firstItem;// Item en el que inicio la prueba
       
 
 function Informacion(props) {
-  var [state,setState] = useState("instruccion")
+  var [state,setState] = useState("seleccion")
   var [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   var [numberItem,setNumberItem] = useState(0)
   var [givenAnswer, setGivenAnswer] = useState("");
@@ -316,26 +351,21 @@ function Informacion(props) {
           <div>
             <h1>Información</h1>
             <b>Instrucciones generales:</b>
-            <p>A continuación se mostrará el enunciado por cada uno de los puntos, ademas</p>
-            <p>Se dispone de cajas de texto que sirven como guia para evaluar la respuesta dada por el paciente.</p>
+            <p>A continuación se mostrará el enunciado por cada uno de los puntos</p>
+            <p>La interfaz dispone de campos de texto para registrar la respuesta del paciente.</p>
             <p>Debajo de las cajas de texto puede haber información en caso de que el paciente de ciertas respuestas</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
-            <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 1 y 0 para la puntuación de la respuesta</li>
             <br/>
             <Grid container justify="center">
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>props.setBody("WISC-selection")}
-            ></WaisWiscReturnButton>
-            <CustomButton
-              msj="Iniciar subprueba"
-              callback={()=>setState("seleccion")}
-            ></CustomButton>
-          </Grid>
+              <WaisWiscReturnButton
+                msj="Regresar a prueba"
+                callback={()=>setState("seleccion")}
+              ></WaisWiscReturnButton>          
+            </Grid>
           </div>
         )
       case "seleccion":
@@ -359,48 +389,58 @@ function Informacion(props) {
               callback={()=>testInit(11)}
             ></CustomButton>
 
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wisc">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>
           </div>
         )
       case "test":
         return(
         <div > 
           <h2>{clues[numberItem]}</h2>
-          <br/>
 
-          <div className={classes.ordenar}>
-            <div >
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={6}>
               <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {badAnswer[numberItem].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-              </div>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {badAnswer[numberItem].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
+                })}
+              </CardContent>
+            </Grid>              
               
-              &nbsp;  &nbsp; &nbsp;  &nbsp;
-              <div>
-                <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {rightAnswer[numberItem].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-          </div>
+            <Grid item component={Card} xs className={classes.card}>
+            <CardContent className={classes.cardContent}>
+                {rightAnswer[numberItem].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>          
+          </Grid>
           
-          &nbsp; &nbsp;
+          <br/>
           <Typography variant="body2" component="p"> {comentary[numberItem]} </Typography>
 
           &nbsp; &nbsp;

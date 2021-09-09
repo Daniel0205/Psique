@@ -2,37 +2,45 @@ import React, { useState } from 'react';
 import CustomButton from '../../../components/customButton'
 import WaisWiscReturnButton from '../../../components/WaisWiscReturnButton'
 import update from 'react-addons-update';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { makeStyles } from '@material-ui/core/styles';
 import Results from '../../../components/results'
 import TextField from '@material-ui/core/TextField';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
 
 const NUMBER_STIMULI = 18
 
-let clues =["¿Por qué la gente lleva reloj?",
-            "¿Por qué lavamos la ropa?",
-            "¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
-            "¿Por qué nos interesamos, cada vez mas en las energías renovables?",
-            "Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
-            "¿Qué interes puede tener un inventor en patentar una idea?",
-            "¿Por qué hay museos?",
-            "¿Por qué se necesita receta para comprar ciertos medicamentos?",
-            "¿Por qué fue importante, para algunas civilizaciones,la creación  de la escritura?",
-            "¿Por qué es importante para la mayoria de la gente, tener amigos?",
-            "Digame algunas razones por las que algunas personas piensan que deberiamos explorar el espacio.",
-            "¿Por qué es importante el estudio de la historia?",
-            "¿Por qué exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al público?",
-            "¿Qué quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
-            "¿Por qué algunas personas piensan que es importante proteger a los animales en peligro de extinción?",
-            "¿Por qué cuesta mas un terreno en la ciudad que en el campo?",
-            "Digame algunas razones por las que conviene  que haya un regimen de libertad condicional.",
-            "¿Qué quiere decir el refran \"una golondrina no hace verano\"",]
+let clues =["1. ¿Por qué la gente lleva reloj?",
+            "2. ¿Por qué lavamos la ropa?",
+            "3. ¿Qué debería hacer usted  si se encuentra en la calle un sobre cerrado con la dirección escrita y el sello sin usar?",
+            "4. ¿Por qué nos interesamos, cada vez más en las energías renovables?",
+            "5. Digame algunas razones por las que es importante que un país tenga buenas relaciones con otro país.",
+            "6. ¿Qué interes puede tener un inventor en patentar una idea?",
+            "7. ¿Por qué hay museos?",
+            "8. ¿Por qué se necesita receta para comprar ciertos medicamentos?",
+            "9. ¿Por qué fue importante, para algunas civilizaciones,la creación  de la escritura?",
+            "10. ¿Por qué es importante para la mayoria de la gente, tener amigos?",
+            "11. Digame algunas razones por las que algunas personas piensan que deberiamos explorar el espacio.",
+            "12. ¿Por qué es importante el estudio de la historia?",
+            "13. ¿Por qué exije el estado que algunos profesionales obtengan el titulo antes de ofrecer sus servicios al público?",
+            "14. ¿Qué quiere decir el proverbio \"si caes siete veces, levantate ocho\"?",
+            "15. ¿Por qué algunas personas piensan que es importante proteger a los animales en peligro de extinción?",
+            "16. ¿Por qué cuesta mas un terreno en la ciudad que en el campo?",
+            "17. Digame algunas razones por las que conviene  que haya un regimen de libertad condicional.",
+            "18. ¿Qué quiere decir el refran \"una golondrina no hace verano\"",]
 
 
 
@@ -43,7 +51,7 @@ let rightAnswer = ["Concepto general de tiempo\nPara decir (saber) la hora\nSabe
                   "Concepto general de protección del medio ambiente o agotamiento de los recursos naturales\nPara proteger el medio ambiente (el planeta)\nPorque las energías tradicionales se agotan ( son contaminantes)\nPorque el petróleo escasea\nPara evitar el calentamiento del planeta",
                   "Una respuesta que indique al menos dos de los conceptos generales anteriores",
                   "Concepto general que haga referencia a los motivos económicos o simple notoriedad \nPara obtener beneficios/Para hacerse rico \nPara ser reconocido por su trabajo/ para ser reconocido ",
-                  "concepto general de conservar o exponer el patrimonio o concepto de aprendizaje \nPara exponer (preservar/mostrar/conservar/presentar) las piezas \nPara exponer pinturas (estatuas/cuadros/piezas arqueológicas/cualquier otro objeto más específico)\nPara conservar el patrimonio \nPara cultivarse/aprender/instruirse/informarse/educarse",
+                  "concepto general de conservar o exponer el patrimonio o concepto de aprendizaje \nPara exponer (preservar/mostrar/conservar/presentar) las piezas \nPara exponer pinturas (estatuas/cuadros/piezas arqueológicas/cualquier otro objeto más específico)\nPara conservar el patrimonio \nPara cultivarse, aprender, instruirse, informarse o educarse",
                   "concepto general que haga referencia al daño personal asociado al uso de medicamentos sin prescripción\nPara controlar el uso \nPorque pueden hacerte daño \nPara no enfermar o intoxicarse\nPorque puedes tomar una dosis inadecuada\nPorque pueden tener efectos secundarios perjudiciales ",
                   "Permite transcribir el saber\nHa permitido conservar los vestigios y la memoria \nPara dejar una prueba tangible de su existencia\nPrueba escrita de lo que ha existido \nPara poder escribir la historia/Para recuperar la historia",
                   "Una respuesta que indique al menos dos de los conceptos generales anteriores",
@@ -124,7 +132,37 @@ const useStyles = makeStyles((theme) => ({
   },
   concepts:{
     width:"80%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+  container: {
+    width: "95%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 
@@ -137,7 +175,7 @@ let firstItem;// Item en el que inicio la prueba
       
 
 function Comprension(props) {
-  const [state,setState] = useState("instruccion")
+  const [state,setState] = useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -248,25 +286,20 @@ function Comprension(props) {
         return(
           <div>
             <h1>Comprensión</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>A continuación se darán una serie de preguntas al paciente</p>
-            <p>el cual deberá relacionarlo con un concepto. </p>
+            <p>el cual deberá responder de acuerdo a la pregunta que se le haga</p>
             <br/>
             <b>Instrucciones para registrar la respuesta de paciente:</b>
-            <br/>
             <br/>
             <li>La respuesta dada por el paciente debe ser registrada en la casilla de respuesta</li>
             <li>Se debe escoger, teniendo en cuenta la guía, entre 0,1 y 2 para la puntuación de la respuesta</li>
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>props.setBody("WAIS-selection")}
-              ></WaisWiscReturnButton>
-              <CustomButton
-                msj="Iniciar subprueba"
+                msj="Regresar a prueba"
                 callback={()=>setState("seleccion")}
-              ></CustomButton>  
+              ></WaisWiscReturnButton>          
             </Grid>
           </div>
         )
@@ -277,52 +310,91 @@ function Comprension(props) {
             <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>Pacientes con sospechas de discapacidad intelectual:</p>
             <CustomButton
-            msj="Estímulo 1"
-            callback={()=>imagenInit(1)}
+              msj="Estímulo 1"
+              callback={()=>imagenInit(1)}
             ></CustomButton>
             <p>Pacientes de edad 16-89:</p>
             <CustomButton
-            msj="Estímulo 3"
-            callback={()=>imagenInit(3)}
+              msj="Estímulo 3"
+              callback={()=>imagenInit(3)}
             ></CustomButton>
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wais">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>
           </div>
         )
       case "test":
         return(
-        <div > 
-          <h1>Item #{numberItem}</h1>
-          
-          <h2>{clues[numberItem-1]}</h2>      
-          <br/>
+        <div> 
+          <h2>{clues[numberItem-1]}</h2>
+
+          <div id="generalC">
             {concepts[numberItem-1]!==""?<div >
-              <h2><b>Conceptos generales</b></h2>
-              <br/>
-              <TextareaAutosize className={classes.concepts} value={concepts[numberItem-1]} disabled></TextareaAutosize>
+              <Typography variant="h6" component="p"> Conceptos Generales </Typography>
+              {concepts[numberItem-1].split("\n\n").map((i,key) => {
+              return <div key={key}>
+                  &nbsp;
+                  <Typography variant="body2" component="p"> {i} </Typography> 
+                </div>;
+              })}
             </div>:""}
-          <div className={classes.ordenar}>
-            <div >
-              <h2><b>0 Puntos</b></h2>
-              <br/>
-            <TextareaAutosize value={badAnswer[numberItem-1]} disabled></TextareaAutosize>
-            </div>
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <h2><b>1 Punto</b></h2>
-              <br/>
-              <TextareaAutosize value={mediumAnswer[numberItem-1]} disabled></TextareaAutosize>
-            </div>
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <h2><b>2 Puntos</b></h2>
-              <br/>
-              <TextareaAutosize value={rightAnswer[numberItem-1]} disabled></TextareaAutosize>
-            </div>
-          </div>    
+          </div>
           <br/>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {badAnswer[numberItem-1].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
+                })}
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {mediumAnswer[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {rightAnswer[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+          </Grid>
+          
           <br/>
           <div className={classes.ordenar}>
             <CustomButton
@@ -335,7 +407,7 @@ function Comprension(props) {
               callback={()=>changeStimuli(1)}
             ></CustomButton>
             <CustomButton
-              msj="2 Punto"
+              msj="2 Puntos"
               callback={()=>changeStimuli(2)}
             ></CustomButton>
             

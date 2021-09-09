@@ -8,6 +8,11 @@ import update from 'react-addons-update';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -52,11 +57,23 @@ const useStyles = makeStyles((theme) => ({
   },
   ordenar:{
     display:"inline-flex"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 function Balanzas(props) {
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [answers ,setAnswers] = useState(new Array(NUMBER_STIMULI).fill(0));
@@ -246,28 +263,22 @@ function Balanzas(props) {
        return (
        <div id= "inicio" >
         <h1>Balanzas</h1>
-        <b>instrucciones generales:</b>
-        <p>A continuación se enseñan una serie de balanzas con dos platillos</p>
-        <p>el sujeto debe seleccionar entre cinco opciones</p>
-        <p>el objeto con el cual equilibrar la balanza</p>
+        <b>Instrucciones generales:</b>
+        <p>A continuación se enseñan una serie de balanzas</p>
+        <p>El sujeto debe seleccionar entre cinco opciones el objeto con el cual se equilibra la balanza</p>
+        <p><b>La interfaz debe ser mostrada al paciente para observar el estímulo</b></p>
         <br/>
-        <b>instrucciones para registrar la respuesta de paciente:</b>
+        <b>Instrucciones para registrar la respuesta de paciente:</b>
         <br/>
-        <br/>
-        <li>Utilizar los botones para indicar la respuesta del paciente </li>
-
+        <p>Utilizar los botones para indicar la respuesta del paciente </p>
         <p>El sistema calificará automáticamente la respuesta</p>
 
        <br/>
        <Grid container justify="center">
           <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WAIS-selection")}
-          ></WaisWiscReturnButton>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={()=>setState('seleccion')}
-          ></CustomButton>  
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
         </Grid>
      </div>)
      
@@ -278,15 +289,24 @@ function Balanzas(props) {
         <p>¿En qué estímulo desea iniciar la prueba? </p>
         <p>Pacientes con sospechas de discapacidad intelectual:</p>
         <CustomButton msj="Estímulo 1"
-        callback={()=>imagenInit(1)}></CustomButton> 
+          callback={()=>imagenInit(1)}></CustomButton> 
         <p>Pacientes de edad 16-69:</p>
         <CustomButton msj="Estímulo 4"
-        callback={()=>imagenInit(4)}></CustomButton> 
-        <p><b>No aplicar a paciente de edad  70-89</b></p>
-        <WaisWiscReturnButton
-          msj="Retroceder"
-          callback={()=>setState('instruccion')}
-        ></WaisWiscReturnButton>
+          callback={()=>imagenInit(4)}></CustomButton> 
+        <p><b>No aplicar a pacientes de edad 70-89</b></p>
+        <br/>
+        <Grid container justify="center">
+          <Tooltip title="Regresar al menu de wais">
+            <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+              <ArrowBackIcon />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Instrucciones de la prueba">
+            <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+              <HelpOutlineIcon />
+            </Button>
+          </Tooltip>
+        </Grid>
       </div>
        )
     case "ejemplo":

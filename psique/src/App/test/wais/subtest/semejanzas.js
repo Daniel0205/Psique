@@ -11,6 +11,11 @@ import Typography from '@material-ui/core/Typography';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -102,6 +107,36 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 245,
     maxHeight: 345,
   },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+  container: {
+    width: "80%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -112,7 +147,7 @@ let terminacion= 0; //Esta variable me dice cuantos ceros consecutivos tuvo el p
 let firstItem;// Item en el que inicio la prueba
 
 function Semejanzas(props) {
-  const [state,setState] = useState("instruccion")
+  const [state,setState] = useState("seleccion")
   const [results, setResults] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -223,27 +258,23 @@ function Semejanzas(props) {
         return(
           <div>
             <h1>Semejanzas</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Se presentarán dos palabras que representan objetos o conceptos comunes</p>
             <p>La tarea del paciente es determinar en que se parecen esos objetos o conceptos</p>
-            <p>Los items se presentan de forma verbal</p>
+            <p><b>Los items se presentan de forma verbal</b></p>
             <br/>
-            <b>instrucciones para registrar la respuesta de paciente:</b>
-            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
-            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
+            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item:</p>
             <li>0 : Cualquier clasificación general que es poco pertinente y que define con poca precisión ambos elementos</li>
             <li>1 : Cualquier propiedad común que supone una semejanza secundaria o menos pertinente</li>
             <li>2 : Cualquier clasificación general pertinente y que define con precisión ambos elementos</li>
+            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>            
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>props.setBody("WAIS-selection")}
-              ></WaisWiscReturnButton>
-              <CustomButton
-                msj="Iniciar subprueba"
+                msj="Regresar a prueba"
                 callback={()=>setState("seleccion")}
-              ></CustomButton>
+              ></WaisWiscReturnButton>          
             </Grid>
           </div>
         )
@@ -254,14 +285,23 @@ function Semejanzas(props) {
             <p>¿En qué estímulo desea iniciar la prueba? </p>
             <p>La prueba se inicia en el estimulo 4 para los pacientes entre los 16-89 años </p>
             <Grid container justify="center">
-              <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>setState("instruccion")}
-              ></WaisWiscReturnButton>
               <CustomButton
-                msj="Siguiente"
+                msj="Iniciar prueba"
                 callback={()=>imagenInit(4)}
               ></CustomButton>
+            </Grid>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wais">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WAIS-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
             </Grid>
           </div>
         )
@@ -309,65 +349,53 @@ function Semejanzas(props) {
           )
       case "test":
         return(
-        <div > 
-          <h1>Item #{numberItem}</h1>
-          
-          <h2>¿En que se parecen {items[numberItem-1][0]} y {items[numberItem-1][1]}?</h2> 
-          
-          <div className={classes.ordenar}>
-            <div >
-              <Typography gutterBottom variant="h5" component="h2">
-                0 puntos
-              </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                  {answer0[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                  })}
-                </CardContent>
-              </Card>
-              </div>
-              &nbsp;  &nbsp; &nbsp;  &nbsp;
-              <div >
-                <Typography gutterBottom variant="h5" component="h2">
-                  1 punto
-                </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {answer1[numberItem-1].split("\n").map((i,key) => {
-                      return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-                &nbsp;  &nbsp; &nbsp;  &nbsp;
-                <div >
-                <Typography gutterBottom variant="h5" component="h2">
-                  2 puntos
-                </Typography>
-                <Card className={classes.root}>
-                  <CardContent>
-                    {answer2[numberItem-1].split("\n").map((i,key) => {
-                    return <div key={key}>
-                        <Typography variant="body2" color="textSecondary" component="p" >
-                          {i}
-                        </Typography> 
-                      </div>;
-                    })}
-                  </CardContent>
-                </Card>
-              </div>
-          </div>  
+        <div >           
+          <h2>{numberItem}. ¿En que se parecen {items[numberItem-1][0]} y {items[numberItem-1][1]}?</h2> 
 
-          <br/>
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer0[numberItem-1].split("\n").map((i,key) => {
+                  return <div key={key}>
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
+                })}
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer1[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer2[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+          </Grid>
+
           <br/>
           <div className={classes.ordenar}>
             <CustomButton

@@ -8,6 +8,11 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
@@ -157,6 +162,36 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 245,
     maxHeight: 345,
   },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
+  container: {
+    width: "80%",
+    display: "inline-flex",
+  },
+  card: {
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 20,
+    marginTop: 10,
+    paddingBottom: 16,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
+  cardContent: {
+    padding: 5,
+    paddingBottom: 5,
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -169,7 +204,7 @@ let firstItem;// Item en el que inicio la prueba
 
 function Vocabulario(props) {
 
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -301,27 +336,23 @@ function Vocabulario(props) {
         return(
           <div>
             <h1>Vocabulario</h1>
-            <b>instrucciones generales:</b>
+            <b>Instrucciones generales:</b>
             <p>Para los items del uno al tres la tarea del paciente consiste en nombrar una serie de imagenes presentadas</p>
             <p>Para el resto de los items la tarea del paciente consiste en definir oralmente una serie de palabras que el examinador lee en voz alta</p>
-            <p>Los items se presentan de forma verbal</p>
+            <p><b>Los items se presentan de forma verbal</b></p>
             <br/>
-            <b>instrucciones para registrar la respuesta de paciente:</b>
-            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item </p>
-            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>
+            <b>Instrucciones para registrar la respuesta de paciente:</b>
+            <p>Para calificar se debe presionar el botón que corresponda con la calificación que desea dar al item:</p>
             <li>0 : Una respuesta verbal que no muestra un conocimiento real de la palabra</li>
             <li>1 : En general se trata de respuestas correctas pero con contenido escaso o pobre</li>
             <li>2 : La respuesta refleja una buena comprensión de la palabra</li>
+            <p>Recuerde, debe escribir de manera literal la respuesta dada por el paciente en el espacio disponible</p>            
             <br/>
             <Grid container justify="center">
               <WaisWiscReturnButton
-                msj="Retroceder"
-                callback={()=>props.setBody("WISC-selection")}
-              ></WaisWiscReturnButton>
-              <CustomButton
-                msj="Iniciar subprueba"
+                msj="Regresar a prueba"
                 callback={()=>setState("seleccion")}
-              ></CustomButton>
+              ></WaisWiscReturnButton>          
             </Grid>
           </div>
         )
@@ -346,10 +377,19 @@ function Vocabulario(props) {
               callback={()=>imagenInit(9)}
             ></CustomButton>
             
-            <WaisWiscReturnButton
-              msj="Retroceder"
-              callback={()=>setState("instruccion")}
-            ></WaisWiscReturnButton>
+            <br/>
+            <Grid container justify="center">
+              <Tooltip title="Regresar al menu de wisc">
+                <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                  <ArrowBackIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Instrucciones de la prueba">
+                <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                  <HelpOutlineIcon />
+                </Button>
+              </Tooltip>
+            </Grid>
           </div>
         )
         case "testImage":
@@ -385,65 +425,53 @@ function Vocabulario(props) {
           )
       case "test":
         return(
-        <div > 
-          <h1>Item #{numberItem}</h1>
+        <div>           
+          <h2>{numberItem}. ¿Qué es {items[numberItem-1]}?</h2> 
           
-          <h2>¿Qué es {items[numberItem-1]}?</h2> 
-          
-          <div className={classes.ordenar}>
-            <div >
-              <Typography gutterBottom variant="h5" component="h2">
-                    0 puntos
-              </Typography>
-              <Card className={classes.root}>
-                <CardContent>
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 0 puntos </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 1 punto </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography gutterBottom variant="h5" component="h2"> 2 puntos </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} justify="center" className={classes.container}>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
                 {answer0[numberItem-1].split("\n").map((i,key) => {
                   return <div key={key}>
-                            <Typography variant="body2" color="textSecondary" component="p" >
-                              {i}
-                            </Typography> 
-                         </div>;
+                      <Typography variant="body2" color="textSecondary" component="p"> {i} </Typography> 
+                    </div>;
                 })}
-                </CardContent>
-              </Card>
-            </div>
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <Typography gutterBottom variant="h5" component="h2">
-                    1 punto
-              </Typography>
-              <Card className={classes.root}>
-                <CardContent>
+              </CardContent>
+            </Grid>              
+              
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
                 {answer1[numberItem-1].split("\n").map((i,key) => {
-                  return <div key={key}>
-                            <Typography variant="body2" color="textSecondary" component="p" >
-                              {i}
-                            </Typography> 
-                         </div>;
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
                 })}
-                </CardContent>
-              </Card>
-            </div>
-            &nbsp;  &nbsp; &nbsp;  &nbsp;
-            <div >
-            <Typography gutterBottom variant="h5" component="h2">
-                    2 puntos
-              </Typography>
-              <Card className={classes.root}>
-                <CardContent>
-                {answer2[numberItem-1].split("\n").map((i,key) => {
-                  return <div key={key}>
-                            <Typography variant="body2" color="textSecondary" component="p" >
-                              {i}
-                            </Typography> 
-                         </div>;
-                })}
-                </CardContent>
-              </Card>
-            </div>
-          </div>  
+              </CardContent>
+            </Grid>
 
-          <br/>
+            <Grid item component={Card} xs className={classes.card}>
+              <CardContent className={classes.cardContent}>
+                {answer2[numberItem-1].split("\n").map((i,key) => {
+                return <div key={key}>
+                    <Typography variant="body2" color="textSecondary" component="p" > {i} </Typography> 
+                  </div>;
+                })}
+              </CardContent>
+            </Grid>
+          </Grid>
+
           <br/>
           <div className={classes.ordenar}>
             <CustomButton

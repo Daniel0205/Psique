@@ -9,6 +9,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { setResWechsler } from "../../../store/wechsler/action";
 import { connect } from "react-redux";
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
+//import IconButton from '@material-ui/core/IconButton';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import { setBody } from "../../../store/body/action";
 
 const LIMIT_ERROR = 3
@@ -31,7 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield:{
     width:"100%"
-  }
+  },
+  buttonStyle: {
+    minWidth: "45px",
+    margin: theme.spacing(1), 
+    backgroundColor: "#017F8D",
+    color: "white",
+    "&:hover":{
+      backgroundColor: "#016570",
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+    },
+    textTransform: "none",
+  },
 }));
 
 let retornoHecho = true; // Esta variable me ayuda a controlar el uso de la regla del retorno
@@ -48,7 +65,7 @@ let timer;
 
 function Cubos(props) {
 
-  const [state,setState]=useState("instruccion")
+  const [state,setState]=useState("seleccion")
   const [results, setResults] = React.useState(new Array(NUMBER_STIMULI).fill(0));
   const [resultsAux ,setResultsAux] = useState(new Array(NUMBER_STIMULI).fill(0));
   const [numberItem,setNumberItem] = useState(1)
@@ -208,59 +225,62 @@ function Cubos(props) {
         return (
         <div id= "inicio" >
         <h1>Cubos</h1>
-        <b>instrucciones generales:</b>
-        <p>A continuacion se enseñaran una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
-        <p>disponiendo de un tiempo limite para hacerlo</p>
+        <b>Instrucciones generales:</b>
+        <p>La prueba consiste en una serie de imagenes las cuales deberán ser reproducidas por el paciente</p> 
+        <p>utilizando el material de apoyo, disponiendo de un tiempo limite</p>
+        <p><b>Debe permitir que el paciente observe la inerfaz para reproducir dichas imágenes</b></p>
   
         <br/>
-        <b>instrucciones para registrar la respuesta de paciente:</b>
-        <br/>
-        <br/>
+        <b>Instrucciones para registrar la respuesta de paciente:</b>
         <p>Para calificar se debe presionar las teclas numericas deacuerdo a la respuesta del paciente de la siguiente manera </p>
-        <p>Del item 1 al 3</p>
+        <p><b>Del item 1 al 3</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>1 : En caso de que realize la construcción correcta en el segundo intento</li>
         <li>2 : En caso de que realize la construcción correcta en el primer intento dentro del tiempo establecido</li>
-        <p>Del item 4 al 8</p>
+        <p><b>Del item 4 al 8</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>4 : En caso de que realize la construcción correcta dentro del tiempo establecido</li>
-        <p>Del item 9 al 14</p>
+        <p><b>Del item 9 al 14</b></p>
         <li>0 : En caso de que no realize la construcción correcta o si excede el limite de tiempo</li>
         <li>4 : En caso de que realize la construcción correcta con poco tiempo de sobra dentro del tiempo establecido</li>
         <li>5 : En caso de que realize la construcción correcta con algun tiempo de sobra dentro del tiempo establecido</li>
         <li>6 : En caso de que realize la construcción correcta con algun tiempo de sobra dentro del tiempo establecido</li>
         <li>7 : En caso de que realize la construcción correcta con mucho tiempo de sobra del tiempo establecido</li>
         <br/>
-        <p>El sistema calificara automaticamente la prueba</p>
-        <br/>
+        <p>El sistema calificará automaticamente la prueba</p>
+        
         <Grid container justify="center">
           <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>props.setBody("WISC-selection")}
-          ></WaisWiscReturnButton>
-          <CustomButton
-            msj="Iniciar subprueba"
-            callback={next}
-          ></CustomButton>
-          </Grid>
+            msj="Regresar a prueba"
+            callback={()=>setState("seleccion")}
+          ></WaisWiscReturnButton>          
+        </Grid>
       </div>)
       
       case "seleccion":
         return(
-         <div >
-         <h1>Cubos</h1>
-         <p>¿En qué estímulo desea iniciar la prueba? </p>
-         <p>Pacientes de edad 6-7 o con sospechas de discapacidad intelectual:</p>
-         <CustomButton msj="Estímulo 1"
-         callback={()=>imagenInit(1)}></CustomButton> 
-         <p>Pacientes de edad 8-16</p>
-         <CustomButton msj="Estímulo 3"
-         callback={()=>imagenInit(3)}></CustomButton>
-         
-         <WaisWiscReturnButton
-            msj="Retroceder"
-            callback={()=>setState("instruccion")}
-          ></WaisWiscReturnButton>
+          <div >
+          <h1>Cubos</h1>
+          <p>¿En qué estímulo desea iniciar la prueba? </p>
+          <p>Pacientes de edad 6-7 o con sospechas de discapacidad intelectual:</p>
+          <CustomButton msj="Estímulo 1"
+          callback={()=>imagenInit(1)}></CustomButton> 
+          <p>Pacientes de edad 8-16</p>
+          <CustomButton msj="Estímulo 3"
+          callback={()=>imagenInit(3)}></CustomButton>
+          <br/>
+          <Grid container justify="center">
+            <Tooltip title="Regresar al menu de wisc">
+              <Button className={classes.buttonStyle} onClick={()=>props.setBody("WISC-selection")}>
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Instrucciones de la prueba">
+              <Button className={classes.buttonStyle} onClick={()=>setState("instruccion")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
        </div>
         )
        case "test":

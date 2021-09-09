@@ -3,6 +3,7 @@ import TestStart from '../../components/testStart';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import WaisWiscTestsButton from '../../components/WaisWiscTestsButton';
 import Baremos from '../../components/Baremos';
 import { makeStyles } from '@material-ui/core/styles';
@@ -129,7 +130,7 @@ function Wais(props) {
               WAIS
             </Typography>        
             <Typography  variant="body1" component="h6">
-              Estas son las subpruebas disponibles para aplicar al paciente, cliquea sobre una para empezar 
+              Estas son las subpruebas disponibles para aplicar al paciente, seleccione la prueba que desea aplicar 
             </Typography>
             <Typography  variant="body1" component="h6">
               Recuerda que debes aplicar al menos 10 subpruebas
@@ -148,11 +149,13 @@ function Wais(props) {
           </Grid>
         
           <Grid container justify="center" className={classes.gridBottomStyle}>
-            <Button variant="contained" color="primary"
-              onClick={()=>props.setBody("init")}
-              className={classes.cancelarButton}>
-                Cancelar
-            </Button>
+            <Tooltip title="Regresar al menu de pruebas">
+              <Button variant="contained" color="primary"
+                onClick={()=>props.setBody("init")}
+                className={classes.cancelarButton}>
+                  Cancelar
+              </Button>
+            </Tooltip>
             <Button variant="contained" color="primary"
               onClick={()=>props.setBody("WAIS-baremos")}
               className={classes.calcularButton}>

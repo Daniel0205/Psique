@@ -51,6 +51,18 @@ const useStyles =  makeStyles((theme) => ({
       borderRight: "1px solid #333333",
       borderBottom: "1px solid #333333",
       borderLeft: "1px solid #CCCCCC",
+  },
+  wordContainer: {
+    height: "100hv",
+    margin: "0px",
+    padding: "0px",
+    display: "flex",
+    flexDirection: "column",
+    blockSize: "auto",
+    fontSize: "large",
+  },
+  cardAct: {
+    justifyContent: "center",
   }
 }));
 
@@ -113,10 +125,7 @@ function Stroop() {
 
   let llenarPalabras = palabrasCut.map( (value,i) => {
       return(
-        <Grid container key={i+100} item xs="auto" spacing={3}>
-            <Grid xs={1} item>
-              <Paper></Paper>
-            </Grid>
+        <Grid container key={i+100} item xs="auto" spacing={3} justify="center">
             <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaPalabra(e)}}>{palabras[i]}</Button>
             </Grid>
@@ -131,10 +140,7 @@ function Stroop() {
             </Grid> 
             <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaPalabra(e)}}>{palabras[i+80]}</Button>
-            </Grid> 
-            <Grid xs={1} item>
-              <Paper></Paper>
-            </Grid>     
+            </Grid>  
           </Grid>
       )
     }
@@ -144,10 +150,7 @@ function Stroop() {
 
   let llenarColores = palabrasCut.map( (value,i) => {
       return(
-        <Grid container key={i+100} item xs="auto" spacing={3}>
-            <Grid key={i} xs={1} item>
-              <Paper></Paper>
-            </Grid>
+        <Grid container key={i+100} item xs="auto" spacing={3} justify="center">
             <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaColor(e)}} style={{color:colores[i]}} >XXXX</Button>
             </Grid>
@@ -162,10 +165,7 @@ function Stroop() {
             </Grid> 
             <Grid xs={2} item>
               <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaColor(e)}} style={{color:colores[i+80]}} >XXXX</Button>
-            </Grid> 
-            <Grid xs={1} item>
-              <Paper></Paper>
-            </Grid>     
+            </Grid>             
           </Grid>
       )
     }
@@ -175,10 +175,7 @@ function Stroop() {
 
   let llenarPalabrasColores = palabrasCut.map( (value,i) => {
     return(
-      <Grid container key={i+100} item xs="auto" spacing={3}>
-          <Grid xs={1} item>
-            <Paper></Paper>
-          </Grid>
+      <Grid container key={i+100} item xs="auto" spacing={3} justify="center">
           <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i} id={i} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i]}} >{palabras[i]}</Button>
           </Grid>
@@ -194,9 +191,6 @@ function Stroop() {
           <Grid xs={2} item>
             <Button className={classes.secondPaper} key={i+80} id={i+80} onClick={(e) => {marcaPalabraColor(e)}} style={{color:colores[i+80]}}>{palabras[i+80]}</Button>
           </Grid> 
-          <Grid xs={1} item>
-            <Paper></Paper>
-          </Grid>     
         </Grid>
     )
   }
@@ -224,7 +218,7 @@ function Stroop() {
             Interferencia: {interferencia.toFixed(3)}
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions cardAct>
         <Link to={'/home'}>
           <CustomButton
             msj="Listo"
@@ -277,7 +271,7 @@ function Stroop() {
             Si se comete un error debes repetir el enuncuiado hasta decirlo correctamente
           </Typography>
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.cardAct}>
           <CustomButton
             msj="Siguiente"
             callback={change}>
@@ -346,9 +340,9 @@ function Stroop() {
       case 'aplicacionP':
         return(
           <div>
-            <Grid container alignItems="center" spacing={1}>
-                {llenarPalabras}
-            </Grid>
+            <div className={classes.wordContainer}>
+              {llenarPalabras}
+            </div>
             <CustomButton
               msj="Siguiente"
               callback={change}>
@@ -364,9 +358,9 @@ function Stroop() {
       case 'aplicacionC':
         return(
           <div>
-            <Grid container alignItems="center" spacing={1}>
+            <div className={classes.wordContainer}>
               {llenarColores}
-            </Grid>
+            </div>
             <CustomButton
               msj="Siguiente"
               callback={change}>
@@ -382,9 +376,9 @@ function Stroop() {
       case 'aplicacionPC':
         return(
           <div>
-            <Grid container alignItems="center" spacing={1}>
-                {llenarPalabrasColores}
-            </Grid>
+            <div className={classes.wordContainer}>
+              {llenarPalabrasColores}
+            </div>
             <CustomButton
               msj="Siguiente"
               callback={change}>

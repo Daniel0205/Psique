@@ -22,6 +22,8 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SaveIcon from '@material-ui/icons/Save';
 import Tooltip from '@material-ui/core/Tooltip';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import { setDoctor } from "../store/doctor/action";
 import { setBody } from "../store/body/action";
@@ -136,6 +138,7 @@ function Header(props) {
   const theme = useTheme();
   const [drawerVar, setdrawerVar] = React.useState(false);
   const [exit] = useMutation(LOGIN_QUERY);
+  const [open, setOpen] = React.useState(true);
 
   /*const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -144,6 +147,14 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };*/
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -171,111 +182,134 @@ function Header(props) {
   }
 
   return [
-  <AppBar key={"APPBAR"}
-      position="fixed"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: props.open,
-      })&& classes.header}
-    >
-      <Toolbar className={classes.tool}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={toggleDrawer(true)}
-          edge="start"
-          className={clsx(classes.menuButton, props.open && classes.hide)}
-        >
-          <MenuIcon />
+    <div>
+      <Tooltip title="Mostrar menú de la aplicación">
+        <IconButton color="inherit" aria-label="open drawer"  onClick={handleDrawerOpen} className={clsx(open && classes.hide)}>
+          <ExpandMoreIcon></ExpandMoreIcon> 
         </IconButton>
-        <div className={classes.spacer}>
-          <Toolbar>
-              <img 
-              className={classes.logo}
-              alt="Logo"
-              onClick={goBack}
-              src={Logo}/>
-              &nbsp;&nbsp;
-              <Typography variant="h6" className={classes.spacer}>
-                Psique
-              </Typography>
-          </Toolbar>
-        </div>      
-      </Toolbar>
-
-      
-    </AppBar>,
-  <Drawer
-    key={"DRAWE"}
-    className={classes.drawer}
-    variant="temporary"
-    anchor="left"
-    open={drawerVar}
-    onClose={toggleDrawer(false)}
-    classes={{
-      paper: classes.drawerPaper,
-    }}
-  >
-    <div className={classes.drawerHeader}>
-      <IconButton onClick={toggleDrawer(false)} className={classes.buttonDrawer}>
-        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-      </IconButton>
-    </div>
-    <Divider className={classes.drawerDivider} />
-    <List>
-        {props.id_assessment!==null?
-        <BootstrapTooltip title="Ir al menu principal" placement="right">
-        <ListItem button onClick={()=>props.setBody("init")} >            
-            <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
-            <ListItemText primary={"Inicio"} />            
-        </ListItem></BootstrapTooltip>:null}
-        <BootstrapTooltip title="Ver información del paciente" placement="right">
-          <ListItem button >          
-            <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
-            <ListItemText primary={"Paciente"} />
-          </ListItem>
-        </BootstrapTooltip>
-        <BootstrapTooltip title="Ver informes poblacionales" placement="right">
-          <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
-            <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
-            <ListItemText primary={"Informes poblacionales"} />
-          </ListItem>
-        </BootstrapTooltip>
-        <BootstrapTooltip title="Ver pruebas" placement="right">
-          <ListItem button >
-            <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>
-            <ListItemText primary={"Pruebas"} />
-          </ListItem>
-        </BootstrapTooltip>
-        <BootstrapTooltip title="Ver información de perfil" placement="right">
-          <ListItem button >
-            <ListItemIcon className={classes.buttonDrawer}><PersonOutlineIcon/></ListItemIcon>
-            <ListItemText primary={"Mi Perfil"} />
-          </ListItem>
-        </BootstrapTooltip>
-        {props.id_assessment!==null?
-        <BootstrapTooltip title="Guardar datos y salir" placement="right">
-          <ListItem button onClick={save}>
-            <ListItemIcon className={classes.buttonDrawer}><SaveIcon/></ListItemIcon>
-            <ListItemText primary={"Guardar y salir"} />
-          </ListItem></BootstrapTooltip>:null}
-        {props.id_assessment!==null?
-        <BootstrapTooltip title="Terminar evalución actual y salir" placement="right">
-          <ListItem button onClick={end}>
-            <ListItemIcon className={classes.buttonDrawer}><AssignmentTurnedInIcon/></ListItemIcon>
-            <ListItemText primary={"Terminar evaluación"} />
-          </ListItem></BootstrapTooltip>:null}
-        <BootstrapTooltip title="Cerrar sesión y salir" placement="right">
-          <ListItem button onClick={()=>{
-              localStorage.clear();
-              props.setDoctor(null)
-              props.setBody("login")
-            }}>
-            <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
-            <ListItemText primary={"Cerrar sesión"} />
-          </ListItem>
-        </BootstrapTooltip>
-    </List>
-  </Drawer>]
+      </Tooltip>
+        <Drawer          
+          variant="persistent"
+          anchor="top"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <AppBar key={"APPBAR"}
+              position="fixed"
+              className={clsx(classes.appBar, {
+                [classes.appBarShift]: props.open,
+              })&& classes.header}
+          >
+            <Toolbar className={classes.tool}>
+              <Tooltip title="Ocultar menú de la aplicación">
+                <IconButton
+                  color="inherit"
+                  aria-label="close drawer"                
+                  onClick={handleDrawerClose}>
+                    <ExpandLessIcon/>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Menú de opciones">
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={toggleDrawer(true)}
+                  className={clsx(classes.menuButton, props.open && classes.hide)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Tooltip>
+              <div className={classes.spacer}>
+                <Toolbar>
+                    <img 
+                    className={classes.logo}
+                    alt="Logo"
+                    onClick={goBack}
+                    src={Logo}/>
+                    &nbsp;&nbsp;
+                    <Typography variant="h6" className={classes.spacer}>
+                      Psique
+                    </Typography>
+                </Toolbar>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </Drawer>,
+        <Drawer
+          key={"DRAWE"}
+          className={classes.drawer}
+          variant="temporary"
+          anchor="left"
+          open={drawerVar}
+          onClose={toggleDrawer(false)}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={toggleDrawer(false)} className={classes.buttonDrawer}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider className={classes.drawerDivider} />
+          <List>
+              {props.id_assessment!==null?
+              <BootstrapTooltip title="Ir al menu principal" placement="right">
+              <ListItem button onClick={()=>props.setBody("init")} >            
+                  <ListItemIcon className={classes.buttonDrawer}><HomeIcon/></ListItemIcon>
+                  <ListItemText primary={"Inicio"} />            
+              </ListItem></BootstrapTooltip>:null}
+              <BootstrapTooltip title="Ver información del paciente" placement="right">
+                <ListItem button >          
+                  <ListItemIcon className={classes.buttonDrawer}><SupervisorAccountIcon/></ListItemIcon>
+                  <ListItemText primary={"Paciente"} />
+                </ListItem>
+              </BootstrapTooltip>
+              <BootstrapTooltip title="Ver informes poblacionales" placement="right">
+                <ListItem button onClick={()=>window.location.replace(process.env.REACT_APP_CUBEJS_URL+"?token="+localStorage.token)}>
+                  <ListItemIcon className={classes.buttonDrawer}><DescriptionIcon/></ListItemIcon>
+                  <ListItemText primary={"Informes poblacionales"} />
+                </ListItem>
+              </BootstrapTooltip>
+              <BootstrapTooltip title="Ver pruebas" placement="right">
+                <ListItem button >
+                  <ListItemIcon className={classes.buttonDrawer}><GestureIcon/></ListItemIcon>
+                  <ListItemText primary={"Pruebas"} />
+                </ListItem>
+              </BootstrapTooltip>
+              <BootstrapTooltip title="Ver información de perfil" placement="right">
+                <ListItem button >
+                  <ListItemIcon className={classes.buttonDrawer}><PersonOutlineIcon/></ListItemIcon>
+                  <ListItemText primary={"Mi Perfil"} />
+                </ListItem>
+              </BootstrapTooltip>
+              {props.id_assessment!==null?
+              <BootstrapTooltip title="Guardar datos y salir" placement="right">
+                <ListItem button onClick={save}>
+                  <ListItemIcon className={classes.buttonDrawer}><SaveIcon/></ListItemIcon>
+                  <ListItemText primary={"Guardar y salir"} />
+                </ListItem></BootstrapTooltip>:null}
+              {props.id_assessment!==null?
+              <BootstrapTooltip title="Terminar evalución actual y salir" placement="right">
+                <ListItem button onClick={end}>
+                  <ListItemIcon className={classes.buttonDrawer}><AssignmentTurnedInIcon/></ListItemIcon>
+                  <ListItemText primary={"Terminar evaluación"} />
+                </ListItem></BootstrapTooltip>:null}
+              <BootstrapTooltip title="Cerrar sesión y salir" placement="right">
+                <ListItem button onClick={()=>{
+                    localStorage.clear();
+                    props.setDoctor(null)
+                    props.setBody("login")
+                  }}>
+                  <ListItemIcon className={classes.buttonDrawer}><ExitToAppIcon/></ListItemIcon>
+                  <ListItemText primary={"Cerrar sesión"} />
+                </ListItem>
+              </BootstrapTooltip>
+          </List>
+        </Drawer>      
+  </div>]
 }
 
 

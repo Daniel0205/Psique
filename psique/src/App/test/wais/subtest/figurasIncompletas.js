@@ -261,6 +261,13 @@ function FigurasIncompletas(props) {
             </Button>
           </Tooltip>
         </Grid>
+
+        <Grid container justify="center">
+          <p><b>Recuerde que barra superior de la aplicación se puede ocultar durante la aplicación de la prueba</b></p>
+        </Grid>
+        <Grid container justify="center">
+          <p><b>Utilize el botón en la parte izquierda de la barra para ocultarla</b></p>
+        </Grid>
       </div>
        )
     case "ejemplo":

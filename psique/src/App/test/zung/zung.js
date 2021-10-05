@@ -15,7 +15,7 @@ const phrases=[
     "Por la mañanas es cuando me siento mejor.",
     "Siento ganas de llorar o irrumpo en llanto.",
     "Tengo problemas para dormir por la noche.",
-    "Como las misma cantidad de siempre.",
+    "Como la misma cantidad de siempre.",
     "Todavía disfruto el sexo.",
     "He notado que estoy perdiendo peso.",
     "Tengo problemas de estreñimiento.",

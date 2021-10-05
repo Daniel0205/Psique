@@ -1132,6 +1132,7 @@ function King() {
                   <Grid item xs={2}><TextField disabled label="Puntuación" value={scoreEvocation} inputProps={{ 'aria-label': 'scoreEvocation' }} /> </Grid>
                 </Grid>
 
+                <br></br>
                 <Grid container justify="center" spacing={2}>
                   <CustomButton msj="Anterior" callback={previous}> </CustomButton>
                   <Link to={'/home'}> <CustomButton msj="Guardar resultados" /> </Link>
